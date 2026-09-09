@@ -124,8 +124,7 @@ export function LearnerDashboard({
               <span className="text-slate-300">•</span>
               <span className="text-[11px] text-[#68707D] font-mono">RFC-PL-2026</span>
             </div>
-
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
               Welcome back, Project Leader!
             </h1>
 

@@ -81,16 +81,16 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                 </span>
               </div>
 
-              {/* 1. Headline & Hierarchy: All-caps with green-to-blue gradient and exclamation mark */}
-              <div className="pt-1">
-                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-snug">
+              {/* 1. Headline & Hierarchy: All-caps with green-to-blue gradient, centered */}
+              <div className="pt-1 text-center">
+                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-snug text-center mx-auto">
                   WELCOME TO YOUR PROJECT LEADER LEARNING HUB !
                 </h1>
               </div>
 
               {/* 3. Role Cards: Equal height, informative, radio/check indicator */}
               <div className="space-y-3 pt-1">
-                <p className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
+                <p className="text-base sm:text-lg font-extrabold text-[#1D2A62] tracking-wider uppercase text-center">
                   You are
                 </p>
 
