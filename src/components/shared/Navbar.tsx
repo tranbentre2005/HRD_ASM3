@@ -222,14 +222,14 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
             )}
 
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={onLogout}
-              className="h-8 px-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer text-xs"
-              title="Đăng xuất / Quay lại màn hình chọn vai trò"
+              className="h-8 px-2.5 text-xs font-semibold border-slate-300 text-slate-700 hover:text-rose-700 hover:bg-rose-50 hover:border-rose-300 cursor-pointer"
+              title="Quay lại màn hình You are để chọn vai trò"
             >
-              <SignOut className="h-4 w-4" />
-              <span className="hidden lg:inline ml-1">Đổi vai trò</span>
+              <SignOut className="h-3.5 w-3.5 mr-1 text-rose-600" />
+              <span>Đổi vai trò</span>
             </Button>
           </div>
         </div>
