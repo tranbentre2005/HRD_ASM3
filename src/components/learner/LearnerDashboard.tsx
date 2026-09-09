@@ -19,6 +19,7 @@ import {
   Certificate, 
   Eye, 
   ArrowRight,
+  ArrowLeft,
   DiamondsFour,
   PlayCircle,
   BookmarkSimple,
@@ -303,10 +304,6 @@ export function LearnerDashboard({
         <div className="relative z-10 space-y-6 text-center">
           {/* Centered Single Header Block */}
           <div className="space-y-3 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100/80 border border-slate-200 text-[#437118] text-[11px] font-bold">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#437118]" />
-              <span>PRACTICAL • IMPACTFUL • REPEATABLE</span>
-            </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
               About Learning Hub
             </h2>
@@ -601,180 +598,60 @@ export function LearnerDashboard({
       </div>
 
 
-      {/* Main Tabs Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-2">
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setActiveTab('my-courses')}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
-              activeTab === 'my-courses'
-                ? 'bg-blue-700 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            My Courses ({inProgressCourses.length + completedCourses.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('catalog')}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
-              activeTab === 'catalog'
-                ? 'bg-blue-700 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            Curriculum Catalog ({courses.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('skills')}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
-              activeTab === 'skills'
-                ? 'bg-blue-700 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            Competency Framework
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('certificates')}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
-              activeTab === 'certificates'
-                ? 'bg-blue-700 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            Certificates ({certificates.length})
-          </button>
-        </div>
-      </div>
+      {/* Sub-Views when navigated away from Home (e.g. clicking COURSES in header) */}
+      {activeTab !== 'my-courses' && (
+        <div className="pt-4 border-t border-slate-200 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-slate-200">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActiveTab('my-courses')}
+                className="cursor-pointer"
+              >
+                <ArrowLeft className="h-4 w-4 mr-1.5" />
+                Back to Home Dashboard
+              </Button>
+              <span className="text-xs text-slate-400">|</span>
+              <span className="text-xs font-bold text-[#1D2A62] uppercase tracking-wider">
+                {activeTab === 'catalog' ? 'Curriculum Catalog' : activeTab === 'skills' ? 'Competency Framework' : 'Certificates'}
+              </span>
+            </div>
 
-      {/* Tab: My Courses */}
-      {activeTab === 'my-courses' && (
-        <div className="space-y-6">
-          {/* Spotlight Hero Course: Currently in Progress */}
-          {heroCourse && (
-            <Card className="overflow-hidden border-blue-200 bg-linear-to-r from-blue-50/40 via-white to-slate-50 shadow-sm">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6">
-                <div className="md:col-span-4 relative rounded-lg overflow-hidden aspect-video md:aspect-auto">
-                  <img
-                    src={heroCourse.thumbnail}
-                    alt={heroCourse.title}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute top-2 left-2">
-                    <Badge variant="default" className="bg-blue-800 text-white">In Progress</Badge>
-                  </div>
-                </div>
-
-                <div className="md:col-span-8 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <span className="font-semibold text-blue-700">{heroCourse.code}</span>
-                      <span>•</span>
-                      <span>{heroCourse.category}</span>
-                      <span>•</span>
-                      <span>Level: {heroCourse.level}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900">{heroCourse.title}</h3>
-                    <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
-                      {heroCourse.description}
-                    </p>
-                  </div>
-
-                  <div className="space-y-2 pt-2 border-t border-slate-200/60">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-600 font-medium">Lesson Completion</span>
-                      <span className="font-bold text-blue-900 font-mono">{heroCourse.progress}%</span>
-                    </div>
-                    <Progress value={heroCourse.progress} className="h-2" />
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={heroCourse.instructorAvatar}
-                        alt={heroCourse.instructorName}
-                        className="h-7 w-7 rounded-full object-cover"
-                      />
-                      <span className="text-xs text-slate-700 font-medium">
-                        {heroCourse.instructorName}
-                      </span>
-                    </div>
-
-                    <Button onClick={() => onSelectCourse(heroCourse)} className="cursor-pointer">
-                      <Play weight="fill" className="h-4 w-4 mr-1.5" />
-                      Enter Classroom
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          )}
-
-          {/* Enrolled Courses Grid */}
-          <div className="space-y-4">
-            <h2 className="text-base font-bold text-slate-900">
-              Enrolled Leadership Programs ({courses.filter(c => c.status !== 'assigned').length})
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {courses.filter(c => c.id !== heroCourse?.id).map((course) => (
-                <Card key={course.id} className="flex flex-col justify-between overflow-hidden border-slate-200 hover:shadow-md transition-all">
-                  <div>
-                    <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
-                      <img
-                        src={course.thumbnail}
-                        alt={course.title}
-                        className="h-full w-full object-cover"
-                      />
-                      <div className="absolute top-2 left-2">
-                        {course.status === 'completed' ? (
-                          <Badge variant="success">Completed</Badge>
-                        ) : course.status === 'in-progress' ? (
-                          <Badge variant="default">In Progress</Badge>
-                        ) : (
-                          <Badge variant="secondary">Assigned</Badge>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="p-5 space-y-3">
-                      <div className="flex items-center justify-between text-[11px] text-slate-500">
-                        <span className="font-semibold text-blue-700">{course.code}</span>
-                        <span>{course.duration}</span>
-                      </div>
-                      <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">
-                        {course.title}
-                      </h4>
-                      <p className="text-xs text-slate-500 line-clamp-2">
-                        {course.description}
-                      </p>
-
-                      <div className="pt-2">
-                        <div className="flex items-center justify-between text-xs mb-1">
-                          <span className="text-slate-500">Progress</span>
-                          <span className="font-bold text-slate-900 font-mono">{course.progress}%</span>
-                        </div>
-                        <Progress value={course.progress} className="h-1.5" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between">
-                    <span className="text-xs text-slate-500">{course.instructorName}</span>
-                    <Button
-                      variant={course.status === 'completed' ? "outline" : "default"}
-                      size="sm"
-                      onClick={() => onSelectCourse(course)}
-                    >
-                      {course.status === 'completed' ? "Review Lessons" : "Resume Learning"}
-                    </Button>
-                  </div>
-                </Card>
-              ))}
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setActiveTab('catalog')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  activeTab === 'catalog'
+                    ? 'bg-[#1D2A62] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                Catalog ({courses.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('skills')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  activeTab === 'skills'
+                    ? 'bg-[#1D2A62] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                Competency Framework
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('certificates')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  activeTab === 'certificates'
+                    ? 'bg-[#1D2A62] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                Certificates ({certificates.length})
+              </button>
             </div>
           </div>
         </div>
