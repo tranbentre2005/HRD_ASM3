@@ -289,7 +289,7 @@ export function LearnerDashboard({
       </div>
       {/* About Learning Hub & Interactive Learning Pathway Section */}
       <div 
-        className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs relative overflow-hidden transition-all duration-300"
+        className="rounded-3xl border border-slate-200/90 bg-white/90 backdrop-blur-xs p-6 sm:p-8 shadow-xs relative overflow-hidden transition-all duration-300"
         onMouseEnter={() => setIsHoveringPathway(true)}
         onMouseLeave={() => setIsHoveringPathway(false)}
       >

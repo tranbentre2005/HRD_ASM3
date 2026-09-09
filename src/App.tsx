@@ -190,21 +190,33 @@ export function App() {
 
   // 2. Main Portal view
   return (
-    <div className="min-h-[100dvh] bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
-      {/* Navigation Bar with Logo Home, COURSES, MY LEARNING, SUPPORT, Bell, and 1-letter avatar */}
-      <Navbar
-        currentRole={currentRole}
-        onRoleChange={handleRoleChange}
-        onLogout={handleLogout}
-        onGoHome={handleGoHome}
-        onNavigateTab={handleNavigateLearnerTab}
-        onOpenSupport={handleOpenSupport}
-        activeLearnerTab={learnerTab}
-        userName={customUserName}
-        unreadCount={submissions.filter(s => s.status === 'pending').length}
+    <div className="min-h-[100dvh] bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] text-slate-900 flex flex-col font-sans antialiased relative overflow-x-hidden">
+      {/* Global Architectural Dot Matrix Grid across entire home page */}
+      <div 
+        className="fixed inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none z-0" 
       />
+
+      {/* Ambient Radial Halo Blooms floating in background */}
+      <div className="fixed top-20 right-0 w-[500px] h-[500px] rounded-full bg-radial from-[#AFD06E]/15 via-[#87AECE]/10 to-transparent pointer-events-none z-0 blur-3xl" />
+      <div className="fixed bottom-10 -left-20 w-[480px] h-[480px] rounded-full bg-radial from-[#87AECE]/12 via-transparent to-transparent pointer-events-none z-0 blur-3xl" />
+
+      {/* Navigation Bar with Logo Home, COURSES, MY LEARNING, SUPPORT, Bell, and 1-letter avatar */}
+      <div className="relative z-20">
+        <Navbar
+          currentRole={currentRole}
+          onRoleChange={handleRoleChange}
+          onLogout={handleLogout}
+          onGoHome={handleGoHome}
+          onNavigateTab={handleNavigateLearnerTab}
+          onOpenSupport={handleOpenSupport}
+          activeLearnerTab={learnerTab}
+          userName={customUserName}
+          unreadCount={submissions.filter(s => s.status === 'pending').length}
+        />
+      </div>
+
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-2 sm:pt-2.5">
+      <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-2 sm:pt-2.5">
         {currentRole === 'learner' && (
           <>
             {activeCourse ? (
