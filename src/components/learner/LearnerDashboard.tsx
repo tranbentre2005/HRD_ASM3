@@ -25,7 +25,11 @@ import {
   Timer,
   Compass,
   Users,
-  RocketLaunch
+  RocketLaunch,
+  Brain,
+  CalendarCheck,
+  ShieldCheck,
+  ArrowsClockwise
 } from "@phosphor-icons/react"
 
 interface LearnerDashboardProps {
@@ -296,32 +300,118 @@ export function LearnerDashboard({
         {/* Subtle Brand Background Accents */}
         <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-radial from-[#87AECE]/12 via-transparent to-transparent pointer-events-none -z-0" />
 
-        <div className="relative z-10 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-slate-50 border border-slate-200 text-[#437118] text-[11px] font-bold">
+        <div className="relative z-10 space-y-6 text-center">
+          {/* Centered Single Header Block */}
+          <div className="space-y-3 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100/80 border border-slate-200 text-[#437118] text-[11px] font-bold">
               <span className="h-1.5 w-1.5 rounded-full bg-[#437118]" />
-              <span>ABOUT LEARNING HUB</span>
+              <span>PRACTICAL • IMPACTFUL • REPEATABLE</span>
             </div>
-            <span className="text-xs text-[#68707D] font-mono hidden sm:inline">
-              RFC Leadership Capability System
-            </span>
+
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1D2A62]">
+              About Learning Hub
+            </h2>
+
+            <p className="text-xs sm:text-sm text-[#68707D] leading-relaxed">
+              The Finance Club PL Learning Hub is a practical learning space designed to help Project Leaders build the skills needed to plan, lead, and deliver student events more effectively. Through short courses, interactive practice, simulations, and practical tools, you can develop your capabilities across the event lifecycle - from understanding your role and planning an event to leading teams, preparing for delivery, solving problems, and learning from experience.
+            </p>
           </div>
 
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1D2A62]">
-            About Learning Hub
-          </h2>
+          {/* 5-Step Process Flow (Exact Template from Image #1) */}
+          <div className="pt-4 pb-2 relative">
+            {/* Subtle Dashed Connector Line */}
+            <div className="hidden lg:block absolute top-[36px] left-[8%] right-[8%] border-t-2 border-dashed border-[#87AECE]/35 -z-0" />
 
-          <p className="text-xs sm:text-sm text-[#68707D] leading-relaxed max-w-4xl">
-            The Finance Club PL Learning Hub is a practical learning space designed to help Project Leaders build the skills needed to plan, lead, and deliver student events more effectively. Through short courses, interactive practice, simulations, and practical tools, you can develop your capabilities across the event lifecycle - from understanding your role and planning an event to leading teams, preparing for delivery, solving problems, and learning from experience.
-          </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-3 text-center relative z-10">
+              {/* Step 1: Think strategically */}
+              <div className="flex flex-col items-center space-y-2.5 group">
+                <div className="w-14 h-14 rounded-full bg-[#87AECE]/20 text-[#1D2A62] border border-[#87AECE]/40 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs">
+                  <Brain weight="duotone" className="h-7 w-7" />
+                </div>
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                  Step 01
+                </span>
+                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
+                  Think strategically
+                </h3>
+                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                  Understand event purpose, participants, and priorities.
+                </p>
+              </div>
+
+              {/* Step 2: Plan & coordinate */}
+              <div className="flex flex-col items-center space-y-2.5 group">
+                <div className="w-14 h-14 rounded-full bg-[#1D2A62]/10 text-[#1D2A62] border border-[#1D2A62]/20 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs">
+                  <CalendarCheck weight="duotone" className="h-7 w-7" />
+                </div>
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                  Step 02
+                </span>
+                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
+                  Plan & coordinate
+                </h3>
+                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                  Turn ideas into clear tasks, timelines, ownership, and dependencies.
+                </p>
+              </div>
+
+              {/* Step 3: Lead people */}
+              <div className="flex flex-col items-center space-y-2.5 group">
+                <div className="w-14 h-14 rounded-full bg-[#AFD06E]/30 text-[#437118] border border-[#AFD06E]/40 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs">
+                  <Users weight="duotone" className="h-7 w-7" />
+                </div>
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                  Step 03
+                </span>
+                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
+                  Lead people
+                </h3>
+                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                  Communicate, delegate, collaborate, and support your team.
+                </p>
+              </div>
+
+              {/* Step 4: Deliver with readiness */}
+              <div className="flex flex-col items-center space-y-2.5 group">
+                <div className="w-14 h-14 rounded-full bg-[#437118]/15 text-[#437118] border border-[#437118]/30 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs">
+                  <ShieldCheck weight="duotone" className="h-7 w-7" />
+                </div>
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                  Step 04
+                </span>
+                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
+                  Deliver with readiness
+                </h3>
+                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                  Verify critical information, test event flow, and manage important issues before delivery.
+                </p>
+              </div>
+
+              {/* Step 5: Reflect & improve */}
+              <div className="flex flex-col items-center space-y-2.5 group">
+                <div className="w-14 h-14 rounded-full bg-[#87AECE]/25 text-[#1D2A62] border border-[#87AECE]/40 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs">
+                  <ArrowsClockwise weight="bold" className="h-7 w-7" />
+                </div>
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                  Step 05
+                </span>
+                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
+                  Reflect & improve
+                </h3>
+                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                  Learn from feedback and strengthen future events.
+                </p>
+              </div>
+            </div>
+          </div>
 
           {/* CTA & Interaction Controls */}
-          <div className="pt-2 flex flex-wrap items-center gap-4">
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
             <button
               type="button"
               onMouseEnter={() => setIsHoveringPathway(true)}
               onClick={() => setIsPathwayRevealed(!isPathwayRevealed)}
-              className="h-11 px-6 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-xs hover:shadow-md transition-all cursor-pointer active:scale-[0.98]"
+              className="h-11 px-7 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-xs hover:shadow-md transition-all cursor-pointer active:scale-[0.98]"
             >
               <span>Explore the Learning Pathway</span>
               <ArrowRight className={`h-4 w-4 transition-transform duration-200 ${isHoveringPathway || isPathwayRevealed ? 'translate-x-1' : ''}`} />
@@ -332,7 +422,6 @@ export function LearnerDashboard({
               <span>Hover or click to view the 4 stages</span>
             </span>
           </div>
-
           {/* 4 Interactive Pathway Cards (Revealed on Hover or Click) */}
           <div 
             className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-300 ease-in-out ${
