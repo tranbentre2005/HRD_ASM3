@@ -2,14 +2,11 @@ import { useState } from "react"
 import { 
   GraduationCap, 
   ChalkboardTeacher, 
-  Eye, 
-  EyeSlash, 
-  GoogleLogo, 
-  AppleLogo, 
-  FacebookLogo, 
   ArrowRight,
   Lock,
-  ArrowClockwise
+  ArrowClockwise,
+  CheckCircle,
+  Sparkle
 } from "@phosphor-icons/react"
 import confetti from "canvas-confetti"
 
@@ -20,28 +17,20 @@ interface LoginGatewayProps {
 
 export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps) {
   const [selectedRole, setSelectedRole] = useState<'learner' | 'instructor'>('learner')
-  const [showPassword, setShowPassword] = useState(false)
-  const [username, setUsername] = useState('tuan.nguyen@rmit.edu.vn')
-  const [password, setPassword] = useState('••••••••••••')
 
-  const handleRoleSelect = (role: 'learner' | 'instructor') => {
+  const handleSelectRole = (role: 'learner' | 'instructor') => {
     setSelectedRole(role)
-    if (role === 'learner') {
-      setUsername('tuan.nguyen@rmit.edu.vn')
-    } else {
-      setUsername('tram.hoang@rmit.edu.vn')
-    }
-  }
-
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
     confetti({
       particleCount: 50,
-      spread: 60,
+      spread: 65,
       origin: { y: 0.6 }
     })
-    const name = selectedRole === 'learner' ? 'Nguyễn Minh Tuấn' : 'ThS. Hoàng Lê Trâm'
-    onLoginAs(selectedRole, name)
+    const name = role === 'learner' ? 'Nguyen Minh Tuan' : 'MSc. Hoang Le Tram'
+    onLoginAs(role, name)
+  }
+
+  const handleContinue = () => {
+    handleSelectRole(selectedRole)
   }
 
   return (
@@ -64,8 +53,8 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
             <ArrowClockwise className="h-3 w-3 text-slate-400 ml-auto" />
           </div>
 
-          {/* Right Info Chip */}
-          <div className="hidden sm:flex items-center gap-1 text-[11px] font-semibold text-slate-600">
+          {/* Right Status Badge */}
+          <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-semibold text-slate-600">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
             <span>RMIT Finance Club</span>
           </div>
@@ -73,176 +62,181 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
 
         {/* Split Body Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
-          {/* Left Column: Login Form & Role Selection (6 cols) */}
+          {/* Left Column: Role Selection & Identity (6 cols) */}
           <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-between space-y-6">
             <div className="space-y-6">
-              {/* Header Titles */}
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-[10px] font-bold">
-                  <span>RFC</span>
-                  <span>•</span>
-                  <span>Project Leader Hub</span>
+              {/* Club Bull Logo & Badge */}
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-14 w-auto flex items-center justify-center">
+                    <img
+                      src="/finance-club-logo.png"
+                      alt="RMIT Finance Club Bull Logo"
+                      className="h-14 w-auto object-contain drop-shadow-xs"
+                    />
+                  </div>
+                  <div className="border-l border-slate-200 pl-3">
+                    <span className="text-xs font-extrabold text-slate-900 tracking-tight uppercase block leading-tight">
+                      RMIT Finance Club
+                    </span>
+                    <span className="text-[10px] text-slate-500 block leading-tight">
+                      Project Leader Learning Hub
+                    </span>
+                  </div>
                 </div>
+
+                <span className="rounded-full bg-rose-600 text-white text-[10px] font-bold px-2 py-0.5 shadow-2xs">
+                  RFC • ASM3
+                </span>
+              </div>
+
+              {/* Main Welcome Heading */}
+              <div className="space-y-2">
                 <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
                   Welcome to RMIT FINANCE CLUB PROJECT LEADER LEARNING HUB !
                 </h1>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Simplify your leadership journey and elevate project management with RFC Hub.
+                  Select your role below to navigate straight into your leadership training or management workspace.
                 </p>
               </div>
 
-              {/* Role Selection: You are */}
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider">
+              {/* You Are Section */}
+              <div className="space-y-3 pt-1">
+                <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-widest text-blue-700">
                   You are
                 </label>
 
-                <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-full border border-slate-200">
-                  <button
-                    type="button"
-                    onClick={() => handleRoleSelect('learner')}
-                    className={`flex items-center justify-center gap-2 py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                {/* Two Distinct Clickable Role Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {/* Option 1: Learners */}
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setSelectedRole('learner')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') setSelectedRole('learner')
+                    }}
+                    className={`p-4 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between text-left ${
                       selectedRole === 'learner'
-                        ? 'bg-black text-white shadow-sm'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                        ? 'border-blue-600 bg-blue-50/50 shadow-md ring-2 ring-blue-600/20'
+                        : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/50'
                     }`}
                   >
-                    <GraduationCap className="h-4 w-4" />
-                    <span>Learners</span>
-                  </button>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors ${
+                          selectedRole === 'learner' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700'
+                        }`}>
+                          <GraduationCap weight="duotone" className="h-6 w-6" />
+                        </div>
+                        {selectedRole === 'learner' && (
+                          <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">
+                            Active
+                          </span>
+                        )}
+                      </div>
 
-                  <button
-                    type="button"
-                    onClick={() => handleRoleSelect('instructor')}
-                    className={`flex items-center justify-center gap-2 py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      <div>
+                        <h2 className="text-base font-bold text-slate-900 leading-tight">
+                          Learners
+                        </h2>
+                        <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
+                          Project Leaders & Committee Trainees
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] text-blue-700 font-semibold flex items-center gap-1">
+                      <span>Enter as Learner</span>
+                      <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </div>
+
+                  {/* Option 2: Trainers/Facilitators */}
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setSelectedRole('instructor')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') setSelectedRole('instructor')
+                    }}
+                    className={`p-4 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between text-left ${
                       selectedRole === 'instructor'
-                        ? 'bg-black text-white shadow-sm'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                        ? 'border-emerald-600 bg-emerald-50/50 shadow-md ring-2 ring-emerald-600/20'
+                        : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/50'
                     }`}
                   >
-                    <ChalkboardTeacher className="h-4 w-4" />
-                    <span>Trainers/Facilitators</span>
-                  </button>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors ${
+                          selectedRole === 'instructor' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-700'
+                        }`}>
+                          <ChalkboardTeacher weight="duotone" className="h-6 w-6" />
+                        </div>
+                        {selectedRole === 'instructor' && (
+                          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+                            Active
+                          </span>
+                        )}
+                      </div>
+
+                      <div>
+                        <h2 className="text-base font-bold text-slate-900 leading-tight">
+                          Trainers/Facilitators
+                        </h2>
+                        <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
+                          Mentors, Coaches & L&D Leads
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] text-emerald-700 font-semibold flex items-center gap-1">
+                      <span>Enter as Facilitator</span>
+                      <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Form Inputs */}
-              <form onSubmit={handleLoginSubmit} className="space-y-3.5 pt-1">
-                {/* Username Input */}
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
-                    required
-                    className="w-full h-12 rounded-full border border-slate-300 bg-white px-5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors shadow-2xs"
-                  />
+              {/* Role Quick Details Pill */}
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-900">
+                    {selectedRole === 'learner' ? 'Profile: Nguyen Minh Tuan' : 'Profile: MSc. Hoang Le Tram'}
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-500">
+                    {selectedRole === 'learner' ? 'ID: RFC-PL-2026' : 'ID: RFC-LND-LEAD'}
+                  </span>
                 </div>
+                <p className="text-[11px] text-slate-500">
+                  {selectedRole === 'learner'
+                    ? 'Access video modules, interactive quizzes, SBI assignments, and certification.'
+                    : 'Manage course curriculum, grade SBI submissions, and monitor member progress.'}
+                </p>
+              </div>
 
-                {/* Password Input */}
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                    required
-                    className="w-full h-12 rounded-full border border-slate-300 bg-white px-5 pr-12 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors shadow-2xs"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 cursor-pointer p-1"
-                    aria-label="Hiện mật khẩu"
-                  >
-                    {showPassword ? (
-                      <EyeSlash className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-
-                {/* Forgot Password Link */}
-                <div className="flex justify-end pr-2">
-                  <button
-                    type="button"
-                    onClick={() => alert("Hệ thống kiểm thử không yêu cầu mật khẩu. Bạn có thể nhấn Login để vào ngay.")}
-                    className="text-[11px] text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
-                  >
-                    Forgot Password?
-                  </button>
-                </div>
-
-                {/* Solid Black Pill Login Button */}
-                <button
-                  type="submit"
-                  className="w-full h-12 rounded-full bg-black text-white font-semibold text-sm hover:bg-slate-800 transition-all active:scale-[0.98] shadow-sm cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <span>Login</span>
-                </button>
-              </form>
-
-              {/* Divider: or continue with */}
-              <div className="relative flex items-center justify-center pt-1">
-                <div className="border-t border-slate-200 w-full" />
-                <span className="bg-white px-3 text-[11px] text-slate-400 shrink-0 font-medium">
-                  or continue with
+              {/* Solid Black Pill Continue Button */}
+              <button
+                type="button"
+                onClick={handleContinue}
+                className="w-full h-12 rounded-full bg-black text-white font-semibold text-sm hover:bg-slate-800 transition-all active:scale-[0.98] shadow-sm cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span>
+                  {selectedRole === 'learner' ? 'Continue as Learner' : 'Continue as Trainer/Facilitator'}
                 </span>
-                <div className="border-t border-slate-200 w-full" />
-              </div>
-
-              {/* Social Login Round Buttons */}
-              <div className="flex items-center justify-center gap-3 pt-1">
-                <button
-                  type="button"
-                  onClick={handleLoginSubmit}
-                  title="Login with Google"
-                  className="h-11 w-11 rounded-full bg-black text-white hover:bg-slate-800 flex items-center justify-center transition-all hover:scale-105 cursor-pointer shadow-2xs"
-                >
-                  <GoogleLogo className="h-5 w-5" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleLoginSubmit}
-                  title="Login with Apple ID"
-                  className="h-11 w-11 rounded-full bg-black text-white hover:bg-slate-800 flex items-center justify-center transition-all hover:scale-105 cursor-pointer shadow-2xs"
-                >
-                  <AppleLogo className="h-5 w-5" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleLoginSubmit}
-                  title="Login with Facebook"
-                  className="h-11 w-11 rounded-full bg-black text-white hover:bg-slate-800 flex items-center justify-center transition-all hover:scale-105 cursor-pointer shadow-2xs"
-                >
-                  <FacebookLogo className="h-5 w-5" />
-                </button>
-              </div>
+                <ArrowRight className="h-4 w-4" />
+              </button>
             </div>
 
-            {/* Bottom Footer Links */}
-            <div className="pt-4 text-center text-xs text-slate-500 border-t border-slate-100 flex flex-wrap items-center justify-center gap-3">
-              <span>
-                Not a member?{" "}
-                <button
-                  type="button"
-                  onClick={() => alert("Hệ thống Demo ASM3. Bạn có thể nhấn Login để vào ngay mà không cần đăng ký.")}
-                  className="text-slate-900 font-semibold hover:underline cursor-pointer"
-                >
-                  Register now
-                </button>
-              </span>
-              <span>•</span>
+            {/* Bottom Footer Link */}
+            <div className="pt-4 text-center text-xs text-slate-500 border-t border-slate-100 flex items-center justify-between gap-3">
+              <span>Zero-Login Architecture • No Password Required</span>
               <button
                 type="button"
                 onClick={onExploreOverview}
-                className="text-blue-700 font-medium hover:underline cursor-pointer"
+                className="text-blue-700 font-semibold hover:underline cursor-pointer"
               >
-                Xem tổng quan đề tài ASM3
+                Explore ASM3 Overview
               </button>
             </div>
           </div>
@@ -273,7 +267,6 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                     {/* Floating Avatar 1 (Left Guy) */}
                     <g transform="translate(60, 60)">
                       <circle cx="24" cy="24" r="22" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
-                      {/* Avatar Hair & Smile */}
                       <path d="M16 16 Q24 8 32 16" stroke="#0f172a" strokeWidth="2.5" strokeLinecap="round" />
                       <circle cx="19" cy="22" r="2" fill="#0f172a" />
                       <circle cx="29" cy="22" r="2" fill="#0f172a" />
@@ -290,14 +283,11 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                     </g>
 
                     {/* Central Meditating Character */}
-                    {/* Head & Hair */}
                     <ellipse cx="200" cy="115" rx="20" ry="24" fill="#ffffff" stroke="#0f172a" strokeWidth="2.5" />
-                    {/* Hair */}
                     <path
                       d="M180 110 C175 90 200 80 220 85 C225 100 220 115 220 125 C215 110 205 105 195 105 C185 105 180 115 180 110 Z"
                       fill="#0f172a"
                     />
-                    {/* Face features (eyes closed in zen) */}
                     <path d="M190 116 Q194 120 197 116" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" fill="none" />
                     <path d="M203 116 Q206 120 210 116" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" fill="none" />
                     <path d="M197 126 Q200 128 203 126" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" fill="none" />
@@ -316,7 +306,7 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                       fill="#ffffff"
                     />
 
-                    {/* Arms in meditation pose (Hands up) */}
+                    {/* Arms in meditation pose */}
                     <path
                       d="M150 165 C135 150 130 130 138 120 C143 115 148 122 148 127 C150 135 160 155 170 165"
                       stroke="#0f172a"
@@ -340,13 +330,12 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                       strokeWidth="2.5"
                     />
 
-                    {/* Feet */}
                     <path d="M175 235 Q180 248 190 245 Q195 240 188 232" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
                     <path d="M225 235 Q220 248 210 245 Q205 240 212 232" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
                   </svg>
 
-                  {/* Floating Status Card (Like "Canva Design 84%" in reference image) */}
-                  <div className="absolute left-1 bottom-0 sm:-bottom-2 bg-white rounded-2xl p-3 sm:p-3.5 shadow-lg border border-slate-200/80 text-left min-w-[145px] sm:min-w-[170px] animate-in fade-in-50 slide-in-from-bottom-2">
+                  {/* Floating Status Card */}
+                  <div className="absolute left-1 bottom-0 sm:-bottom-2 bg-white rounded-2xl p-3 sm:p-3.5 shadow-lg border border-slate-200/80 text-left min-w-[145px] sm:min-w-[170px]">
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <p className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight">
@@ -384,7 +373,6 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                       </div>
                     </div>
 
-                    {/* Pill Tag */}
                     <div className="mt-2.5">
                       <span className="inline-block rounded-full border border-slate-300 px-2.5 py-0.5 text-[9px] font-semibold text-slate-700 bg-slate-50">
                         SBI Model
@@ -401,7 +389,7 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                 <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
               </div>
 
-              {/* Bottom Tagline (Direct Match with Reference Image Pattern) */}
+              {/* Bottom Tagline */}
               <div className="space-y-1 pt-1 max-w-sm">
                 <p className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
                   Make your leadership easier and organized with RFC Hub

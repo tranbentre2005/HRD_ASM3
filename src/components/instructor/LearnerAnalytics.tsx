@@ -26,46 +26,46 @@ export function LearnerAnalytics({ learners }: LearnerAnalyticsProps) {
   const [notificationMsg, setNotificationMsg] = useState<string | null>(null)
 
   const departments = [
-    { id: "all", label: "Tất cả phòng ban" },
-    { id: "Nhân sự", label: "Ban Nhân sự" },
-    { id: "Marketing", label: "Phòng Tiếp thị" },
-    { id: "Kỹ thuật", label: "Khối Kỹ thuật" },
-    { id: "Tài chính", label: "Tài chính Kế toán" },
-    { id: "Product", label: "Sản phẩm (Product)" }
+    { id: "all", label: "All Committees" },
+    { id: "Project", label: "Project Management" },
+    { id: "Marketing", label: "Marketing & PR" },
+    { id: "Technology", label: "Technology & Data" },
+    { id: "Finance", label: "Finance & Sponsorship" },
+    { id: "Product", label: "Product & Research" }
   ]
 
   const filteredLearners = learners.filter(l => {
     const matchesSearch = l.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           l.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           l.roleTitle.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesDept = selectedDept === "all" || l.department.includes(selectedDept)
+    const matchesDept = selectedDept === "all" || l.department.toLowerCase().includes(selectedDept.toLowerCase())
     return matchesSearch && matchesDept
   })
 
   const handleSendReminder = (learner: LearnerProgressItem) => {
-    setNotificationMsg(`Đã gửi email và thông báo nhắc nhở tiến độ học tập đến ${learner.name} (${learner.email}).`)
+    setNotificationMsg(`Sent development milestone reminder email to ${learner.name} (${learner.email}).`)
     setTimeout(() => setNotificationMsg(null), 4000)
   }
 
   const handleExportReport = () => {
-    alert("Hệ thống đang trích xuất dữ liệu Báo cáo Đào tạo Nhân sự Quý 3 (Excel & PDF)... Tải xuống hoàn tất.")
+    alert("Extracting Committee Leadership Training Q3 Report (Excel & PDF)... Export complete.")
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-slate-900">
-            Theo Dõi Tiến Độ Học Viên & Năng Lực Tổ Chức
+            Project Leader Progress & Team Analytics
           </h2>
           <p className="text-xs sm:text-sm text-slate-500">
-            Danh sách nhân sự tham gia đào tạo, tỷ lệ hoàn thành KPI và cảnh báo chậm tiến độ
+            Comprehensive member engagement, milestone KPI completion, and pacing alerts
           </p>
         </div>
 
         <Button variant="outline" onClick={handleExportReport} className="cursor-pointer">
           <FileArrowDown className="h-4 w-4 mr-1.5 text-blue-700" />
-          Xuất báo cáo tổng hợp
+          Export Cohort Report
         </Button>
       </div>
 
@@ -80,7 +80,7 @@ export function LearnerAnalytics({ learners }: LearnerAnalyticsProps) {
             onClick={() => setNotificationMsg(null)}
             className="text-emerald-700 hover:text-emerald-900 font-bold ml-4"
           >
-            Đóng
+            Dismiss
           </button>
         </div>
       )}
@@ -92,7 +92,7 @@ export function LearnerAnalytics({ learners }: LearnerAnalyticsProps) {
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Tìm theo tên học viên, email, chức danh..."
+            placeholder="Search by leader name, email, or role..."
             className="pl-9 text-xs sm:text-sm"
           />
         </div>
@@ -121,13 +121,13 @@ export function LearnerAnalytics({ learners }: LearnerAnalyticsProps) {
           <table className="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-semibold text-xs">
-                <th className="p-4 pl-6">Học viên & Vị trí</th>
-                <th className="p-4">Phòng ban</th>
-                <th className="p-4">Khóa ghi danh</th>
-                <th className="p-4">Tiến độ tổng thể</th>
-                <th className="p-4">Điểm TB</th>
-                <th className="p-4">Trạng thái</th>
-                <th className="p-4 pr-6 text-right">Thao tác</th>
+                <th className="p-4 pl-6">Leader & Role</th>
+                <th className="p-4">Committee</th>
+                <th className="p-4">Enrolled Tracks</th>
+                <th className="p-4">Overall Completion</th>
+                <th className="p-4">Avg Score</th>
+                <th className="p-4">Pacing Status</th>
+                <th className="p-4 pr-6 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -153,7 +153,7 @@ export function LearnerAnalytics({ learners }: LearnerAnalyticsProps) {
                   </td>
 
                   <td className="p-4 text-xs text-slate-700">
-                    <span className="font-semibold text-slate-900">{learner.completedCourses}</span> / {learner.coursesEnrolled} khóa
+                    <span className="font-semibold text-slate-900">{learner.completedCourses}</span> / {learner.coursesEnrolled} tracks
                   </td>
 
                   <td className="p-4 w-48">
@@ -176,11 +176,11 @@ export function LearnerAnalytics({ learners }: LearnerAnalyticsProps) {
 
                   <td className="p-4">
                     {learner.status === 'completed' ? (
-                      <Badge variant="success" className="text-[10px]">Đã hoàn thành</Badge>
+                      <Badge variant="success" className="text-[10px]">Completed</Badge>
                     ) : learner.status === 'on-track' ? (
-                      <Badge variant="default" className="text-[10px]">Đúng tiến độ</Badge>
+                      <Badge variant="default" className="text-[10px]">On Track</Badge>
                     ) : (
-                      <Badge variant="warning" className="text-[10px]">Cần nhắc nhở</Badge>
+                      <Badge variant="warning" className="text-[10px]">Needs Reminder</Badge>
                     )}
                   </td>
 
@@ -192,7 +192,7 @@ export function LearnerAnalytics({ learners }: LearnerAnalyticsProps) {
                       className="text-xs h-8 cursor-pointer"
                     >
                       <PaperPlaneTilt className="h-3.5 w-3.5 mr-1 text-blue-700" />
-                      Gửi nhắc nhở
+                      Send Reminder
                     </Button>
                   </td>
                 </tr>

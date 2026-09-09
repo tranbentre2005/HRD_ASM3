@@ -21,11 +21,11 @@ export function CertificateModal({ certificate, open, onOpenChange }: Certificat
       <DialogHeader>
         <div className="flex items-center gap-2 text-blue-700">
           <Medal className="h-5 w-5" />
-          <span className="text-xs font-semibold uppercase tracking-wider">Chứng chỉ Xác thực Doanh nghiệp</span>
+          <span className="text-xs font-semibold uppercase tracking-wider">Official Credential Verification</span>
         </div>
-        <DialogTitle className="text-xl">Chứng chỉ Đào tạo Chuyên môn</DialogTitle>
+        <DialogTitle className="text-xl">Executive Leadership Certificate</DialogTitle>
         <DialogDescription>
-          Mã xác thực trực tuyến: <span className="font-mono font-medium text-slate-800">{certificate.credentialId}</span>
+          Online Credential ID: <span className="font-mono font-medium text-slate-800">{certificate.credentialId}</span>
         </DialogDescription>
       </DialogHeader>
 
@@ -36,19 +36,19 @@ export function CertificateModal({ certificate, open, onOpenChange }: Certificat
         </div>
 
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-          HỌC VIỆN ĐÀO TẠO & PHÁT TRIỂN NGUỒN NHÂN LỰC HRD
+          RMIT FINANCE CLUB • LEADERSHIP DEVELOPMENT INITIATIVE
         </p>
 
         <h3 className="mt-2 text-xl font-bold tracking-tight text-slate-900">
-          CHỨNG NHẬN HOÀN THÀNH
+          CERTIFICATE OF COMPLETION
         </h3>
 
-        <p className="mt-2 text-xs text-slate-500">Trân trọng trao tặng cho học viên</p>
+        <p className="mt-2 text-xs text-slate-500">Proudly presented to project leader</p>
         <p className="mt-1 text-lg font-bold text-blue-900 tracking-wide underline decoration-blue-300 underline-offset-4">
           {certificate.learnerName}
         </p>
 
-        <p className="mt-3 text-xs text-slate-600">Đã hoàn thành xuất sắc chương trình đào tạo chuẩn:</p>
+        <p className="mt-3 text-xs text-slate-600">For successfully mastering the executive curriculum track:</p>
         <p className="mt-1 text-sm font-semibold text-slate-900 max-w-sm mx-auto">
           {certificate.courseTitle} ({certificate.courseCode})
         </p>
@@ -66,35 +66,35 @@ export function CertificateModal({ certificate, open, onOpenChange }: Certificat
 
         <div className="mt-6 grid grid-cols-2 gap-4 border-t border-slate-200 pt-4 text-left text-xs">
           <div>
-            <p className="text-[11px] text-slate-400">Thời lượng & Đánh giá</p>
-            <p className="font-medium text-slate-800">{certificate.hours} giờ học tích lũy</p>
+            <p className="text-[11px] text-slate-400">Hours & Assessment</p>
+            <p className="font-medium text-slate-800">{certificate.hours} Development Hours</p>
             <p className="text-emerald-700 font-semibold">{certificate.grade}</p>
           </div>
           <div className="text-right">
-            <p className="text-[11px] text-slate-400">Người xác nhận</p>
+            <p className="text-[11px] text-slate-400">Certifying Authority</p>
             <p className="font-semibold text-slate-900">{certificate.instructorName}</p>
             <p className="text-[10px] text-slate-500">{certificate.instructorTitle}</p>
           </div>
         </div>
 
         <div className="mt-4 flex items-center justify-between border-t border-dashed border-slate-200 pt-3 text-[10px] text-slate-400">
-          <span>Ngày cấp: {certificate.issueDate}</span>
-          <span className="font-mono">TalentCore Verified LMS</span>
+          <span>Issue Date: {certificate.issueDate}</span>
+          <span className="font-mono">RFC Verified LMS Credential</span>
         </div>
       </div>
 
       {/* Actions */}
       <div className="mt-5 flex flex-wrap items-center justify-end gap-2">
         <Button variant="outline" size="sm" onClick={() => onOpenChange(false)}>
-          Đóng
+          Close
         </Button>
-        <Button variant="outline" size="sm" onClick={() => alert("Đã sao chép liên kết chứng chỉ vào bộ nhớ tạm.")}>
+        <Button variant="outline" size="sm" onClick={() => alert("Certificate verification link copied to clipboard.")}>
           <ShareNetwork className="h-4 w-4 mr-1.5" />
-          Chia sẻ liên kết
+          Share Link
         </Button>
         <Button size="sm" onClick={handlePrint}>
           <DownloadSimple className="h-4 w-4 mr-1.5" />
-          In / Tải PDF
+          Print / Download PDF
         </Button>
       </div>
     </Dialog>

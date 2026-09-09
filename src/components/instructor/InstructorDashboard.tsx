@@ -38,30 +38,30 @@ export function InstructorDashboard({
   const pendingSubmissionsCount = submissions.filter(s => s.status === 'pending').length
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-8 pb-12 font-sans">
       {/* Executive Instructor Hero */}
       <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-8 space-y-3">
             <div className="flex items-center gap-2">
-              <Badge variant="info">Bộ phận: Đào tạo & Phát triển Nguồn nhân lực</Badge>
-              <span className="text-xs text-slate-500 font-mono">Quyền: Giảng viên & Quản lý L&D</span>
+              <Badge variant="info">L&D Committee • Leadership Development</Badge>
+              <span className="text-xs text-slate-500 font-mono">Role: Lead Facilitator & L&D Head</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
-              Bảng Điều Khiển Giảng Viên & Quản Lý Đào Tạo
+              Executive Facilitator & L&D Dashboard
             </h1>
             <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
-              Xin chào ThS. Hoàng Lê Trâm. Hiện có 142 nhân sự đang tham gia 4 chương trình đào tạo chuyên môn. Có {pendingSubmissionsCount} bài tập thực hành cần chấm điểm và phê duyệt phản hồi.
+              Welcome, MSc. Hoang Le Tram. 142 project leaders are actively enrolled across 4 leadership development tracks. There are {pendingSubmissionsCount} practical submissions waiting for evaluation and coaching feedback.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Button onClick={() => setCurrentTab('grading')} className="cursor-pointer">
                 <CheckSquare className="h-4 w-4 mr-2" />
-                Vào sổ chấm điểm ({pendingSubmissionsCount} bài chờ)
+                Open Grading Desk ({pendingSubmissionsCount} pending)
               </Button>
               <Button variant="outline" onClick={() => setCurrentTab('analytics')} className="cursor-pointer">
                 <Users className="h-4 w-4 mr-2 text-blue-700" />
-                Theo dõi tiến độ học viên
+                Track Member Progress
               </Button>
             </div>
           </div>
@@ -71,10 +71,10 @@ export function InstructorDashboard({
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
               <div className="flex items-center justify-between text-blue-700 mb-1">
                 <Users className="h-5 w-5" />
-                <span className="text-xs font-bold font-mono">5 Khối</span>
+                <span className="text-xs font-bold font-mono">5 Teams</span>
               </div>
-              <p className="text-lg font-bold text-slate-900">142 Học viên</p>
-              <p className="text-[11px] text-slate-500">Đang theo học</p>
+              <p className="text-lg font-bold text-slate-900">142 Enrolled</p>
+              <p className="text-[11px] text-slate-500">Active Leaders</p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
@@ -83,25 +83,25 @@ export function InstructorDashboard({
                 <span className="text-xs font-bold font-mono">+4.2%</span>
               </div>
               <p className="text-lg font-bold text-slate-900">84.6%</p>
-              <p className="text-[11px] text-slate-500">Tỷ lệ hoàn thành</p>
+              <p className="text-[11px] text-slate-500">Completion Rate</p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
               <div className="flex items-center justify-between text-amber-700 mb-1">
                 <CheckSquare className="h-5 w-5" />
-                <span className="text-xs font-bold font-mono text-amber-700">Mới</span>
+                <span className="text-xs font-bold font-mono text-amber-700">New</span>
               </div>
-              <p className="text-lg font-bold text-slate-900">{pendingSubmissionsCount} Bài</p>
-              <p className="text-[11px] text-slate-500">Cần chấm điểm</p>
+              <p className="text-lg font-bold text-slate-900">{pendingSubmissionsCount} Tasks</p>
+              <p className="text-[11px] text-slate-500">Awaiting Grade</p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
               <div className="flex items-center justify-between text-indigo-700 mb-1">
                 <BookOpen className="h-5 w-5" />
-                <span className="text-xs font-bold font-mono">{courses.length} Khóa</span>
+                <span className="text-xs font-bold font-mono">{courses.length} Tracks</span>
               </div>
               <p className="text-lg font-bold text-slate-900">89.2 / 100</p>
-              <p className="text-[11px] text-slate-500">Đánh giá chất lượng</p>
+              <p className="text-[11px] text-slate-500">Quality Rating</p>
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@ export function InstructorDashboard({
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
-          Khóa học & Giáo trình ({courses.length})
+          Curriculum & Modules ({courses.length})
         </button>
         <button
           type="button"
@@ -129,7 +129,7 @@ export function InstructorDashboard({
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
-          <span>Sổ chấm điểm bài tập</span>
+          <span>Grading & Feedback Desk</span>
           {pendingSubmissionsCount > 0 && (
             <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
               currentTab === 'grading' ? 'bg-white text-blue-900' : 'bg-amber-100 text-amber-900'
@@ -147,7 +147,7 @@ export function InstructorDashboard({
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
-          Theo dõi học viên & Báo cáo ({learners.length})
+          Member Progress & Analytics ({learners.length})
         </button>
       </div>
 

@@ -9,7 +9,7 @@ import {
   GraduationCap, 
   BookOpen, 
   Hourglass, 
-  Medal,
+  Medal, 
   MagnifyingGlass, 
   Play, 
   CheckCircle,
@@ -38,11 +38,11 @@ export function LearnerDashboard({
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
   const categories = [
-    { id: 'all', label: 'Tất cả chủ đề' },
-    { id: 'Kỹ năng mềm & Quản trị', label: 'Kỹ năng mềm & Quản trị' },
-    { id: 'Lãnh đạo & Chiến lược', label: 'Lãnh đạo & Chiến lược' },
-    { id: 'Kỹ thuật số & AI', label: 'Kỹ thuật số & AI' },
-    { id: 'Văn hóa & Hội nhập', label: 'Văn hóa & Hội nhập' }
+    { id: 'all', label: 'All Categories' },
+    { id: 'Soft Skills & Management', label: 'Soft Skills & Management' },
+    { id: 'Leadership & Strategy', label: 'Leadership & Strategy' },
+    { id: 'Digital & AI', label: 'Digital & AI' },
+    { id: 'Culture & Onboarding', label: 'Culture & Onboarding' }
   ]
 
   const inProgressCourses = courses.filter(c => c.status === 'in-progress')
@@ -56,34 +56,33 @@ export function LearnerDashboard({
     return matchesSearch && matchesCategory
   })
 
-  // Ongoing hero course
   const heroCourse = inProgressCourses[0] || courses[0]
 
   return (
-    <div className="space-y-8 pb-12">
-      {/* Learner Hero Header - Fits neatly without overflow */}
+    <div className="space-y-8 pb-12 font-sans">
+      {/* Learner Hero Header */}
       <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-8 space-y-3">
             <div className="flex items-center gap-2">
-              <Badge variant="info">Học viên: Ban Nhân sự & Tuyển dụng</Badge>
-              <span className="text-xs text-slate-500 font-mono">Mã NV: EMP-8492</span>
+              <Badge variant="info">Project Leader: Management Committee</Badge>
+              <span className="text-xs text-slate-500 font-mono">ID: RFC-PL-2026</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
-              Không gian Học tập & Phát triển Cá nhân
+              Project Leader Capability & Learning Hub
             </h1>
             <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
-              Chào Nguyễn Minh Tuấn. Bạn đã hoàn thành 24 trên 36 giờ đào tạo bắt buộc trong năm 2026. Hãy duy trì tiến độ để đạt chuẩn đánh giá năng lực Q3.
+              Welcome back, Nguyen Minh Tuan. You have completed 24 out of 36 required development hours for 2026. Maintain your training cadence to achieve the Q3 leadership benchmark.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Button onClick={() => onSelectCourse(heroCourse)} className="cursor-pointer">
                 <Play weight="fill" className="h-4 w-4 mr-2" />
-                Tiếp tục học: {heroCourse.code}
+                Continue Course: {heroCourse.code}
               </Button>
               <Button variant="outline" onClick={() => setActiveTab('skills')} className="cursor-pointer">
                 <Target className="h-4 w-4 mr-2 text-blue-700" />
-                Xem khung năng lực cá nhân
+                View Competency Framework
               </Button>
             </div>
           </div>
@@ -96,7 +95,7 @@ export function LearnerDashboard({
                 <span className="text-xs font-bold font-mono">68%</span>
               </div>
               <p className="text-lg font-bold text-slate-900">24 / 36 h</p>
-              <p className="text-[11px] text-slate-500">Giờ đào tạo 2026</p>
+              <p className="text-[11px] text-slate-500">2026 Training Hours</p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
@@ -104,17 +103,17 @@ export function LearnerDashboard({
                 <Medal className="h-5 w-5" />
                 <span className="text-xs font-bold font-mono">2 / 4</span>
               </div>
-              <p className="text-lg font-bold text-slate-900">{certificates.length} Khóa</p>
-              <p className="text-[11px] text-slate-500">Chứng chỉ đạt được</p>
+              <p className="text-lg font-bold text-slate-900">{certificates.length} Certs</p>
+              <p className="text-[11px] text-slate-500">Earned Credentials</p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
               <div className="flex items-center justify-between text-indigo-700 mb-1">
                 <BookOpen className="h-5 w-5" />
-                <span className="text-xs font-bold font-mono">2 Đang học</span>
+                <span className="text-xs font-bold font-mono">2 Active</span>
               </div>
-              <p className="text-lg font-bold text-slate-900">{courses.length} Khóa</p>
-              <p className="text-[11px] text-slate-500">Tổng chương trình</p>
+              <p className="text-lg font-bold text-slate-900">{courses.length} Courses</p>
+              <p className="text-[11px] text-slate-500">Total Curriculum</p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
@@ -123,7 +122,7 @@ export function LearnerDashboard({
                 <span className="text-xs font-bold font-mono">92.5</span>
               </div>
               <p className="text-lg font-bold text-slate-900">92.5 / 100</p>
-              <p className="text-[11px] text-slate-500">Điểm kiểm tra TB</p>
+              <p className="text-[11px] text-slate-500">Average Score</p>
             </div>
           </div>
         </div>
@@ -141,7 +140,7 @@ export function LearnerDashboard({
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
-            Khóa học của tôi ({inProgressCourses.length + completedCourses.length})
+            My Courses ({inProgressCourses.length + completedCourses.length})
           </button>
           <button
             type="button"
@@ -152,7 +151,7 @@ export function LearnerDashboard({
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
-            Danh mục đào tạo ({courses.length})
+            Curriculum Catalog ({courses.length})
           </button>
           <button
             type="button"
@@ -163,7 +162,7 @@ export function LearnerDashboard({
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
-            Lộ trình năng lực
+            Competency Framework
           </button>
           <button
             type="button"
@@ -174,7 +173,7 @@ export function LearnerDashboard({
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
-            Chứng chỉ ({certificates.length})
+            Certificates ({certificates.length})
           </button>
         </div>
       </div>
@@ -193,7 +192,7 @@ export function LearnerDashboard({
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute top-2 left-2">
-                    <Badge variant="default" className="bg-blue-800 text-white">Đang học</Badge>
+                    <Badge variant="default" className="bg-blue-800 text-white">In Progress</Badge>
                   </div>
                 </div>
 
@@ -204,7 +203,7 @@ export function LearnerDashboard({
                       <span>•</span>
                       <span>{heroCourse.category}</span>
                       <span>•</span>
-                      <span>Cấp độ: {heroCourse.level}</span>
+                      <span>Level: {heroCourse.level}</span>
                     </div>
                     <h3 className="text-xl font-bold text-slate-900">{heroCourse.title}</h3>
                     <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
@@ -214,7 +213,7 @@ export function LearnerDashboard({
 
                   <div className="space-y-2 pt-2 border-t border-slate-200/60">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-600 font-medium">Tiến độ bài học</span>
+                      <span className="text-slate-600 font-medium">Lesson Completion</span>
                       <span className="font-bold text-blue-900 font-mono">{heroCourse.progress}%</span>
                     </div>
                     <Progress value={heroCourse.progress} className="h-2" />
@@ -234,7 +233,7 @@ export function LearnerDashboard({
 
                     <Button onClick={() => onSelectCourse(heroCourse)} className="cursor-pointer">
                       <Play weight="fill" className="h-4 w-4 mr-1.5" />
-                      Vào lớp học ngay
+                      Enter Classroom
                     </Button>
                   </div>
                 </div>
@@ -245,7 +244,7 @@ export function LearnerDashboard({
           {/* Enrolled Courses Grid */}
           <div className="space-y-4">
             <h2 className="text-base font-bold text-slate-900">
-              Các chương trình đã đăng ký ({courses.filter(c => c.status !== 'assigned').length})
+              Enrolled Leadership Programs ({courses.filter(c => c.status !== 'assigned').length})
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -260,11 +259,11 @@ export function LearnerDashboard({
                       />
                       <div className="absolute top-2 left-2">
                         {course.status === 'completed' ? (
-                          <Badge variant="success">Đã hoàn thành</Badge>
+                          <Badge variant="success">Completed</Badge>
                         ) : course.status === 'in-progress' ? (
-                          <Badge variant="default">Đang học</Badge>
+                          <Badge variant="default">In Progress</Badge>
                         ) : (
-                          <Badge variant="secondary">Được giao</Badge>
+                          <Badge variant="secondary">Assigned</Badge>
                         )}
                       </div>
                     </div>
@@ -283,7 +282,7 @@ export function LearnerDashboard({
 
                       <div className="pt-2">
                         <div className="flex items-center justify-between text-xs mb-1">
-                          <span className="text-slate-500">Hoàn thành</span>
+                          <span className="text-slate-500">Progress</span>
                           <span className="font-bold text-slate-900 font-mono">{course.progress}%</span>
                         </div>
                         <Progress value={course.progress} className="h-1.5" />
@@ -298,7 +297,7 @@ export function LearnerDashboard({
                       size="sm"
                       onClick={() => onSelectCourse(course)}
                     >
-                      {course.status === 'completed' ? "Xem lại bài giảng" : "Tiếp tục học"}
+                      {course.status === 'completed' ? "Review Lessons" : "Resume Learning"}
                     </Button>
                   </div>
                 </Card>
@@ -318,7 +317,7 @@ export function LearnerDashboard({
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Tìm khóa học theo tên, mã khóa, kỹ năng..."
+                placeholder="Search curriculum by title, code, or competencies..."
                 className="pl-9 text-xs sm:text-sm"
               />
             </div>
@@ -362,7 +361,7 @@ export function LearnerDashboard({
                   <div className="p-5 space-y-3">
                     <div className="flex items-center justify-between text-xs text-slate-500">
                       <span className="font-bold text-blue-700">{course.code}</span>
-                      <span>Thời lượng: {course.duration}</span>
+                      <span>Duration: {course.duration}</span>
                     </div>
 
                     <h4 className="font-bold text-slate-900 text-sm leading-snug">
@@ -388,11 +387,11 @@ export function LearnerDashboard({
 
                 <div className="p-5 pt-0 border-t border-slate-100 mt-3 flex items-center justify-between">
                   <div>
-                    <p className="text-[11px] text-slate-400">Giảng viên</p>
+                    <p className="text-[11px] text-slate-400">Facilitator</p>
                     <p className="text-xs font-semibold text-slate-800">{course.instructorName}</p>
                   </div>
                   <Button size="sm" onClick={() => onSelectCourse(course)}>
-                    Chi tiết & Học
+                    View & Study
                   </Button>
                 </div>
               </Card>
@@ -406,55 +405,55 @@ export function LearnerDashboard({
         <div className="space-y-6">
           <div className="rounded-xl border border-slate-200 bg-white p-6">
             <h2 className="text-lg font-bold text-slate-900">
-              Khung Năng lực Cá nhân 2026 - Vị trí Chuyên viên Nhân sự
+              Personal Competency Framework 2026 - Project Leader Track
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
-              Mục tiêu phát triển năng lực định kỳ theo tiêu chuẩn L&D của doanh nghiệp. Các kỹ năng được đánh giá thông qua bài tập thực hành, bài trắc nghiệm và đánh giá thực tế của giảng viên.
+              Periodic leadership capability benchmarks standardized by the RMIT Finance Club L&D Committee. Core proficiencies are evaluated via practical assignments, objective quizzes, and facilitator feedback.
             </p>
 
             {/* Skill Bars */}
             <div className="mt-6 space-y-5">
               <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-900 text-sm">Giao tiếp Thấu cảm & Phản hồi Xây dựng</span>
-                  <span className="font-mono font-bold text-blue-700">85% / Chuẩn: 80%</span>
+                  <span className="font-bold text-slate-900 text-sm">Empathetic Communication & Constructive Feedback</span>
+                  <span className="font-mono font-bold text-blue-700">85% / Benchmark: 80%</span>
                 </div>
                 <Progress value={85} className="h-2" />
                 <p className="text-[11px] text-slate-500">
-                  Đã hoàn thành khóa HRD-102. Nắm vững mô hình SBI và kỹ thuật lắng nghe 4 cấp độ.
+                  Completed HRD-102. Mastered the SBI model and 4-tier empathetic listening techniques.
                 </p>
               </div>
 
               <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-900 text-sm">Tư duy Lãnh đạo Chuyển đổi & OKRs</span>
-                  <span className="font-mono font-bold text-emerald-700">94% / Chuẩn: 85%</span>
+                  <span className="font-bold text-slate-900 text-sm">Transformational Leadership & Strategic OKRs</span>
+                  <span className="font-mono font-bold text-emerald-700">94% / Benchmark: 85%</span>
                 </div>
                 <Progress value={94} className="h-2" indicatorClassName="bg-emerald-600" />
                 <p className="text-[11px] text-slate-500">
-                  Đạt chứng chỉ xuất sắc khóa HRD-204 do TS. Vũ Đình Khang chứng nhận.
+                  Awarded Distinction in HRD-204 certified by Dr. Vu Dinh Khang.
                 </p>
               </div>
 
               <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-900 text-sm">Ứng dụng AI & Tự động hóa Quy trình Nhân sự</span>
-                  <span className="font-mono font-bold text-amber-700">33% / Chuẩn: 75%</span>
+                  <span className="font-bold text-slate-900 text-sm">AI Applications & Workflow Automation</span>
+                  <span className="font-mono font-bold text-amber-700">33% / Benchmark: 75%</span>
                 </div>
                 <Progress value={33} className="h-2" indicatorClassName="bg-amber-500" />
                 <p className="text-[11px] text-slate-500">
-                  Đang theo học khóa HRD-305. Cần hoàn thành module thực hành Prompting trong tháng này.
+                  Currently enrolled in HRD-305. Hands-on Prompt Engineering module due this month.
                 </p>
               </div>
 
               <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-900 text-sm">Văn hóa Doanh nghiệp & Trải nghiệm Nhân viên</span>
-                  <span className="font-mono font-bold text-slate-500">Chưa bắt đầu / Chuẩn: 70%</span>
+                  <span className="font-bold text-slate-900 text-sm">Organizational Culture & Member Experience</span>
+                  <span className="font-mono font-bold text-slate-500">Not Started / Benchmark: 70%</span>
                 </div>
                 <Progress value={0} className="h-2" />
                 <p className="text-[11px] text-slate-500">
-                  Được phân công khóa HRD-101. Kế hoạch bắt đầu trong Quý 4.
+                  Assigned HRD-101. Scheduled for onboarding in Quarter 4.
                 </p>
               </div>
             </div>
@@ -468,10 +467,10 @@ export function LearnerDashboard({
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-bold text-slate-900">
-                Chứng chỉ Chuyên môn Doanh nghiệp ({certificates.length})
+                Verified Executive Certificates ({certificates.length})
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                Các chứng nhận chính thức có giá trị xác thực trên toàn hệ thống TalentCore LMS
+                Official verified credentials certified across the RMIT Finance Club LMS network
               </p>
             </div>
           </div>
@@ -488,16 +487,16 @@ export function LearnerDashboard({
                     </div>
                   </div>
                   <Badge variant="success" className="bg-emerald-900/80 text-emerald-200 border-none">
-                    Xác thực
+                    Verified
                   </Badge>
                 </div>
 
                 <div className="p-5 space-y-3">
                   <h3 className="font-bold text-slate-900 text-base">{cert.courseTitle}</h3>
                   <div className="text-xs text-slate-600 space-y-1">
-                    <p>Học viên: <span className="font-semibold text-slate-900">{cert.learnerName}</span></p>
-                    <p>Người chứng nhận: {cert.instructorName}</p>
-                    <p>Ngày cấp: {cert.issueDate} • Xếp loại: <span className="text-emerald-700 font-semibold">{cert.grade}</span></p>
+                    <p>Awarded to: <span className="font-semibold text-slate-900">{cert.learnerName}</span></p>
+                    <p>Certifying Lead: {cert.instructorName}</p>
+                    <p>Issue Date: {cert.issueDate} • Grade: <span className="text-emerald-700 font-semibold">{cert.grade}</span></p>
                   </div>
 
                   <div className="flex flex-wrap gap-1 pt-2">
@@ -511,7 +510,7 @@ export function LearnerDashboard({
                   <div className="pt-3 border-t border-slate-100 flex justify-end">
                     <Button variant="outline" size="sm" onClick={() => onViewCertificate(cert)}>
                       <Eye className="h-4 w-4 mr-1.5" />
-                      Xem chi tiết chứng chỉ
+                      View Certificate Details
                     </Button>
                   </div>
                 </div>

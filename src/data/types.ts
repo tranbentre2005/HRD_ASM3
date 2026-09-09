@@ -5,7 +5,7 @@ export interface Course {
   title: string
   code: string
   category: string
-  level: 'Cơ bản' | 'Trung cấp' | 'Nâng cao'
+  level: 'Foundational' | 'Intermediate' | 'Advanced'
   duration: string
   totalLessons: number
   completedLessons: number

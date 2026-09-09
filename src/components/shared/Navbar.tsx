@@ -5,7 +5,6 @@ import {
   ChalkboardTeacher, 
   Compass, 
   Bell, 
-  Buildings,
   SignOut,
   Sparkle
 } from "@phosphor-icons/react"
@@ -34,7 +33,7 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
             <span className="text-slate-400">• Project Leader Learning Hub</span>
           </div>
           <div className="flex items-center gap-3 text-slate-300 text-xs">
-            <span className="hidden sm:inline">Chuyển vai trò nhanh:</span>
+            <span className="hidden sm:inline text-slate-400">Quick Switch:</span>
             <button
               type="button"
               onClick={() => onRoleChange('learner')}
@@ -62,7 +61,7 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
                 currentRole === 'overview' ? 'text-blue-300 font-semibold underline' : ''
               }`}
             >
-              Tổng quan
+              Overview
             </button>
             <span className="text-slate-600">|</span>
             <button
@@ -71,7 +70,7 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
               className="text-rose-300 hover:text-rose-100 transition-colors cursor-pointer font-medium flex items-center gap-1"
             >
               <SignOut className="h-3 w-3" />
-              <span>Đổi vai trò</span>
+              <span>Switch Role</span>
             </button>
           </div>
         </div>
@@ -79,10 +78,14 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
 
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        {/* Brand Logo */}
+        {/* Brand Bull Logo & Title */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-950 text-white shadow-sm font-bold text-lg">
-            <Buildings weight="duotone" className="h-6 w-6 text-blue-300" />
+          <div className="h-10 w-auto flex items-center justify-center">
+            <img
+              src="/finance-club-logo.png"
+              alt="RMIT Finance Club Logo"
+              className="h-10 w-auto object-contain drop-shadow-2xs"
+            />
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -135,7 +138,7 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
             }`}
           >
             <Compass weight={currentRole === 'overview' ? 'fill' : 'regular'} className="h-4 w-4" />
-            <span className="hidden sm:inline">Tổng quan</span>
+            <span className="hidden sm:inline">Overview</span>
           </button>
         </div>
 
@@ -147,7 +150,7 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
               type="button"
               onClick={() => setShowNotifications(!showNotifications)}
               className="relative p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
-              aria-label="Thông báo hệ thống"
+              aria-label="System Notifications"
             >
               <Bell className="h-5 w-5" />
               {unreadCount > 0 && (
@@ -160,19 +163,19 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
             {showNotifications && (
               <div className="absolute right-0 mt-2 w-80 rounded-xl border border-slate-200 bg-white p-4 shadow-xl z-50 animate-in fade-in-50 slide-in-from-top-2">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <span className="font-semibold text-sm text-slate-900">Thông báo mới</span>
-                  <Badge variant="secondary" className="text-[10px]">2 chưa đọc</Badge>
+                  <span className="font-semibold text-sm text-slate-900">Notifications</span>
+                  <Badge variant="secondary" className="text-[10px]">2 unread</Badge>
                 </div>
                 <div className="divide-y divide-slate-100 text-xs">
                   <div className="py-2.5">
-                    <p className="font-medium text-slate-800">Bài tập HRD-102 đã được chấm điểm</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Facilitator Hoàng Lê Trâm đã gửi nhận xét cho kịch bản phản hồi SBI của bạn.</p>
-                    <span className="text-[10px] text-blue-600 font-medium">10 phút trước</span>
+                    <p className="font-medium text-slate-800">SBI Assignment HRD-102 Graded</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Facilitator Hoang Le Tram provided personalized feedback on your scenario script.</p>
+                    <span className="text-[10px] text-blue-600 font-medium">10 mins ago</span>
                   </div>
                   <div className="py-2.5">
-                    <p className="font-medium text-slate-800">Nhắc nhở hạn nộp bài kiểm tra</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Khóa học Ứng dụng AI trong Nhân sự có hạn nộp bài vào cuối tuần này.</p>
-                    <span className="text-[10px] text-amber-600 font-medium">Hôm nay</span>
+                    <p className="font-medium text-slate-800">Quiz Deadline Reminder</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">AI in Project Operations assessment is due this Sunday evening.</p>
+                    <span className="text-[10px] text-amber-600 font-medium">Today</span>
                   </div>
                 </div>
               </div>
@@ -185,28 +188,28 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
               <>
                 <img
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-                  alt="Nguyễn Minh Tuấn"
+                  alt="Nguyen Minh Tuan"
                   className="h-9 w-9 rounded-full object-cover ring-2 ring-blue-600/20"
                 />
                 <div className="hidden md:block text-left">
                   <p className="text-xs font-semibold text-slate-900 leading-tight">
-                    {userName || "Nguyễn Minh Tuấn"}
+                    {userName || "Nguyen Minh Tuan"}
                   </p>
-                  <p className="text-[11px] text-slate-500 leading-tight">Project Leader - RFC</p>
+                  <p className="text-[11px] text-slate-500 leading-tight">Project Leader • RFC</p>
                 </div>
               </>
             ) : currentRole === 'instructor' ? (
               <>
                 <img
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
-                  alt="ThS. Hoàng Lê Trâm"
+                  alt="MSc. Hoang Le Tram"
                   className="h-9 w-9 rounded-full object-cover ring-2 ring-emerald-600/20"
                 />
                 <div className="hidden md:block text-left">
                   <p className="text-xs font-semibold text-slate-900 leading-tight">
-                    {userName || "ThS. Hoàng Lê Trâm"}
+                    {userName || "MSc. Hoang Le Tram"}
                   </p>
-                  <p className="text-[11px] text-emerald-700 font-medium leading-tight">Facilitator / L&D Lead</p>
+                  <p className="text-[11px] text-emerald-700 font-medium leading-tight">Lead Facilitator • L&D</p>
                 </div>
               </>
             ) : (
@@ -215,8 +218,8 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
                   <Sparkle className="h-4 w-4" />
                 </div>
                 <div className="hidden md:block text-left">
-                  <p className="text-xs font-semibold text-slate-900 leading-tight">Demo Mode</p>
-                  <p className="text-[11px] text-slate-500 leading-tight">Khảo sát ASM3</p>
+                  <p className="text-xs font-semibold text-slate-900 leading-tight">Preview Mode</p>
+                  <p className="text-[11px] text-slate-500 leading-tight">ASM3 Overview</p>
                 </div>
               </div>
             )}
@@ -226,10 +229,10 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
               size="sm"
               onClick={onLogout}
               className="h-8 px-2.5 text-xs font-semibold border-slate-300 text-slate-700 hover:text-rose-700 hover:bg-rose-50 hover:border-rose-300 cursor-pointer"
-              title="Quay lại màn hình You are để chọn vai trò"
+              title="Return to Welcome screen to switch role"
             >
               <SignOut className="h-3.5 w-3.5 mr-1 text-rose-600" />
-              <span>Đổi vai trò</span>
+              <span>Switch Role</span>
             </Button>
           </div>
         </div>

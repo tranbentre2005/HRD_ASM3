@@ -40,7 +40,7 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
         <button
           onClick={() => onOpenChange(false)}
           className="absolute right-4 top-4 rounded-md p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-600"
-          aria-label="Đóng cửa sổ"
+          aria-label="Close modal dialog"
         >
           <X className="h-5 w-5" />
         </button>

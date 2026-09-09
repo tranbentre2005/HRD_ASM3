@@ -32,7 +32,6 @@ export function ActiveCourseViewer({
   onUpdateCourseProgress,
   onSubmitAssignment,
 }: ActiveCourseViewerProps) {
-  // Find current active lesson (default to the first uncompleted or first lesson)
   const allLessons: Lesson[] = course.modules.flatMap(m => m.lessons)
   const initialLesson = allLessons.find(l => !l.completed) || allLessons[0]
 
@@ -59,7 +58,6 @@ export function ActiveCourseViewer({
       spread: 60,
       origin: { y: 0.7 }
     })
-    // Auto mark quiz lesson complete
     if (activeLesson) {
       onUpdateCourseProgress(course.id, activeLesson.id, true)
     }
@@ -68,11 +66,11 @@ export function ActiveCourseViewer({
   const handleAssignmentSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!assignmentText.trim()) {
-      alert("Vui lòng nhập nội dung bài tập trước khi nộp.")
+      alert("Please write your assignment submission before sending.")
       return
     }
     setAssignmentSubmitted(true)
-    onSubmitAssignment(course.id, activeLesson.id, assignmentText, attachmentName || "Bai_tap_thuc_hanh_TuanNM.docx")
+    onSubmitAssignment(course.id, activeLesson.id, assignmentText, attachmentName || "SBI_Scenario_TuanNM.docx")
     confetti({
       particleCount: 70,
       spread: 70,
@@ -95,14 +93,14 @@ export function ActiveCourseViewer({
   }
 
   return (
-    <div className="min-h-[100dvh] bg-slate-50 py-6">
+    <div className="min-h-[100dvh] bg-slate-50 py-6 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Top Navigation Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
           <div className="flex items-center gap-3">
             <Button variant="outline" size="sm" onClick={onBack} className="cursor-pointer">
               <ArrowLeft className="h-4 w-4 mr-1.5" />
-              Bảng điều khiển
+              Back to Dashboard
             </Button>
             <div>
               <div className="flex items-center gap-2">
@@ -114,15 +112,15 @@ export function ActiveCourseViewer({
                 </h1>
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
-                Giảng viên: {course.instructorName} - {course.instructorTitle}
+                Facilitator: {course.instructorName} - {course.instructorTitle}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex flex-col items-end">
-              <span className="text-xs text-slate-500">Tiến độ khóa học</span>
-              <span className="text-xs font-bold text-slate-900">{course.progress}% hoàn thành</span>
+              <span className="text-xs text-slate-500">Course Progress</span>
+              <span className="text-xs font-bold text-slate-900">{course.progress}% Completed</span>
             </div>
             <Button
               variant={activeLesson?.completed ? "outline" : "default"}
@@ -131,7 +129,7 @@ export function ActiveCourseViewer({
               className="cursor-pointer"
             >
               <CheckCircle weight={activeLesson?.completed ? "fill" : "regular"} className="h-4 w-4 mr-1.5 text-emerald-600" />
-              {activeLesson?.completed ? "Đã hoàn thành bài học" : "Đánh dấu hoàn thành"}
+              {activeLesson?.completed ? "Lesson Completed" : "Mark as Completed"}
             </Button>
           </div>
         </div>
@@ -145,7 +143,7 @@ export function ActiveCourseViewer({
               <div className="bg-slate-900 p-4 sm:p-6 text-white">
                 <div className="flex items-center justify-between gap-2 text-xs text-slate-400 mb-2">
                   <span className="uppercase tracking-wider font-semibold text-blue-400">
-                    {currentModule?.title || "Nội dung bài học"}
+                    {currentModule?.title || "Lesson Overview"}
                   </span>
                   <span className="flex items-center gap-1 text-slate-300">
                     <Clock className="h-3.5 w-3.5" />
@@ -168,7 +166,7 @@ export function ActiveCourseViewer({
                           HD 1080p - TalentCore LMS Player
                         </span>
                         <Badge variant="secondary" className="bg-blue-900/80 text-blue-200 border-none">
-                          Bài giảng có slide thuyết minh
+                          Interactive Slides Included
                         </Badge>
                       </div>
 
@@ -182,7 +180,7 @@ export function ActiveCourseViewer({
                           <PlayCircle weight="fill" className="h-10 w-10 ml-0.5" />
                         </button>
                         <p className="mt-3 text-xs sm:text-sm font-medium text-slate-200">
-                          {videoPlaying ? "Đang phát bài giảng (Nhấn để tạm dừng)" : "Nhấn để xem video bài giảng với phụ đề"}
+                          {videoPlaying ? "Playing Lecture (Click to pause)" : "Click to play video lecture with closed captions"}
                         </p>
                       </div>
 
@@ -203,15 +201,15 @@ export function ActiveCourseViewer({
 
                     {/* Lesson Core Text Summary */}
                     <div className="prose max-w-none text-slate-700 text-sm leading-relaxed space-y-3">
-                      <h3 className="text-base font-bold text-slate-900">Tóm tắt trọng tâm bài học</h3>
+                      <h3 className="text-base font-bold text-slate-900">Key Lesson Takeaways</h3>
                       <p>{activeLesson.content}</p>
                       <div className="p-4 rounded-lg bg-blue-50/70 border border-blue-100 text-xs text-blue-950 space-y-1.5">
                         <div className="flex items-center gap-1.5 font-bold text-blue-900">
                           <Lightbulb weight="fill" className="h-4 w-4 text-blue-700" />
-                          <span>Gợi ý ứng dụng thực tế tại doanh nghiệp</span>
+                          <span>Practical Project Leadership Tip</span>
                         </div>
                         <p>
-                          Hãy áp dụng kỹ thuật lắng nghe không ngắt lời trong buổi 1-on-1 tiếp theo của bạn với đồng nghiệp hoặc cấp dưới. Dành 5 phút đầu chỉ để lắng nghe trước khi đưa ra bất kỳ nhận định nào.
+                          Practice non-interruptive listening in your next 1-on-1 sprint check-in with your committee members. Spend the first 5 minutes listening actively before delivering your evaluation.
                         </p>
                       </div>
                     </div>
@@ -222,15 +220,15 @@ export function ActiveCourseViewer({
                   <div className="space-y-4 text-slate-700 text-sm leading-relaxed">
                     <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
                       <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                        Tài liệu đọc chuyên sâu
+                        In-Depth Reading Material
                       </span>
                       <h3 className="text-base font-bold text-slate-900 mt-1">
-                        Khung phân tích hành vi và rào cản tâm lý trong giao tiếp
+                        Cognitive Bias Frameworks and Psychological Safety in Project Teams
                       </h3>
                     </div>
                     <p>{activeLesson.content}</p>
                     <p>
-                      Để khắc phục các rào cản nhận thức, người làm công tác quản trị và nhân sự cần thiết lập các tiêu chí đánh giá dựa trên hành vi cụ thể (Behaviorally Anchored Rating Scales - BARS). Việc bóc tách giữa hành vi khách quan và cảm xúc chủ quan là yếu tố then chốt giúp duy trì sự công bằng và an toàn tâm lý (Psychological Safety) trong tổ chức.
+                      To overcome perceptual distortions, project leaders must institute objective behaviorally-anchored criteria (BARS). Distinguishing between observable action and subjective emotion is the cornerstone of psychological safety across high-performing student initiatives.
                     </p>
                   </div>
                 )}
@@ -239,10 +237,10 @@ export function ActiveCourseViewer({
                   <div className="space-y-6">
                     <div className="border-b border-slate-100 pb-3">
                       <span className="text-xs font-semibold text-blue-700 uppercase tracking-wider">
-                        Bài kiểm tra đánh giá kiến thức
+                        Knowledge Assessment Quiz
                       </span>
                       <h3 className="text-base font-bold text-slate-900 mt-0.5">
-                        Vui lòng chọn đáp án chính xác nhất cho các câu hỏi bên dưới
+                        Select the most accurate answer for each prompt below
                       </h3>
                     </div>
 
@@ -253,7 +251,7 @@ export function ActiveCourseViewer({
                       return (
                         <div key={q.id} className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
                           <p className="font-semibold text-slate-900 text-sm">
-                            Câu {qIndex + 1}: {q.question}
+                            Question {qIndex + 1}: {q.question}
                           </p>
 
                           <div className="space-y-2">
@@ -293,7 +291,7 @@ export function ActiveCourseViewer({
                               isCorrect ? "bg-emerald-100 text-emerald-950 border border-emerald-200" : "bg-rose-100 text-rose-950 border border-rose-200"
                             }`}>
                               <p className="font-bold">
-                                {isCorrect ? "Chính xác! Đáp án đúng." : "Chưa chính xác!"}
+                                {isCorrect ? "Correct! Excellent answer." : "Incorrect."}
                               </p>
                               <p className="mt-1">{q.explanation}</p>
                             </div>
@@ -304,7 +302,7 @@ export function ActiveCourseViewer({
 
                     <div className="flex items-center justify-between pt-2">
                       <span className="text-xs text-slate-500">
-                        {quizSubmitted ? "Đã nộp bài đánh giá" : "Chọn câu trả lời và nhấn nộp bài"}
+                        {quizSubmitted ? "Assessment Submitted" : "Select answers and click submit"}
                       </span>
                       {!quizSubmitted ? (
                         <Button
@@ -313,7 +311,7 @@ export function ActiveCourseViewer({
                           disabled={Object.keys(selectedAnswers).length < (activeLesson.quiz?.length || 1)}
                         >
                           <Exam className="h-4 w-4 mr-1.5" />
-                          Nộp bài trắc nghiệm
+                          Submit Quiz
                         </Button>
                       ) : (
                         <Button
@@ -324,7 +322,7 @@ export function ActiveCourseViewer({
                             setSelectedAnswers({})
                           }}
                         >
-                          Làm lại bài kiểm tra
+                          Retake Assessment
                         </Button>
                       )}
                     </div>
@@ -335,7 +333,7 @@ export function ActiveCourseViewer({
                   <div className="space-y-6">
                     <div className="rounded-xl bg-blue-50/50 p-4 border border-blue-100">
                       <div className="flex items-center justify-between text-xs text-blue-900 font-semibold mb-1">
-                        <span>Đề bài tập thực hành</span>
+                        <span>Practical Assignment Brief</span>
                         <span className="text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
                           {activeLesson.assignment?.dueDaysText}
                         </span>
@@ -349,7 +347,7 @@ export function ActiveCourseViewer({
 
                       <div className="mt-4 pt-3 border-t border-blue-100">
                         <p className="text-xs font-semibold text-slate-900 mb-1.5">
-                          Tiêu chí chấm điểm (Rubric - Thang điểm {activeLesson.assignment?.maxScore}):
+                          Evaluation Rubric (Maximum {activeLesson.assignment?.maxScore} points):
                         </p>
                         <ul className="list-disc list-inside text-xs text-slate-600 space-y-1">
                           {activeLesson.assignment?.rubric.map((r, i) => (
@@ -363,17 +361,17 @@ export function ActiveCourseViewer({
                     <form onSubmit={handleAssignmentSubmit} className="space-y-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-900 mb-1.5">
-                          Nội dung bài làm của bạn
+                          Your Written Response
                         </label>
                         <Textarea
                           value={assignmentText}
                           onChange={(e) => setAssignmentText(e.target.value)}
-                          placeholder="Nhập kịch bản phản hồi theo mô hình SBI hoặc dán bài viết chi tiết tại đây..."
+                          placeholder="Draft your situation-behavior-impact dialogue or paste your completed script here..."
                           className="min-h-[140px] text-xs sm:text-sm"
                           disabled={assignmentSubmitted}
                         />
                         <p className="text-[11px] text-slate-500 mt-1">
-                          Khuyến nghị: Viết rõ ràng các mục Tình huống (S), Hành vi (B), Tác động (I).
+                          Recommendation: Clearly label Situation (S), Behavior (B), and Impact (I).
                         </p>
                       </div>
 
@@ -382,19 +380,19 @@ export function ActiveCourseViewer({
                         <div className="flex items-center gap-2">
                           <Paperclip className="h-4 w-4 text-slate-500" />
                           <span className="text-xs text-slate-700">
-                            {attachmentName || "Đính kèm tài liệu Word / PDF (tùy chọn)"}
+                            {attachmentName || "Attach Word / PDF deliverable (optional)"}
                           </span>
                         </div>
                         <Button
                           type="button"
                           variant="outline"
                           size="sm"
-                          onClick={() => setAttachmentName("Kich_ban_Phan_hoi_SBI_TuanNM.docx")}
+                          onClick={() => setAttachmentName("SBI_Feedback_Script_TuanNM.docx")}
                           className="text-xs h-7"
                           disabled={assignmentSubmitted}
                         >
                           <UploadSimple className="h-3.5 w-3.5 mr-1" />
-                          {attachmentName ? "Đổi file" : "Chọn file mẫu"}
+                          {attachmentName ? "Replace File" : "Select Sample File"}
                         </Button>
                       </div>
 
@@ -402,16 +400,16 @@ export function ActiveCourseViewer({
                         <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs">
                           <p className="font-bold flex items-center gap-1.5">
                             <CheckCircle weight="fill" className="h-4 w-4 text-emerald-700" />
-                            Đã nộp bài tập thành công!
+                            Assignment Submitted Successfully!
                           </p>
                           <p className="mt-1">
-                            Bài làm của bạn đã được chuyển vào Sổ chấm điểm của Giảng viên Hoàng Lê Trâm. Bạn sẽ nhận được thông báo khi bài được chấm xong.
+                            Your submission has been delivered to Facilitator Hoang Le Tram for grading and feedback.
                           </p>
                         </div>
                       ) : (
                         <Button type="submit" className="w-full sm:w-auto">
                           <UploadSimple className="h-4 w-4 mr-1.5" />
-                          Nộp bài tập cho giảng viên
+                          Submit to Facilitator
                         </Button>
                       )}
                     </form>
@@ -424,33 +422,33 @@ export function ActiveCourseViewer({
             <Card className="p-5 border-slate-200">
               <h4 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                 <FileText className="h-4 w-4 text-blue-700" />
-                Tài liệu & Biểu mẫu đính kèm khóa học
+                Course Documents & Framework Templates
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <div className="p-3 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-between">
                   <div>
-                    <p className="font-semibold text-slate-900">Slide_Bai_Giang_SBI_HRD102.pdf</p>
-                    <p className="text-slate-500 text-[11px]">Dung lượng: 4.8 MB - Bản chính thức</p>
+                    <p className="font-semibold text-slate-900">Lecture_Slides_SBI_HRD102.pdf</p>
+                    <p className="text-slate-500 text-[11px]">Size: 4.8 MB - Official Release</p>
                   </div>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="h-8 w-8 p-0"
-                    onClick={() => alert("Đang tải xuống tài liệu: Slide_Bai_Giang_SBI_HRD102.pdf")}
+                    onClick={() => alert("Downloading: Lecture_Slides_SBI_HRD102.pdf")}
                   >
                     <DownloadSimple className="h-4 w-4" />
                   </Button>
                 </div>
                 <div className="p-3 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-between">
                   <div>
-                    <p className="font-semibold text-slate-900">Template_Kich_ban_Phan_hoi.docx</p>
-                    <p className="text-slate-500 text-[11px]">Dung lượng: 320 KB - Mẫu thực hành</p>
+                    <p className="font-semibold text-slate-900">SBI_Feedback_Template.docx</p>
+                    <p className="text-slate-500 text-[11px]">Size: 320 KB - Practical Worksheet</p>
                   </div>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="h-8 w-8 p-0"
-                    onClick={() => alert("Đang tải xuống biểu mẫu: Template_Kich_ban_Phan_hoi.docx")}
+                    onClick={() => alert("Downloading: SBI_Feedback_Template.docx")}
                   >
                     <DownloadSimple className="h-4 w-4" />
                   </Button>
@@ -463,9 +461,9 @@ export function ActiveCourseViewer({
           <div className="lg:col-span-4 space-y-5">
             <Card className="p-4 sm:p-5 border-slate-200 shadow-sm">
               <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
-                <h3 className="font-bold text-sm text-slate-900">Nội dung khóa học</h3>
+                <h3 className="font-bold text-sm text-slate-900">Course Curriculum</h3>
                 <span className="text-xs text-slate-500 font-medium">
-                  {allLessons.filter(l => l.completed).length}/{allLessons.length} bài
+                  {allLessons.filter(l => l.completed).length}/{allLessons.length} Completed
                 </span>
               </div>
 
@@ -527,14 +525,14 @@ export function ActiveCourseViewer({
                 />
                 <div>
                   <span className="text-[10px] uppercase font-bold text-blue-700 tracking-wider">
-                    Giảng viên hướng dẫn
+                    Course Facilitator
                   </span>
                   <p className="text-sm font-bold text-slate-900">{course.instructorName}</p>
                   <p className="text-xs text-slate-500 leading-tight">{course.instructorTitle}</p>
                 </div>
               </div>
               <p className="mt-3 text-xs text-slate-600 leading-relaxed">
-                Mọi thắc mắc về nội dung bài giảng và bài tập thực hành, học viên có thể gửi câu hỏi qua diễn đàn nội bộ hoặc buổi Q&A trực tuyến thứ Sáu hàng tuần.
+                For questions regarding module frameworks or assignment rubrics, reach out via the club leadership Slack or attend the weekly Friday coaching office hours.
               </p>
             </Card>
           </div>

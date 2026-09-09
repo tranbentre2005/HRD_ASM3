@@ -114,14 +114,14 @@ export function App() {
     const newSub: AssignmentSubmission = {
       id: `sub-${Date.now()}`,
       courseId,
-      courseTitle: course?.title || "Khóa đào tạo chuyên môn",
+      courseTitle: course?.title || "Leadership Capability Track",
       lessonId,
-      lessonTitle: lesson?.title || "Bài tập thực hành",
+      lessonTitle: lesson?.title || "Practical Assignment Task",
       learnerId: "lrn-1",
-      learnerName: customUserName || "Nguyễn Minh Tuấn",
+      learnerName: customUserName || "Nguyen Minh Tuan",
       learnerAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-      department: "Ban Nhân sự & Tuyển dụng",
-      submittedAt: "Vừa xong",
+      department: "Executive Committee - Project Lead",
+      submittedAt: "Just now",
       content: text,
       attachmentName: fileName,
       status: "pending"
@@ -145,7 +145,7 @@ export function App() {
             score,
             feedback,
             status: "graded",
-            gradedBy: customUserName || "ThS. Hoàng Lê Trâm"
+            gradedBy: customUserName || "MSc. Hoang Le Tram"
           }
         }
         return sub
@@ -245,7 +245,7 @@ export function App() {
       <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>
-            © 2026 RMIT Finance Club (RFC) • Project Leader Learning Hub. Đề tài HRD ASM3.
+            © 2026 RMIT Finance Club (RFC) • Project Leader Learning Hub. HRD Capstone ASM3.
           </p>
           <div className="flex items-center gap-4 text-slate-400 text-xs">
             <button
@@ -253,7 +253,7 @@ export function App() {
               onClick={handleLogout}
               className="text-blue-700 hover:underline cursor-pointer"
             >
-              Quay lại màn hình đăng nhập
+              Return to Role Selection
             </button>
             <span>•</span>
             <span>Zero-Login Architecture</span>

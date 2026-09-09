@@ -58,28 +58,28 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
   })
 
   const quickFeedbackChips = [
-    "Kịch bản phản hồi rất cụ thể và bám sát mô hình SBI.",
-    "Cần bổ sung thêm ví dụ tình huống thực tế để tăng tính thuyết phục.",
-    "Câu hỏi huấn luyện cuối cùng rất sắc bén và mang tính xây dựng.",
-    "Bài làm đạt chuẩn, phân biệt rõ giữa hành vi và cảm xúc chủ quan."
+    "The feedback script is highly specific and closely adheres to the SBI model.",
+    "Include a concrete real-world situational example to increase impact.",
+    "The concluding coaching questions are thoughtful and encourage accountability.",
+    "Meets standard by cleanly distinguishing observable behavior from emotion."
   ]
 
   const getGradeRank = (score: number) => {
-    if (score >= 90) return { label: "Xuất sắc (Hạng A)", color: "text-emerald-700" }
-    if (score >= 80) return { label: "Giỏi (Hạng B)", color: "text-blue-700" }
-    if (score >= 65) return { label: "Khá (Hạng C)", color: "text-amber-700" }
-    return { label: "Cần cải thiện (Hạng D)", color: "text-rose-700" }
+    if (score >= 90) return { label: "Distinction (Grade A)", color: "text-emerald-700" }
+    if (score >= 80) return { label: "Merit (Grade B)", color: "text-blue-700" }
+    if (score >= 65) return { label: "Pass (Grade C)", color: "text-amber-700" }
+    return { label: "Needs Improvement (Grade D)", color: "text-rose-700" }
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold text-slate-900">
-            Sổ Chấm Điểm & Phản hồi Bài tập Thực hành
+            Grading & Coaching Feedback Desk
           </h2>
           <p className="text-xs sm:text-sm text-slate-500">
-            Đánh giá kịch bản thực tế của học viên và gửi phản hồi phát triển năng lực
+            Evaluate practical member submissions and provide actionable developmental feedback
           </p>
         </div>
 
@@ -91,7 +91,7 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
               filterStatus === 'all' ? 'bg-white text-blue-700 shadow-xs font-semibold' : 'text-slate-600'
             }`}
           >
-            Tất cả ({submissions.length})
+            All ({submissions.length})
           </button>
           <button
             type="button"
@@ -100,7 +100,7 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
               filterStatus === 'pending' ? 'bg-white text-blue-700 shadow-xs font-semibold' : 'text-slate-600'
             }`}
           >
-            Chờ chấm ({submissions.filter(s => s.status === 'pending').length})
+            Pending ({submissions.filter(s => s.status === 'pending').length})
           </button>
           <button
             type="button"
@@ -109,7 +109,7 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
               filterStatus === 'graded' ? 'bg-white text-blue-700 shadow-xs font-semibold' : 'text-slate-600'
             }`}
           >
-            Đã chấm ({submissions.filter(s => s.status === 'graded').length})
+            Graded ({submissions.filter(s => s.status === 'graded').length})
           </button>
         </div>
       </div>
@@ -148,7 +148,7 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
                   </div>
 
                   {sub.status === 'pending' ? (
-                    <Badge variant="warning" className="text-[10px]">Chờ chấm</Badge>
+                    <Badge variant="warning" className="text-[10px]">Pending</Badge>
                   ) : (
                     <Badge variant="success" className="text-[10px]">
                       {sub.score} / 100
@@ -161,11 +161,11 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
                     {sub.courseTitle}
                   </p>
                   <div className="flex items-center justify-between text-[11px] text-slate-400 mt-1">
-                    <span>Nộp: {sub.submittedAt}</span>
+                    <span>Submitted: {sub.submittedAt}</span>
                     {sub.attachmentName && (
                       <span className="flex items-center gap-1 text-blue-600">
                         <Paperclip className="h-3 w-3" />
-                        Có đính kèm
+                        Attached File
                       </span>
                     )}
                   </div>
@@ -182,18 +182,18 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
               <div className="p-5 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
                 <div>
                   <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wider">
-                    Chi tiết bài nộp học viên
+                    Member Submission Review
                   </span>
                   <h3 className="font-bold text-base text-slate-900 mt-0.5">
                     {currentSubmission.learnerName} - {currentSubmission.department}
                   </h3>
                   <p className="text-xs text-slate-500">
-                    Bài: {currentSubmission.lessonTitle}
+                    Assignment: {currentSubmission.lessonTitle}
                   </p>
                 </div>
 
                 <div className="text-right text-xs">
-                  <span className="text-slate-400">Thời gian nộp:</span>
+                  <span className="text-slate-400">Submitted at:</span>
                   <p className="font-semibold text-slate-800">{currentSubmission.submittedAt}</p>
                 </div>
               </div>
@@ -202,7 +202,7 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
                 {/* Submission Content Box */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-900 mb-2">
-                    Nội dung học viên trình bày:
+                    Submitted Script Content:
                   </label>
                   <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-800 whitespace-pre-line leading-relaxed font-sans">
                     {currentSubmission.content}
@@ -220,9 +220,9 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
                         variant="outline"
                         size="sm"
                         className="h-7 text-xs"
-                        onClick={() => alert(`Đang tải file bài làm: ${currentSubmission.attachmentName}`)}
+                        onClick={() => alert(`Downloading submission document: ${currentSubmission.attachmentName}`)}
                       >
-                        Tải bài làm
+                        Download File
                       </Button>
                     </div>
                   )}
@@ -232,7 +232,7 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
                 <form onSubmit={handleSaveGrade} className="space-y-4 pt-4 border-t border-slate-200">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <label className="text-xs font-bold text-slate-900">
-                      Thang điểm đánh giá (0 - 100):
+                      Evaluation Scale (0 - 100):
                     </label>
                     <div className="flex items-center gap-3">
                       <input
@@ -256,7 +256,7 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
                   {/* Feedback Chips */}
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                      Gợi ý nhận xét nhanh:
+                      Quick Coaching Prompts:
                     </label>
                     <div className="flex flex-wrap gap-1.5">
                       {quickFeedbackChips.map((chip, i) => (
@@ -274,12 +274,12 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-900 mb-1.5">
-                      Nhận xét & Hướng dẫn phát triển của giảng viên:
+                      Facilitator Coaching Feedback:
                     </label>
                     <Textarea
                       value={feedbackInput}
                       onChange={(e) => setFeedbackInput(e.target.value)}
-                      placeholder="Ghi nhận xét cụ thể về điểm mạnh và điểm cần cải thiện của học viên..."
+                      placeholder="Enter detailed feedback highlighting strengths and development areas..."
                       className="min-h-[100px] text-xs sm:text-sm"
                     />
                   </div>
@@ -287,14 +287,14 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
                   {saveSuccess && (
                     <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-center gap-2">
                       <CheckCircle weight="fill" className="h-4 w-4 text-emerald-700" />
-                      <span>Đã lưu điểm và gửi thông báo nhận xét thành công cho học viên!</span>
+                      <span>Grade saved and feedback notification sent to member!</span>
                     </div>
                   )}
 
                   <div className="flex items-center justify-end gap-2 pt-2">
                     <Button type="submit">
                       <Check className="h-4 w-4 mr-1.5" />
-                      Lưu điểm & Gửi nhận xét
+                      Save Grade & Send Feedback
                     </Button>
                   </div>
                 </form>
@@ -302,7 +302,7 @@ export function GradingCenter({ submissions, onGradeSubmission }: GradingCenterP
             </Card>
           ) : (
             <div className="p-8 text-center text-slate-500 rounded-xl border border-dashed border-slate-300">
-              Chọn một bài nộp bên trái để tiến hành chấm điểm
+              Select a member submission from the left panel to begin evaluation
             </div>
           )}
         </div>
