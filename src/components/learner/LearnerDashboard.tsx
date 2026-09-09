@@ -78,12 +78,31 @@ export function LearnerDashboard({
 
   return (
     <div className="space-y-8 pb-12 font-sans">
-      {/* Learner Hero Banner with Enhanced Visual Atmosphere */}
-      <div className="relative rounded-3xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fbfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:p-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
-        {/* Subtle Ambient Decorative Geometry in Background */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-radial from-[#87AECE]/15 via-[#AFD06E]/10 to-transparent pointer-events-none -z-0" />
-        <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-radial from-[#87AECE]/10 to-transparent pointer-events-none -z-0" />
+      {/* Learner Hero Banner with Dynamic Background & Aligned Proportions */}
+      <div className="relative rounded-3xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
+        {/* Subtle Architectural Dot Matrix Grid */}
+        <div 
+          className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
+        />
 
+        {/* Ambient Radial Halo Blooms */}
+        <div className="absolute top-1/2 -translate-y-1/2 right-6 sm:right-12 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+        <div className="absolute -top-16 -left-16 w-80 h-80 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
+
+        {/* Subtle Concentric Leadership Arcs behind illustration */}
+        <svg 
+          className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block"
+          viewBox="0 0 400 400"
+          fill="none"
+        >
+          <circle cx="260" cy="170" r="75" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
+          <circle cx="260" cy="170" r="130" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
+          <circle cx="260" cy="170" r="190" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
+          <circle cx="185" cy="170" r="3" fill="#437118" />
+          <circle cx="260" cy="40" r="3" fill="#1D2A62" />
+          <circle cx="335" cy="170" r="3" fill="#87AECE" />
+          <circle cx="260" cy="300" r="3" fill="#AFD06E" />
+        </svg>
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left Column: Welcome Headline, Subtitle & CTA */}
           <div className="lg:col-span-7 space-y-4">
@@ -121,13 +140,13 @@ export function LearnerDashboard({
             </div>
           </div>
 
-          {/* Right Column: Seamless Blended Illustration */}
-          <div className="lg:col-span-5 flex items-center justify-center py-2">
+          {/* Right Column: Seamless Scaled-up Illustration with Ambient Halo */}
+          <div className="lg:col-span-5 flex items-center justify-center py-1 relative">
             <img
               src="/learner-hero-palette.png"
               alt="Project Leader with Event Checklist and Deliverables"
               loading="eager"
-              className="max-h-[200px] sm:max-h-[230px] w-auto object-contain select-none drop-shadow-xs"
+              className="max-h-[265px] sm:max-h-[295px] w-auto object-contain select-none drop-shadow-sm transition-transform hover:scale-102"
             />
           </div>
           {/* Full-Width Bottom Row: 3 Executive Cards Exactly Formatted per Image */}
