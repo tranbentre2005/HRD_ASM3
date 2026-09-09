@@ -70,6 +70,7 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                     <img
                       src="/finance-club-logo-green.png"
                       alt="RMIT Finance Club Logo"
+                      loading="eager"
                       className="h-12 w-auto object-contain"
                     />
                   </div>
