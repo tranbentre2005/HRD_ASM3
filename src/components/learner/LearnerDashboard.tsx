@@ -125,10 +125,8 @@ export function LearnerDashboard({
               <span className="text-slate-300">•</span>
               <span className="text-[11px] text-[#68707D] font-mono">RFC-PL-2026</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
-              Welcome back,
-              <br />
-              Project Leader!
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
+              Welcome back, Project Leader!
             </h1>
 
             <p className="text-sm sm:text-base text-[#68707D] leading-relaxed max-w-xl">
@@ -306,7 +304,7 @@ export function LearnerDashboard({
         <div className="relative z-10 space-y-6 text-center">
           {/* Centered Single Header Block */}
           <div className="space-y-3 max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
               About Learning Hub
             </h2>
             <p className="text-xs sm:text-sm text-[#68707D] leading-relaxed">
