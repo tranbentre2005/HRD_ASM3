@@ -121,33 +121,15 @@ export function LearnerDashboard({
             </div>
           </div>
 
-          {/* Right Column: Layered Artwork with Floating Status Chips */}
-          <div className="lg:col-span-5 flex items-center justify-center relative">
-            <div className="relative w-full max-w-[340px] sm:max-w-[370px]">
-              {/* Floating Chip 1: Top Right */}
-              <div className="absolute -top-3 -right-2 z-20 bg-white/95 backdrop-blur-xs rounded-full px-3 py-1 shadow-md border border-[#87AECE]/40 flex items-center gap-1.5 text-[10px] font-bold text-[#1D2A62]">
-                <Medal weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
-                <span>Readiness Verified</span>
-              </div>
-
-              {/* Organic Soft-Tinted Backdrop */}
-              <div className="w-full rounded-[36px] bg-gradient-to-tr from-[#87AECE]/20 via-[#EDEDED]/30 to-[#AFD06E]/20 border border-[#87AECE]/30 p-5 sm:p-6 flex items-center justify-center relative shadow-inner">
-                <img
-                  src="/learner-hero-palette.png"
-                  alt="Project Leader with Event Checklist and Deliverables"
-                  loading="eager"
-                  className="w-full max-h-[290px] sm:max-h-[320px] object-contain drop-shadow-sm select-none"
-                />
-              </div>
-
-              {/* Floating Chip 2: Bottom Left */}
-              <div className="absolute -bottom-3 -left-2 z-20 bg-white/95 backdrop-blur-xs rounded-full px-3 py-1 shadow-md border border-[#87AECE]/40 flex items-center gap-1.5 text-[10px] font-bold text-[#1D2A62]">
-                <span className="h-2 w-2 rounded-full bg-[#437118] animate-pulse" />
-                <span>Live Sprint • Q3</span>
-              </div>
-            </div>
+          {/* Right Column: Seamless Blended Illustration */}
+          <div className="lg:col-span-5 flex items-center justify-center py-2">
+            <img
+              src="/learner-hero-palette.png"
+              alt="Project Leader with Event Checklist and Deliverables"
+              loading="eager"
+              className="max-h-[200px] sm:max-h-[230px] w-auto object-contain select-none drop-shadow-xs"
+            />
           </div>
-
           {/* Full-Width Bottom Row: 3 Executive Cards Exactly Formatted per Image */}
           <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-slate-200/60">
             {/* Card 1: YOUR LEARNING PROGRESS */}
