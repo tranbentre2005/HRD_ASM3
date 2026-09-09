@@ -227,54 +227,15 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
             </div>
           </div>
 
-          {/* 5. Right Visual Panel: Team illustration with palette colors */}
+          {/* 5. Right Visual Panel: Enlarged team illustration with palette colors */}
           <div className="lg:col-span-6 p-4 sm:p-6 lg:p-8 flex items-center justify-center bg-[#EDEDED]/30">
-            <div className="w-full h-full rounded-3xl bg-linear-to-b from-[#87AECE]/15 via-[#EDEDED]/20 to-[#AFD06E]/15 border border-[#87AECE]/20 p-6 sm:p-8 flex flex-col justify-between items-center text-center relative overflow-hidden">
-              {/* Vertically Centered Illustration */}
-              <div className="w-full flex-1 flex flex-col items-center justify-center py-2 relative">
-                <div className="relative w-full max-w-[340px] aspect-square flex items-center justify-center">
-                  <img
-                    src="/team-illustration-clean.png"
-                    alt="RFC Project Leadership Team"
-                    loading="eager"
-                    className="max-h-[320px] w-auto object-contain drop-shadow-sm"
-                  />
-
-                  {/* Floating Event Readiness Card */}
-                  <div className="absolute left-0 bottom-0 bg-white/95 backdrop-blur-xs rounded-2xl p-3 sm:p-3.5 shadow-md border border-[#87AECE]/35 text-left min-w-[155px] sm:min-w-[175px]">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="space-y-0.5">
-                        <p className="font-bold text-[#1D2A62] text-xs sm:text-sm leading-tight">
-                          Event Readiness
-                        </p>
-                        <p className="text-[10px] text-[#68707D]">
-                          Impact · Evidence · Connection
-                        </p>
-                      </div>
-
-                      <div className="h-6 w-6 rounded-full bg-[#437118]/10 text-[#437118] flex items-center justify-center shrink-0">
-                        <Check weight="bold" className="h-3.5 w-3.5" />
-                      </div>
-                    </div>
-
-                    <div className="mt-2.5">
-                      <span className="inline-block rounded-full border border-[#AFD06E] px-2.5 py-0.5 text-[9px] font-bold text-[#437118] bg-[#AFD06E]/20">
-                        3-minute final check
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Event Readiness Message */}
-              <div className="space-y-1 pt-3 max-w-sm">
-                <p className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug">
-                  Practical tools for confident, participant-ready project leadership.
-                </p>
-                <p className="text-xs text-[#68707D]">
-                  Learn at your pace. Apply it in your next event.
-                </p>
-              </div>
+            <div className="w-full h-full rounded-3xl bg-linear-to-b from-[#87AECE]/15 via-[#EDEDED]/20 to-[#AFD06E]/15 border border-[#87AECE]/20 p-6 sm:p-10 flex items-center justify-center relative overflow-hidden">
+              <img
+                src="/team-illustration-clean.png"
+                alt="RFC Project Leadership Team"
+                loading="eager"
+                className="w-full max-w-[450px] lg:max-w-[490px] max-h-[490px] object-contain drop-shadow-sm select-none"
+              />
             </div>
           </div>
         </div>
