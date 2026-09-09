@@ -234,12 +234,12 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                 <circle cx="200" cy="340" r="3" fill="#AFD06E" />
               </svg>
 
-              {/* Home Banner Illustration */}
+              {/* Restored Team Illustration */}
               <img
-                src="/learner-hero-palette.png"
-                alt="Project Leader with Event Checklist and Deliverables"
+                src="/team-illustration-clean.png"
+                alt="RMIT Finance Club Project Leadership Team"
                 loading="eager"
-                className="relative z-10 w-full max-w-[360px] lg:max-w-[400px] max-h-[400px] object-contain drop-shadow-md select-none transition-transform hover:scale-102"
+                className="relative z-10 w-full max-w-[380px] lg:max-w-[430px] max-h-[420px] object-contain drop-shadow-md select-none transition-transform hover:scale-102"
               />
             </div>
           </div>
