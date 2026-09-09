@@ -78,16 +78,22 @@ export function LearnerDashboard({
 
   return (
     <div className="space-y-8 pb-12 font-sans">
-      {/* Learner Hero Banner with Recolored Event Leader Illustration */}
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 lg:p-10 shadow-sm overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      {/* Learner Hero Banner with Enhanced Visual Atmosphere */}
+      <div className="relative rounded-3xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fbfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:p-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
+        {/* Subtle Ambient Decorative Geometry in Background */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-radial from-[#87AECE]/15 via-[#AFD06E]/10 to-transparent pointer-events-none -z-0" />
+        <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-radial from-[#87AECE]/10 to-transparent pointer-events-none -z-0" />
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left Column: Welcome Headline, Subtitle & CTA */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="rounded-full bg-blue-50 border border-blue-200 text-[#1D2A62] text-[11px] font-bold px-3 py-0.5">
+            <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/90 border border-[#87AECE]/40 shadow-2xs backdrop-blur-xs">
+              <span className="h-2 w-2 rounded-full bg-[#437118] animate-pulse" />
+              <span className="text-[11px] font-bold text-[#1D2A62]">
                 Project Leader • Management Committee
               </span>
-              <span className="text-xs text-slate-500 font-mono">ID: RFC-PL-2026</span>
+              <span className="text-slate-300">•</span>
+              <span className="text-[11px] text-[#68707D] font-mono">RFC-PL-2026</span>
             </div>
 
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
@@ -98,34 +104,54 @@ export function LearnerDashboard({
               Build the practical skills to lead club's projects and events with more clarity, confident and readiness
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap items-center gap-4">
               <Button
                 size="lg"
                 onClick={() => setActiveTab('catalog')}
-                className="h-12 px-6 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-sm shadow-sm cursor-pointer flex items-center gap-2"
+                className="h-12 px-7 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer flex items-center gap-2.5 group active:scale-[0.98]"
               >
                 <span>Continue Learning</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
+
+              <div className="flex items-center gap-1.5 text-xs text-[#68707D] font-medium">
+                <Sparkle weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
+                <span>Ready for Q3 Event Delivery</span>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Recolored Event Leader Illustration */}
-          <div className="lg:col-span-5 flex items-center justify-center">
-            <div className="w-full max-w-[340px] sm:max-w-[380px] rounded-3xl bg-gradient-to-b from-[#87AECE]/15 via-[#EDEDED]/20 to-[#AFD06E]/15 border border-[#87AECE]/25 p-4 sm:p-6 flex items-center justify-center relative shadow-inner">
-              <img
-                src="/learner-hero-palette.png"
-                alt="Project Leader with Event Checklist and Deliverables"
-                loading="eager"
-                className="w-full max-h-[300px] sm:max-h-[340px] object-contain drop-shadow-sm select-none"
-              />
+          {/* Right Column: Layered Artwork with Floating Status Chips */}
+          <div className="lg:col-span-5 flex items-center justify-center relative">
+            <div className="relative w-full max-w-[340px] sm:max-w-[370px]">
+              {/* Floating Chip 1: Top Right */}
+              <div className="absolute -top-3 -right-2 z-20 bg-white/95 backdrop-blur-xs rounded-full px-3 py-1 shadow-md border border-[#87AECE]/40 flex items-center gap-1.5 text-[10px] font-bold text-[#1D2A62]">
+                <Medal weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
+                <span>Readiness Verified</span>
+              </div>
+
+              {/* Organic Soft-Tinted Backdrop */}
+              <div className="w-full rounded-[36px] bg-gradient-to-tr from-[#87AECE]/20 via-[#EDEDED]/30 to-[#AFD06E]/20 border border-[#87AECE]/30 p-5 sm:p-6 flex items-center justify-center relative shadow-inner">
+                <img
+                  src="/learner-hero-palette.png"
+                  alt="Project Leader with Event Checklist and Deliverables"
+                  loading="eager"
+                  className="w-full max-h-[290px] sm:max-h-[320px] object-contain drop-shadow-sm select-none"
+                />
+              </div>
+
+              {/* Floating Chip 2: Bottom Left */}
+              <div className="absolute -bottom-3 -left-2 z-20 bg-white/95 backdrop-blur-xs rounded-full px-3 py-1 shadow-md border border-[#87AECE]/40 flex items-center gap-1.5 text-[10px] font-bold text-[#1D2A62]">
+                <span className="h-2 w-2 rounded-full bg-[#437118] animate-pulse" />
+                <span>Live Sprint • Q3</span>
+              </div>
             </div>
           </div>
 
           {/* Full-Width Bottom Row: 3 Executive Cards Exactly Formatted per Image */}
-          <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-slate-100">
-            {/* Card 1: Your Learning Progress */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
+          <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-slate-200/60">
+            {/* Card 1: YOUR LEARNING PROGRESS */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
               <div className="flex items-center gap-2 mb-3">
                 <DiamondsFour weight="bold" className="h-4 w-4 text-[#437118]" />
                 <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
@@ -177,8 +203,8 @@ export function LearnerDashboard({
               </p>
             </div>
 
-            {/* Card 2: Current Course */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
+            {/* Card 2: CURRENT COURSE */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
                   <PlayCircle weight="fill" className="h-4 w-4 text-[#437118]" />
@@ -218,8 +244,8 @@ export function LearnerDashboard({
               </div>
             </div>
 
-            {/* Card 3: Next Up */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
+            {/* Card 3: NEXT UP */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
               <div className="flex items-center gap-2 mb-2">
                 <BookmarkSimple weight="bold" className="h-4 w-4 text-[#437118]" />
                 <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
