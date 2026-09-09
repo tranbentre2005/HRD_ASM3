@@ -213,33 +213,33 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
             </div>
           </div>
 
-          {/* Right Visual Panel: Matching Home Banner Illustration & Atmosphere */}
-          <div className="lg:col-span-6 p-4 sm:p-6 lg:p-8 flex items-center justify-center bg-[#EDEDED]/30">
-            <div className="w-full h-full rounded-3xl bg-linear-to-b from-[#87AECE]/15 via-[#EDEDED]/20 to-[#AFD06E]/15 border border-[#87AECE]/20 p-6 sm:p-10 flex items-center justify-center relative overflow-hidden">
+          {/* Right Visual Panel: Enlarged Illustration with Atmosphere */}
+          <div className="lg:col-span-6 p-3 sm:p-5 lg:p-6 flex items-center justify-center bg-[#EDEDED]/30">
+            <div className="w-full h-full rounded-3xl bg-linear-to-b from-[#87AECE]/15 via-[#EDEDED]/20 to-[#AFD06E]/15 border border-[#87AECE]/20 p-3 sm:p-5 flex items-center justify-center relative overflow-hidden">
               {/* Ambient Radial Halo Bloom */}
-              <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+              <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[460px] h-[460px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
 
               {/* Subtle Concentric Leadership Arcs */}
               <svg 
-                className="absolute inset-0 h-full w-full pointer-events-none -z-0 opacity-40 select-none overflow-visible"
+                className="absolute inset-0 h-full w-full pointer-events-none -z-0 opacity-45 select-none overflow-visible"
                 viewBox="0 0 400 400"
                 fill="none"
               >
-                <circle cx="200" cy="200" r="85" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
-                <circle cx="200" cy="200" r="140" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
-                <circle cx="200" cy="200" r="195" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
-                <circle cx="115" cy="200" r="3" fill="#437118" />
-                <circle cx="200" cy="60" r="3" fill="#1D2A62" />
-                <circle cx="285" cy="200" r="3" fill="#87AECE" />
-                <circle cx="200" cy="340" r="3" fill="#AFD06E" />
+                <circle cx="200" cy="200" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
+                <circle cx="200" cy="200" r="155" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
+                <circle cx="200" cy="200" r="215" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
+                <circle cx="105" cy="200" r="3.5" fill="#437118" />
+                <circle cx="200" cy="45" r="3.5" fill="#1D2A62" />
+                <circle cx="295" cy="200" r="3.5" fill="#87AECE" />
+                <circle cx="200" cy="355" r="3.5" fill="#AFD06E" />
               </svg>
 
-              {/* Restored Team Illustration */}
+              {/* Enlarged Team Illustration */}
               <img
                 src="/team-illustration-clean.png"
                 alt="RMIT Finance Club Project Leadership Team"
                 loading="eager"
-                className="relative z-10 w-full max-w-[380px] lg:max-w-[430px] max-h-[420px] object-contain drop-shadow-md select-none transition-transform hover:scale-102"
+                className="relative z-10 w-full max-w-[460px] lg:max-w-[520px] max-h-[480px] sm:max-h-[530px] object-contain drop-shadow-md select-none transition-transform hover:scale-102"
               />
             </div>
           </div>
