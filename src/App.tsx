@@ -12,6 +12,7 @@ import {
   INITIAL_LEARNERS, 
   INITIAL_CERTIFICATES 
 } from "@/data/mockData"
+import { LoginGateway } from "@/components/auth/LoginGateway"
 import { Navbar } from "@/components/shared/Navbar"
 import { CertificateModal } from "@/components/shared/CertificateModal"
 import { PlatformOverview } from "@/components/shared/PlatformOverview"
@@ -20,7 +21,9 @@ import { ActiveCourseViewer } from "@/components/learner/ActiveCourseViewer"
 import { InstructorDashboard } from "@/components/instructor/InstructorDashboard"
 
 export function App() {
-  const [currentRole, setCurrentRole] = useState<UserRole>('learner')
+  // Default to 'login' screen as requested
+  const [currentRole, setCurrentRole] = useState<UserRole>('login')
+  const [customUserName, setCustomUserName] = useState<string>('')
   const [courses, setCourses] = useState<Course[]>(INITIAL_COURSES)
   const [submissions, setSubmissions] = useState<AssignmentSubmission[]>(INITIAL_SUBMISSIONS)
   const [learners, setLearners] = useState<LearnerProgressItem[]>(INITIAL_LEARNERS)
@@ -33,7 +36,22 @@ export function App() {
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null)
   const [isCertModalOpen, setIsCertModalOpen] = useState(false)
 
-  // Handler: Role Switch
+  // Handler: Login as chosen role
+  const handleLoginAs = (role: 'learner' | 'instructor', customName?: string) => {
+    setCurrentRole(role)
+    if (customName) {
+      setCustomUserName(customName)
+    }
+    setActiveCourseId(null)
+  }
+
+  // Handler: Logout back to Welcome Gateway
+  const handleLogout = () => {
+    setCurrentRole('login')
+    setActiveCourseId(null)
+  }
+
+  // Handler: Role Switch within portal
   const handleRoleChange = (role: UserRole) => {
     setCurrentRole(role)
     setActiveCourseId(null)
@@ -100,7 +118,7 @@ export function App() {
       lessonId,
       lessonTitle: lesson?.title || "Bài tập thực hành",
       learnerId: "lrn-1",
-      learnerName: "Nguyễn Minh Tuấn",
+      learnerName: customUserName || "Nguyễn Minh Tuấn",
       learnerAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       department: "Ban Nhân sự & Tuyển dụng",
       submittedAt: "Vừa xong",
@@ -127,7 +145,7 @@ export function App() {
             score,
             feedback,
             status: "graded",
-            gradedBy: "ThS. Hoàng Lê Trâm"
+            gradedBy: customUserName || "ThS. Hoàng Lê Trâm"
           }
         }
         return sub
@@ -143,16 +161,29 @@ export function App() {
 
   const activeCourse = courses.find(c => c.id === activeCourseId)
 
+  // 1. If user is on the Welcome / Login Gateway screen:
+  if (currentRole === 'login') {
+    return (
+      <LoginGateway
+        onLoginAs={handleLoginAs}
+        onExploreOverview={() => setCurrentRole('overview')}
+      />
+    )
+  }
+
+  // 2. Main Portal view when role is selected (Learner, Instructor, or Overview):
   return (
     <div className="min-h-[100dvh] bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
-      {/* Persistent Navigation Bar with Role Switcher */}
+      {/* Navigation Bar with Role Switcher & Logout */}
       <Navbar
         currentRole={currentRole}
         onRoleChange={handleRoleChange}
+        onLogout={handleLogout}
+        userName={customUserName}
         unreadCount={submissions.filter(s => s.status === 'pending').length}
       />
 
-      {/* Main Role Content View */}
+      {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-6">
         {currentRole === 'overview' && (
           <PlatformOverview
@@ -196,7 +227,6 @@ export function App() {
             onCreateCourse={handleCreateCourse}
             onGradeSubmission={handleGradeSubmission}
             onSelectCourse={(course) => {
-              // Can inspect course content as teacher
               setActiveCourseId(course.id)
               setCurrentRole('learner')
             }}
@@ -215,20 +245,23 @@ export function App() {
       <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>
-            © 2026 TalentCore HRD Training Platform. Đề tài Đào tạo & Phát triển Nguồn nhân lực ASM3.
+            © 2026 RMIT Finance Club (RFC) • Project Leader Learning Hub. Đề tài HRD ASM3.
           </p>
           <div className="flex items-center gap-4 text-slate-400 text-xs">
-            <span>React 19</span>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="text-blue-700 hover:underline cursor-pointer"
+            >
+              Quay lại màn hình đăng nhập
+            </button>
             <span>•</span>
-            <span>Tailwind v4</span>
-            <span>•</span>
-            <span>Shadcn UI</span>
-            <span>•</span>
-            <span>Không dùng Database / Zero-Login</span>
+            <span>Zero-Login Architecture</span>
           </div>
         </div>
       </footer>
     </div>
   )
 }
+
 export default App

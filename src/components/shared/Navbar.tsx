@@ -5,19 +5,22 @@ import {
   ChalkboardTeacher, 
   Compass, 
   Bell, 
-  CheckCircle,
-  Sparkle,
-  BookOpen
+  Buildings,
+  SignOut,
+  Sparkle
 } from "@phosphor-icons/react"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 
 interface NavbarProps {
   currentRole: UserRole
   onRoleChange: (role: UserRole) => void
+  onLogout: () => void
+  userName?: string
   unreadCount?: number
 }
 
-export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarProps) {
+export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCount = 2 }: NavbarProps) {
   const [showNotifications, setShowNotifications] = useState(false)
 
   return (
@@ -27,36 +30,48 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
-            <span className="font-medium text-slate-100">Hệ thống Đào tạo & Phát triển Nhân lực HRD</span>
-            <span className="hidden sm:inline text-slate-400">- Phiên bản thử nghiệm tương tác hai quyền</span>
+            <span className="font-semibold text-slate-100">RMIT FINANCE CLUB (RFC)</span>
+            <span className="text-slate-400">• Project Leader Learning Hub</span>
           </div>
           <div className="flex items-center gap-3 text-slate-300 text-xs">
-            <span>Không cần đăng nhập, chuyển vai trò tức thì:</span>
+            <span className="hidden sm:inline">Chuyển vai trò nhanh:</span>
             <button
+              type="button"
               onClick={() => onRoleChange('learner')}
               className={`hover:text-white transition-colors cursor-pointer underline-offset-2 ${
                 currentRole === 'learner' ? 'text-blue-300 font-semibold underline' : ''
               }`}
             >
-              Người học
+              Learners
             </button>
             <span className="text-slate-600">/</span>
             <button
+              type="button"
               onClick={() => onRoleChange('instructor')}
               className={`hover:text-white transition-colors cursor-pointer underline-offset-2 ${
                 currentRole === 'instructor' ? 'text-blue-300 font-semibold underline' : ''
               }`}
             >
-              Người dạy
+              Trainers
             </button>
             <span className="text-slate-600">/</span>
             <button
+              type="button"
               onClick={() => onRoleChange('overview')}
               className={`hover:text-white transition-colors cursor-pointer underline-offset-2 ${
                 currentRole === 'overview' ? 'text-blue-300 font-semibold underline' : ''
               }`}
             >
               Tổng quan
+            </button>
+            <span className="text-slate-600">|</span>
+            <button
+              type="button"
+              onClick={onLogout}
+              className="text-rose-300 hover:text-rose-100 transition-colors cursor-pointer font-medium flex items-center gap-1"
+            >
+              <SignOut className="h-3 w-3" />
+              <span>Đổi vai trò</span>
             </button>
           </div>
         </div>
@@ -66,17 +81,19 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Brand Logo */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white shadow-sm font-bold text-lg">
-            <BookOpen weight="duotone" className="h-6 w-6" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-950 text-white shadow-sm font-bold text-lg">
+            <Buildings weight="duotone" className="h-6 w-6 text-blue-300" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold tracking-tight text-slate-900">TalentCore HRD</span>
-              <span className="hidden md:inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
-                ASM3
+              <span className="text-base sm:text-lg font-extrabold tracking-tight text-slate-900">
+                RMIT Finance Club
+              </span>
+              <span className="rounded px-1.5 py-0.5 text-[10px] font-bold bg-rose-600 text-white">
+                RFC
               </span>
             </div>
-            <p className="text-xs text-slate-500 hidden sm:block">Nền tảng Đào tạo Nội bộ & Phát triển Kỹ năng</p>
+            <p className="text-[11px] text-slate-500 hidden sm:block">Project Leader Learning Hub</p>
           </div>
         </div>
 
@@ -92,12 +109,7 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
             }`}
           >
             <GraduationCap weight={currentRole === 'learner' ? 'fill' : 'regular'} className="h-4 w-4" />
-            <span>Người học</span>
-            {currentRole === 'learner' && (
-              <span className="hidden lg:inline-flex text-[10px] px-1.5 py-0.2 rounded bg-blue-50 text-blue-700">
-                Học viên
-              </span>
-            )}
+            <span>Learners</span>
           </button>
 
           <button
@@ -105,25 +117,20 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
             onClick={() => onRoleChange('instructor')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all cursor-pointer ${
               currentRole === 'instructor'
-                ? 'bg-white text-blue-700 shadow-sm font-semibold'
+                ? 'bg-white text-emerald-700 shadow-sm font-semibold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <ChalkboardTeacher weight={currentRole === 'instructor' ? 'fill' : 'regular'} className="h-4 w-4" />
-            <span>Người dạy</span>
-            {currentRole === 'instructor' && (
-              <span className="hidden lg:inline-flex text-[10px] px-1.5 py-0.2 rounded bg-blue-50 text-blue-700">
-                Giảng viên
-              </span>
-            )}
+            <span>Trainers/Facilitators</span>
           </button>
 
           <button
             type="button"
             onClick={() => onRoleChange('overview')}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all cursor-pointer ${
               currentRole === 'overview'
-                ? 'bg-white text-blue-700 shadow-sm font-semibold'
+                ? 'bg-white text-slate-900 shadow-sm font-semibold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -132,7 +139,7 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
           </button>
         </div>
 
-        {/* Right: Notifications & Current Role Profile */}
+        {/* Right: Notifications, Current Role Profile & Logout */}
         <div className="flex items-center gap-3">
           {/* Notifications Dropdown */}
           <div className="relative">
@@ -159,7 +166,7 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
                 <div className="divide-y divide-slate-100 text-xs">
                   <div className="py-2.5">
                     <p className="font-medium text-slate-800">Bài tập HRD-102 đã được chấm điểm</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Giảng viên Hoàng Lê Trâm đã gửi nhận xét cho kịch bản phản hồi SBI của bạn.</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Facilitator Hoàng Lê Trâm đã gửi nhận xét cho kịch bản phản hồi SBI của bạn.</p>
                     <span className="text-[10px] text-blue-600 font-medium">10 phút trước</span>
                   </div>
                   <div className="py-2.5">
@@ -172,7 +179,7 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
             )}
           </div>
 
-          {/* Active User Card representation based on role */}
+          {/* Active User Card */}
           <div className="flex items-center gap-2.5 pl-2 border-l border-slate-200">
             {currentRole === 'learner' ? (
               <>
@@ -182,8 +189,10 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
                   className="h-9 w-9 rounded-full object-cover ring-2 ring-blue-600/20"
                 />
                 <div className="hidden md:block text-left">
-                  <p className="text-xs font-semibold text-slate-900 leading-tight">Nguyễn Minh Tuấn</p>
-                  <p className="text-[11px] text-slate-500 leading-tight">Học viên - Ban Nhân sự</p>
+                  <p className="text-xs font-semibold text-slate-900 leading-tight">
+                    {userName || "Nguyễn Minh Tuấn"}
+                  </p>
+                  <p className="text-[11px] text-slate-500 leading-tight">Project Leader - RFC</p>
                 </div>
               </>
             ) : currentRole === 'instructor' ? (
@@ -194,8 +203,10 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
                   className="h-9 w-9 rounded-full object-cover ring-2 ring-emerald-600/20"
                 />
                 <div className="hidden md:block text-left">
-                  <p className="text-xs font-semibold text-slate-900 leading-tight">ThS. Hoàng Lê Trâm</p>
-                  <p className="text-[11px] text-emerald-700 font-medium leading-tight">Giảng viên / Head of L&D</p>
+                  <p className="text-xs font-semibold text-slate-900 leading-tight">
+                    {userName || "ThS. Hoàng Lê Trâm"}
+                  </p>
+                  <p className="text-[11px] text-emerald-700 font-medium leading-tight">Facilitator / L&D Lead</p>
                 </div>
               </>
             ) : (
@@ -204,11 +215,22 @@ export function Navbar({ currentRole, onRoleChange, unreadCount = 2 }: NavbarPro
                   <Sparkle className="h-4 w-4" />
                 </div>
                 <div className="hidden md:block text-left">
-                  <p className="text-xs font-semibold text-slate-900 leading-tight">Chế độ Demo</p>
-                  <p className="text-[11px] text-slate-500 leading-tight">Khảo sát toàn diện</p>
+                  <p className="text-xs font-semibold text-slate-900 leading-tight">Demo Mode</p>
+                  <p className="text-[11px] text-slate-500 leading-tight">Khảo sát ASM3</p>
                 </div>
               </div>
             )}
+
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onLogout}
+              className="h-8 px-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer text-xs"
+              title="Đăng xuất / Quay lại màn hình chọn vai trò"
+            >
+              <SignOut className="h-4 w-4" />
+              <span className="hidden lg:inline ml-1">Đổi vai trò</span>
+            </Button>
           </div>
         </div>
       </div>
