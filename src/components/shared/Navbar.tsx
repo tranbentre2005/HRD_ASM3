@@ -1,12 +1,14 @@
 import { useState } from "react"
 import { UserRole } from "@/data/types"
 import { 
-  GraduationCap, 
-  ChalkboardTeacher, 
-  Compass, 
   Bell, 
   SignOut,
-  Sparkle
+  Sparkle,
+  ChalkboardTeacher,
+  GraduationCap,
+  Compass,
+  CheckCircle,
+  User
 } from "@phosphor-icons/react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -15,17 +17,43 @@ interface NavbarProps {
   currentRole: UserRole
   onRoleChange: (role: UserRole) => void
   onLogout: () => void
+  onGoHome?: () => void
+  onNavigateTab?: (tab: 'my-courses' | 'catalog') => void
+  onOpenSupport?: () => void
+  activeLearnerTab?: 'my-courses' | 'catalog' | 'skills' | 'certificates'
   userName?: string
   unreadCount?: number
 }
 
-export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCount = 2 }: NavbarProps) {
+export function Navbar({ 
+  currentRole, 
+  onRoleChange, 
+  onLogout, 
+  onGoHome,
+  onNavigateTab,
+  onOpenSupport,
+  activeLearnerTab = 'my-courses',
+  userName, 
+  unreadCount = 2 
+}: NavbarProps) {
   const [showNotifications, setShowNotifications] = useState(false)
+  const [showAccountMenu, setShowAccountMenu] = useState(false)
+
+  // Extract 1 initial letter from the user's name (e.g. "Nguyen Minh Tuan" -> "T")
+  const displayName = userName?.trim() || (currentRole === 'learner' ? 'Nguyen Minh Tuan' : 'MSc. Hoang Le Tram')
+  const nameParts = displayName.split(' ')
+  const initial = (nameParts[nameParts.length - 1]?.[0] || displayName[0] || 'T').toUpperCase()
+
+  const handleLogoClick = () => {
+    if (onGoHome) {
+      onGoHome()
+    }
+  }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md font-sans">
       {/* Top Banner Notice */}
-      <div className="bg-slate-900 text-slate-200 text-xs py-1.5 px-4">
+      <div className="bg-slate-900 text-slate-200 text-xs py-1 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
@@ -33,7 +61,7 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
             <span className="text-slate-400">• Project Leader Learning Hub</span>
           </div>
           <div className="flex items-center gap-3 text-slate-300 text-xs">
-            <span className="hidden sm:inline text-slate-400">Quick Switch:</span>
+            <span className="hidden sm:inline text-slate-400">Quick Role Switch:</span>
             <button
               type="button"
               onClick={() => onRoleChange('learner')}
@@ -78,83 +106,106 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
 
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        {/* Brand Bull Logo & Title */}
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-auto flex items-center justify-center">
+        {/* 1. Club Logo (Click to return to Home) */}
+        <button
+          type="button"
+          onClick={handleLogoClick}
+          className="flex items-center gap-3 cursor-pointer group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] rounded-lg p-1 -ml-1 transition-opacity hover:opacity-90"
+          title="RMIT Finance Club - Return to Home"
+        >
+          <div className="h-10 w-auto flex items-center justify-center bg-transparent shrink-0">
             <img
               src="/finance-club-logo-green.png"
               alt="RMIT Finance Club Logo"
               className="h-10 w-auto object-contain drop-shadow-2xs"
             />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-base sm:text-lg font-extrabold tracking-tight text-slate-900">
+          <div className="hidden sm:block">
+            <div className="flex items-center gap-1.5">
+              <span className="text-base font-extrabold tracking-tight text-[#1D2A62] block leading-tight">
                 RMIT Finance Club
               </span>
-              <span className="rounded px-1.5 py-0.5 text-[10px] font-bold bg-rose-600 text-white">
+              <span className="rounded px-1.5 py-0.2 text-[9px] font-bold bg-rose-600 text-white">
                 RFC
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 hidden sm:block">Project Leader Learning Hub</p>
+            <p className="text-[10px] text-[#68707D] block leading-tight mt-0.5">Project Leader Learning Hub</p>
           </div>
-        </div>
+        </button>
 
-        {/* Center: Role Switcher Selector */}
-        <div className="flex items-center rounded-xl bg-slate-100 p-1 border border-slate-200">
-          <button
-            type="button"
-            onClick={() => onRoleChange('learner')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all cursor-pointer ${
-              currentRole === 'learner'
-                ? 'bg-white text-blue-700 shadow-sm font-semibold'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <GraduationCap weight={currentRole === 'learner' ? 'fill' : 'regular'} className="h-4 w-4" />
-            <span>Learners</span>
-          </button>
+        {/* Center: When in Learner role -> COURSES, MY LEARNING, SUPPORT */}
+        {currentRole === 'learner' ? (
+          <nav className="flex items-center gap-1 sm:gap-2">
+            <button
+              type="button"
+              onClick={() => onNavigateTab?.('catalog')}
+              className={`px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                activeLearnerTab === 'catalog'
+                  ? 'bg-[#1D2A62] text-white shadow-xs font-extrabold'
+                  : 'text-[#68707D] hover:text-[#1D2A62] hover:bg-slate-100'
+              }`}
+            >
+              COURSES
+            </button>
 
-          <button
-            type="button"
-            onClick={() => onRoleChange('instructor')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all cursor-pointer ${
-              currentRole === 'instructor'
-                ? 'bg-white text-emerald-700 shadow-sm font-semibold'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <ChalkboardTeacher weight={currentRole === 'instructor' ? 'fill' : 'regular'} className="h-4 w-4" />
-            <span>Trainers/Facilitators</span>
-          </button>
+            <button
+              type="button"
+              onClick={() => onNavigateTab?.('my-courses')}
+              className={`px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                activeLearnerTab === 'my-courses'
+                  ? 'bg-[#1D2A62] text-white shadow-xs font-extrabold'
+                  : 'text-[#68707D] hover:text-[#1D2A62] hover:bg-slate-100'
+              }`}
+            >
+              MY LEARNING
+            </button>
 
-          <button
-            type="button"
-            onClick={() => onRoleChange('overview')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all cursor-pointer ${
-              currentRole === 'overview'
-                ? 'bg-white text-slate-900 shadow-sm font-semibold'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Compass weight={currentRole === 'overview' ? 'fill' : 'regular'} className="h-4 w-4" />
-            <span className="hidden sm:inline">Overview</span>
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={onOpenSupport}
+              className="px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold tracking-wider uppercase text-[#68707D] hover:text-[#1D2A62] hover:bg-slate-100 transition-all cursor-pointer"
+            >
+              SUPPORT
+            </button>
+          </nav>
+        ) : currentRole === 'instructor' ? (
+          <nav className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center rounded-xl bg-slate-100 p-1 border border-slate-200">
+              <span className="text-xs font-bold text-emerald-800 px-3 py-1 bg-white rounded-lg shadow-xs">
+                Trainer / Facilitator Portal
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={onOpenSupport}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold tracking-wider uppercase text-[#68707D] hover:text-[#1D2A62] hover:bg-slate-100 transition-all cursor-pointer"
+            >
+              SUPPORT
+            </button>
+          </nav>
+        ) : (
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+            <span>Platform Overview Mode</span>
+          </div>
+        )}
 
-        {/* Right: Notifications, Current Role Profile & Logout */}
+        {/* Right: Announcements (Bell Icon) & Learner Account Icon (1 Letter) */}
         <div className="flex items-center gap-3">
-          {/* Notifications Dropdown */}
+          {/* Announcements Bell Icon */}
           <div className="relative">
             <button
               type="button"
-              onClick={() => setShowNotifications(!showNotifications)}
-              className="relative p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
-              aria-label="System Notifications"
+              onClick={() => {
+                setShowNotifications(!showNotifications)
+                setShowAccountMenu(false)
+              }}
+              className="relative p-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
+              aria-label="Announcements"
+              title="Announcements"
             >
               <Bell className="h-5 w-5" />
               {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white">
+                <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white shadow-2xs">
                   {unreadCount}
                 </span>
               )}
@@ -163,77 +214,98 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
             {showNotifications && (
               <div className="absolute right-0 mt-2 w-80 rounded-xl border border-slate-200 bg-white p-4 shadow-xl z-50 animate-in fade-in-50 slide-in-from-top-2">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <span className="font-semibold text-sm text-slate-900">Notifications</span>
-                  <Badge variant="secondary" className="text-[10px]">2 unread</Badge>
+                  <span className="font-semibold text-sm text-[#1D2A62]">Club Announcements</span>
+                  <Badge variant="secondary" className="text-[10px]">2 new</Badge>
                 </div>
                 <div className="divide-y divide-slate-100 text-xs">
                   <div className="py-2.5">
-                    <p className="font-medium text-slate-800">SBI Assignment HRD-102 Graded</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Facilitator Hoang Le Tram provided personalized feedback on your scenario script.</p>
-                    <span className="text-[10px] text-blue-600 font-medium">10 mins ago</span>
+                    <p className="font-semibold text-slate-900">SBI Assignment HRD-102 Graded</p>
+                    <p className="text-[#68707D] text-[11px] mt-0.5">Facilitator Hoang Le Tram provided personalized feedback on your scenario script.</p>
+                    <span className="text-[10px] text-blue-700 font-semibold mt-1 inline-block">10 mins ago</span>
                   </div>
                   <div className="py-2.5">
-                    <p className="font-medium text-slate-800">Quiz Deadline Reminder</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">AI in Project Operations assessment is due this Sunday evening.</p>
-                    <span className="text-[10px] text-amber-600 font-medium">Today</span>
+                    <p className="font-semibold text-slate-900">Quiz Deadline Reminder</p>
+                    <p className="text-[#68707D] text-[11px] mt-0.5">AI in Project Operations assessment is due this Sunday evening.</p>
+                    <span className="text-[10px] text-amber-700 font-semibold mt-1 inline-block">Today</span>
                   </div>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Active User Card */}
-          <div className="flex items-center gap-2.5 pl-2 border-l border-slate-200">
-            {currentRole === 'learner' ? (
-              <>
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-                  alt="Nguyen Minh Tuan"
-                  className="h-9 w-9 rounded-full object-cover ring-2 ring-blue-600/20"
-                />
-                <div className="hidden md:block text-left">
-                  <p className="text-xs font-semibold text-slate-900 leading-tight">
-                    {userName || "Nguyen Minh Tuan"}
-                  </p>
-                  <p className="text-[11px] text-slate-500 leading-tight">Project Leader • RFC</p>
+          {/* Learner Account Icon: 1 Letter Initial */}
+          <div className="relative pl-1 border-l border-slate-200">
+            <button
+              type="button"
+              onClick={() => {
+                setShowAccountMenu(!showAccountMenu)
+                setShowNotifications(false)
+              }}
+              className="h-9 w-9 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white flex items-center justify-center font-extrabold text-sm shadow-xs border-2 border-[#87AECE]/50 transition-transform active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
+              title={`Account: ${displayName}`}
+              aria-label="Learner Account Profile"
+            >
+              <span>{initial}</span>
+            </button>
+
+            {/* User Profile Dropdown Menu */}
+            {showAccountMenu && (
+              <div className="absolute right-0 mt-2 w-64 rounded-xl border border-slate-200 bg-white p-3 shadow-xl z-50 animate-in fade-in-50 slide-in-from-top-2 text-xs">
+                <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
+                  <div className="h-8 w-8 rounded-full bg-[#1D2A62] text-white flex items-center justify-center font-bold text-xs shrink-0">
+                    {initial}
+                  </div>
+                  <div className="truncate">
+                    <p className="font-bold text-[#1D2A62] truncate">{displayName}</p>
+                    <p className="text-[10px] text-[#68707D] truncate">
+                      {currentRole === 'learner' ? 'Project Leader • RFC' : 'Facilitator • L&D Lead'}
+                    </p>
+                  </div>
                 </div>
-              </>
-            ) : currentRole === 'instructor' ? (
-              <>
-                <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
-                  alt="MSc. Hoang Le Tram"
-                  className="h-9 w-9 rounded-full object-cover ring-2 ring-emerald-600/20"
-                />
-                <div className="hidden md:block text-left">
-                  <p className="text-xs font-semibold text-slate-900 leading-tight">
-                    {userName || "MSc. Hoang Le Tram"}
-                  </p>
-                  <p className="text-[11px] text-emerald-700 font-medium leading-tight">Lead Facilitator • L&D</p>
+
+                <div className="py-2 space-y-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAccountMenu(false)
+                      onRoleChange(currentRole === 'learner' ? 'instructor' : 'learner')
+                    }}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-[#1D2A62] hover:bg-slate-100 transition-colors font-medium flex items-center justify-between"
+                  >
+                    <span>
+                      {currentRole === 'learner' ? 'Switch to Facilitator' : 'Switch to Learner'}
+                    </span>
+                    <ChalkboardTeacher className="h-4 w-4 text-[#437118]" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAccountMenu(false)
+                      onRoleChange('overview')
+                    }}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-[#1D2A62] hover:bg-slate-100 transition-colors font-medium flex items-center justify-between"
+                  >
+                    <span>Explore ASM3 Overview</span>
+                    <Compass className="h-4 w-4 text-[#1D2A62]" />
+                  </button>
                 </div>
-              </>
-            ) : (
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-slate-700">
-                  <Sparkle className="h-4 w-4" />
-                </div>
-                <div className="hidden md:block text-left">
-                  <p className="text-xs font-semibold text-slate-900 leading-tight">Preview Mode</p>
-                  <p className="text-[11px] text-slate-500 leading-tight">ASM3 Overview</p>
+
+                <div className="pt-2 border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAccountMenu(false)
+                      onLogout()
+                    }}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors font-semibold flex items-center justify-between"
+                  >
+                    <span>Switch Role / Logout</span>
+                    <SignOut className="h-4 w-4" />
+                  </button>
                 </div>
               </div>
             )}
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onLogout}
-              className="h-8 px-2.5 text-xs font-semibold border-slate-300 text-slate-700 hover:text-rose-700 hover:bg-rose-50 hover:border-rose-300 cursor-pointer"
-              title="Return to Welcome screen to switch role"
-            >
-              <SignOut className="h-3.5 w-3.5 mr-1 text-rose-600" />
-              <span>Switch Role</span>
-            </Button>
           </div>
         </div>
       </div>

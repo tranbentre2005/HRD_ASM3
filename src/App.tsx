@@ -15,13 +15,13 @@ import {
 import { LoginGateway } from "@/components/auth/LoginGateway"
 import { Navbar } from "@/components/shared/Navbar"
 import { CertificateModal } from "@/components/shared/CertificateModal"
+import { SupportModal } from "@/components/shared/SupportModal"
 import { PlatformOverview } from "@/components/shared/PlatformOverview"
 import { LearnerDashboard } from "@/components/learner/LearnerDashboard"
 import { ActiveCourseViewer } from "@/components/learner/ActiveCourseViewer"
 import { InstructorDashboard } from "@/components/instructor/InstructorDashboard"
 
 export function App() {
-  // Default to 'login' screen as requested
   const [currentRole, setCurrentRole] = useState<UserRole>('login')
   const [customUserName, setCustomUserName] = useState<string>('')
   const [courses, setCourses] = useState<Course[]>(INITIAL_COURSES)
@@ -31,10 +31,12 @@ export function App() {
 
   // Sub-navigation within learner view
   const [activeCourseId, setActiveCourseId] = useState<string | null>(null)
+  const [learnerTab, setLearnerTab] = useState<'my-courses' | 'catalog' | 'skills' | 'certificates'>('my-courses')
 
-  // Certificate Modal State
+  // Certificate & Support Modal States
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null)
   const [isCertModalOpen, setIsCertModalOpen] = useState(false)
+  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false)
 
   // Handler: Login as chosen role
   const handleLoginAs = (role: 'learner' | 'instructor', customName?: string) => {
@@ -43,12 +45,30 @@ export function App() {
       setCustomUserName(customName)
     }
     setActiveCourseId(null)
+    setLearnerTab('my-courses')
   }
 
   // Handler: Logout back to Welcome Gateway
   const handleLogout = () => {
     setCurrentRole('login')
     setActiveCourseId(null)
+  }
+
+  // Handler: Return to Home (Dashboard)
+  const handleGoHome = () => {
+    setActiveCourseId(null)
+    setLearnerTab('my-courses')
+  }
+
+  // Handler: Navigate Tabs from Header
+  const handleNavigateLearnerTab = (tab: 'my-courses' | 'catalog') => {
+    setActiveCourseId(null)
+    setLearnerTab(tab)
+  }
+
+  // Handler: Open Support Modal
+  const handleOpenSupport = () => {
+    setIsSupportModalOpen(true)
   }
 
   // Handler: Role Switch within portal
@@ -83,7 +103,6 @@ export function App() {
           })
         }))
 
-        // Recalculate progress
         const allLessons = updatedModules.flatMap(m => m.lessons)
         const completedCount = allLessons.filter(l => l.completed).length
         const total = allLessons.length
@@ -161,7 +180,7 @@ export function App() {
 
   const activeCourse = courses.find(c => c.id === activeCourseId)
 
-  // 1. If user is on the Welcome / Login Gateway screen:
+  // 1. Welcome / Login Gateway View
   if (currentRole === 'login') {
     return (
       <LoginGateway
@@ -171,14 +190,18 @@ export function App() {
     )
   }
 
-  // 2. Main Portal view when role is selected (Learner, Instructor, or Overview):
+  // 2. Main Portal view
   return (
     <div className="min-h-[100dvh] bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
-      {/* Navigation Bar with Role Switcher & Logout */}
+      {/* Navigation Bar with Logo Home, COURSES, MY LEARNING, SUPPORT, Bell, and 1-letter avatar */}
       <Navbar
         currentRole={currentRole}
         onRoleChange={handleRoleChange}
         onLogout={handleLogout}
+        onGoHome={handleGoHome}
+        onNavigateTab={handleNavigateLearnerTab}
+        onOpenSupport={handleOpenSupport}
+        activeLearnerTab={learnerTab}
         userName={customUserName}
         unreadCount={submissions.filter(s => s.status === 'pending').length}
       />
@@ -214,6 +237,8 @@ export function App() {
                 certificates={certificates}
                 onSelectCourse={handleSelectCourse}
                 onViewCertificate={handleViewCertificate}
+                activeTab={learnerTab}
+                onTabChange={setLearnerTab}
               />
             )}
           </>
@@ -239,6 +264,12 @@ export function App() {
         certificate={selectedCert}
         open={isCertModalOpen}
         onOpenChange={setIsCertModalOpen}
+      />
+
+      {/* Support & Help Desk Modal */}
+      <SupportModal
+        open={isSupportModalOpen}
+        onOpenChange={setIsSupportModalOpen}
       />
 
       {/* Footer */}

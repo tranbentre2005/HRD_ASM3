@@ -25,6 +25,8 @@ interface LearnerDashboardProps {
   certificates: CertificateItem[]
   onSelectCourse: (course: Course) => void
   onViewCertificate: (cert: CertificateItem) => void
+  activeTab?: 'my-courses' | 'catalog' | 'skills' | 'certificates'
+  onTabChange?: (tab: 'my-courses' | 'catalog' | 'skills' | 'certificates') => void
 }
 
 export function LearnerDashboard({
@@ -32,8 +34,19 @@ export function LearnerDashboard({
   certificates,
   onSelectCourse,
   onViewCertificate,
+  activeTab: controlledTab,
+  onTabChange,
 }: LearnerDashboardProps) {
-  const [activeTab, setActiveTab] = useState<'my-courses' | 'catalog' | 'skills' | 'certificates'>('my-courses')
+  const [internalTab, setInternalTab] = useState<'my-courses' | 'catalog' | 'skills' | 'certificates'>('my-courses')
+  const activeTab = controlledTab ?? internalTab
+
+  const setActiveTab = (tab: 'my-courses' | 'catalog' | 'skills' | 'certificates') => {
+    if (onTabChange) {
+      onTabChange(tab)
+    } else {
+      setInternalTab(tab)
+    }
+  }
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
