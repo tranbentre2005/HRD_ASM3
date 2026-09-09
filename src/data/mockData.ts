@@ -3,7 +3,7 @@ import { Course, AssignmentSubmission, LearnerProgressItem, CertificateItem } fr
 export const INITIAL_COURSES: Course[] = [
   {
     id: "course-1",
-    title: "Empathetic Communication and SBI Feedback Model",
+    title: "Event Readiness: Empathetic Communication & SBI Feedback",
     code: "HRD-102",
     category: "Soft Skills & Management",
     level: "Intermediate",
@@ -145,7 +145,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     id: "course-2",
-    title: "Transformational Leadership and Performance OKRs",
+    title: "Event Audit: Transformational Leadership & Post-Event Review",
     code: "HRD-204",
     category: "Leadership & Strategy",
     level: "Advanced",

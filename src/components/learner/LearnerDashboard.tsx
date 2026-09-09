@@ -69,8 +69,8 @@ export function LearnerDashboard({
     const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory
     return matchesSearch && matchesCategory
   })
-
   const heroCourse = inProgressCourses[0] || courses[0]
+  const avgProgress = courses.length > 0 ? Math.round(courses.reduce((acc, c) => acc + c.progress, 0) / courses.length) : 50
 
   return (
     <div className="space-y-8 pb-12 font-sans">
@@ -105,42 +105,107 @@ export function LearnerDashboard({
               </Button>
             </div>
 
-            {/* Quick Metrics Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-100">
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-left">
-                <div className="flex items-center justify-between text-[#1D2A62] mb-0.5">
-                  <Hourglass className="h-4 w-4" />
-                  <span className="text-[10px] font-bold font-mono">68%</span>
+            {/* 3 Executive Learning Metrics Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4 border-t border-slate-100">
+              {/* 1. Your Learning Progress */}
+              <div className="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center gap-3">
+                {/* Circular Progress Gauge */}
+                <div className="relative h-12 w-12 flex items-center justify-center shrink-0">
+                  <svg className="h-12 w-12 -rotate-90" viewBox="0 0 36 36">
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="15"
+                      fill="none"
+                      stroke="#EDEDED"
+                      strokeWidth="3"
+                    />
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="15"
+                      fill="none"
+                      stroke="#437118"
+                      strokeWidth="3"
+                      strokeDasharray="94.2"
+                      strokeDashoffset={94.2 * (1 - avgProgress / 100)}
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span className="absolute text-[11px] font-extrabold text-[#1D2A62] font-mono">
+                    {avgProgress}%
+                  </span>
                 </div>
-                <p className="text-sm font-bold text-slate-900">24 / 36 h</p>
-                <p className="text-[10px] text-slate-500">Training Hours</p>
+
+                <div className="space-y-0.5">
+                  <p className="text-[10px] font-bold text-[#68707D] uppercase tracking-wider">
+                    Your Learning Progress
+                  </p>
+                  <p className="text-sm font-extrabold text-[#1D2A62] leading-tight">
+                    {completedCourses.length} of {courses.length} Completed
+                  </p>
+                  <p className="text-[10px] text-[#437118] font-semibold">
+                    {avgProgress}% overall progress
+                  </p>
+                </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-left">
-                <div className="flex items-center justify-between text-[#437118] mb-0.5">
-                  <Medal className="h-4 w-4" />
-                  <span className="text-[10px] font-bold font-mono">2 / 4</span>
+              {/* 2. Current Course */}
+              <div 
+                role="button"
+                tabIndex={0}
+                onClick={() => onSelectCourse(heroCourse)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') onSelectCourse(heroCourse)
+                }}
+                className="p-3.5 rounded-2xl bg-blue-50/40 border border-[#87AECE]/40 shadow-2xs flex flex-col justify-between cursor-pointer hover:border-[#1D2A62]/60 hover:bg-blue-50/70 transition-all text-left group"
+                title="Click to resume Event Readiness"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1">
+                    <p className="text-[10px] font-bold text-blue-700 uppercase tracking-wider flex items-center gap-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#437118] animate-pulse" />
+                      Current Course
+                    </p>
+                    <span className="text-[9px] font-bold font-mono text-blue-700 bg-blue-100/70 px-1.5 py-0.2 rounded">
+                      In Progress
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-[#1D2A62] group-hover:text-blue-700 transition-colors truncate">
+                    Event Readiness
+                  </h4>
                 </div>
-                <p className="text-sm font-bold text-slate-900">{certificates.length} Certs</p>
-                <p className="text-[10px] text-slate-500">Credentials</p>
+
+                <div className="pt-2 flex items-center justify-between text-[11px] text-[#68707D]">
+                  <span className="font-mono text-[10px]">HRD-102 • 75% complete</span>
+                  <span className="text-[#1D2A62] font-semibold text-[10px] group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5">
+                    Resume →
+                  </span>
+                </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-left">
-                <div className="flex items-center justify-between text-[#1D2A62] mb-0.5">
-                  <BookOpen className="h-4 w-4" />
-                  <span className="text-[10px] font-bold font-mono">2 Active</span>
+              {/* 3. Next Up */}
+              <div className="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1">
+                    <p className="text-[10px] font-bold text-[#68707D] uppercase tracking-wider">
+                      Next Up
+                    </p>
+                    <span className="text-[9px] font-semibold text-slate-500 bg-slate-200/70 px-1.5 py-0.2 rounded">
+                      Upcoming
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-[#1D2A62] truncate">
+                    Event Audit
+                  </h4>
                 </div>
-                <p className="text-sm font-bold text-slate-900">{courses.length} Courses</p>
-                <p className="text-[10px] text-slate-500">Curriculum</p>
-              </div>
 
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-left">
-                <div className="flex items-center justify-between text-amber-600 mb-0.5">
-                  <TrendUp className="h-4 w-4" />
-                  <span className="text-[10px] font-bold font-mono">92.5</span>
+                <div className="pt-2 flex items-center justify-between text-[11px] text-[#68707D]">
+                  <span className="font-mono text-[10px]">HRD-204 • Post-Event Review</span>
+                  <span className="text-[10px] font-medium text-slate-400">
+                    Locked
+                  </span>
                 </div>
-                <p className="text-sm font-bold text-slate-900">92.5 / 100</p>
-                <p className="text-[10px] text-slate-500">Avg Score</p>
               </div>
             </div>
           </div>
