@@ -67,25 +67,25 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
             <div className="space-y-6">
               {/* Club Bull Logo & Badge */}
               <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-14 w-auto flex items-center justify-center">
+                <div className="flex items-center gap-3.5">
+                  <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-slate-950 p-2 flex items-center justify-center shadow-md border border-slate-800 shrink-0">
                     <img
-                      src="/finance-club-logo.png"
-                      alt="RMIT Finance Club Bull Logo"
-                      className="h-14 w-auto object-contain drop-shadow-xs"
+                      src="/finance-club-logo-white.png"
+                      alt="RMIT Finance Club Logo"
+                      className="h-full w-full object-contain drop-shadow-sm"
                     />
                   </div>
-                  <div className="border-l border-slate-200 pl-3">
-                    <span className="text-xs font-extrabold text-slate-900 tracking-tight uppercase block leading-tight">
+                  <div>
+                    <span className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight uppercase block leading-tight">
                       RMIT Finance Club
                     </span>
-                    <span className="text-[10px] text-slate-500 block leading-tight">
+                    <span className="text-xs text-slate-500 block leading-tight mt-0.5">
                       Project Leader Learning Hub
                     </span>
                   </div>
                 </div>
 
-                <span className="rounded-full bg-rose-600 text-white text-[10px] font-bold px-2 py-0.5 shadow-2xs">
+                <span className="rounded-full bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 shadow-2xs">
                   RFC • ASM3
                 </span>
               </div>
