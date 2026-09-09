@@ -89,10 +89,10 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                 </span>
               </div>
 
-              {/* 1. Headline & Hierarchy: Reduced size, less heavy weight */}
+              {/* 1. Headline & Hierarchy: All-caps with green-to-blue gradient and exclamation mark */}
               <div className="pt-1">
-                <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1D2A62] leading-snug">
-                  Welcome to your Project Leader Learning Hub
+                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-snug">
+                  WELCOME TO YOUR PROJECT LEADER LEARNING HUB !
                 </h1>
               </div>
 
@@ -227,100 +227,21 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
             </div>
           </div>
 
-          {/* 5. Right Visual Panel: Subtle wash, vertically centered, Event Readiness focus */}
+          {/* 5. Right Visual Panel: Team illustration with palette colors */}
           <div className="lg:col-span-6 p-4 sm:p-6 lg:p-8 flex items-center justify-center bg-[#EDEDED]/30">
-            <div className="w-full h-full rounded-3xl bg-linear-to-b from-[#87AECE]/10 via-[#EDEDED]/15 to-[#AFD06E]/10 border border-[#87AECE]/20 p-6 sm:p-8 flex flex-col justify-center items-center text-center relative overflow-hidden">
-              {/* Vertically Centered Illustration & Event Readiness Group */}
-              <div className="w-full flex flex-col items-center justify-center py-2">
-                <div className="relative w-full max-w-[300px] aspect-4/3 flex items-center justify-center">
-                  <svg
-                    viewBox="0 0 400 340"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-full select-none drop-shadow-2xs"
-                  >
-                    {/* Background Thought Contour in Soft Azure & Lime */}
-                    <path
-                      d="M120 110 C90 100 80 70 110 50 C130 30 170 30 190 45 C210 20 260 20 280 50 C310 40 330 70 310 95 C335 120 315 155 285 155 C275 180 230 180 210 165 C190 180 150 175 140 150 C110 150 100 125 120 110 Z"
-                      stroke="#87AECE"
-                      strokeWidth="2"
-                      strokeDasharray="4 4"
-                      fill="#ffffff"
-                      fillOpacity="0.8"
-                    />
-
-                    {/* Floating Avatar 1 in #1D2A62 */}
-                    <g transform="translate(65, 65)">
-                      <circle cx="20" cy="20" r="18" fill="#ffffff" stroke="#1D2A62" strokeWidth="2" />
-                      <path d="M13 14 Q20 8 27 14" stroke="#1D2A62" strokeWidth="2" strokeLinecap="round" />
-                      <circle cx="16" cy="18" r="1.5" fill="#1D2A62" />
-                      <circle cx="24" cy="18" r="1.5" fill="#1D2A62" />
-                      <path d="M16 23 Q20 28 24 23" stroke="#437118" strokeWidth="1.8" strokeLinecap="round" fill="none" />
-                    </g>
-
-                    {/* Floating Avatar 2 in #437118 */}
-                    <g transform="translate(315, 125)">
-                      <circle cx="20" cy="20" r="18" fill="#ffffff" stroke="#437118" strokeWidth="2" />
-                      <path d="M12 16 Q20 9 28 16" stroke="#437118" strokeWidth="2" strokeLinecap="round" />
-                      <circle cx="16" cy="19" r="1.5" fill="#437118" />
-                      <circle cx="24" cy="19" r="1.5" fill="#437118" />
-                      <ellipse cx="20" cy="24" rx="2.5" ry="3" fill="#1D2A62" />
-                    </g>
-
-                    {/* Central Meditating Character */}
-                    <ellipse cx="200" cy="115" rx="19" ry="23" fill="#ffffff" stroke="#1D2A62" strokeWidth="2.2" />
-                    <path
-                      d="M181 110 C176 92 199 82 218 87 C223 101 218 115 218 124 C213 110 204 105 195 105 C186 105 181 115 181 110 Z"
-                      fill="#1D2A62"
-                    />
-                    <path d="M191 116 Q194 119 197 116" stroke="#1D2A62" strokeWidth="1.8" strokeLinecap="round" fill="none" />
-                    <path d="M203 116 Q206 119 209 116" stroke="#1D2A62" strokeWidth="1.8" strokeLinecap="round" fill="none" />
-                    <path d="M197 125 Q200 127 203 125" stroke="#437118" strokeWidth="1.8" strokeLinecap="round" fill="none" />
-
-                    {/* Fresh Lime Green Sweater in #AFD06E */}
-                    <path
-                      d="M176 138 C166 143 152 157 143 175 C157 180 171 185 185 185 L185 195 L215 195 L215 185 C229 185 243 180 257 175 C248 157 234 143 224 138 Z"
-                      fill="#AFD06E"
-                      stroke="#1D2A62"
-                      strokeWidth="2.2"
-                    />
-
-                    {/* White Heart on Sweater */}
-                    <path
-                      d="M200 165 C200 165 191 157 191 151 C191 146 195 143 198 145 C200 147 200 148 200 148 C200 148 200 147 202 145 C205 143 209 146 209 151 C209 157 200 165 200 165 Z"
-                      fill="#ffffff"
-                    />
-
-                    {/* Arms in meditation pose */}
-                    <path
-                      d="M152 163 C138 149 133 131 140 122 C145 117 149 123 150 128 C151 135 161 153 170 163"
-                      stroke="#1D2A62"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <path
-                      d="M248 163 C262 149 267 131 260 122 C255 117 251 123 250 128 C249 135 239 153 230 163"
-                      stroke="#1D2A62"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-
-                    {/* Cross-legged Pants in White & Deep Navy */}
-                    <path
-                      d="M176 191 C148 196 125 210 143 233 C161 242 180 238 200 229 C220 238 239 242 257 233 C275 210 252 196 224 191 Z"
-                      fill="#ffffff"
-                      stroke="#1D2A62"
-                      strokeWidth="2.2"
-                    />
-
-                    <path d="M176 229 Q181 241 190 238 Q194 233 188 226" fill="#ffffff" stroke="#1D2A62" strokeWidth="1.8" />
-                    <path d="M224 229 Q219 241 210 238 Q206 233 212 226" fill="#ffffff" stroke="#1D2A62" strokeWidth="1.8" />
-                  </svg>
+            <div className="w-full h-full rounded-3xl bg-linear-to-b from-[#87AECE]/15 via-[#EDEDED]/20 to-[#AFD06E]/15 border border-[#87AECE]/20 p-6 sm:p-8 flex flex-col justify-between items-center text-center relative overflow-hidden">
+              {/* Vertically Centered Illustration */}
+              <div className="w-full flex-1 flex flex-col items-center justify-center py-2 relative">
+                <div className="relative w-full max-w-[340px] aspect-square flex items-center justify-center">
+                  <img
+                    src="/team-illustration-clean.png"
+                    alt="RFC Project Leadership Team"
+                    loading="eager"
+                    className="max-h-[320px] w-auto object-contain drop-shadow-sm"
+                  />
 
                   {/* Floating Event Readiness Card */}
-                  <div className="absolute left-0 bottom-0 sm:-bottom-1 bg-white rounded-2xl p-3 sm:p-3.5 shadow-md border border-[#87AECE]/35 text-left min-w-[155px] sm:min-w-[175px]">
+                  <div className="absolute left-0 bottom-0 bg-white/95 backdrop-blur-xs rounded-2xl p-3 sm:p-3.5 shadow-md border border-[#87AECE]/35 text-left min-w-[155px] sm:min-w-[175px]">
                     <div className="flex items-start justify-between gap-2">
                       <div className="space-y-0.5">
                         <p className="font-bold text-[#1D2A62] text-xs sm:text-sm leading-tight">
@@ -331,7 +252,6 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                         </p>
                       </div>
 
-                      {/* Small Verified Indicator in #437118 */}
                       <div className="h-6 w-6 rounded-full bg-[#437118]/10 text-[#437118] flex items-center justify-center shrink-0">
                         <Check weight="bold" className="h-3.5 w-3.5" />
                       </div>
@@ -347,7 +267,7 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
               </div>
 
               {/* Bottom Event Readiness Message */}
-              <div className="space-y-1 pt-4 max-w-sm">
+              <div className="space-y-1 pt-3 max-w-sm">
                 <p className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug">
                   Practical tools for confident, participant-ready project leadership.
                 </p>
