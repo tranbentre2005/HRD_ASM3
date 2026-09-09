@@ -84,7 +84,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
               {/* 1. Headline & Hierarchy: All-caps with green-to-blue gradient, centered */}
               <div className="pt-1 text-center">
                 <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-snug text-center mx-auto">
-                  WELCOME TO YOUR PROJECT LEADER LEARNING HUB !
+                  WELCOME TO RMIT VIETNAM FINANCE CLUB LEARNING HUB!
                 </h1>
               </div>
 
