@@ -16,7 +16,6 @@ import { LoginGateway } from "@/components/auth/LoginGateway"
 import { Navbar } from "@/components/shared/Navbar"
 import { CertificateModal } from "@/components/shared/CertificateModal"
 import { SupportModal } from "@/components/shared/SupportModal"
-import { PlatformOverview } from "@/components/shared/PlatformOverview"
 import { LearnerDashboard } from "@/components/learner/LearnerDashboard"
 import { ActiveCourseViewer } from "@/components/learner/ActiveCourseViewer"
 import { InstructorDashboard } from "@/components/instructor/InstructorDashboard"
@@ -185,7 +184,6 @@ export function App() {
     return (
       <LoginGateway
         onLoginAs={handleLoginAs}
-        onExploreOverview={() => setCurrentRole('overview')}
       />
     )
   }
@@ -205,23 +203,8 @@ export function App() {
         userName={customUserName}
         unreadCount={submissions.filter(s => s.status === 'pending').length}
       />
-
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-6">
-        {currentRole === 'overview' && (
-          <PlatformOverview
-            onSelectRole={handleRoleChange}
-            onQuickStartCourse={(courseId) => {
-              setCurrentRole('learner')
-              setActiveCourseId(courseId)
-            }}
-            onOpenCertificate={() => {
-              setSelectedCert(certificates[0])
-              setIsCertModalOpen(true)
-            }}
-          />
-        )}
-
         {currentRole === 'learner' && (
           <>
             {activeCourse ? (

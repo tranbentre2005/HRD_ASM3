@@ -3,12 +3,8 @@ import { UserRole } from "@/data/types"
 import { 
   Bell, 
   SignOut,
-  Sparkle,
   ChalkboardTeacher,
-  GraduationCap,
-  Compass,
-  CheckCircle,
-  User
+  GraduationCap
 } from "@phosphor-icons/react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -81,16 +77,7 @@ export function Navbar({
             >
               Trainers
             </button>
-            <span className="text-slate-600">/</span>
-            <button
-              type="button"
-              onClick={() => onRoleChange('overview')}
-              className={`hover:text-white transition-colors cursor-pointer underline-offset-2 ${
-                currentRole === 'overview' ? 'text-blue-300 font-semibold underline' : ''
-              }`}
-            >
-              Overview
-            </button>
+
             <span className="text-slate-600">|</span>
             <button
               type="button"
@@ -168,7 +155,7 @@ export function Navbar({
               SUPPORT
             </button>
           </nav>
-        ) : currentRole === 'instructor' ? (
+        ) : (
           <nav className="flex items-center gap-1 sm:gap-2">
             <div className="flex items-center rounded-xl bg-slate-100 p-1 border border-slate-200">
               <span className="text-xs font-bold text-emerald-800 px-3 py-1 bg-white rounded-lg shadow-xs">
@@ -183,10 +170,6 @@ export function Navbar({
               SUPPORT
             </button>
           </nav>
-        ) : (
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
-            <span>Platform Overview Mode</span>
-          </div>
         )}
 
         {/* Right: Announcements (Bell Icon) & Learner Account Icon (1 Letter) */}
@@ -278,17 +261,7 @@ export function Navbar({
                     <ChalkboardTeacher className="h-4 w-4 text-[#437118]" />
                   </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowAccountMenu(false)
-                      onRoleChange('overview')
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-[#1D2A62] hover:bg-slate-100 transition-colors font-medium flex items-center justify-between"
-                  >
-                    <span>Explore ASM3 Overview</span>
-                    <Compass className="h-4 w-4 text-[#1D2A62]" />
-                  </button>
+
                 </div>
 
                 <div className="pt-2 border-t border-slate-100">

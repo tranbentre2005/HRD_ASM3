@@ -3,17 +3,15 @@ import {
   GraduationCap, 
   ChalkboardTeacher, 
   ArrowRight,
-  Compass,
   Check
 } from "@phosphor-icons/react"
 import confetti from "canvas-confetti"
 
 interface LoginGatewayProps {
   onLoginAs: (role: 'learner' | 'instructor', customName?: string) => void
-  onExploreOverview: () => void
 }
 
-export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps) {
+export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
   const [selectedRole, setSelectedRole] = useState<'learner' | 'instructor'>('learner')
 
   const handleSelectRole = (role: 'learner' | 'instructor') => {
@@ -47,15 +45,9 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
           <span className="text-[11px] font-medium text-[#68707D]">
             Project Leader Capability Portal
           </span>
-
-          <button
-            type="button"
-            onClick={onExploreOverview}
-            className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] transition-colors cursor-pointer flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] rounded-md px-1.5 py-0.5"
-          >
-            <Compass className="h-3.5 w-3.5 text-[#437118]" />
-            <span>Overview</span>
-          </button>
+          <span className="text-[11px] font-medium text-[#68707D]">
+            Cohort · ASM3
+          </span>
         </div>
 
         {/* Split Body Layout */}
@@ -215,15 +207,9 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
             </div>
 
             {/* Quiet Footer Metadata */}
-            <div className="pt-4 text-center text-xs text-[#68707D] border-t border-[#EDEDED] flex items-center justify-between gap-3">
-              <span>Zero-Login Session • In-Memory Architecture</span>
-              <button
-                type="button"
-                onClick={onExploreOverview}
-                className="text-[#1D2A62] font-semibold hover:text-[#437118] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] rounded"
-              >
-                Explore ASM3 Overview
-              </button>
+            <div className="pt-4 text-xs text-[#68707D] border-t border-[#EDEDED] flex items-center justify-between gap-3">
+              <span>RMIT Finance Club • Zero-Login Architecture</span>
+              <span>In-Memory Session</span>
             </div>
           </div>
 
