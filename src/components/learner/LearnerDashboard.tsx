@@ -20,6 +20,7 @@ import {
   Eye, 
   ArrowRight,
   ArrowLeft,
+  ArrowDown,
   DiamondsFour,
   PlayCircle,
   BookmarkSimple,
@@ -330,13 +331,12 @@ export function LearnerDashboard({
                 />
               </svg>
             </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-3 text-center relative z-10">
               {/* Step 1: Think strategically */}
               <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#87AECE]/60 text-[#1D2A62] shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#87AECE]/20 flex items-center justify-center">
-                    <Brain weight="duotone" className="h-6 w-6 text-[#1D2A62]" />
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
+                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
+                    <Brain weight="duotone" className="h-6 w-6 text-[#437118]" />
                   </div>
                 </div>
                 <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
@@ -352,9 +352,9 @@ export function LearnerDashboard({
 
               {/* Step 2: Plan & coordinate */}
               <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#1D2A62]/40 text-[#1D2A62] shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#1D2A62]/10 flex items-center justify-center">
-                    <CalendarCheck weight="duotone" className="h-6 w-6 text-[#1D2A62]" />
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
+                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
+                    <CalendarCheck weight="duotone" className="h-6 w-6 text-[#437118]" />
                   </div>
                 </div>
                 <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
@@ -370,8 +370,8 @@ export function LearnerDashboard({
 
               {/* Step 3: Lead people */}
               <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 text-[#437118] shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/25 flex items-center justify-center">
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
+                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
                     <Users weight="duotone" className="h-6 w-6 text-[#437118]" />
                   </div>
                 </div>
@@ -388,8 +388,8 @@ export function LearnerDashboard({
 
               {/* Step 4: Deliver with readiness */}
               <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#437118]/40 text-[#437118] shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#437118]/15 flex items-center justify-center">
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
+                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
                     <ShieldCheck weight="duotone" className="h-6 w-6 text-[#437118]" />
                   </div>
                 </div>
@@ -406,9 +406,9 @@ export function LearnerDashboard({
 
               {/* Step 5: Reflect & improve */}
               <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#87AECE]/60 text-[#1D2A62] shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#87AECE]/25 flex items-center justify-center">
-                    <ArrowsClockwise weight="bold" className="h-6 w-6 text-[#1D2A62]" />
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
+                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
+                    <ArrowsClockwise weight="bold" className="h-6 w-6 text-[#437118]" />
                   </div>
                 </div>
                 <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
@@ -433,7 +433,7 @@ export function LearnerDashboard({
               className="h-11 px-7 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-xs hover:shadow-md transition-all cursor-pointer active:scale-[0.98]"
             >
               <span>Explore the Learning Pathway</span>
-              <ArrowRight className={`h-4 w-4 transition-transform duration-200 ${isHoveringPathway || isPathwayRevealed ? 'translate-x-1' : ''}`} />
+              <ArrowDown className={`h-4 w-4 transition-transform duration-200 ${isHoveringPathway || isPathwayRevealed ? 'translate-y-1' : ''}`} />
             </button>
 
             <span className="text-xs text-[#68707D] flex items-center gap-1.5 font-medium">
@@ -461,8 +461,8 @@ export function LearnerDashboard({
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#87AECE]/20 text-[#1D2A62] group-hover:bg-[#1D2A62] group-hover:text-white transition-colors">
-                    <Compass weight="duotone" className="h-5 w-5" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                    <Compass weight="duotone" className="h-5 w-5 text-[#437118] group-hover:text-white" />
                   </div>
                   <span className="text-[10px] font-bold text-[#68707D] font-mono">
                     STAGE 01
@@ -497,8 +497,8 @@ export function LearnerDashboard({
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1D2A62]/10 text-[#1D2A62] group-hover:bg-[#1D2A62] group-hover:text-white transition-colors">
-                    <Users weight="duotone" className="h-5 w-5" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                    <Users weight="duotone" className="h-5 w-5 text-[#437118] group-hover:text-white" />
                   </div>
                   <span className="text-[10px] font-bold text-[#68707D] font-mono">
                     STAGE 02
@@ -533,8 +533,8 @@ export function LearnerDashboard({
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#437118]/15 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
-                    <RocketLaunch weight="duotone" className="h-5 w-5" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                    <RocketLaunch weight="duotone" className="h-5 w-5 text-[#437118] group-hover:text-white" />
                   </div>
                   <span className="text-[10px] font-bold text-[#68707D] font-mono">
                     STAGE 03
@@ -570,7 +570,7 @@ export function LearnerDashboard({
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
-                    <TrendUp weight="bold" className="h-5 w-5" />
+                    <TrendUp weight="bold" className="h-5 w-5 text-[#437118] group-hover:text-white" />
                   </div>
                   <span className="text-[10px] font-bold text-[#68707D] font-mono">
                     STAGE 04
@@ -595,7 +595,6 @@ export function LearnerDashboard({
           </div>
         </div>
       </div>
-
 
       {/* Sub-Views when navigated away from Home (e.g. clicking COURSES in header) */}
       {activeTab !== 'my-courses' && (
