@@ -82,7 +82,7 @@ export function Navbar({ currentRole, onRoleChange, onLogout, userName, unreadCo
         <div className="flex items-center gap-3">
           <div className="h-10 w-auto flex items-center justify-center">
             <img
-              src="/finance-club-logo.png"
+              src="/finance-club-logo-green.png"
               alt="RMIT Finance Club Logo"
               className="h-10 w-auto object-contain drop-shadow-2xs"
             />
