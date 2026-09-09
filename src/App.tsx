@@ -204,7 +204,7 @@ export function App() {
         unreadCount={submissions.filter(s => s.status === 'pending').length}
       />
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-3 sm:pt-3.5">
         {currentRole === 'learner' && (
           <>
             {activeCourse ? (

@@ -77,9 +77,9 @@ export function LearnerDashboard({
   const avgProgress = courses.length > 0 ? Math.round(courses.reduce((acc, c) => acc + c.progress, 0) / courses.length) : 50
 
   return (
-    <div className="space-y-8 pb-12 font-sans">
+    <div className="space-y-6 pb-8 font-sans">
       {/* Learner Hero Banner with Dynamic Background & Aligned Proportions */}
-      <div className="relative rounded-3xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
+      <div className="relative rounded-3xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-5 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
@@ -103,9 +103,9 @@ export function LearnerDashboard({
           <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
           <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
         </svg>
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           {/* Left Column: Welcome Headline, Subtitle & CTA */}
-          <div className="lg:col-span-7 space-y-4">
+          <div className="lg:col-span-7 space-y-3">
             <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/90 border border-[#87AECE]/40 shadow-2xs backdrop-blur-xs">
               <span className="h-2 w-2 rounded-full bg-[#437118] animate-pulse" />
               <span className="text-[11px] font-bold text-[#1D2A62]">
@@ -150,9 +150,9 @@ export function LearnerDashboard({
             />
           </div>
           {/* Full-Width Bottom Row: 3 Executive Cards Exactly Formatted per Image */}
-          <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-slate-200/60">
+          <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-4 border-t border-slate-200/60">
             {/* Card 1: YOUR LEARNING PROGRESS */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
               <div className="flex items-center gap-2 mb-3">
                 <DiamondsFour weight="bold" className="h-4 w-4 text-[#437118]" />
                 <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
@@ -205,7 +205,7 @@ export function LearnerDashboard({
             </div>
 
             {/* Card 2: CURRENT COURSE */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
                   <PlayCircle weight="fill" className="h-4 w-4 text-[#437118]" />
@@ -246,7 +246,7 @@ export function LearnerDashboard({
             </div>
 
             {/* Card 3: NEXT UP */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
               <div className="flex items-center gap-2 mb-2">
                 <BookmarkSimple weight="bold" className="h-4 w-4 text-[#437118]" />
                 <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">

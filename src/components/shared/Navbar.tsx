@@ -49,7 +49,7 @@ export function Navbar({
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md font-sans">
       {/* Top Banner Notice */}
-      <div className="bg-slate-900 text-slate-200 text-xs py-1 px-4">
+      <div className="bg-slate-900 text-slate-200 text-xs py-0.5 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
@@ -92,7 +92,7 @@ export function Navbar({
       </div>
 
       {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-15 flex items-center justify-between gap-4">
         {/* 1. Club Logo (Click to return to Home) */}
         <button
           type="button"
