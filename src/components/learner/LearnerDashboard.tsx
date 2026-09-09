@@ -20,7 +20,7 @@ import {
   Eye, 
   ArrowRight,
   DiamondsFour,
-  CircleNotch,
+  PlayCircle,
   BookmarkSimple,
   Timer
 } from "@phosphor-icons/react"
@@ -127,9 +127,9 @@ export function LearnerDashboard({
             {/* Card 1: Your Learning Progress */}
             <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
               <div className="flex items-center gap-2 mb-3">
-                <DiamondsFour weight="bold" className="h-4 w-4 text-[#1D2A62]" />
-                <h3 className="text-sm font-bold text-[#1D2A62]">
-                  Your Learning Progress
+                <DiamondsFour weight="bold" className="h-4 w-4 text-[#437118]" />
+                <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
+                  YOUR LEARNING PROGRESS
                 </h3>
               </div>
 
@@ -181,9 +181,9 @@ export function LearnerDashboard({
             <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
-                  <CircleNotch weight="bold" className="h-4 w-4 text-[#1D2A62]" />
-                  <h3 className="text-sm font-bold text-[#1D2A62]">
-                    Current Course
+                  <PlayCircle weight="fill" className="h-4 w-4 text-[#437118]" />
+                  <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
+                    CURRENT COURSE
                   </h3>
                 </div>
                 <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full">
@@ -221,9 +221,9 @@ export function LearnerDashboard({
             {/* Card 3: Next Up */}
             <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
               <div className="flex items-center gap-2 mb-2">
-                <BookmarkSimple weight="bold" className="h-4 w-4 text-[#1D2A62]" />
-                <h3 className="text-sm font-bold text-[#1D2A62]">
-                  Next Up
+                <BookmarkSimple weight="bold" className="h-4 w-4 text-[#437118]" />
+                <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
+                  NEXT UP
                 </h3>
               </div>
 
