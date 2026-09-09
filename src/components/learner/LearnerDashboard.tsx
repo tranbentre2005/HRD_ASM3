@@ -12,13 +12,17 @@ import {
   Medal, 
   MagnifyingGlass, 
   Play, 
-  CheckCircle,
-  Sparkle,
-  TrendUp,
-  Target,
-  Certificate,
-  Eye,
-  ArrowRight
+  CheckCircle, 
+  Sparkle, 
+  TrendUp, 
+  Target, 
+  Certificate, 
+  Eye, 
+  ArrowRight,
+  DiamondsFour,
+  CircleNotch,
+  BookmarkSimple,
+  Timer
 } from "@phosphor-icons/react"
 
 interface LearnerDashboardProps {
@@ -104,110 +108,6 @@ export function LearnerDashboard({
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
-
-            {/* 3 Executive Learning Metrics Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4 border-t border-slate-100">
-              {/* 1. Your Learning Progress */}
-              <div className="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center gap-3">
-                {/* Circular Progress Gauge */}
-                <div className="relative h-12 w-12 flex items-center justify-center shrink-0">
-                  <svg className="h-12 w-12 -rotate-90" viewBox="0 0 36 36">
-                    <circle
-                      cx="18"
-                      cy="18"
-                      r="15"
-                      fill="none"
-                      stroke="#EDEDED"
-                      strokeWidth="3"
-                    />
-                    <circle
-                      cx="18"
-                      cy="18"
-                      r="15"
-                      fill="none"
-                      stroke="#437118"
-                      strokeWidth="3"
-                      strokeDasharray="94.2"
-                      strokeDashoffset={94.2 * (1 - avgProgress / 100)}
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  <span className="absolute text-[11px] font-extrabold text-[#1D2A62] font-mono">
-                    {avgProgress}%
-                  </span>
-                </div>
-
-                <div className="space-y-0.5">
-                  <p className="text-[10px] font-bold text-[#68707D] uppercase tracking-wider">
-                    Your Learning Progress
-                  </p>
-                  <p className="text-sm font-extrabold text-[#1D2A62] leading-tight">
-                    {completedCourses.length} of {courses.length} Completed
-                  </p>
-                  <p className="text-[10px] text-[#437118] font-semibold">
-                    {avgProgress}% overall progress
-                  </p>
-                </div>
-              </div>
-
-              {/* 2. Current Course */}
-              <div 
-                role="button"
-                tabIndex={0}
-                onClick={() => onSelectCourse(heroCourse)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') onSelectCourse(heroCourse)
-                }}
-                className="p-3.5 rounded-2xl bg-blue-50/40 border border-[#87AECE]/40 shadow-2xs flex flex-col justify-between cursor-pointer hover:border-[#1D2A62]/60 hover:bg-blue-50/70 transition-all text-left group"
-                title="Click to resume Event Readiness"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <p className="text-[10px] font-bold text-blue-700 uppercase tracking-wider flex items-center gap-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#437118] animate-pulse" />
-                      Current Course
-                    </p>
-                    <span className="text-[9px] font-bold font-mono text-blue-700 bg-blue-100/70 px-1.5 py-0.2 rounded">
-                      In Progress
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-[#1D2A62] group-hover:text-blue-700 transition-colors truncate">
-                    Event Readiness
-                  </h4>
-                </div>
-
-                <div className="pt-2 flex items-center justify-between text-[11px] text-[#68707D]">
-                  <span className="font-mono text-[10px]">HRD-102 • 75% complete</span>
-                  <span className="text-[#1D2A62] font-semibold text-[10px] group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5">
-                    Resume →
-                  </span>
-                </div>
-              </div>
-
-              {/* 3. Next Up */}
-              <div className="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
-                <div>
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <p className="text-[10px] font-bold text-[#68707D] uppercase tracking-wider">
-                      Next Up
-                    </p>
-                    <span className="text-[9px] font-semibold text-slate-500 bg-slate-200/70 px-1.5 py-0.2 rounded">
-                      Upcoming
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-[#1D2A62] truncate">
-                    Event Audit
-                  </h4>
-                </div>
-
-                <div className="pt-2 flex items-center justify-between text-[11px] text-[#68707D]">
-                  <span className="font-mono text-[10px]">HRD-204 • Post-Event Review</span>
-                  <span className="text-[10px] font-medium text-slate-400">
-                    Locked
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Recolored Event Leader Illustration */}
@@ -219,6 +119,138 @@ export function LearnerDashboard({
                 loading="eager"
                 className="w-full max-h-[300px] sm:max-h-[340px] object-contain drop-shadow-sm select-none"
               />
+            </div>
+          </div>
+
+          {/* Full-Width Bottom Row: 3 Executive Cards Exactly Formatted per Image */}
+          <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-slate-100">
+            {/* Card 1: Your Learning Progress */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
+              <div className="flex items-center gap-2 mb-3">
+                <DiamondsFour weight="bold" className="h-4 w-4 text-[#1D2A62]" />
+                <h3 className="text-sm font-bold text-[#1D2A62]">
+                  Your Learning Progress
+                </h3>
+              </div>
+
+              <div className="flex items-center gap-3.5 my-auto">
+                {/* Circular Gauge */}
+                <div className="relative h-14 w-14 flex items-center justify-center shrink-0">
+                  <svg className="h-14 w-14 -rotate-90" viewBox="0 0 36 36">
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="15"
+                      fill="none"
+                      stroke="#EDEDED"
+                      strokeWidth="3.5"
+                    />
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="15"
+                      fill="none"
+                      stroke="#437118"
+                      strokeWidth="3.5"
+                      strokeDasharray="94.2"
+                      strokeDashoffset="63.1"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span className="absolute text-xs font-bold text-[#1D2A62] font-mono">
+                    33%
+                  </span>
+                </div>
+
+                <div className="flex-1 space-y-2">
+                  <p className="text-xs font-semibold text-[#1D2A62]">
+                    3 of 9 courses started
+                  </p>
+                  <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#437118] rounded-full w-[33%]" />
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-[11px] text-[#68707D] pt-3 leading-snug">
+                Keep going! You're building real skills for real impact.
+              </p>
+            </div>
+
+            {/* Card 2: Current Course */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <CircleNotch weight="bold" className="h-4 w-4 text-[#1D2A62]" />
+                  <h3 className="text-sm font-bold text-[#1D2A62]">
+                    Current Course
+                  </h3>
+                </div>
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full">
+                  In Progress
+                </span>
+              </div>
+
+              <div className="space-y-2 my-auto">
+                <h4 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
+                  Event Readiness | From "Done" to Participant-Ready
+                </h4>
+
+                <div className="flex items-center gap-2.5">
+                  <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#437118] rounded-full w-[40%]" />
+                  </div>
+                  <span className="text-[11px] font-bold text-[#68707D] font-mono">
+                    40%
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-3">
+                <button
+                  type="button"
+                  onClick={() => onSelectCourse(heroCourse)}
+                  className="bg-[#0f2e24] hover:bg-[#0a2019] text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-1.5 w-fit transition-all cursor-pointer shadow-xs active:scale-[0.98]"
+                >
+                  <span>Continue Course</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Card 3: Next Up */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between text-left">
+              <div className="flex items-center gap-2 mb-2">
+                <BookmarkSimple weight="bold" className="h-4 w-4 text-[#1D2A62]" />
+                <h3 className="text-sm font-bold text-[#1D2A62]">
+                  Next Up
+                </h3>
+              </div>
+
+              <div className="space-y-1 my-auto">
+                <h4 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
+                  Event Ready Simulation
+                </h4>
+
+                <div className="flex items-center gap-1.5 text-[11px] text-[#68707D]">
+                  <Timer className="h-3.5 w-3.5 text-slate-400" />
+                  <span className="font-medium">1.4 | ~ 2 min</span>
+                </div>
+
+                <p className="text-[11px] text-[#68707D] leading-snug pt-0.5">
+                  Put your skills into practice with a realistic scenario.
+                </p>
+              </div>
+
+              <div className="pt-3">
+                <button
+                  type="button"
+                  onClick={() => onSelectCourse(heroCourse)}
+                  className="bg-slate-100 hover:bg-slate-200 text-[#1D2A62] text-xs font-semibold px-4 py-2 rounded-lg w-fit transition-colors cursor-pointer"
+                >
+                  Start Next Activity
+                </button>
+              </div>
             </div>
           </div>
         </div>
