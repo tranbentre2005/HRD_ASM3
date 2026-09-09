@@ -17,7 +17,8 @@ import {
   TrendUp,
   Target,
   Certificate,
-  Eye
+  Eye,
+  ArrowRight
 } from "@phosphor-icons/react"
 
 interface LearnerDashboardProps {
@@ -73,69 +74,86 @@ export function LearnerDashboard({
 
   return (
     <div className="space-y-8 pb-12 font-sans">
-      {/* Learner Hero Header */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-          <div className="lg:col-span-8 space-y-3">
+      {/* Learner Hero Banner with Recolored Event Leader Illustration */}
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 lg:p-10 shadow-sm overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Left Column: Welcome Headline, Subtitle & CTA */}
+          <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center gap-2">
-              <Badge variant="info">Project Leader: Management Committee</Badge>
+              <span className="rounded-full bg-blue-50 border border-blue-200 text-[#1D2A62] text-[11px] font-bold px-3 py-0.5">
+                Project Leader • Management Committee
+              </span>
               <span className="text-xs text-slate-500 font-mono">ID: RFC-PL-2026</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
-              Project Leader Capability & Learning Hub
+
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#1D2A62] leading-tight">
+              Welcome back, Project Leader!
             </h1>
-            <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
-              Welcome back, Nguyen Minh Tuan. You have completed 24 out of 36 required development hours for 2026. Maintain your training cadence to achieve the Q3 leadership benchmark.
+
+            <p className="text-sm sm:text-base text-[#68707D] leading-relaxed max-w-xl">
+              Build the practical skills to lead club's projects and events with more clarity, confident and readiness
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Button onClick={() => onSelectCourse(heroCourse)} className="cursor-pointer">
-                <Play weight="fill" className="h-4 w-4 mr-2" />
-                Continue Course: {heroCourse.code}
+            <div className="pt-2">
+              <Button
+                size="lg"
+                onClick={() => setActiveTab('catalog')}
+                className="h-12 px-6 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-sm shadow-sm cursor-pointer flex items-center gap-2"
+              >
+                <span>Continue Learning</span>
+                <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button variant="outline" onClick={() => setActiveTab('skills')} className="cursor-pointer">
-                <Target className="h-4 w-4 mr-2 text-blue-700" />
-                View Competency Framework
-              </Button>
+            </div>
+
+            {/* Quick Metrics Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-100">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-left">
+                <div className="flex items-center justify-between text-[#1D2A62] mb-0.5">
+                  <Hourglass className="h-4 w-4" />
+                  <span className="text-[10px] font-bold font-mono">68%</span>
+                </div>
+                <p className="text-sm font-bold text-slate-900">24 / 36 h</p>
+                <p className="text-[10px] text-slate-500">Training Hours</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-left">
+                <div className="flex items-center justify-between text-[#437118] mb-0.5">
+                  <Medal className="h-4 w-4" />
+                  <span className="text-[10px] font-bold font-mono">2 / 4</span>
+                </div>
+                <p className="text-sm font-bold text-slate-900">{certificates.length} Certs</p>
+                <p className="text-[10px] text-slate-500">Credentials</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-left">
+                <div className="flex items-center justify-between text-[#1D2A62] mb-0.5">
+                  <BookOpen className="h-4 w-4" />
+                  <span className="text-[10px] font-bold font-mono">2 Active</span>
+                </div>
+                <p className="text-sm font-bold text-slate-900">{courses.length} Courses</p>
+                <p className="text-[10px] text-slate-500">Curriculum</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-left">
+                <div className="flex items-center justify-between text-amber-600 mb-0.5">
+                  <TrendUp className="h-4 w-4" />
+                  <span className="text-[10px] font-bold font-mono">92.5</span>
+                </div>
+                <p className="text-sm font-bold text-slate-900">92.5 / 100</p>
+                <p className="text-[10px] text-slate-500">Avg Score</p>
+              </div>
             </div>
           </div>
 
-          {/* Quick Metrics Bento Box */}
-          <div className="lg:col-span-4 grid grid-cols-2 gap-3">
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
-              <div className="flex items-center justify-between text-blue-700 mb-1">
-                <Hourglass className="h-5 w-5" />
-                <span className="text-xs font-bold font-mono">68%</span>
-              </div>
-              <p className="text-lg font-bold text-slate-900">24 / 36 h</p>
-              <p className="text-[11px] text-slate-500">2026 Training Hours</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
-              <div className="flex items-center justify-between text-emerald-700 mb-1">
-                <Medal className="h-5 w-5" />
-                <span className="text-xs font-bold font-mono">2 / 4</span>
-              </div>
-              <p className="text-lg font-bold text-slate-900">{certificates.length} Certs</p>
-              <p className="text-[11px] text-slate-500">Earned Credentials</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
-              <div className="flex items-center justify-between text-indigo-700 mb-1">
-                <BookOpen className="h-5 w-5" />
-                <span className="text-xs font-bold font-mono">2 Active</span>
-              </div>
-              <p className="text-lg font-bold text-slate-900">{courses.length} Courses</p>
-              <p className="text-[11px] text-slate-500">Total Curriculum</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
-              <div className="flex items-center justify-between text-amber-700 mb-1">
-                <TrendUp className="h-5 w-5" />
-                <span className="text-xs font-bold font-mono">92.5</span>
-              </div>
-              <p className="text-lg font-bold text-slate-900">92.5 / 100</p>
-              <p className="text-[11px] text-slate-500">Average Score</p>
+          {/* Right Column: Recolored Event Leader Illustration */}
+          <div className="lg:col-span-5 flex items-center justify-center">
+            <div className="w-full max-w-[340px] sm:max-w-[380px] rounded-3xl bg-gradient-to-b from-[#87AECE]/15 via-[#EDEDED]/20 to-[#AFD06E]/15 border border-[#87AECE]/25 p-4 sm:p-6 flex items-center justify-center relative shadow-inner">
+              <img
+                src="/learner-hero-palette.png"
+                alt="Project Leader with Event Checklist and Deliverables"
+                loading="eager"
+                className="w-full max-h-[300px] sm:max-h-[340px] object-contain drop-shadow-sm select-none"
+              />
             </div>
           </div>
         </div>
