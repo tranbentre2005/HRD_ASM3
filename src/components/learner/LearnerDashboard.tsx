@@ -1,0 +1,525 @@
+import { useState } from "react"
+import { Course, CertificateItem } from "@/data/types"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Progress } from "@/components/ui/progress"
+import { Input } from "@/components/ui/input"
+import { 
+  GraduationCap, 
+  BookOpen, 
+  Hourglass, 
+  Medal,
+  MagnifyingGlass, 
+  Play, 
+  CheckCircle,
+  Sparkle,
+  TrendUp,
+  Target,
+  Certificate,
+  Eye
+} from "@phosphor-icons/react"
+
+interface LearnerDashboardProps {
+  courses: Course[]
+  certificates: CertificateItem[]
+  onSelectCourse: (course: Course) => void
+  onViewCertificate: (cert: CertificateItem) => void
+}
+
+export function LearnerDashboard({
+  courses,
+  certificates,
+  onSelectCourse,
+  onViewCertificate,
+}: LearnerDashboardProps) {
+  const [activeTab, setActiveTab] = useState<'my-courses' | 'catalog' | 'skills' | 'certificates'>('my-courses')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+
+  const categories = [
+    { id: 'all', label: 'Tất cả chủ đề' },
+    { id: 'Kỹ năng mềm & Quản trị', label: 'Kỹ năng mềm & Quản trị' },
+    { id: 'Lãnh đạo & Chiến lược', label: 'Lãnh đạo & Chiến lược' },
+    { id: 'Kỹ thuật số & AI', label: 'Kỹ thuật số & AI' },
+    { id: 'Văn hóa & Hội nhập', label: 'Văn hóa & Hội nhập' }
+  ]
+
+  const inProgressCourses = courses.filter(c => c.status === 'in-progress')
+  const completedCourses = courses.filter(c => c.status === 'completed')
+
+  const filteredCourses = courses.filter(course => {
+    const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          course.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          course.description.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory
+    return matchesSearch && matchesCategory
+  })
+
+  // Ongoing hero course
+  const heroCourse = inProgressCourses[0] || courses[0]
+
+  return (
+    <div className="space-y-8 pb-12">
+      {/* Learner Hero Header - Fits neatly without overflow */}
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div className="lg:col-span-8 space-y-3">
+            <div className="flex items-center gap-2">
+              <Badge variant="info">Học viên: Ban Nhân sự & Tuyển dụng</Badge>
+              <span className="text-xs text-slate-500 font-mono">Mã NV: EMP-8492</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+              Không gian Học tập & Phát triển Cá nhân
+            </h1>
+            <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
+              Chào Nguyễn Minh Tuấn. Bạn đã hoàn thành 24 trên 36 giờ đào tạo bắt buộc trong năm 2026. Hãy duy trì tiến độ để đạt chuẩn đánh giá năng lực Q3.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <Button onClick={() => onSelectCourse(heroCourse)} className="cursor-pointer">
+                <Play weight="fill" className="h-4 w-4 mr-2" />
+                Tiếp tục học: {heroCourse.code}
+              </Button>
+              <Button variant="outline" onClick={() => setActiveTab('skills')} className="cursor-pointer">
+                <Target className="h-4 w-4 mr-2 text-blue-700" />
+                Xem khung năng lực cá nhân
+              </Button>
+            </div>
+          </div>
+
+          {/* Quick Metrics Bento Box */}
+          <div className="lg:col-span-4 grid grid-cols-2 gap-3">
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
+              <div className="flex items-center justify-between text-blue-700 mb-1">
+                <Hourglass className="h-5 w-5" />
+                <span className="text-xs font-bold font-mono">68%</span>
+              </div>
+              <p className="text-lg font-bold text-slate-900">24 / 36 h</p>
+              <p className="text-[11px] text-slate-500">Giờ đào tạo 2026</p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
+              <div className="flex items-center justify-between text-emerald-700 mb-1">
+                <Medal className="h-5 w-5" />
+                <span className="text-xs font-bold font-mono">2 / 4</span>
+              </div>
+              <p className="text-lg font-bold text-slate-900">{certificates.length} Khóa</p>
+              <p className="text-[11px] text-slate-500">Chứng chỉ đạt được</p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
+              <div className="flex items-center justify-between text-indigo-700 mb-1">
+                <BookOpen className="h-5 w-5" />
+                <span className="text-xs font-bold font-mono">2 Đang học</span>
+              </div>
+              <p className="text-lg font-bold text-slate-900">{courses.length} Khóa</p>
+              <p className="text-[11px] text-slate-500">Tổng chương trình</p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left">
+              <div className="flex items-center justify-between text-amber-700 mb-1">
+                <TrendUp className="h-5 w-5" />
+                <span className="text-xs font-bold font-mono">92.5</span>
+              </div>
+              <p className="text-lg font-bold text-slate-900">92.5 / 100</p>
+              <p className="text-[11px] text-slate-500">Điểm kiểm tra TB</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Tabs Navigation */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-2">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveTab('my-courses')}
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+              activeTab === 'my-courses'
+                ? 'bg-blue-700 text-white shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+            }`}
+          >
+            Khóa học của tôi ({inProgressCourses.length + completedCourses.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('catalog')}
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+              activeTab === 'catalog'
+                ? 'bg-blue-700 text-white shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+            }`}
+          >
+            Danh mục đào tạo ({courses.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('skills')}
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+              activeTab === 'skills'
+                ? 'bg-blue-700 text-white shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+            }`}
+          >
+            Lộ trình năng lực
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('certificates')}
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+              activeTab === 'certificates'
+                ? 'bg-blue-700 text-white shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+            }`}
+          >
+            Chứng chỉ ({certificates.length})
+          </button>
+        </div>
+      </div>
+
+      {/* Tab: My Courses */}
+      {activeTab === 'my-courses' && (
+        <div className="space-y-6">
+          {/* Spotlight Hero Course: Currently in Progress */}
+          {heroCourse && (
+            <Card className="overflow-hidden border-blue-200 bg-linear-to-r from-blue-50/40 via-white to-slate-50 shadow-sm">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6">
+                <div className="md:col-span-4 relative rounded-lg overflow-hidden aspect-video md:aspect-auto">
+                  <img
+                    src={heroCourse.thumbnail}
+                    alt={heroCourse.title}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute top-2 left-2">
+                    <Badge variant="default" className="bg-blue-800 text-white">Đang học</Badge>
+                  </div>
+                </div>
+
+                <div className="md:col-span-8 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                      <span className="font-semibold text-blue-700">{heroCourse.code}</span>
+                      <span>•</span>
+                      <span>{heroCourse.category}</span>
+                      <span>•</span>
+                      <span>Cấp độ: {heroCourse.level}</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900">{heroCourse.title}</h3>
+                    <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
+                      {heroCourse.description}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 pt-2 border-t border-slate-200/60">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-slate-600 font-medium">Tiến độ bài học</span>
+                      <span className="font-bold text-blue-900 font-mono">{heroCourse.progress}%</span>
+                    </div>
+                    <Progress value={heroCourse.progress} className="h-2" />
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={heroCourse.instructorAvatar}
+                        alt={heroCourse.instructorName}
+                        className="h-7 w-7 rounded-full object-cover"
+                      />
+                      <span className="text-xs text-slate-700 font-medium">
+                        {heroCourse.instructorName}
+                      </span>
+                    </div>
+
+                    <Button onClick={() => onSelectCourse(heroCourse)} className="cursor-pointer">
+                      <Play weight="fill" className="h-4 w-4 mr-1.5" />
+                      Vào lớp học ngay
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {/* Enrolled Courses Grid */}
+          <div className="space-y-4">
+            <h2 className="text-base font-bold text-slate-900">
+              Các chương trình đã đăng ký ({courses.filter(c => c.status !== 'assigned').length})
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {courses.filter(c => c.id !== heroCourse?.id).map((course) => (
+                <Card key={course.id} className="flex flex-col justify-between overflow-hidden border-slate-200 hover:shadow-md transition-all">
+                  <div>
+                    <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
+                      <img
+                        src={course.thumbnail}
+                        alt={course.title}
+                        className="h-full w-full object-cover"
+                      />
+                      <div className="absolute top-2 left-2">
+                        {course.status === 'completed' ? (
+                          <Badge variant="success">Đã hoàn thành</Badge>
+                        ) : course.status === 'in-progress' ? (
+                          <Badge variant="default">Đang học</Badge>
+                        ) : (
+                          <Badge variant="secondary">Được giao</Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="p-5 space-y-3">
+                      <div className="flex items-center justify-between text-[11px] text-slate-500">
+                        <span className="font-semibold text-blue-700">{course.code}</span>
+                        <span>{course.duration}</span>
+                      </div>
+                      <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">
+                        {course.title}
+                      </h4>
+                      <p className="text-xs text-slate-500 line-clamp-2">
+                        {course.description}
+                      </p>
+
+                      <div className="pt-2">
+                        <div className="flex items-center justify-between text-xs mb-1">
+                          <span className="text-slate-500">Hoàn thành</span>
+                          <span className="font-bold text-slate-900 font-mono">{course.progress}%</span>
+                        </div>
+                        <Progress value={course.progress} className="h-1.5" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between">
+                    <span className="text-xs text-slate-500">{course.instructorName}</span>
+                    <Button
+                      variant={course.status === 'completed' ? "outline" : "default"}
+                      size="sm"
+                      onClick={() => onSelectCourse(course)}
+                    >
+                      {course.status === 'completed' ? "Xem lại bài giảng" : "Tiếp tục học"}
+                    </Button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab: Course Catalog */}
+      {activeTab === 'catalog' && (
+        <div className="space-y-6">
+          {/* Search & Category Filter */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200">
+            <div className="relative flex-1 max-w-md">
+              <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <Input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Tìm khóa học theo tên, mã khóa, kỹ năng..."
+                className="pl-9 text-xs sm:text-sm"
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                    selectedCategory === cat.id
+                      ? 'bg-blue-700 text-white font-semibold'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Catalog Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCourses.map((course) => (
+              <Card key={course.id} className="flex flex-col justify-between overflow-hidden border-slate-200 hover:shadow-md transition-all">
+                <div>
+                  <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
+                    <img
+                      src={course.thumbnail}
+                      alt={course.title}
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute top-2 left-2">
+                      <Badge variant="outline" className="bg-white/90 font-medium">
+                        {course.category}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div className="p-5 space-y-3">
+                    <div className="flex items-center justify-between text-xs text-slate-500">
+                      <span className="font-bold text-blue-700">{course.code}</span>
+                      <span>Thời lượng: {course.duration}</span>
+                    </div>
+
+                    <h4 className="font-bold text-slate-900 text-sm leading-snug">
+                      {course.title}
+                    </h4>
+
+                    <p className="text-xs text-slate-600 line-clamp-2">
+                      {course.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-1 pt-1">
+                      {course.competencies.map((comp) => (
+                        <span
+                          key={comp}
+                          className="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium"
+                        >
+                          {comp}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-5 pt-0 border-t border-slate-100 mt-3 flex items-center justify-between">
+                  <div>
+                    <p className="text-[11px] text-slate-400">Giảng viên</p>
+                    <p className="text-xs font-semibold text-slate-800">{course.instructorName}</p>
+                  </div>
+                  <Button size="sm" onClick={() => onSelectCourse(course)}>
+                    Chi tiết & Học
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Tab: Competency & Skill Matrix */}
+      {activeTab === 'skills' && (
+        <div className="space-y-6">
+          <div className="rounded-xl border border-slate-200 bg-white p-6">
+            <h2 className="text-lg font-bold text-slate-900">
+              Khung Năng lực Cá nhân 2026 - Vị trí Chuyên viên Nhân sự
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
+              Mục tiêu phát triển năng lực định kỳ theo tiêu chuẩn L&D của doanh nghiệp. Các kỹ năng được đánh giá thông qua bài tập thực hành, bài trắc nghiệm và đánh giá thực tế của giảng viên.
+            </p>
+
+            {/* Skill Bars */}
+            <div className="mt-6 space-y-5">
+              <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900 text-sm">Giao tiếp Thấu cảm & Phản hồi Xây dựng</span>
+                  <span className="font-mono font-bold text-blue-700">85% / Chuẩn: 80%</span>
+                </div>
+                <Progress value={85} className="h-2" />
+                <p className="text-[11px] text-slate-500">
+                  Đã hoàn thành khóa HRD-102. Nắm vững mô hình SBI và kỹ thuật lắng nghe 4 cấp độ.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900 text-sm">Tư duy Lãnh đạo Chuyển đổi & OKRs</span>
+                  <span className="font-mono font-bold text-emerald-700">94% / Chuẩn: 85%</span>
+                </div>
+                <Progress value={94} className="h-2" indicatorClassName="bg-emerald-600" />
+                <p className="text-[11px] text-slate-500">
+                  Đạt chứng chỉ xuất sắc khóa HRD-204 do TS. Vũ Đình Khang chứng nhận.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900 text-sm">Ứng dụng AI & Tự động hóa Quy trình Nhân sự</span>
+                  <span className="font-mono font-bold text-amber-700">33% / Chuẩn: 75%</span>
+                </div>
+                <Progress value={33} className="h-2" indicatorClassName="bg-amber-500" />
+                <p className="text-[11px] text-slate-500">
+                  Đang theo học khóa HRD-305. Cần hoàn thành module thực hành Prompting trong tháng này.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900 text-sm">Văn hóa Doanh nghiệp & Trải nghiệm Nhân viên</span>
+                  <span className="font-mono font-bold text-slate-500">Chưa bắt đầu / Chuẩn: 70%</span>
+                </div>
+                <Progress value={0} className="h-2" />
+                <p className="text-[11px] text-slate-500">
+                  Được phân công khóa HRD-101. Kế hoạch bắt đầu trong Quý 4.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab: Certificates */}
+      {activeTab === 'certificates' && (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-bold text-slate-900">
+                Chứng chỉ Chuyên môn Doanh nghiệp ({certificates.length})
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+                Các chứng nhận chính thức có giá trị xác thực trên toàn hệ thống TalentCore LMS
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {certificates.map((cert) => (
+              <Card key={cert.id} className="overflow-hidden border-slate-200 shadow-xs hover:shadow-md transition-all">
+                <div className="bg-slate-900 p-5 text-white flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Certificate weight="fill" className="h-6 w-6 text-amber-400" />
+                    <div>
+                      <p className="text-xs font-mono text-slate-400">{cert.credentialId}</p>
+                      <h4 className="text-sm font-bold text-white">{cert.courseCode}</h4>
+                    </div>
+                  </div>
+                  <Badge variant="success" className="bg-emerald-900/80 text-emerald-200 border-none">
+                    Xác thực
+                  </Badge>
+                </div>
+
+                <div className="p-5 space-y-3">
+                  <h3 className="font-bold text-slate-900 text-base">{cert.courseTitle}</h3>
+                  <div className="text-xs text-slate-600 space-y-1">
+                    <p>Học viên: <span className="font-semibold text-slate-900">{cert.learnerName}</span></p>
+                    <p>Người chứng nhận: {cert.instructorName}</p>
+                    <p>Ngày cấp: {cert.issueDate} • Xếp loại: <span className="text-emerald-700 font-semibold">{cert.grade}</span></p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1 pt-2">
+                    {cert.competencies.map((comp) => (
+                      <span key={comp} className="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">
+                        {comp}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-100 flex justify-end">
+                    <Button variant="outline" size="sm" onClick={() => onViewCertificate(cert)}>
+                      <Eye className="h-4 w-4 mr-1.5" />
+                      Xem chi tiết chứng chỉ
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
