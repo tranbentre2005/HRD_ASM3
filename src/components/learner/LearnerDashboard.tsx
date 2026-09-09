@@ -22,7 +22,10 @@ import {
   DiamondsFour,
   PlayCircle,
   BookmarkSimple,
-  Timer
+  Timer,
+  Compass,
+  Users,
+  RocketLaunch
 } from "@phosphor-icons/react"
 
 interface LearnerDashboardProps {
@@ -52,6 +55,8 @@ export function LearnerDashboard({
       setInternalTab(tab)
     }
   }
+  const [isPathwayRevealed, setIsPathwayRevealed] = useState(false)
+  const [isHoveringPathway, setIsHoveringPathway] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
@@ -282,6 +287,207 @@ export function LearnerDashboard({
           </div>
         </div>
       </div>
+      {/* About Learning Hub & Interactive Learning Pathway Section */}
+      <div 
+        className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs relative overflow-hidden transition-all duration-300"
+        onMouseEnter={() => setIsHoveringPathway(true)}
+        onMouseLeave={() => setIsHoveringPathway(false)}
+      >
+        {/* Subtle Brand Background Accents */}
+        <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-radial from-[#87AECE]/12 via-transparent to-transparent pointer-events-none -z-0" />
+
+        <div className="relative z-10 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-slate-50 border border-slate-200 text-[#437118] text-[11px] font-bold">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#437118]" />
+              <span>ABOUT LEARNING HUB</span>
+            </div>
+            <span className="text-xs text-[#68707D] font-mono hidden sm:inline">
+              RFC Leadership Capability System
+            </span>
+          </div>
+
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1D2A62]">
+            About Learning Hub
+          </h2>
+
+          <p className="text-xs sm:text-sm text-[#68707D] leading-relaxed max-w-4xl">
+            The Finance Club PL Learning Hub is a practical learning space designed to help Project Leaders build the skills needed to plan, lead, and deliver student events more effectively. Through short courses, interactive practice, simulations, and practical tools, you can develop your capabilities across the event lifecycle - from understanding your role and planning an event to leading teams, preparing for delivery, solving problems, and learning from experience.
+          </p>
+
+          {/* CTA & Interaction Controls */}
+          <div className="pt-2 flex flex-wrap items-center gap-4">
+            <button
+              type="button"
+              onMouseEnter={() => setIsHoveringPathway(true)}
+              onClick={() => setIsPathwayRevealed(!isPathwayRevealed)}
+              className="h-11 px-6 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-xs hover:shadow-md transition-all cursor-pointer active:scale-[0.98]"
+            >
+              <span>Explore the Learning Pathway</span>
+              <ArrowRight className={`h-4 w-4 transition-transform duration-200 ${isHoveringPathway || isPathwayRevealed ? 'translate-x-1' : ''}`} />
+            </button>
+
+            <span className="text-xs text-[#68707D] flex items-center gap-1.5 font-medium">
+              <Sparkle weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
+              <span>Hover or click to view the 4 stages</span>
+            </span>
+          </div>
+
+          {/* 4 Interactive Pathway Cards (Revealed on Hover or Click) */}
+          <div 
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-300 ease-in-out ${
+              isHoveringPathway || isPathwayRevealed
+                ? 'opacity-100 max-h-[500px] mt-6 pointer-events-auto'
+                : 'opacity-0 max-h-0 pointer-events-none overflow-hidden mt-0'
+            }`}
+          >
+            {/* Card 1: Foundation */}
+            <div 
+              role="button"
+              tabIndex={0}
+              onClick={() => setActiveTab('skills')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setActiveTab('skills')
+              }}
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-1 transition-all flex flex-col justify-between text-left cursor-pointer group"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#87AECE]/20 text-[#1D2A62] group-hover:bg-[#1D2A62] group-hover:text-white transition-colors">
+                    <Compass weight="duotone" className="h-5 w-5" />
+                  </div>
+                  <span className="text-[10px] font-bold text-[#68707D] font-mono">
+                    STAGE 01
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-blue-700 transition-colors">
+                    Foundation
+                  </h3>
+                  <p className="text-xs text-[#68707D] leading-relaxed mt-1">
+                    Understand your role and event direction.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] font-semibold text-[#437118] flex items-center gap-1">
+                <span>View Stage</span>
+                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </div>
+
+            {/* Card 2: Plan & Lead */}
+            <div 
+              role="button"
+              tabIndex={0}
+              onClick={() => setActiveTab('skills')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setActiveTab('skills')
+              }}
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-1 transition-all flex flex-col justify-between text-left cursor-pointer group"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1D2A62]/10 text-[#1D2A62] group-hover:bg-[#1D2A62] group-hover:text-white transition-colors">
+                    <Users weight="duotone" className="h-5 w-5" />
+                  </div>
+                  <span className="text-[10px] font-bold text-[#68707D] font-mono">
+                    STAGE 02
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-blue-700 transition-colors">
+                    Plan & Lead
+                  </h3>
+                  <p className="text-xs text-[#68707D] leading-relaxed mt-1">
+                    Coordinate work and lead the team.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] font-semibold text-[#437118] flex items-center gap-1">
+                <span>View Stage</span>
+                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </div>
+
+            {/* Card 3: Deliver */}
+            <div 
+              role="button"
+              tabIndex={0}
+              onClick={() => setActiveTab('skills')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setActiveTab('skills')
+              }}
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-1 transition-all flex flex-col justify-between text-left cursor-pointer group"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#437118]/15 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                    <RocketLaunch weight="duotone" className="h-5 w-5" />
+                  </div>
+                  <span className="text-[10px] font-bold text-[#68707D] font-mono">
+                    STAGE 03
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
+                    Deliver
+                  </h3>
+                  <p className="text-xs text-[#68707D] leading-relaxed mt-1">
+                    Prepare, rehearse, and execute with confidence.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] font-semibold text-[#437118] flex items-center gap-1">
+                <span>View Stage</span>
+                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </div>
+
+            {/* Card 4: Reflect & Grow */}
+            <div 
+              role="button"
+              tabIndex={0}
+              onClick={() => setActiveTab('skills')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setActiveTab('skills')
+              }}
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-1 transition-all flex flex-col justify-between text-left cursor-pointer group"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                    <TrendUp weight="bold" className="h-5 w-5" />
+                  </div>
+                  <span className="text-[10px] font-bold text-[#68707D] font-mono">
+                    STAGE 04
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
+                    Reflect & Grow
+                  </h3>
+                  <p className="text-xs text-[#68707D] leading-relaxed mt-1">
+                    Turn experience into better future practice.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] font-semibold text-[#437118] flex items-center gap-1">
+                <span>View Stage</span>
+                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       {/* Main Tabs Navigation */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-2">
