@@ -86,7 +86,7 @@ export function LearnerDashboard({
               <span className="text-xs text-slate-500 font-mono">ID: RFC-PL-2026</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#1D2A62] leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
               Welcome back, Project Leader!
             </h1>
 
