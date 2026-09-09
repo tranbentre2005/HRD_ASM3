@@ -89,14 +89,11 @@ export function LoginGateway({ onLoginAs, onExploreOverview }: LoginGatewayProps
                 </span>
               </div>
 
-              {/* 1. Headline & Hierarchy: Reduced size, less heavy weight, short supporting text */}
-              <div className="space-y-2 pt-1">
+              {/* 1. Headline & Hierarchy: Reduced size, less heavy weight */}
+              <div className="pt-1">
                 <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1D2A62] leading-snug">
                   Welcome to your Project Leader Learning Hub
                 </h1>
-                <p className="text-xs sm:text-sm text-[#68707D] leading-relaxed">
-                  Choose how you will use the Hub to access the right tools and learning experience.
-                </p>
               </div>
 
               {/* 3. Role Cards: Equal height, informative, radio/check indicator */}
