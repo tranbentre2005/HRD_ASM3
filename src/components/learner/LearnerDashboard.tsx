@@ -86,22 +86,22 @@ export function LearnerDashboard({
         />
 
         {/* Ambient Radial Halo Blooms */}
-        <div className="absolute top-1/2 -translate-y-1/2 right-6 sm:right-12 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[450px] h-[450px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
         <div className="absolute -top-16 -left-16 w-80 h-80 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
 
-        {/* Subtle Concentric Leadership Arcs behind illustration */}
+        {/* Subtle Concentric Leadership Arcs framing the enlarged artwork */}
         <svg 
-          className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block"
+          className="absolute right-0 top-0 h-full w-[48%] pointer-events-none -z-0 opacity-45 select-none overflow-visible hidden md:block"
           viewBox="0 0 400 400"
           fill="none"
         >
-          <circle cx="260" cy="170" r="75" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
-          <circle cx="260" cy="170" r="130" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
-          <circle cx="260" cy="170" r="190" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
-          <circle cx="185" cy="170" r="3" fill="#437118" />
-          <circle cx="260" cy="40" r="3" fill="#1D2A62" />
-          <circle cx="335" cy="170" r="3" fill="#87AECE" />
-          <circle cx="260" cy="300" r="3" fill="#AFD06E" />
+          <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
+          <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
+          <circle cx="260" cy="180" r="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
+          <circle cx="165" cy="180" r="3.5" fill="#437118" />
+          <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
+          <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
+          <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
         </svg>
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left Column: Welcome Headline, Subtitle & CTA */}
@@ -140,13 +140,13 @@ export function LearnerDashboard({
             </div>
           </div>
 
-          {/* Right Column: Seamless Scaled-up Illustration with Ambient Halo */}
+          {/* Right Column: 30% Larger Illustration */}
           <div className="lg:col-span-5 flex items-center justify-center py-1 relative">
             <img
               src="/learner-hero-palette.png"
               alt="Project Leader with Event Checklist and Deliverables"
               loading="eager"
-              className="max-h-[265px] sm:max-h-[295px] w-auto object-contain select-none drop-shadow-sm transition-transform hover:scale-102"
+              className="max-h-[350px] sm:max-h-[385px] lg:max-h-[395px] w-auto object-contain select-none drop-shadow-md transition-transform hover:scale-102"
             />
           </div>
           {/* Full-Width Bottom Row: 3 Executive Cards Exactly Formatted per Image */}
