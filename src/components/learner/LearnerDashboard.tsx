@@ -255,10 +255,10 @@ export function LearnerDashboard({
           </div>
           <div className="space-y-2.5 pt-2 relative z-10">
             <div className="flex items-center gap-3">
-              <div className="flex-1 h-2 bg-black/20 rounded-full overflow-hidden">
+              <div className="flex-1 h-2.5 bg-black/25 rounded-full overflow-hidden">
                 <div className="h-full bg-[#AFD06E] rounded-full w-[40%]" />
               </div>
-              <span className="text-base sm:text-lg font-extrabold text-white font-mono shrink-0">
+              <span className="text-xl sm:text-2xl font-extrabold text-white font-mono shrink-0">
                 40%
               </span>
             </div>
@@ -295,11 +295,9 @@ export function LearnerDashboard({
               <Timer className="h-3.5 w-3.5 text-[#87AECE]" />
               <span className="font-medium">1.4 | ~ 2 min</span>
             </div>
-
-            <p className="text-[11px] text-slate-200 leading-relaxed mt-1.5">
+            <p className="text-[11px] sm:text-xs text-slate-200 font-medium leading-relaxed mt-1.5">
               Put your skills into practice with a realistic scenario.
             </p>
-          </div>
 
           <div className="pt-2 relative z-10">
             <button
