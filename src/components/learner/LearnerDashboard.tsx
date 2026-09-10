@@ -180,9 +180,9 @@ export function LearnerDashboard({
             </div>
 
             <div className="flex items-center justify-center gap-4 my-auto py-2">
-              {/* Circular Gauge: Exactly 70px diameter with centered 60% */}
-              <div className="relative h-[70px] w-[70px] flex items-center justify-center shrink-0">
-                <svg className="h-[70px] w-[70px] -rotate-90" viewBox="0 0 36 36">
+              {/* Circular Gauge: Exactly 75px diameter with centered 60% */}
+              <div className="relative h-[75px] w-[75px] flex items-center justify-center shrink-0">
+                <svg className="h-[75px] w-[75px] -rotate-90" viewBox="0 0 36 36">
                   <circle
                     cx="18"
                     cy="18"
@@ -203,7 +203,7 @@ export function LearnerDashboard({
                     strokeLinecap="round"
                   />
                 </svg>
-                <span className="absolute text-sm sm:text-base font-extrabold text-white font-mono leading-none select-none">
+                <span className="absolute text-base font-extrabold text-white font-mono leading-none select-none">
                   60%
                 </span>
               </div>
@@ -213,7 +213,7 @@ export function LearnerDashboard({
                   of your pathway complete
                 </h4>
                 <p className="text-xs text-slate-200 font-medium">
-                  3 courses completed · 2 in progress
+                  3 courses completed
                 </p>
               </div>
             </div>
@@ -279,7 +279,7 @@ export function LearnerDashboard({
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="relative z-10">
+          <div className="relative z-10 space-y-2.5">
             {/* Aligned Top Title Row */}
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
@@ -290,20 +290,19 @@ export function LearnerDashboard({
               </span>
             </div>
 
-            <div className="space-y-0.5 mt-2">
-              <h4 className="text-base font-bold text-white leading-snug">
+            <div className="pt-0.5">
+              <h4 className="text-base sm:text-lg font-bold text-white leading-snug">
                 {nextCourse?.title || "Rehearsal & Simulation"}
               </h4>
-              <p className="text-xs text-slate-200 font-medium">
-                {nextCourse?.briefIntro || "Test run-of-show timing, identify single points of failure, and practice dry runs."}
-              </p>
             </div>
 
             {/* Clear, prominent course duration badge */}
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white/15 border border-white/20 text-white text-xs font-medium shadow-2xs mt-2.5">
-              <Clock weight="bold" className="h-3.5 w-3.5 text-[#AFD06E]" />
-              <span>Estimated duration:</span>
-              <span className="font-bold text-[#AFD06E] font-mono">7 mins</span>
+            <div className="pt-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-white/15 border border-white/20 text-white text-xs font-medium shadow-2xs">
+                <Clock weight="bold" className="h-4 w-4 text-[#AFD06E]" />
+                <span className="text-white/90">Estimated duration:</span>
+                <span className="font-bold text-[#AFD06E] font-mono">7 mins</span>
+              </div>
             </div>
           </div>
 
