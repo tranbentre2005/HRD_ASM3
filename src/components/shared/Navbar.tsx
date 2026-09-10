@@ -1,10 +1,7 @@
 import { useState } from "react"
 import { UserRole } from "@/data/types"
 import { 
-  Bell, 
-  SignOut,
-  ChalkboardTeacher,
-  GraduationCap
+  Bell
 } from "@phosphor-icons/react"
 import { Badge } from "@/components/ui/badge"
 
@@ -35,47 +32,6 @@ export function Navbar({
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md font-sans">
-      {/* Top Banner Notice */}
-      <div className="bg-slate-900 text-slate-200 text-xs py-0.5 px-4">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
-            <span className="font-semibold text-slate-100">RMIT FINANCE CLUB (RFC)</span>
-            <span className="text-slate-400">• Project Leader Learning Hub</span>
-          </div>
-          <div className="flex items-center gap-3 text-slate-300 text-xs">
-            <span className="hidden sm:inline text-slate-400">Active View:</span>
-            <button
-              type="button"
-              onClick={() => onRoleChange('learner')}
-              className={`hover:text-white transition-colors cursor-pointer ${
-                currentRole === 'learner' ? 'text-white font-bold border-b-2 border-[#AFD06E] pb-0.5' : 'text-slate-400'
-              }`}
-            >
-              Learner View
-            </button>
-            <span className="text-slate-600">|</span>
-            <button
-              type="button"
-              onClick={() => onRoleChange('instructor')}
-              className={`hover:text-white transition-colors cursor-pointer ${
-                currentRole === 'instructor' ? 'text-white font-bold border-b-2 border-[#AFD06E] pb-0.5' : 'text-slate-400'
-              }`}
-            >
-              Trainer View
-            </button>
-            <span className="text-slate-600">|</span>
-            <button
-              type="button"
-              onClick={onLogout}
-              className="text-slate-300 hover:text-white transition-colors cursor-pointer font-medium flex items-center gap-1"
-            >
-              <SignOut className="h-3 w-3 text-slate-400" />
-              <span>Switch Role</span>
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Main Navbar: Unified across roles */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-15 flex items-center justify-between gap-4">

@@ -193,11 +193,6 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
               </button>
             </div>
 
-            {/* Quiet Footer Metadata */}
-            <div className="pt-4 text-xs text-[#68707D] border-t border-[#EDEDED] flex items-center justify-between gap-3">
-              <span>RMIT Finance Club • Zero-Login Architecture</span>
-              <span>In-Memory Session</span>
-            </div>
           </div>
 
           {/* Right Visual Panel: Enlarged Illustration with Atmosphere */}
