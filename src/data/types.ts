@@ -3,10 +3,13 @@ export type UserRole = 'login' | 'learner' | 'instructor'
 export interface Course {
   id: string
   title: string
+  cardTitle?: string
+  cardIntro?: string
   code: string
   category: string
   level?: 'Foundational' | 'Intermediate' | 'Advanced'
   duration: string
+  courseType?: string
   totalLessons?: number
   completedLessons?: number
   progress: number
@@ -21,6 +24,7 @@ export interface Course {
   enrolledLearnersCount?: number
   averageScore?: number
   recommendationNote?: string
+  recommendedNote?: string
   modules: CourseModule[]
 }
 

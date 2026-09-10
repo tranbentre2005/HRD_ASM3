@@ -250,7 +250,7 @@ export function LearnerDashboard({
             </div>
 
             <h4 className="text-base font-bold text-white leading-snug mt-2">
-              Event Readiness | From 'Done' to Participant-Ready
+              {heroCourse.title}
             </h4>
           </div>
           <div className="space-y-2.5 pt-2 relative z-10">
@@ -815,12 +815,12 @@ export function LearnerDashboard({
                       <span>Duration: {course.duration}</span>
                     </div>
 
-                    <h4 className="font-bold text-slate-900 text-sm leading-snug">
-                      {course.title}
+                    <h4 className="font-bold text-slate-900 text-sm leading-snug line-clamp-2">
+                      {course.cardTitle || course.title}
                     </h4>
 
                     <p className="text-xs text-slate-600 line-clamp-2">
-                      {course.description}
+                      {course.cardIntro || course.description}
                     </p>
 
                     <div className="flex flex-wrap gap-1 pt-1">

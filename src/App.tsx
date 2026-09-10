@@ -183,7 +183,7 @@ export function App() {
     setIsCertModalOpen(true)
   }
 
-  const activeCourse = courses.find(c => c.id === activeCourseId)
+  const activeCourse = courses.find(c => c.id === activeCourseId || (activeCourseId === 'course-1' && c.id === 'event-readiness'))
 
   // 1. Welcome / Login Gateway View
   if (currentRole === 'login') {

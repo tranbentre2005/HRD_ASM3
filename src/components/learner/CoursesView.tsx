@@ -124,8 +124,11 @@ export function CoursesView({
       const query = searchQuery.trim().toLowerCase()
       const matchesSearch = !query || 
         course.title.toLowerCase().includes(query) ||
+        (course.cardTitle && course.cardTitle.toLowerCase().includes(query)) ||
         course.code.toLowerCase().includes(query) ||
         course.description.toLowerCase().includes(query) ||
+        (course.cardIntro && course.cardIntro.toLowerCase().includes(query)) ||
+        (course.courseType && course.courseType.toLowerCase().includes(query)) ||
         (course.briefIntro && course.briefIntro.toLowerCase().includes(query)) ||
         (course.competencies && course.competencies.some(c => c.toLowerCase().includes(query)))
       return matchesCategory && matchesSearch
@@ -134,30 +137,34 @@ export function CoursesView({
 
   // In-progress Event Readiness course for Featured Learning Strip
   const inProgressCourse = useMemo(() => {
-    return courses.find(c => c.status === "in-progress" && (c.id === "course-1" || c.title.includes("Event Readiness"))) ||
+    return courses.find(c => c.status === "in-progress" && (c.id === "event-readiness" || c.id === "course-1" || c.title.includes("Event Readiness"))) ||
            courses.find(c => c.status === "in-progress")
   }, [courses])
 
   // Helper to pick icon for course card based on title or stage
   const getCourseIcon = (course: Course) => {
-    const t = course.title.toLowerCase()
-    if (t.includes("stepping") || t.includes("culture")) return <Brain weight="bold" className="h-5 w-5 text-[#437118]" />
+    const t = (course.title + " " + (course.cardTitle || "")).toLowerCase()
+    if (t.includes("stepping")) return <Brain weight="bold" className="h-5 w-5 text-[#437118]" />
     if (t.includes("fundamentals") || t.includes("direction")) return <Compass weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("planning") || t.includes("timelines")) return <CalendarCheck weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("planning") || t.includes("coordination")) return <CalendarCheck weight="bold" className="h-5 w-5 text-[#437118]" />
     if (t.includes("leading the event team") || t.includes("delegation")) return <Users weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("cross-functional")) return <TreeStructure weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("cross-functional") || t.includes("collaboration")) return <TreeStructure weight="bold" className="h-5 w-5 text-[#437118]" />
     if (t.includes("readiness")) return <ShieldCheck weight="bold" className="h-5 w-5 text-[#437118]" />
     if (t.includes("rehearsal") || t.includes("simulation")) return <RocketLaunch weight="bold" className="h-5 w-5 text-[#437118]" />
     if (t.includes("execution") || t.includes("live delivery")) return <Clock weight="bold" className="h-5 w-5 text-[#437118]" />
     if (t.includes("feedback") || t.includes("reflection")) return <ArrowsClockwise weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("difficult conversations")) return <ChatCircleText weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("decision-making")) return <UserGear weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("marketing")) return <Megaphone weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("leadership essentials")) return <UserGear weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("teamwork")) return <Users weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("inclusive") || t.includes("accessible")) return <Heartbeat weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("ethics") || t.includes("responsible")) return <ShieldStar weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("communication") || t.includes("stakeholder")) return <ChatCircleText weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("problem-solving") || t.includes("pressure")) return <Timer weight="bold" className="h-5 w-5 text-[#437118]" />
     if (t.includes("finance") || t.includes("budget")) return <Coins weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("logistics") || t.includes("venue")) return <Warehouse weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("stress") || t.includes("stamina")) return <Heartbeat weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("time mastery")) return <Timer weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("trust") || t.includes("safety")) return <ShieldStar weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("marketing")) return <Megaphone weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("external relations")) return <Sparkle weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("operations") || t.includes("logistics")) return <Warehouse weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("hr") || t.includes("people")) return <Users weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("confidence")) return <Sparkle weight="bold" className="h-5 w-5 text-[#437118]" />
     return <BookOpen weight="bold" className="h-5 w-5 text-[#437118]" />
   }
 
@@ -167,7 +174,7 @@ export function CoursesView({
   }
 
   const renderCourseCard = (course: Course) => {
-    const isEventReadiness = course.id === "course-1" || course.title.includes("Event Readiness")
+    const isEventReadiness = course.id === "event-readiness" || course.id === "course-1" || course.title.includes("Event Readiness")
     const isInProgress = course.status === "in-progress"
     const isCompleted = course.status === "completed"
     const isComingSoon = course.status === "coming-soon"
@@ -199,7 +206,7 @@ export function CoursesView({
               {isInProgress && (
                 <span className="text-[#437118] font-bold font-mono flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#437118] animate-pulse" />
-                  40%
+                  {course.progress}%
                 </span>
               )}
               {isCompleted && (
@@ -211,23 +218,28 @@ export function CoursesView({
             </div>
           </div>
 
-          {/* Title & Short Description */}
+          {/* Title (clamped to max 2 lines): Show cardTitle or title */}
           <h3 className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug line-clamp-2 mt-2.5">
-            {course.title}
+            {course.cardTitle || course.title}
           </h3>
 
+          {/* Card Intro (clamped to max 2 lines): Show cardIntro only, never full description */}
           <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 mt-1 min-h-[34px]">
-            {course.briefIntro || course.description}
+            {course.cardIntro || course.briefIntro}
           </p>
         </div>
 
-        {/* Bottom Row: Duration on left + Pill Button on right */}
+        {/* Bottom Row: Duration + courseType on left + Pill Button on right */}
         <div className="pt-3 border-t border-slate-100 mt-3 flex items-center justify-between text-xs">
           <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1">
             <Clock className="h-3 w-3 text-slate-400" />
-            <span>{course.duration}</span>
+            <span>
+              {course.duration}
+              {course.courseType && !course.duration.includes(course.courseType)
+                ? ` · ${course.courseType}`
+                : ""}
+            </span>
           </span>
-
           <div>
             {isInProgress ? (
               <button
@@ -585,7 +597,7 @@ export function CoursesView({
                       {inProgressCourse.title}
                     </h3>
                     <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5">
-                      Continue building participant-ready event delivery skills.
+                      {inProgressCourse.recommendedNote || inProgressCourse.cardIntro}
                     </p>
                   </div>
                 </div>
