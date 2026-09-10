@@ -218,7 +218,7 @@ export function CoursesView({
             <span className="text-slate-300">|</span>
             <span className="font-mono text-[#5A6578]">RFC-PL-2026</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1D2A62] tracking-tight leading-tight pt-0.5">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
             Course Library
           </h1>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
@@ -226,13 +226,13 @@ export function CoursesView({
           </p>
         </div>
 
-        {/* Right: Attached Vector Illustration Recolored in Brand Palette with Floating Motion (Enlarged) */}
+        {/* Right: Attached Learning Tablet Illustration with Floating Motion */}
         <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-4">
           <img
-            src="/courses-hero-palette.png"
+            src="/courses-hero-tablet.png"
             alt="Course Library Learning Exploration"
             loading="eager"
-            className="max-h-[230px] sm:max-h-[265px] lg:max-h-[295px] xl:max-h-[315px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+            className="max-h-[220px] sm:max-h-[250px] lg:max-h-[275px] xl:max-h-[290px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
           />
         </div>
       </div>
