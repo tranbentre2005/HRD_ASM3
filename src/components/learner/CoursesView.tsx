@@ -7,6 +7,7 @@ import {
   Sparkle, 
   Check, 
   CheckCircle,
+  Circle,
   SquaresFour,
   Target,
   Users,
@@ -180,93 +181,134 @@ export function CoursesView({
     const isInProgress = course.status === "in-progress"
     const isCompleted = course.status === "completed"
     const isComingSoon = course.status === "coming-soon"
+    const isNotStarted = !isComingSoon && !isInProgress && !isCompleted
+
+    // Compact course number / category marker (e.g. "06 · CORE PATHWAY")
+    let topMetadata = ""
+    const numberMatch = course.code.match(/^\d{2}/)
+    if (numberMatch && course.category === "Core Pathway") {
+      topMetadata = `${numberMatch[0]} · CORE PATHWAY`
+    } else if (numberMatch) {
+      topMetadata = `${numberMatch[0]} · ${course.category.toUpperCase()}`
+    } else {
+      topMetadata = course.category.toUpperCase()
+    }
+
+    // Duration formatting: "8–10 min · Interactive" for Event Readiness
+    const displayDuration = isEventReadiness
+      ? "8–10 min · Interactive"
+      : `${course.duration}${course.courseType && !course.duration.includes(course.courseType) ? ` · ${course.courseType}` : ""}`
 
     return (
       <div
         key={course.id}
-        className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between text-left relative"
+        className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between h-full text-left relative"
       >
+        {/* Top & Main Section */}
         <div>
-          {/* Top Row: Lime Square Icon + Stage Label + Status */}
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#AFD06E]/30 text-[#437118] flex items-center justify-center shrink-0">
-                {getCourseIcon(course)}
-              </div>
-              <span className="text-[11px] font-bold text-[#5A6578] font-mono tracking-wider uppercase">
-                {course.code}
-              </span>
-            </div>
+          {/* Top Row: Compact Course Number/Category Marker + Status Indicator */}
+          <div className="flex items-center justify-between gap-2 pb-1">
+            <span className="text-[11px] font-semibold text-slate-500 tracking-wider uppercase font-mono">
+              {topMetadata}
+            </span>
 
-            <div className="shrink-0 flex items-center gap-1 text-xs text-slate-400 font-medium">
+            {/* Status indicator: always icon plus text */}
+            <div className="shrink-0 flex items-center">
               {isComingSoon && (
-                <>
+                <span className="inline-flex items-center gap-1.5 text-xs text-slate-400 font-medium">
                   <Clock className="h-3.5 w-3.5 text-slate-400" />
                   <span>Coming Soon</span>
-                </>
+                </span>
               )}
               {isInProgress && (
-                <span className="text-[#437118] font-bold font-mono flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#437118] animate-pulse" />
-                  {course.progress}%
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#437118]">
+                  <span className="h-2 w-2 rounded-full bg-[#437118] animate-pulse" />
+                  <span>In Progress</span>
                 </span>
               )}
               {isCompleted && (
-                <span className="text-emerald-700 font-bold flex items-center gap-1">
-                  <Check weight="bold" className="h-3 w-3" />
-                  Done
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
+                  <CheckCircle weight="fill" className="h-3.5 w-3.5 text-emerald-600" />
+                  <span>Completed</span>
+                </span>
+              )}
+              {isNotStarted && (
+                <span className="inline-flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+                  <Circle weight="bold" className="h-3 w-3 text-slate-400" />
+                  <span>Not Started</span>
                 </span>
               )}
             </div>
           </div>
 
-          {/* Title (clamped to max 2 lines): Show cardTitle or title */}
-          <h3 className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug line-clamp-2 mt-2.5">
-            {course.cardTitle || course.title}
-          </h3>
+          {/* Main Content: Course Title (max 2 lines) & Brief Intro (max 2 lines) */}
+          <div className="space-y-1.5 mt-2.5 flex-1">
+            <h3 className="text-base font-bold text-[#1D2A62] leading-snug line-clamp-2">
+              {course.cardTitle || course.title}
+            </h3>
 
-          {/* Card Intro (clamped to max 2 lines): Show cardIntro only, never full description */}
-          <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 mt-1 min-h-[34px]">
-            {course.cardIntro || course.briefIntro}
-          </p>
+            <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 min-h-[36px]">
+              {course.cardIntro || course.briefIntro}
+            </p>
+          </div>
         </div>
 
-        {/* Bottom Row: Duration + courseType on left + Pill Button on right */}
-        <div className="pt-3 border-t border-slate-100 mt-3 flex items-center justify-between text-xs">
-          <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1">
-            <Clock className="h-3 w-3 text-slate-400" />
-            <span>
-              {course.duration}
-              {course.courseType && !course.duration.includes(course.courseType)
-                ? ` · ${course.courseType}`
-                : ""}
-            </span>
-          </span>
-          <div>
+        {/* Footer: Duration + Progress Row (In Progress only) + CTA or availability message */}
+        <div className="pt-3.5 mt-3.5 border-t border-slate-100 space-y-2.5">
+          {/* Duration metadata row with clock icon */}
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+            <span>{displayDuration}</span>
+          </div>
+
+          {/* Progress row only for an In Progress course */}
+          {isInProgress && (
+            <div className="space-y-1">
+              <div className="flex items-center justify-between text-[11px] text-slate-600">
+                <span className="font-medium">Progress</span>
+                <span className="font-bold text-[#437118] font-mono">{course.progress}% complete</span>
+              </div>
+              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#437118] rounded-full transition-all"
+                  style={{ width: `${course.progress}%` }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* CTA or availability message at the bottom */}
+          <div className="pt-0.5">
             {isInProgress ? (
               <button
                 type="button"
                 onClick={() => onSelectCourse(course)}
-                className="h-7 px-3 rounded-lg bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs flex items-center gap-1 cursor-pointer transition-all active:scale-[0.98]"
+                className="w-full h-9 px-4 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2A62]"
               >
-                <span>Continue</span>
-                <ArrowRight className="h-3 w-3" />
+                <span>Continue Course</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </button>
             ) : isCompleted ? (
               <button
                 type="button"
                 onClick={() => onSelectCourse(course)}
-                className="h-7 px-3 rounded-lg border border-emerald-300 text-emerald-700 hover:bg-emerald-50 font-semibold text-xs flex items-center gap-1 cursor-pointer"
+                className="w-full h-9 px-4 rounded-xl border border-emerald-300 bg-emerald-50/50 hover:bg-emerald-50 text-emerald-800 font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
               >
-                <span>Review</span>
+                <span>Review Course</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </button>
+            ) : isComingSoon ? (
+              <div className="h-9 flex items-center text-xs text-slate-400 font-medium px-0.5 select-none">
+                <span>Available soon</span>
+              </div>
             ) : (
               <button
                 type="button"
-                disabled
-                className="h-7 px-3 rounded-lg border border-slate-200 text-slate-400 bg-slate-50/70 text-xs font-medium cursor-not-allowed"
+                onClick={() => onSelectCourse(course)}
+                className="w-full h-9 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-[#1D2A62] font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2A62]"
               >
-                Coming Soon
+                <span>View Course</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </button>
             )}
           </div>
