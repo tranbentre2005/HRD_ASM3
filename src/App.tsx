@@ -318,19 +318,10 @@ export function App() {
 
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500 font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-center text-center">
           <p>
             © 2026 RMIT Finance Club (RFC) • Project Leader Learning Hub
           </p>
-          <div className="flex items-center gap-4 text-slate-400 text-xs">
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="text-slate-500 hover:text-[#1D2A62] transition-colors cursor-pointer"
-            >
-              Role Selection
-            </button>
-          </div>
         </div>
       </footer>
     </div>
