@@ -166,6 +166,100 @@ export function CoursesView({
     setSearchQuery("")
   }
 
+  const renderCourseCard = (course: Course) => {
+    const isEventReadiness = course.id === "course-1" || course.title.includes("Event Readiness")
+    const isInProgress = course.status === "in-progress"
+    const isCompleted = course.status === "completed"
+    const isComingSoon = course.status === "coming-soon"
+
+    return (
+      <div
+        key={course.id}
+        className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between text-left relative"
+      >
+        <div>
+          {/* Top Row: Lime Square Icon + Stage Label + Status */}
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-[#AFD06E]/30 text-[#437118] flex items-center justify-center shrink-0">
+                {getCourseIcon(course)}
+              </div>
+              <span className="text-[11px] font-bold text-[#5A6578] font-mono tracking-wider uppercase">
+                {course.code}
+              </span>
+            </div>
+
+            <div className="shrink-0 flex items-center gap-1 text-xs text-slate-400 font-medium">
+              {isComingSoon && (
+                <>
+                  <Clock className="h-3.5 w-3.5 text-slate-400" />
+                  <span>Coming Soon</span>
+                </>
+              )}
+              {isInProgress && (
+                <span className="text-[#437118] font-bold font-mono flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#437118] animate-pulse" />
+                  40%
+                </span>
+              )}
+              {isCompleted && (
+                <span className="text-emerald-700 font-bold flex items-center gap-1">
+                  <Check weight="bold" className="h-3 w-3" />
+                  Done
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Title & Short Description */}
+          <h3 className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug line-clamp-2 mt-2.5">
+            {course.title}
+          </h3>
+
+          <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 mt-1 min-h-[34px]">
+            {course.briefIntro || course.description}
+          </p>
+        </div>
+
+        {/* Bottom Row: Duration on left + Pill Button on right */}
+        <div className="pt-3 border-t border-slate-100 mt-3 flex items-center justify-between text-xs">
+          <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1">
+            <Clock className="h-3 w-3 text-slate-400" />
+            <span>{course.duration}</span>
+          </span>
+
+          <div>
+            {isInProgress ? (
+              <button
+                type="button"
+                onClick={() => onSelectCourse(course)}
+                className="h-7 px-3 rounded-lg bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs flex items-center gap-1 cursor-pointer transition-all active:scale-[0.98]"
+              >
+                <span>Continue</span>
+                <ArrowRight className="h-3 w-3" />
+              </button>
+            ) : isCompleted ? (
+              <button
+                type="button"
+                onClick={() => onSelectCourse(course)}
+                className="h-7 px-3 rounded-lg border border-emerald-300 text-emerald-700 hover:bg-emerald-50 font-semibold text-xs flex items-center gap-1 cursor-pointer"
+              >
+                <span>Review</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="h-7 px-3 rounded-lg border border-slate-200 text-slate-400 bg-slate-50/70 text-xs font-medium cursor-not-allowed"
+              >
+                Coming Soon
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="pb-16 font-sans text-left">
       {/* ========================================================================= */}
@@ -506,138 +600,49 @@ export function CoursesView({
           )}
 
           {/* ===================================================================== */}
-          {/* COURSE CATALOGUE SECTIONS: 2-Column Grid matching Image #1            */}
+          {/* COURSE CATALOGUE: 3 Courses per row (no categories when All Courses)  */}
           {/* ===================================================================== */}
-          <div className="space-y-8">
-            {CATEGORY_SECTIONS.map((sec) => {
-              if (selectedCategory !== "all" && selectedCategory !== sec.key) {
-                return null
-              }
+          {selectedCategory === "all" ? (
+            /* All Courses: Single continuous 3-column grid without dividing into categories */
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredCourses.map((course) => renderCourseCard(course))}
+            </div>
+          ) : (
+            /* Specific Category View: 3 Courses per row */
+            <div className="space-y-8">
+              {CATEGORY_SECTIONS.filter(sec => sec.key === selectedCategory).map((sec) => {
+                const sectionCourses = filteredCourses.filter(c => c.category === sec.key)
+                if (sectionCourses.length === 0) return null
 
-              const sectionCourses = filteredCourses.filter(c => c.category === sec.key)
-              if (sectionCourses.length === 0) return null
-
-              return (
-                <section key={sec.key} className="space-y-3">
-                  {/* Category Title Header */}
-                  <div>
-                    <span className="text-[10px] font-bold text-[#437118] uppercase tracking-wider font-mono block">
-                      {sec.label}
-                    </span>
-                    <div className="flex items-center justify-between gap-2 mt-0.5">
-                      <h2 className="text-lg sm:text-xl font-extrabold text-[#1D2A62] tracking-tight">
-                        {sec.heading}
-                      </h2>
-                      <span className="text-xs text-slate-500 font-mono">
-                        {sectionCourses.length} {sectionCourses.length === 1 ? 'course' : 'courses'}
+                return (
+                  <section key={sec.key} className="space-y-3">
+                    {/* Category Title Header */}
+                    <div>
+                      <span className="text-[10px] font-bold text-[#437118] uppercase tracking-wider font-mono block">
+                        {sec.label}
                       </span>
+                      <div className="flex items-center justify-between gap-2 mt-0.5">
+                        <h2 className="text-lg sm:text-xl font-extrabold text-[#1D2A62] tracking-tight">
+                          {sec.heading}
+                        </h2>
+                        <span className="text-xs text-slate-500 font-mono">
+                          {sectionCourses.length} {sectionCourses.length === 1 ? 'course' : 'courses'}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-600 mt-0.5">
+                        {sec.description}
+                      </p>
                     </div>
-                    <p className="text-xs text-slate-600 mt-0.5">
-                      {sec.description}
-                    </p>
-                  </div>
 
-                  {/* 2-Column Cards Grid matching Image #1 */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {sectionCourses.map((course) => {
-                      const isEventReadiness = course.id === "course-1" || course.title.includes("Event Readiness")
-                      const isInProgress = course.status === "in-progress"
-                      const isCompleted = course.status === "completed"
-                      const isComingSoon = course.status === "coming-soon"
-
-                      return (
-                        <div
-                          key={course.id}
-                          className="rounded-xl border border-slate-200/90 bg-white p-4 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between text-left relative"
-                        >
-                          <div>
-                            {/* Top Row: Lime Square Icon + Stage Label + Status */}
-                            <div className="flex items-center justify-between gap-2">
-                              <div className="flex items-center gap-2.5">
-                                <div className="w-9 h-9 rounded-xl bg-[#AFD06E]/30 text-[#437118] flex items-center justify-center shrink-0">
-                                  {getCourseIcon(course)}
-                                </div>
-                                <span className="text-[11px] font-bold text-[#5A6578] font-mono tracking-wider uppercase">
-                                  {course.code}
-                                </span>
-                              </div>
-
-                              <div className="shrink-0 flex items-center gap-1 text-xs text-slate-400 font-medium">
-                                {isComingSoon && (
-                                  <>
-                                    <Clock className="h-3.5 w-3.5 text-slate-400" />
-                                    <span>Coming Soon</span>
-                                  </>
-                                )}
-                                {isInProgress && (
-                                  <span className="text-[#437118] font-bold font-mono flex items-center gap-1">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-[#437118] animate-pulse" />
-                                    40%
-                                  </span>
-                                )}
-                                {isCompleted && (
-                                  <span className="text-emerald-700 font-bold flex items-center gap-1">
-                                    <Check weight="bold" className="h-3 w-3" />
-                                    Done
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-
-                            {/* Title & Short Description */}
-                            <h3 className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug line-clamp-2 mt-2.5">
-                              {course.title}
-                            </h3>
-
-                            <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 mt-1 min-h-[34px]">
-                              {course.briefIntro || course.description}
-                            </p>
-                          </div>
-
-                          {/* Bottom Row: Duration on left + Pill Button on right */}
-                          <div className="pt-3 border-t border-slate-100 mt-3 flex items-center justify-between text-xs">
-                            <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1">
-                              <Clock className="h-3 w-3 text-slate-400" />
-                              <span>{course.duration}</span>
-                            </span>
-
-                            <div>
-                              {isInProgress ? (
-                                <button
-                                  type="button"
-                                  onClick={() => onSelectCourse(course)}
-                                  className="h-7 px-3 rounded-lg bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs flex items-center gap-1 cursor-pointer transition-all active:scale-[0.98]"
-                                >
-                                  <span>Continue</span>
-                                  <ArrowRight className="h-3 w-3" />
-                                </button>
-                              ) : isCompleted ? (
-                                <button
-                                  type="button"
-                                  onClick={() => onSelectCourse(course)}
-                                  className="h-7 px-3 rounded-lg border border-emerald-300 text-emerald-700 hover:bg-emerald-50 font-semibold text-xs flex items-center gap-1 cursor-pointer"
-                                >
-                                  <span>Review</span>
-                                </button>
-                              ) : (
-                                <button
-                                  type="button"
-                                  disabled
-                                  className="h-7 px-3 rounded-lg border border-slate-200 text-slate-400 bg-slate-50/70 text-xs font-medium cursor-not-allowed"
-                                >
-                                  Coming Soon
-                                </button>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </section>
-              )
-            })}
-          </div>
+                    {/* 3-Column Cards Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {sectionCourses.map((course) => renderCourseCard(course))}
+                    </div>
+                  </section>
+                )
+              })}
+            </div>
+          )}
 
           {/* Empty State */}
           {filteredCourses.length === 0 && (
