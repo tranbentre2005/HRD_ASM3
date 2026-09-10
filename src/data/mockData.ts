@@ -325,9 +325,56 @@ export const INITIAL_COURSES: Course[] = [
     status: "coming-soon",
     modules: []
   },
-
+  {
+    id: "lead-04",
+    title: "Coaching & Mentoring Student Leads",
+    code: "LEADERSHIP",
+    category: "Leadership Skills",
+    level: "Intermediate",
+    duration: "5 min · Leadership",
+    totalLessons: 3,
+    completedLessons: 0,
+    progress: 0,
+    briefIntro: "Build coaching habits to help junior executive members grow into confident project managers.",
+    description: "Build coaching habits to help junior executive members grow into confident project managers.",
+    competencies: ["Active Coaching", "Leadership Growth", "Mentorship Cadence"],
+    status: "coming-soon",
+    modules: []
+  },
+  {
+    id: "lead-05",
+    title: "Conflict Resolution & Alignment",
+    code: "LEADERSHIP",
+    category: "Leadership Skills",
+    level: "Intermediate",
+    duration: "6 min · Leadership",
+    totalLessons: 3,
+    completedLessons: 0,
+    progress: 0,
+    briefIntro: "De-escalate inter-departmental friction and align committee heads on shared project milestones.",
+    description: "De-escalate inter-departmental friction and align committee heads on shared project milestones.",
+    competencies: ["De-escalation", "Stakeholder Alignment", "Conflict Resolution"],
+    status: "coming-soon",
+    modules: []
+  },
+  {
+    id: "lead-06",
+    title: "Influencing Without Authority",
+    code: "LEADERSHIP",
+    category: "Leadership Skills",
+    level: "Intermediate",
+    duration: "5 min · Leadership",
+    totalLessons: 3,
+    completedLessons: 0,
+    progress: 0,
+    briefIntro: "Guide cross-functional volunteers through vision clarity, peer empathy, and social capital.",
+    description: "Guide cross-functional volunteers through vision clarity, peer empathy, and social capital.",
+    competencies: ["Peer Influence", "Shared Ownership", "Motivational Alignment"],
+    status: "coming-soon",
+    modules: []
+  },
   // ==========================================
-  // 3. FUNCTIONAL ESSENTIALS (3 Courses)
+  // 3. FUNCTIONAL ESSENTIALS (5 Courses)
   // ==========================================
   {
     id: "func-01",
@@ -377,7 +424,38 @@ export const INITIAL_COURSES: Course[] = [
     status: "coming-soon",
     modules: []
   },
-
+  {
+    id: "func-04",
+    title: "Sponsorship Pitching & Partner Relations",
+    code: "FUNCTIONAL",
+    category: "Functional Essentials",
+    level: "Foundational",
+    duration: "6 min · Functional",
+    totalLessons: 3,
+    completedLessons: 0,
+    progress: 0,
+    briefIntro: "Secure corporate sponsor packages, manage sponsor deliverables, and host partner VIPs.",
+    description: "Secure corporate sponsor packages, manage sponsor deliverables, and host partner VIPs.",
+    competencies: ["Sponsor Pitching", "Deliverable Tracking", "VIP Hospitality"],
+    status: "coming-soon",
+    modules: []
+  },
+  {
+    id: "func-05",
+    title: "Risk Management & Safety Contingency",
+    code: "FUNCTIONAL",
+    category: "Functional Essentials",
+    level: "Foundational",
+    duration: "5 min · Functional",
+    totalLessons: 3,
+    completedLessons: 0,
+    progress: 0,
+    briefIntro: "Develop emergency escalation matrices, medical protocols, and crowd safety contingencies.",
+    description: "Develop emergency escalation matrices, medical protocols, and crowd safety contingencies.",
+    competencies: ["Risk Matrices", "Emergency Protocols", "Contingency Readiness"],
+    status: "coming-soon",
+    modules: []
+  },
   // ==========================================
   // 4. PERSONAL DEVELOPMENT (3 Courses)
   // ==========================================
