@@ -449,8 +449,8 @@ export function CoursesView({
         {/* RIGHT COLUMN: Search Bar + Featured Strip + Course Catalogue Cards       */}
         {/* ======================================================================= */}
         <div className="lg:col-span-8 xl:col-span-9 space-y-5">
-          {/* Top Compact Hero Banner: Shrunk, no illustration, placed on right level with sidebar */}
-          <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-5 lg:px-7 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
+          {/* Top Compact Hero Banner: With attached workspace laptop illustration in RFC palette */}
+          <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-3.5 lg:px-7 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
             {/* Subtle Architectural Dot Matrix Grid */}
             <div 
               className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
@@ -475,8 +475,8 @@ export function CoursesView({
               <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
             </svg>
 
-            {/* Banner Content */}
-            <div className="space-y-1.5 z-10 relative text-left">
+            {/* Left: Banner Content */}
+            <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-lg">
               {/* Breadcrumb: Home / Courses */}
               <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
                 <button
@@ -490,13 +490,22 @@ export function CoursesView({
                 <span className="font-semibold text-[#1D2A62]">Courses</span>
               </nav>
 
-
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
                 Course Library
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                 Explore practical courses designed to help you become a more capable Project Leader.
               </p>
+            </div>
+
+            {/* Right: Attached Workspace Laptop Illustration in RFC Palette */}
+            <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-1">
+              <img
+                src="/courses-hero-laptop.png"
+                alt="Course Library Workspace Exploration"
+                loading="eager"
+                className="max-h-[120px] sm:max-h-[130px] lg:max-h-[138px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+              />
             </div>
           </div>
 
