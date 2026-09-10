@@ -398,73 +398,11 @@ export function CoursesView({
   return (
     <div className="pb-16 font-sans text-left">
       {/* ========================================================================= */}
-      {/* TOP: Full-Width Course Library Banner                                     */}
-      {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-5 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between mb-6">
-        {/* Subtle Architectural Dot Matrix Grid */}
-        <div 
-          className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
-        />
-
-        {/* Ambient Radial Halo Blooms */}
-        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
-        <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
-
-        {/* Subtle Concentric Leadership Arcs framing right side */}
-        <svg 
-          className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block" 
-          viewBox="0 0 400 400" 
-          fill="none"
-        >
-          <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
-          <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
-          <circle cx="260" cy="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
-          <circle cx="165" cy="180" r="3.5" fill="#437118" />
-          <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
-          <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
-          <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
-        </svg>
-
-        {/* Left: Banner Content */}
-        <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-xl">
-          {/* Breadcrumb: Home / Courses */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-            <button
-              type="button"
-              onClick={onBackToHome}
-              className="hover:text-[#1D2A62] transition-colors cursor-pointer text-slate-600 hover:underline"
-            >
-              Home
-            </button>
-            <span className="text-slate-300">/</span>
-            <span className="font-semibold text-[#1D2A62]">Courses</span>
-          </nav>
-
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
-            Course Library
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-            Explore practical courses designed to help you become a more capable Project Leader.
-          </p>
-        </div>
-
-        {/* Right: Attached Kanban Tablet Illustration in RFC Palette */}
-        <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-2">
-          <img
-            src="/courses-hero-kanban.png"
-            alt="Course Library Kanban Task Board"
-            loading="eager"
-            className="max-h-[130px] sm:max-h-[140px] lg:max-h-[150px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
-          />
-        </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* TWO-COLUMN LAYOUT: Left Sidebar level with Right Search Bar                */}
+      {/* TWO-COLUMN LAYOUT: Left Section level with Right Banner                   */}
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ======================================================================= */}
-        {/* LEFT COLUMN: Sidebar Card (Browse Courses & Learning Progress)           */}
+        {/* LEFT COLUMN: Sidebar Card (Browse Courses, Progress & Continue Learning)  */}
         {/* ======================================================================= */}
         <div className="lg:col-span-4 xl:col-span-3 rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-5 shadow-xs space-y-5 text-left relative overflow-hidden">
           {/* Ambient radial light layers */}
@@ -584,7 +522,7 @@ export function CoursesView({
             </span>
 
             <div className="flex items-center gap-3.5">
-              {/* Circular progress ring (60% progress with #AFD06E lime stroke & white/20 track) */}
+              {/* Circular progress ring (56% progress with #AFD06E lime stroke & white/20 track) */}
               <div className="relative h-13 w-13 flex items-center justify-center shrink-0">
                 <svg className="h-13 w-13 -rotate-90" viewBox="0 0 36 36">
                   <circle
@@ -622,95 +560,130 @@ export function CoursesView({
               </div>
             </div>
           </div>
+
+          {/* Group 3: CONTINUE LEARNING (placed directly after Your Learning Progress) */}
+          {inProgressCourse && (
+            <>
+              <hr className="border-white/15 relative z-10" />
+              <div className="space-y-2.5 relative z-10 pt-0.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-[#AFD06E] tracking-wider uppercase block">
+                    CONTINUE LEARNING
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-white/15 border border-white/20 text-[#AFD06E] text-[10px] font-bold">
+                    06 · 40%
+                  </span>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-black/20 border border-white/15 space-y-2">
+                  <h4 className="text-xs sm:text-sm font-bold text-white leading-snug">
+                    {inProgressCourse.title}
+                  </h4>
+                  <p className="text-[11px] text-emerald-100/75 leading-relaxed">
+                    {inProgressCourse.recommendedNote || inProgressCourse.cardIntro}
+                  </p>
+
+                  <div className="pt-1">
+                    <button
+                      type="button"
+                      onClick={() => onSelectCourse(inProgressCourse)}
+                      className="w-full h-8.5 px-3 rounded-lg bg-white hover:bg-slate-50 text-[#274818] font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98]"
+                    >
+                      <span>Continue Course</span>
+                      <ArrowRight className="h-3 w-3 text-[#274818]" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         {/* ======================================================================= */}
-        {/* RIGHT COLUMN: Search Bar + Featured Strip + Course Catalogue Cards       */}
+        {/* RIGHT COLUMN: Banner + Search Bar + Course Catalogue Cards               */}
         {/* ======================================================================= */}
         <div className="lg:col-span-8 xl:col-span-9 space-y-5">
+          {/* Top Compact Hero Banner */}
+          <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-5 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
+            {/* Subtle Architectural Dot Matrix Grid */}
+            <div 
+              className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
+            />
 
-          {/* Top Search Input - Compact Size */}
-          <div className="relative max-w-sm sm:max-w-md rounded-xl border border-slate-200/90 bg-white p-0.5 shadow-2xs">
-            <MagnifyingGlass className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+            {/* Ambient Radial Halo Blooms */}
+            <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+            <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
+
+            {/* Subtle Concentric Leadership Arcs framing right side */}
+            <svg 
+              className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block" 
+              viewBox="0 0 400 400" 
+              fill="none"
+            >
+              <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
+              <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
+              <circle cx="260" cy="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
+              <circle cx="165" cy="180" r="3.5" fill="#437118" />
+              <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
+              <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
+              <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
+            </svg>
+
+            {/* Left: Banner Content */}
+            <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-xl">
+              {/* Breadcrumb: Home / Courses */}
+              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+                <button
+                  type="button"
+                  onClick={onBackToHome}
+                  className="hover:text-[#1D2A62] transition-colors cursor-pointer text-slate-600 hover:underline"
+                >
+                  Home
+                </button>
+                <span className="text-slate-300">/</span>
+                <span className="font-semibold text-[#1D2A62]">Courses</span>
+              </nav>
+
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
+                Course Library
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                Explore practical courses designed to help you become a more capable Project Leader.
+              </p>
+            </div>
+
+            {/* Right: Attached Kanban Tablet Illustration in RFC Palette */}
+            <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-2">
+              <img
+                src="/courses-hero-kanban.png"
+                alt="Course Library Kanban Task Board"
+                loading="eager"
+                className="max-h-[130px] sm:max-h-[140px] lg:max-h-[150px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+              />
+            </div>
+          </div>
+
+          {/* Top Search Input - Restored to Full Width */}
+          <div className="relative w-full rounded-xl border border-slate-200/90 bg-white p-1 shadow-2xs">
+            <MagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search courses, skills, or topics..."
-              className="w-full pl-9 pr-9 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent"
+              className="w-full pl-10 pr-10 py-2 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
                 title="Clear search"
               >
-                <X className="h-3 w-3" />
+                <X className="h-3.5 w-3.5" />
               </button>
             )}
           </div>
-
-          {/* Featured "CONTINUE LEARNING" Card from Image #1 - All Blue Palette */}
-          {inProgressCourse && (selectedCategory === "all" || selectedCategory === "Core Pathway") && !searchQuery.trim() && (
-            <div className="rounded-xl border-l-4 border-l-[#1D2A62] border-t border-r border-b border-[#87AECE]/35 bg-gradient-to-r from-[#F0F7FC] via-[#F6FAFD] to-[#EFF6FA] p-4 sm:p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
-              <div className="space-y-2">
-                <span className="text-[10px] font-bold text-[#1D2A62] uppercase tracking-wider block">
-                  CONTINUE LEARNING
-                </span>
-                <div className="flex items-center gap-3">
-                  {/* Progress ring inside continue strip - Deep Navy */}
-                  <div className="relative h-9 w-9 flex items-center justify-center shrink-0">
-                    <svg className="h-9 w-9 -rotate-90" viewBox="0 0 36 36">
-                      <circle cx="18" cy="18" r="15" fill="none" stroke="#87AECE" strokeOpacity="0.25" strokeWidth="4" />
-                      <circle
-                        cx="18"
-                        cy="18"
-                        r="15"
-                        fill="none"
-                        stroke="#1D2A62"
-                        strokeWidth="4"
-                        strokeDasharray="94.25"
-                        strokeDashoffset={94.25 * (1 - 0.40)}
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    <span className="absolute text-[9px] font-bold text-[#1D2A62]">
-                      40%
-                    </span>
-                  </div>
-
-                  {/* 06 Marker Badge - Azure / Navy */}
-                  <span className="px-2 py-0.5 rounded bg-[#87AECE]/25 border border-[#87AECE]/35 text-[#1D2A62] text-xs font-bold shrink-0">
-                    06
-                  </span>
-
-                  {/* Course Title & Description */}
-                  <div>
-                    <h3 className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug">
-                      {inProgressCourse.title}
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5">
-                      {inProgressCourse.recommendedNote || inProgressCourse.cardIntro}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right CTA Button */}
-              <div className="shrink-0 pt-2 sm:pt-0">
-                <button
-                  type="button"
-                  onClick={() => onSelectCourse(inProgressCourse)}
-                  className="h-10 px-5 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.98] whitespace-nowrap"
-                >
-                  <span>Continue Course</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-          )}
-
           {/* ===================================================================== */}
           {/* COURSE CATALOGUE: 3 Courses per row (no categories when All Courses)  */}
           {/* ===================================================================== */}
