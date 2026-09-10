@@ -431,16 +431,16 @@ export function CoursesView({
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ======================================================================= */}
-        {/* LEFT COLUMN: Sidebar Card (Browse Courses, Progress & Continue Learning)  */}
+        {/* LEFT COLUMN: Sidebar Card (Pale Green Gradient RFC Palette)              */}
         {/* ======================================================================= */}
-        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-5 shadow-xs space-y-5 text-left relative overflow-hidden">
+        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl bg-gradient-to-br from-[#F4F9F1] via-[#F8FCF6] to-[#EDF6E8] border border-[#AFD06E]/35 text-slate-800 p-5 shadow-2xs space-y-5 text-left relative overflow-hidden">
           {/* Ambient radial light layers */}
-          <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
-          <div className="absolute -bottom-8 left-1/4 w-36 h-36 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-radial from-[#AFD06E]/20 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-36 h-36 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
           {/* Group 1: BROWSE COURSES */}
           <div className="space-y-3 relative z-10">
-            <h2 className="text-[11px] font-bold text-[#AFD06E] tracking-wider uppercase">
+            <h2 className="text-[11px] font-bold text-[#1D2A62] tracking-wider uppercase">
               BROWSE COURSES
             </h2>
 
@@ -451,15 +451,15 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("all")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "all"
-                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
-                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
+                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-white/70 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CheckCircle weight="bold" className={`h-4 w-4 ${selectedCategory === "all" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
+                  <CheckCircle weight="bold" className={`h-4 w-4 ${selectedCategory === "all" ? "text-[#386b24]" : "text-slate-400"}`} />
                   <span className="text-xs">All Courses</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "all" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
+                <span className={`text-xs font-semibold ${selectedCategory === "all" ? "text-[#386b24]" : "text-slate-500"}`}>
                   {categoryCounts["all"]}
                 </span>
               </button>
@@ -470,15 +470,15 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("Core Pathway")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Core Pathway"
-                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
-                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
+                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-white/70 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Stack weight="bold" className={`h-4 w-4 ${selectedCategory === "Core Pathway" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
+                  <Stack weight="bold" className={`h-4 w-4 ${selectedCategory === "Core Pathway" ? "text-[#386b24]" : "text-slate-500"}`} />
                   <span className="text-xs">Core Pathway</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "Core Pathway" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
+                <span className={`text-xs font-semibold ${selectedCategory === "Core Pathway" ? "text-[#386b24]" : "text-slate-500"}`}>
                   {categoryCounts["Core Pathway"]}
                 </span>
               </button>
@@ -489,15 +489,15 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("Leadership Skills")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Leadership Skills"
-                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
-                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
+                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-white/70 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Users weight="bold" className={`h-4 w-4 ${selectedCategory === "Leadership Skills" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
+                  <Users weight="bold" className={`h-4 w-4 ${selectedCategory === "Leadership Skills" ? "text-[#386b24]" : "text-slate-500"}`} />
                   <span className="text-xs">Leadership Skills</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "Leadership Skills" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
+                <span className={`text-xs font-semibold ${selectedCategory === "Leadership Skills" ? "text-[#386b24]" : "text-slate-500"}`}>
                   {categoryCounts["Leadership Skills"]}
                 </span>
               </button>
@@ -508,15 +508,15 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("Functional Essentials")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Functional Essentials"
-                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
-                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
+                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-white/70 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Gear weight="bold" className={`h-4 w-4 ${selectedCategory === "Functional Essentials" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
+                  <Gear weight="bold" className={`h-4 w-4 ${selectedCategory === "Functional Essentials" ? "text-[#386b24]" : "text-slate-500"}`} />
                   <span className="text-xs">Functional Essentials</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "Functional Essentials" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
+                <span className={`text-xs font-semibold ${selectedCategory === "Functional Essentials" ? "text-[#386b24]" : "text-slate-500"}`}>
                   {categoryCounts["Functional Essentials"]}
                 </span>
               </button>
@@ -527,31 +527,31 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("Personal Development")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Personal Development"
-                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
-                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
+                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-white/70 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <User weight="bold" className={`h-4 w-4 ${selectedCategory === "Personal Development" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
+                  <User weight="bold" className={`h-4 w-4 ${selectedCategory === "Personal Development" ? "text-[#386b24]" : "text-slate-500"}`} />
                   <span className="text-xs">Personal Development</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "Personal Development" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
+                <span className={`text-xs font-semibold ${selectedCategory === "Personal Development" ? "text-[#386b24]" : "text-slate-500"}`}>
                   {categoryCounts["Personal Development"]}
                 </span>
               </button>
             </div>
           </div>
 
-          <hr className="border-white/15 relative z-10" />
+          <hr className="border-[#AFD06E]/30 relative z-10" />
 
           {/* Group 2: YOUR LEARNING PROGRESS */}
           <div className="space-y-3 relative z-10">
-            <span className="text-[10px] font-bold text-[#AFD06E] tracking-wider uppercase block">
+            <span className="text-[10px] font-bold text-[#1D2A62] tracking-wider uppercase block">
               YOUR LEARNING PROGRESS
             </span>
 
             <div className="flex items-center gap-3.5">
-              {/* Circular progress ring (56% progress with #AFD06E lime stroke & white/20 track) */}
+              {/* Circular progress ring (56% progress with #437118 stroke & #E2E8F0 track) */}
               <div className="relative h-13 w-13 flex items-center justify-center shrink-0">
                 <svg className="h-13 w-13 -rotate-90" viewBox="0 0 36 36">
                   <circle
@@ -559,7 +559,7 @@ export function CoursesView({
                     cy="18"
                     r="15"
                     fill="none"
-                    stroke="rgba(255, 255, 255, 0.2)"
+                    stroke="#E2E8F0"
                     strokeWidth="3.5"
                   />
                   <circle
@@ -567,23 +567,23 @@ export function CoursesView({
                     cy="18"
                     r="15"
                     fill="none"
-                    stroke="#AFD06E"
+                    stroke="#437118"
                     strokeWidth="3.5"
                     strokeDasharray="94.25"
                     strokeDashoffset={94.25 * (1 - 0.56)}
                     strokeLinecap="round"
                   />
                 </svg>
-                <span className="absolute text-xs font-extrabold text-white">
+                <span className="absolute text-xs font-extrabold text-[#1D2A62]">
                   56%
                 </span>
               </div>
 
               <div>
-                <h3 className="text-xs sm:text-[13px] font-bold text-white leading-tight">
+                <h3 className="text-xs sm:text-[13px] font-bold text-[#1D2A62] leading-tight">
                   5 of 9 Core Pathway courses completed
                 </h3>
-                <p className="text-[11px] text-emerald-100/80 mt-1 leading-snug">
+                <p className="text-[11px] text-slate-600 mt-1 leading-snug font-medium">
                   1 course in progress
                 </p>
               </div>
@@ -593,22 +593,22 @@ export function CoursesView({
           {/* Group 3: CONTINUE LEARNING (placed directly after Your Learning Progress) */}
           {inProgressCourse && (
             <>
-              <hr className="border-white/15 relative z-10" />
+              <hr className="border-[#AFD06E]/30 relative z-10" />
               <div className="space-y-2.5 relative z-10 pt-0.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-[#AFD06E] tracking-wider uppercase block">
+                  <span className="text-[10px] font-bold text-[#1D2A62] tracking-wider uppercase block">
                     CONTINUE LEARNING
                   </span>
-                  <span className="px-2 py-0.5 rounded bg-white/15 border border-white/20 text-[#AFD06E] text-[10px] font-bold">
+                  <span className="px-2 py-0.5 rounded bg-white border border-[#AFD06E]/40 text-[#386b24] text-[10px] font-bold shadow-2xs">
                     06 · 40%
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-black/20 border border-white/15 space-y-2">
-                  <h4 className="text-xs sm:text-sm font-bold text-white leading-snug">
+                <div className="p-3.5 rounded-xl bg-white border border-[#AFD06E]/35 shadow-2xs space-y-2">
+                  <h4 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
                     {inProgressCourse.title}
                   </h4>
-                  <p className="text-[11px] text-emerald-100/75 leading-relaxed">
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
                     {inProgressCourse.recommendedNote || inProgressCourse.cardIntro}
                   </p>
 
@@ -616,10 +616,10 @@ export function CoursesView({
                     <button
                       type="button"
                       onClick={() => onSelectCourse(inProgressCourse)}
-                      className="w-full h-8.5 px-3 rounded-lg bg-white hover:bg-slate-50 text-[#274818] font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98]"
+                      className="w-full h-8.5 px-3 rounded-lg bg-[#1D2A62] hover:bg-[#16204a] text-white font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98]"
                     >
                       <span>Continue Course</span>
-                      <ArrowRight className="h-3 w-3 text-[#274818]" />
+                      <ArrowRight className="h-3 w-3" />
                     </button>
                   </div>
                 </div>
