@@ -727,12 +727,6 @@ export function CoursesView({
             )}
           </div>
           {/* ===================================================================== */}
-          {/* Below Search Field: Quiet contextual row when a specific category is selected */}
-          {selectedCategory !== "all" && (
-            <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-0.5 pt-0.5">
-              <span>{currentBanner.countText || `${filteredCourses.length} courses`}</span>
-            </div>
-          )}
 
           {/* COURSE CATALOGUE: 3 Courses per row */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
