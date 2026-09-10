@@ -425,10 +425,7 @@ export function CoursesView({
     )
   }
   return (
-    <div className="pb-16 font-sans text-left relative">
-      {/* Ambient background glows for the dark green page canvas */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-3xl -z-0" />
-      <div className="absolute top-2/3 -right-32 w-96 h-96 rounded-full bg-radial from-[#87AECE]/12 via-transparent to-transparent pointer-events-none blur-3xl -z-0" />
+    <div className="pb-16 font-sans text-left">
       {/* TWO-COLUMN LAYOUT: Left Section level with Right Banner                   */}
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -451,120 +448,125 @@ export function CoursesView({
             </h2>
 
             <div className="space-y-1">
-              {/* 1. All Courses */}
+              {/* 1. All Courses (SquaresFour icon matching Image #1) */}
               <button
                 type="button"
                 onClick={() => setSelectedCategory("all")}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "all"
-                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-white/70 text-slate-700 font-medium"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CheckCircle weight="bold" className={`h-4 w-4 ${selectedCategory === "all" ? "text-[#386b24]" : "text-slate-400"}`} />
+                  <SquaresFour weight="bold" className={`h-5 w-5 ${selectedCategory === "all" ? "text-[#386b24]" : "text-[#1D2A62]"}`} />
                   <span className="text-xs">All Courses</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "all" ? "text-[#386b24]" : "text-slate-500"}`}>
+                <span className="text-xs font-semibold text-slate-600">
                   {categoryCounts["all"]}
                 </span>
               </button>
 
-              {/* 2. Core Pathway */}
+              {/* 2. Core Pathway (Target bullseye icon matching Image #1) */}
               <button
                 type="button"
                 onClick={() => setSelectedCategory("Core Pathway")}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Core Pathway"
-                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-white/70 text-slate-700 font-medium"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Stack weight="bold" className={`h-4 w-4 ${selectedCategory === "Core Pathway" ? "text-[#386b24]" : "text-slate-500"}`} />
+                  <Target weight="bold" className={`h-5 w-5 ${selectedCategory === "Core Pathway" ? "text-[#386b24]" : "text-[#1D2A62]"}`} />
                   <span className="text-xs">Core Pathway</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "Core Pathway" ? "text-[#386b24]" : "text-slate-500"}`}>
+                <span className="text-xs font-semibold text-slate-500">
                   {categoryCounts["Core Pathway"]}
                 </span>
               </button>
 
-              {/* 3. Leadership Skills */}
+              {/* 3. Leadership Skills (Users group icon matching Image #1) */}
               <button
                 type="button"
                 onClick={() => setSelectedCategory("Leadership Skills")}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Leadership Skills"
-                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-white/70 text-slate-700 font-medium"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Users weight="bold" className={`h-4 w-4 ${selectedCategory === "Leadership Skills" ? "text-[#386b24]" : "text-slate-500"}`} />
+                  <Users weight="bold" className={`h-5 w-5 ${selectedCategory === "Leadership Skills" ? "text-[#386b24]" : "text-[#1D2A62]"}`} />
                   <span className="text-xs">Leadership Skills</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "Leadership Skills" ? "text-[#386b24]" : "text-slate-500"}`}>
+                <span className="text-xs font-semibold text-slate-500">
                   {categoryCounts["Leadership Skills"]}
                 </span>
               </button>
 
-              {/* 4. Functional Essentials */}
+              {/* 4. Functional Essentials (Gear icon matching Image #1) */}
               <button
                 type="button"
                 onClick={() => setSelectedCategory("Functional Essentials")}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Functional Essentials"
-                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-white/70 text-slate-700 font-medium"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Gear weight="bold" className={`h-4 w-4 ${selectedCategory === "Functional Essentials" ? "text-[#386b24]" : "text-slate-500"}`} />
+                  <Gear weight="bold" className={`h-5 w-5 ${selectedCategory === "Functional Essentials" ? "text-[#386b24]" : "text-[#1D2A62]"}`} />
                   <span className="text-xs">Functional Essentials</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "Functional Essentials" ? "text-[#386b24]" : "text-slate-500"}`}>
+                <span className="text-xs font-semibold text-slate-500">
                   {categoryCounts["Functional Essentials"]}
                 </span>
               </button>
 
-              {/* 5. Personal Development */}
+              {/* 5. Personal Development (Plant sprout icon matching Image #1) */}
               <button
                 type="button"
                 onClick={() => setSelectedCategory("Personal Development")}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Personal Development"
-                    ? "bg-white border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-white/70 text-slate-700 font-medium"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
+                    : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <User weight="bold" className={`h-4 w-4 ${selectedCategory === "Personal Development" ? "text-[#386b24]" : "text-slate-500"}`} />
+                  <Plant weight="bold" className={`h-5 w-5 ${selectedCategory === "Personal Development" ? "text-[#386b24]" : "text-[#1D2A62]"}`} />
                   <span className="text-xs">Personal Development</span>
                 </div>
-                <span className={`text-xs font-semibold ${selectedCategory === "Personal Development" ? "text-[#386b24]" : "text-slate-500"}`}>
+                <span className="text-xs font-semibold text-slate-500">
                   {categoryCounts["Personal Development"]}
                 </span>
               </button>
             </div>
           </div>
           <hr className="border-[#87AECE]/25 relative z-10" />
-          {/* Group 2: YOUR LEARNING PROGRESS */}
-          <div className="space-y-3 relative z-10">
-            <span className="text-[10px] font-bold text-[#1D2A62] tracking-wider uppercase block">
-              YOUR LEARNING PROGRESS
-            </span>
+          {/* Group 2: YOUR LEARNING PROGRESS (Exact format and content of Home page card) */}
+          <div className="space-y-2.5 relative z-10">
+            <div className="h-7 flex items-center justify-between gap-2">
+              <h3 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
+                YOUR LEARNING PROGRESS
+              </h3>
+              <span className="inline-flex items-center text-[10px] font-bold text-[#1D2A62] bg-[#87AECE]/20 px-2.5 py-0.5 rounded-full border border-[#87AECE]/35 shrink-0">
+                Core Pathway
+              </span>
+            </div>
 
-            <div className="flex items-center gap-3.5">
-              {/* Circular progress ring (56% progress with #437118 stroke & #E2E8F0 track) */}
-              <div className="relative h-13 w-13 flex items-center justify-center shrink-0">
-                <svg className="h-13 w-13 -rotate-90" viewBox="0 0 36 36">
+            <div className="flex items-center gap-3.5 my-auto py-1">
+              {/* Circular Gauge: 56% */}
+              <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
+                <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
                   <circle
                     cx="18"
                     cy="18"
                     r="15"
                     fill="none"
                     stroke="#E2E8F0"
-                    strokeWidth="3.5"
+                    strokeWidth="3"
                   />
                   <circle
                     cx="18"
@@ -572,22 +574,22 @@ export function CoursesView({
                     r="15"
                     fill="none"
                     stroke="#437118"
-                    strokeWidth="3.5"
+                    strokeWidth="3"
                     strokeDasharray="94.25"
                     strokeDashoffset={94.25 * (1 - 0.56)}
                     strokeLinecap="round"
                   />
                 </svg>
-                <span className="absolute text-xs font-extrabold text-[#1D2A62]">
+                <span className="absolute text-base font-extrabold text-[#1D2A62] leading-none select-none">
                   56%
                 </span>
               </div>
 
-              <div>
-                <h3 className="text-xs sm:text-[13px] font-bold text-[#1D2A62] leading-tight">
-                  5 of 9 Core Pathway courses completed
-                </h3>
-                <p className="text-[11px] text-slate-600 mt-1 leading-snug font-medium">
+              <div className="space-y-0.5">
+                <h4 className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug">
+                  5 of 9 courses completed
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
                   1 course in progress
                 </p>
               </div>

@@ -196,7 +196,7 @@ export function App() {
 
   // 2. Main Portal view
   return (
-    <div className={`min-h-[100dvh] ${currentPage === 'courses' ? 'bg-[#152e0d]' : 'bg-[var(--page-canvas,#FFFFFF)]'} text-slate-900 flex flex-col font-sans antialiased relative overflow-x-hidden transition-colors`}>
+    <div className="min-h-[100dvh] bg-[var(--page-canvas,#FFFFFF)] text-slate-900 flex flex-col font-sans antialiased relative overflow-x-hidden">
       {/* Navigation Bar with Logo Home, COURSES, MY LEARNING, SUPPORT, Bell, and 1-letter avatar */}
       <div className="relative z-20">
         <Navbar
@@ -317,7 +317,7 @@ export function App() {
       />
 
       {/* Footer */}
-      <footer className={`border-t ${currentPage === 'courses' ? 'border-[#AFD06E]/20 bg-[#11240a] text-emerald-100/70' : 'border-slate-200 bg-white text-slate-500'} py-6 text-center text-xs font-sans transition-colors`}>
+      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500 font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-center text-center">
           <p>
             © 2026 RMIT Finance Club (RFC) • Project Leader Learning Hub
