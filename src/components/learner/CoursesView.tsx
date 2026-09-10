@@ -430,18 +430,9 @@ export function CoursesView({
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ======================================================================= */}
-        {/* LEFT COLUMN: Sidebar Card (Matching Banner Background & Style)            */}
+        {/* LEFT COLUMN: Sidebar Card (White Background, Frameless / No Border)       */}
         {/* ======================================================================= */}
-        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] text-slate-800 p-5 space-y-5 text-left relative overflow-hidden">
-          {/* Subtle Architectural Dot Matrix Grid matching banner */}
-          <div 
-            className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-0" 
-          />
-
-          {/* Ambient radial light layers matching banner */}
-          <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none blur-xl" />
-          <div className="absolute -bottom-8 left-1/4 w-36 h-36 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none blur-xl" />
-          {/* Group 1: Category Navigation */}
+        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl bg-white text-slate-800 p-4 sm:p-5 space-y-5 text-left">
           <div className="relative z-10">
             <div className="space-y-1">
               {/* 1. All Courses (SquaresFour icon matching Image #1) */}
@@ -540,7 +531,7 @@ export function CoursesView({
               </button>
             </div>
           </div>
-          <hr className="border-[#87AECE]/25 relative z-10" />
+          <hr className="border-slate-100" />
           {/* Group 2: YOUR LEARNING PROGRESS (Exact format and content of Home page card) */}
           <div className="space-y-2.5 relative z-10">
             <div className="h-7 flex items-center justify-between gap-2">
@@ -595,7 +586,7 @@ export function CoursesView({
           {/* Group 3: CONTINUE LEARNING (placed directly after Your Learning Progress) */}
           {inProgressCourse && (
             <>
-              <hr className="border-[#87AECE]/25 relative z-10" />
+              <hr className="border-slate-100" />
               <div className="space-y-2.5 relative z-10 pt-0.5">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold text-[#1D2A62] tracking-wider uppercase block">
@@ -606,7 +597,7 @@ export function CoursesView({
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-white border border-[#87AECE]/35 shadow-2xs space-y-2">
+                <div className="p-3.5 rounded-xl bg-slate-50/90 border border-slate-200/80 space-y-2">
                   <h4 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
                     {inProgressCourse.title}
                   </h4>
