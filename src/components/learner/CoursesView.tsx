@@ -396,14 +396,6 @@ export function CoursesView({
                 <span className="font-semibold text-[#1D2A62]">Courses</span>
               </nav>
 
-              <div className="flex items-center gap-2 text-xs text-slate-600 font-medium pt-0.5">
-                <span className="h-2 w-2 rounded-full bg-[#437118]" />
-                <span className="font-semibold text-slate-900">Project Leader</span>
-                <span className="text-slate-400">•</span>
-                <span>Course Library</span>
-                <span className="text-slate-300">|</span>
-                <span className="font-mono text-[#5A6578]">RFC-PL-2026</span>
-              </div>
 
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
                 Course Library
