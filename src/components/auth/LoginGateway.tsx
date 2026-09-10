@@ -79,7 +79,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
 
               {/* Headline */}
               <div className="pt-2 text-center">
-                <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight text-center mx-auto">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#2e5714] via-[#437118] to-[#5a9426] bg-clip-text text-transparent leading-tight text-center mx-auto">
                   WELCOME TO PROJECT LEADERS LEARNING HUB!
                 </h1>
               </div>

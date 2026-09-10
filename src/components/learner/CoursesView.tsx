@@ -431,13 +431,17 @@ export function CoursesView({
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ======================================================================= */}
-        {/* LEFT COLUMN: Sidebar Card (Pale Green Gradient RFC Palette)              */}
+        {/* LEFT COLUMN: Sidebar Card (Matching Banner Background & Style)            */}
         {/* ======================================================================= */}
-        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl bg-gradient-to-br from-[#F4F9F1] via-[#F8FCF6] to-[#EDF6E8] border border-[#AFD06E]/35 text-slate-800 p-5 shadow-2xs space-y-5 text-left relative overflow-hidden">
-          {/* Ambient radial light layers */}
-          <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-radial from-[#AFD06E]/20 via-transparent to-transparent pointer-events-none blur-xl" />
-          <div className="absolute -bottom-8 left-1/4 w-36 h-36 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
+        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] text-slate-800 p-5 space-y-5 text-left relative overflow-hidden">
+          {/* Subtle Architectural Dot Matrix Grid matching banner */}
+          <div 
+            className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-0" 
+          />
 
+          {/* Ambient radial light layers matching banner */}
+          <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-36 h-36 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none blur-xl" />
           {/* Group 1: BROWSE COURSES */}
           <div className="space-y-3 relative z-10">
             <h2 className="text-[11px] font-bold text-[#1D2A62] tracking-wider uppercase">
@@ -541,9 +545,7 @@ export function CoursesView({
               </button>
             </div>
           </div>
-
-          <hr className="border-[#AFD06E]/30 relative z-10" />
-
+          <hr className="border-[#87AECE]/25 relative z-10" />
           {/* Group 2: YOUR LEARNING PROGRESS */}
           <div className="space-y-3 relative z-10">
             <span className="text-[10px] font-bold text-[#1D2A62] tracking-wider uppercase block">
@@ -593,18 +595,18 @@ export function CoursesView({
           {/* Group 3: CONTINUE LEARNING (placed directly after Your Learning Progress) */}
           {inProgressCourse && (
             <>
-              <hr className="border-[#AFD06E]/30 relative z-10" />
+              <hr className="border-[#87AECE]/25 relative z-10" />
               <div className="space-y-2.5 relative z-10 pt-0.5">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold text-[#1D2A62] tracking-wider uppercase block">
                     CONTINUE LEARNING
                   </span>
-                  <span className="px-2 py-0.5 rounded bg-white border border-[#AFD06E]/40 text-[#386b24] text-[10px] font-bold shadow-2xs">
+                  <span className="px-2 py-0.5 rounded bg-white border border-[#87AECE]/35 text-[#1D2A62] text-[10px] font-bold shadow-2xs">
                     06 · 40%
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-white border border-[#AFD06E]/35 shadow-2xs space-y-2">
+                <div className="p-3.5 rounded-xl bg-white border border-[#87AECE]/35 shadow-2xs space-y-2">
                   <h4 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
                     {inProgressCourse.title}
                   </h4>
