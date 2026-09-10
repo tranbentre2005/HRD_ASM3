@@ -425,8 +425,10 @@ export function CoursesView({
     )
   }
   return (
-    <div className="pb-16 font-sans text-left">
-      {/* ========================================================================= */}
+    <div className="pb-16 font-sans text-left relative">
+      {/* Ambient background glows for the dark green page canvas */}
+      <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-3xl -z-0" />
+      <div className="absolute top-2/3 -right-32 w-96 h-96 rounded-full bg-radial from-[#87AECE]/12 via-transparent to-transparent pointer-events-none blur-3xl -z-0" />
       {/* TWO-COLUMN LAYOUT: Left Section level with Right Banner                   */}
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
