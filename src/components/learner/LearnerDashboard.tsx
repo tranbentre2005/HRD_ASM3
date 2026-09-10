@@ -23,9 +23,9 @@ import {
   ArrowDown,
   ArrowSquareOut,
   DiamondsFour,
-  PlayCircle,
   BookmarkSimple,
   Timer,
+  Clock,
   Compass,
   Users,
   RocketLaunch,
@@ -90,8 +90,8 @@ export function LearnerDashboard({
     return matchesSearch && matchesCategory
   })
   const heroCourse = inProgressCourses[0] || courses[0]
+  const nextCourse = courses.find(c => c.id === 'core-07') || courses.find(c => c.category === heroCourse.category && c.id !== heroCourse.id) || courses[1]
   const avgProgress = courses.length > 0 ? Math.round(courses.reduce((acc, c) => acc + c.progress, 0) / courses.length) : 50
-
   return (
     <div className="space-y-5 pb-6 font-sans">
       {/* Learner Hero Banner with Dynamic Background & Aligned Proportions */}
@@ -179,7 +179,7 @@ export function LearnerDashboard({
               </h3>
             </div>
 
-            <div className="flex items-center gap-4 my-auto py-1">
+            <div className="flex items-center justify-center gap-4 my-auto py-2">
               {/* Circular Gauge: Exactly 70px diameter with centered 60% */}
               <div className="relative h-[70px] w-[70px] flex items-center justify-center shrink-0">
                 <svg className="h-[70px] w-[70px] -rotate-90" viewBox="0 0 36 36">
@@ -281,35 +281,40 @@ export function LearnerDashboard({
 
           <div className="relative z-10">
             {/* Aligned Top Title Row */}
-            <div className="h-7 flex items-center">
+            <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
                 NEXT UP
               </h3>
+              <span className="text-[10px] font-mono text-[#87AECE] font-bold bg-white/10 px-2 py-0.5 rounded-full border border-white/15">
+                STAGE 03
+              </span>
             </div>
 
             <div className="space-y-0.5 mt-2">
               <h4 className="text-base font-bold text-white leading-snug">
-                Event Ready Simulation
+                {nextCourse?.title || "Rehearsal & Simulation"}
               </h4>
               <p className="text-xs text-slate-200 font-medium">
-                Put your skills into practice with a realistic scenario.
+                {nextCourse?.briefIntro || "Test run-of-show timing, identify single points of failure, and practice dry runs."}
               </p>
             </div>
 
-            <div className="flex items-center gap-1.5 text-[11px] text-slate-200 mt-2">
-              <Timer className="h-3.5 w-3.5 text-[#AFD06E]" />
-              <span className="font-medium font-mono">1.4 | ~ 2 min</span>
+            {/* Clear, prominent course duration badge */}
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white/15 border border-white/20 text-white text-xs font-medium shadow-2xs mt-2.5">
+              <Clock weight="bold" className="h-3.5 w-3.5 text-[#AFD06E]" />
+              <span>Estimated duration:</span>
+              <span className="font-bold text-[#AFD06E] font-mono">7 mins</span>
             </div>
           </div>
 
           <div className="pt-2 relative z-10">
             <button
               type="button"
-              onClick={() => onSelectCourse(heroCourse)}
+              onClick={() => onSelectCourse(nextCourse || heroCourse)}
               className="w-full py-2 px-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#1D2A62] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer active:scale-[0.98] text-center"
             >
-              <span>Start Next Activity</span>
-              <ArrowRight className="h-3.5 w-3.5 text-[#1D2A62]" />
+              <span>View Next Course</span>
+              <ArrowRight weight="bold" className="h-3.5 w-3.5 text-[#1D2A62]" />
             </button>
           </div>
         </div>
