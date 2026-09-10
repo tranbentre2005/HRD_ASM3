@@ -498,13 +498,13 @@ export function CoursesView({
               </p>
             </div>
 
-            {/* Right: Attached Workspace Laptop Illustration in RFC Palette */}
+            {/* Right: Attached Kanban Tablet Illustration in RFC Palette */}
             <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-1">
               <img
-                src="/courses-hero-laptop.png"
-                alt="Course Library Workspace Exploration"
+                src="/courses-hero-kanban.png"
+                alt="Course Library Kanban Task Board"
                 loading="eager"
-                className="max-h-[120px] sm:max-h-[130px] lg:max-h-[138px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+                className="max-h-[125px] sm:max-h-[135px] lg:max-h-[142px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
               />
             </div>
           </div>
