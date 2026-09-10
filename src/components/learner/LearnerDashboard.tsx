@@ -21,6 +21,7 @@ import {
   ArrowRight,
   ArrowLeft,
   ArrowDown,
+  ArrowSquareOut,
   DiamondsFour,
   PlayCircle,
   BookmarkSimple,
@@ -39,6 +40,8 @@ interface LearnerDashboardProps {
   certificates: CertificateItem[]
   onSelectCourse: (course: Course) => void
   onViewCertificate: (cert: CertificateItem) => void
+  onNavigateCourses?: (category?: string) => void
+  onNavigateMyLearning?: () => void
   activeTab?: 'my-courses' | 'catalog' | 'skills' | 'certificates'
   onTabChange?: (tab: 'my-courses' | 'catalog' | 'skills' | 'certificates') => void
 }
@@ -48,6 +51,8 @@ export function LearnerDashboard({
   certificates,
   onSelectCourse,
   onViewCertificate,
+  onNavigateCourses,
+  onNavigateMyLearning,
   activeTab: controlledTab,
   onTabChange,
 }: LearnerDashboardProps) {
@@ -90,7 +95,7 @@ export function LearnerDashboard({
   return (
     <div className="space-y-5 pb-6 font-sans">
       {/* Learner Hero Banner with Dynamic Background & Aligned Proportions */}
-      <div className="relative rounded-3xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-4 sm:p-5 lg:py-4 lg:px-7 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:p-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
@@ -114,208 +119,241 @@ export function LearnerDashboard({
           <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
           <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
         </svg>
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-center">
-          {/* Left Column: Welcome Headline, Subtitle & CTA */}
-          <div className="lg:col-span-7 space-y-2.5">
-            <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/90 border border-[#87AECE]/40 shadow-2xs backdrop-blur-xs">
-              <span className="h-2 w-2 rounded-full bg-[#437118] animate-pulse" />
-              <span className="text-[11px] font-bold text-[#1D2A62]">
-                Project Leader • Management Committee
-              </span>
-              <span className="text-slate-300">•</span>
-              <span className="text-[11px] text-[#68707D] font-mono">RFC-PL-2026</span>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+          {/* Left Column: Welcome Headline, Subtitle & Primary CTA */}
+          <div className="lg:col-span-7 space-y-4 text-left">
+            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600 font-medium">
+              <span className="h-2 w-2 rounded-full bg-[#437118]" />
+              <span className="font-semibold text-slate-900">Project Leader</span>
+              <span className="text-slate-400">•</span>
+              <span>Management Committee</span>
+              <span className="text-slate-300">|</span>
+              <span className="font-mono text-[#5A6578]">RFC-PL-2026</span>
             </div>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
+
+            <h1 className="text-2xl sm:text-3xl lg:text-[38px] font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-[1.15]">
               Welcome back, Project Leader!
             </h1>
 
-            <p className="text-sm sm:text-base text-[#68707D] leading-relaxed max-w-xl">
-              Build the practical skills to lead club's projects and events with more clarity, confident and readiness
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+              Build the practical skills to lead club projects and events with clarity and confidence.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            <div className="pt-2">
               <Button
                 size="lg"
-                onClick={() => setActiveTab('catalog')}
-                className="h-12 px-7 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer flex items-center gap-2.5 group active:scale-[0.98]"
+                onClick={() => onNavigateCourses ? onNavigateCourses("all") : setActiveTab('catalog')}
+                className="h-11 px-6 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-sm shadow-xs hover:shadow-md transition-all cursor-pointer flex items-center gap-2 group active:scale-[0.98]"
               >
                 <span>Continue Learning</span>
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
               </Button>
-
-              <div className="flex items-center gap-1.5 text-xs text-[#68707D] font-medium">
-                <Sparkle weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
-                <span>Ready for Q3 Event Delivery</span>
-              </div>
             </div>
           </div>
 
-          {/* Right Column: 30% Larger Illustration */}
-          <div className="lg:col-span-5 flex items-center justify-center py-1 relative">
+          {/* Right Column: Harmonized Illustration with Smooth Floating Motion */}
+          <div className="lg:col-span-5 flex items-center justify-center relative">
             <img
               src="/learner-hero-palette.png"
               alt="Project Leader with Event Checklist and Deliverables"
               loading="eager"
-              className="max-h-[350px] sm:max-h-[385px] lg:max-h-[395px] w-auto object-contain select-none drop-shadow-md transition-transform hover:scale-102"
+              className="max-h-[280px] sm:max-h-[310px] lg:max-h-[320px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
             />
-          </div>
-          {/* Full-Width Bottom Row: 3 Executive Cards Exactly Formatted per Image */}
-          <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-3 pt-3 sm:pt-3.5 border-t border-slate-200/60">
-            {/* Card 1: YOUR LEARNING PROGRESS */}
-            <div className="p-3 sm:p-3.5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
-              <div className="flex items-center gap-2 mb-3">
-                <DiamondsFour weight="bold" className="h-4 w-4 text-[#437118]" />
-                <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
-                  YOUR LEARNING PROGRESS
-                </h3>
-              </div>
-
-              <div className="flex items-center gap-3.5 my-auto">
-                {/* Circular Gauge */}
-                <div className="relative h-14 w-14 flex items-center justify-center shrink-0">
-                  <svg className="h-14 w-14 -rotate-90" viewBox="0 0 36 36">
-                    <circle
-                      cx="18"
-                      cy="18"
-                      r="15"
-                      fill="none"
-                      stroke="#EDEDED"
-                      strokeWidth="3.5"
-                    />
-                    <circle
-                      cx="18"
-                      cy="18"
-                      r="15"
-                      fill="none"
-                      stroke="#437118"
-                      strokeWidth="3.5"
-                      strokeDasharray="94.2"
-                      strokeDashoffset="63.1"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  <span className="absolute text-xs font-bold text-[#1D2A62] font-mono">
-                    33%
-                  </span>
-                </div>
-
-                <div className="flex-1 space-y-2">
-                  <p className="text-xs font-semibold text-[#1D2A62]">
-                    3 of 9 courses started
-                  </p>
-                  <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#437118] rounded-full w-[33%]" />
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-[11px] text-[#68707D] pt-3 leading-snug">
-                Keep going! You're building real skills for real impact.
-              </p>
-            </div>
-
-            {/* Card 2: CURRENT COURSE */}
-            <div className="p-3 sm:p-3.5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-2">
-                  <PlayCircle weight="fill" className="h-4 w-4 text-[#437118]" />
-                  <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
-                    CURRENT COURSE
-                  </h3>
-                </div>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full">
-                  In Progress
-                </span>
-              </div>
-
-              <div className="space-y-2 my-auto">
-                <h4 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
-                  Event Readiness | From "Done" to Participant-Ready
-                </h4>
-
-                <div className="flex items-center gap-2.5">
-                  <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#437118] rounded-full w-[40%]" />
-                  </div>
-                  <span className="text-[11px] font-bold text-[#68707D] font-mono">
-                    40%
-                  </span>
-                </div>
-              </div>
-
-              <div className="pt-3">
-                <button
-                  type="button"
-                  onClick={() => onSelectCourse(heroCourse)}
-                  className="bg-[#0f2e24] hover:bg-[#0a2019] text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-1.5 w-fit transition-all cursor-pointer shadow-xs active:scale-[0.98]"
-                >
-                  <span>Continue Course</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Card 3: NEXT UP */}
-            <div className="p-3 sm:p-3.5 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#87AECE] hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left">
-              <div className="flex items-center gap-2 mb-2">
-                <BookmarkSimple weight="bold" className="h-4 w-4 text-[#437118]" />
-                <h3 className="text-xs sm:text-sm font-extrabold text-[#437118] tracking-wider uppercase">
-                  NEXT UP
-                </h3>
-              </div>
-
-              <div className="space-y-1 my-auto">
-                <h4 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
-                  Event Ready Simulation
-                </h4>
-
-                <div className="flex items-center gap-1.5 text-[11px] text-[#68707D]">
-                  <Timer className="h-3.5 w-3.5 text-slate-400" />
-                  <span className="font-medium">1.4 | ~ 2 min</span>
-                </div>
-
-                <p className="text-[11px] text-[#68707D] leading-snug pt-0.5">
-                  Put your skills into practice with a realistic scenario.
-                </p>
-              </div>
-
-              <div className="pt-3">
-                <button
-                  type="button"
-                  onClick={() => onSelectCourse(heroCourse)}
-                  className="bg-slate-100 hover:bg-slate-200 text-[#1D2A62] text-xs font-semibold px-4 py-2 rounded-lg w-fit transition-colors cursor-pointer"
-                >
-                  Start Next Activity
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-      {/* About Learning Hub & Interactive Learning Pathway Section */}
-      <div 
-        className="rounded-3xl border border-slate-200/90 bg-white/90 backdrop-blur-xs p-6 sm:p-8 shadow-xs relative overflow-hidden transition-all duration-300"
-        onMouseEnter={() => setIsHoveringPathway(true)}
-        onMouseLeave={() => setIsHoveringPathway(false)}
-      >
-        {/* Subtle Brand Background Accents */}
-        <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-radial from-[#87AECE]/12 via-transparent to-transparent pointer-events-none -z-0" />
 
-        <div className="relative z-10 space-y-6 text-center">
-          {/* Centered Single Header Block */}
-          <div className="space-y-3 max-w-3xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight">
-              About Learning Hub
-            </h2>
-            <p className="text-xs sm:text-sm text-[#68707D] leading-relaxed">
-              The Finance Club PL Learning Hub is a practical learning space designed to help Project Leaders build the skills needed to plan, lead, and deliver student events more effectively. Through short courses, interactive practice, simulations, and practical tools, you can develop your capabilities across the event lifecycle - from understanding your role and planning an event to leading teams, preparing for delivery, solving problems, and learning from experience.
+      {/* 3 Executive Metric Cards: Scaled down 10%, Navy borders on white cards, aligned title row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+        {/* Card 1: YOUR LEARNING PROGRESS (Deep Navy Gradient style matching Card 2) */}
+        <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
+          {/* Ambient light layers */}
+          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
+
+          <div className="relative z-10">
+            {/* Aligned Top Title Row */}
+            <div className="h-7 flex items-center">
+              <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
+                YOUR LEARNING PROGRESS
+              </h3>
+            </div>
+
+            <div className="flex items-center gap-3.5 my-auto py-1.5">
+              {/* Circular Gauge */}
+              <div className="relative h-14 w-14 flex items-center justify-center shrink-0">
+                <svg className="h-14 w-14 -rotate-90" viewBox="0 0 36 36">
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15"
+                    fill="none"
+                    stroke="rgba(255, 255, 255, 0.18)"
+                    strokeWidth="3.5"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15"
+                    fill="none"
+                    stroke="#87AECE"
+                    strokeWidth="3.5"
+                    strokeDasharray="94.2"
+                    strokeDashoffset={94.2 * (1 - 0.60)}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span className="absolute text-xs font-extrabold text-white font-mono">
+                  60%
+                </span>
+              </div>
+
+              <div className="space-y-0.5">
+                <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
+                  60% of your pathway complete
+                </h4>
+                <p className="text-[11px] sm:text-xs text-slate-200 font-medium">
+                  3 courses completed · 2 in progress
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-2 relative z-10">
+            <button
+              type="button"
+              onClick={() => onNavigateMyLearning ? onNavigateMyLearning() : (onNavigateCourses ? onNavigateCourses("all") : setActiveTab('catalog'))}
+              className="w-full py-2 px-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#1D2A62] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer active:scale-[0.98]"
+            >
+              <span>View My Learning</span>
+              <ArrowRight className="h-3.5 w-3.5 text-[#1D2A62]" />
+            </button>
+          </div>
+        </div>
+
+        {/* Card 2: CURRENT COURSE (Gradient Forest Green matching "Leading an event soon") */}
+        <div className="rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
+          {/* Ambient light layers */}
+          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-xl" />
+
+          <div className="relative z-10">
+            {/* Aligned Top Title Row: Title on Left, 'In Progress' Badge on Top Right */}
+            <div className="h-7 flex items-center justify-between gap-2">
+              <h3 className="text-xs font-bold text-[#AFD06E] tracking-wider uppercase">
+                CURRENT COURSE
+              </h3>
+              <span className="inline-flex items-center gap-1.5 bg-white text-slate-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-2xs shrink-0">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#386b24]" />
+                In Progress
+              </span>
+            </div>
+
+            <h4 className="text-sm sm:text-base font-bold text-white leading-snug mt-2">
+              Event Readiness | From 'Done' to Participant-Ready
+            </h4>
+          </div>
+          <div className="space-y-2.5 pt-2 relative z-10">
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-2 bg-black/20 rounded-full overflow-hidden">
+                <div className="h-full bg-[#AFD06E] rounded-full w-[40%]" />
+              </div>
+              <span className="text-base sm:text-lg font-extrabold text-white font-mono shrink-0">
+                40%
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => onSelectCourse(heroCourse)}
+              className="w-full py-2 px-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#386b24] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer active:scale-[0.98]"
+            >
+              <span>Continue Course</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Card 3: NEXT UP (Deep Navy Gradient style matching Card 2) */}
+        <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
+          {/* Ambient light layers */}
+          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
+
+          <div className="relative z-10">
+            {/* Aligned Top Title Row */}
+            <div className="h-7 flex items-center">
+              <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
+                NEXT UP
+              </h3>
+            </div>
+
+            <h4 className="text-sm sm:text-base font-bold text-white leading-snug mt-2">
+              Event Ready Simulation
+            </h4>
+
+            <div className="flex items-center gap-1.5 text-[11px] text-slate-200 mt-1">
+              <Timer className="h-3.5 w-3.5 text-[#87AECE]" />
+              <span className="font-medium">1.4 | ~ 2 min</span>
+            </div>
+
+            <p className="text-[11px] text-slate-200 leading-relaxed mt-1.5">
+              Put your skills into practice with a realistic scenario.
             </p>
           </div>
 
-          {/* 5-Step Process Flow with Wavy Undulating Dashed Connector */}
-          <div className="pt-6 pb-2 relative">
-            {/* Undulating Wavy Dashed Connector Curve (Positioned behind icons at z-0) */}
-            <div className="hidden lg:block absolute top-[28px] left-[5%] right-[5%] h-[40px] pointer-events-none z-0">
+          <div className="pt-2 relative z-10">
+            <button
+              type="button"
+              onClick={() => onSelectCourse(heroCourse)}
+              className="w-full py-2 px-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#1D2A62] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer active:scale-[0.98] text-center"
+            >
+              <span>Start Next Activity</span>
+              <ArrowRight className="h-3.5 w-3.5 text-[#1D2A62]" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* About Learning Hub & Interactive Learning Pathway Section - Styled like Hero Banner (without concentric circles) */}
+      <div 
+        className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:p-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden transition-all duration-300"
+      >
+        {/* Subtle Architectural Dot Matrix Grid */}
+        <div 
+          className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
+        />
+
+        {/* Ambient Radial Halo Blooms */}
+        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[450px] h-[450px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+        <div className="absolute -top-16 -left-16 w-80 h-80 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
+
+        <div className="relative z-10 space-y-6 text-center">
+          {/* Centered Single Header Block */}
+          <div className="space-y-3 max-w-3xl mx-auto text-center">
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 shadow-2xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#437118] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#437118]"></span>
+                </span>
+                <span className="text-[11px] font-bold text-[#437118] tracking-wider uppercase font-mono">
+                  PROJECT LEADER LEARNING HUB
+                </span>
+              </div>
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight block">
+              Build your Project Leader capability
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              The RMIT Vietnam Finance Club Project Leader Learning Hub brings together short courses, interactive practice, simulations, and practical tools to help you strengthen the capabilities needed across the event lifecycle - from thinking strategically and coordinating plans to leading people, delivering with readiness, and learning from experience.
+            </p>
+          </div>
+
+          {/* 5-Step Process Flow with Wavy Undulating Dashed Connector - Centered with equal spacing */}
+          <div className="pt-6 pb-2 relative max-w-5xl mx-auto">
+            {/* Undulating Wavy Dashed Connector Curve passing through icon centers */}
+            <div className="hidden lg:block absolute top-[28px] left-[8%] right-[8%] h-[40px] pointer-events-none z-0">
               <svg 
                 className="w-full h-full overflow-visible" 
                 viewBox="0 0 1000 60" 
@@ -323,279 +361,339 @@ export function LearnerDashboard({
                 preserveAspectRatio="none"
               >
                 <path
-                  d="M 40 30 Q 140 2, 240 30 T 440 30 T 640 30 T 840 30 T 960 30"
+                  d="M 20 30 Q 140 2, 260 30 T 500 30 T 740 30 T 980 30"
                   stroke="#87AECE"
                   strokeWidth="2.5"
                   strokeDasharray="6 6"
-                  className="opacity-70"
+                  className="opacity-70 animate-flow-line"
                 />
               </svg>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-3 text-center relative z-10">
-              {/* Step 1: Think strategically */}
-              <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
-                    <Brain weight="duotone" className="h-6 w-6 text-[#437118]" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 text-center relative z-10 items-start justify-items-center">
+              {/* Step 1: Think Strategically */}
+              <div className="flex flex-col items-center space-y-2 group w-full max-w-[200px]">
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-xs flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1.5 group-hover:scale-110 group-hover:shadow-md group-hover:border-[#437118]">
+                  <div className="w-10 h-10 rounded-full bg-[#AFD06E]/20 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#437118]">
+                    <Brain weight="duotone" className="h-5 w-5 text-[#437118] transition-colors duration-300 group-hover:text-white" />
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider font-mono">
                   Step 01
                 </span>
-                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
-                  Think strategically
+                <h3 className="text-sm sm:text-[15px] font-bold text-[#1D2A62] leading-snug h-9 flex items-center justify-center">
+                  Think Strategically
                 </h3>
-                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                <p className="text-xs text-slate-600 leading-relaxed min-h-[54px] flex items-start justify-center">
                   Understand event purpose, participants, and priorities.
                 </p>
               </div>
 
-              {/* Step 2: Plan & coordinate */}
-              <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
-                    <CalendarCheck weight="duotone" className="h-6 w-6 text-[#437118]" />
+              {/* Step 2: Plan & Coordinate */}
+              <div className="flex flex-col items-center space-y-2 group w-full max-w-[200px]">
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-xs flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1.5 group-hover:scale-110 group-hover:shadow-md group-hover:border-[#437118]">
+                  <div className="w-10 h-10 rounded-full bg-[#AFD06E]/20 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#437118]">
+                    <CalendarCheck weight="duotone" className="h-5 w-5 text-[#437118] transition-colors duration-300 group-hover:text-white" />
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider font-mono">
                   Step 02
                 </span>
-                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
-                  Plan & coordinate
+                <h3 className="text-sm sm:text-[15px] font-bold text-[#1D2A62] leading-snug h-9 flex items-center justify-center">
+                  Plan & Coordinate
                 </h3>
-                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                <p className="text-xs text-slate-600 leading-relaxed min-h-[54px] flex items-start justify-center">
                   Turn ideas into clear tasks, timelines, ownership, and dependencies.
                 </p>
               </div>
 
-              {/* Step 3: Lead people */}
-              <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
-                    <Users weight="duotone" className="h-6 w-6 text-[#437118]" />
+              {/* Step 3: Lead People */}
+              <div className="flex flex-col items-center space-y-2 group w-full max-w-[200px]">
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-xs flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1.5 group-hover:scale-110 group-hover:shadow-md group-hover:border-[#437118]">
+                  <div className="w-10 h-10 rounded-full bg-[#AFD06E]/20 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#437118]">
+                    <Users weight="duotone" className="h-5 w-5 text-[#437118] transition-colors duration-300 group-hover:text-white" />
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider font-mono">
                   Step 03
                 </span>
-                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
-                  Lead people
+                <h3 className="text-sm sm:text-[15px] font-bold text-[#1D2A62] leading-snug h-9 flex items-center justify-center">
+                  Lead People
                 </h3>
-                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                <p className="text-xs text-slate-600 leading-relaxed min-h-[54px] flex items-start justify-center">
                   Communicate, delegate, collaborate, and support your team.
                 </p>
               </div>
 
-              {/* Step 4: Deliver with readiness */}
-              <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
-                    <ShieldCheck weight="duotone" className="h-6 w-6 text-[#437118]" />
+              {/* Step 4: Deliver With Readiness */}
+              <div className="flex flex-col items-center space-y-2 group w-full max-w-[200px]">
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-xs flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1.5 group-hover:scale-110 group-hover:shadow-md group-hover:border-[#437118]">
+                  <div className="w-10 h-10 rounded-full bg-[#AFD06E]/20 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#437118]">
+                    <ShieldCheck weight="duotone" className="h-5 w-5 text-[#437118] transition-colors duration-300 group-hover:text-white" />
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider font-mono">
                   Step 04
                 </span>
-                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
-                  Deliver with readiness
+                <h3 className="text-sm sm:text-[15px] font-bold text-[#1D2A62] leading-snug h-9 flex items-center justify-center">
+                  Deliver With Readiness
                 </h3>
-                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
-                  Verify critical information, test event flow, and manage important issues before delivery.
+                <p className="text-xs text-slate-600 leading-relaxed min-h-[54px] flex items-start justify-center">
+                  Verify critical information, test event flow, and manage issues.
                 </p>
               </div>
 
-              {/* Step 5: Reflect & improve */}
-              <div className="flex flex-col items-center space-y-2.5 group">
-                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="w-11 h-11 rounded-full bg-[#AFD06E]/20 flex items-center justify-center">
-                    <ArrowsClockwise weight="bold" className="h-6 w-6 text-[#437118]" />
+              {/* Step 5: Reflect & Improve */}
+              <div className="flex flex-col items-center space-y-2 group w-full max-w-[200px]">
+                <div className="relative z-10 w-14 h-14 rounded-full bg-white border-2 border-[#AFD06E]/60 shadow-xs flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1.5 group-hover:scale-110 group-hover:shadow-md group-hover:border-[#437118]">
+                  <div className="w-10 h-10 rounded-full bg-[#AFD06E]/20 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#437118]">
+                    <ArrowsClockwise weight="bold" className="h-5 w-5 text-[#437118] transition-colors duration-300 group-hover:text-white" />
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-[#68707D] uppercase tracking-wider font-mono">
                   Step 05
                 </span>
-                <h3 className="text-sm font-bold text-[#1D2A62] leading-tight">
-                  Reflect & improve
+                <h3 className="text-sm sm:text-[15px] font-bold text-[#1D2A62] leading-snug h-9 flex items-center justify-center">
+                  Reflect & Improve
                 </h3>
-                <p className="text-xs text-[#68707D] leading-relaxed max-w-[210px]">
+                <p className="text-xs text-slate-600 leading-relaxed min-h-[54px] flex items-start justify-center">
                   Learn from feedback and strengthen future events.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* CTA & Interaction Controls */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-            <button
-              type="button"
-              onMouseEnter={() => setIsHoveringPathway(true)}
-              onClick={() => setIsPathwayRevealed(!isPathwayRevealed)}
-              className="h-11 px-7 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-xs hover:shadow-md transition-all cursor-pointer active:scale-[0.98]"
-            >
-              <span>Explore the Learning Pathway</span>
-              <ArrowDown className={`h-4 w-4 transition-transform duration-200 ${isHoveringPathway || isPathwayRevealed ? 'translate-y-1' : ''}`} />
-            </button>
-
-            <span className="text-xs text-[#68707D] flex items-center gap-1.5 font-medium">
-              <Sparkle weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
-              <span>Hover or click to view the 4 stages</span>
-            </span>
-          </div>
-          {/* 4 Interactive Pathway Cards (Revealed on Hover or Click) */}
+          {/* CTA & Interactive Pathway Section: Revealed on Hover over CTA or Cards, or on Click */}
           <div 
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-300 ease-in-out ${
+            className="pt-4 space-y-2"
+            onMouseEnter={() => setIsHoveringPathway(true)}
+            onMouseLeave={() => setIsHoveringPathway(false)}
+          >
+            <div className="flex flex-col items-center justify-center">
+              <button
+                type="button"
+                onMouseEnter={() => setIsHoveringPathway(true)}
+                onClick={() => setIsPathwayRevealed(!isPathwayRevealed)}
+                className="h-14 px-8 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white text-sm font-semibold flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-[0.98] group"
+              >
+                <span>Explore the Learning Pathway</span>
+                <ArrowDown className={`h-4 w-4 mt-0.5 text-[#AFD06E] animate-gentle-bob transition-transform duration-200 ${isHoveringPathway || isPathwayRevealed ? 'translate-y-1' : ''}`} />
+              </button>
+            </div>
+          {/* 4 Interactive Pathway Cards: Equal height, consistent spacing, strong text CTA */}
+          <div 
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch transition-all duration-300 ease-in-out ${
               isHoveringPathway || isPathwayRevealed
                 ? 'opacity-100 max-h-[500px] mt-6 pointer-events-auto'
                 : 'opacity-0 max-h-0 pointer-events-none overflow-hidden mt-0'
             }`}
           >
-            {/* Card 1: Foundation */}
+            {/* Card 1: Foundation (Pale light blue background) */}
             <div 
               role="button"
               tabIndex={0}
-              onClick={() => setActiveTab('skills')}
+              onClick={() => onNavigateCourses ? onNavigateCourses('Foundation') : setActiveTab('catalog')}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') setActiveTab('skills')
+                if (e.key === 'Enter' || e.key === ' ') {
+                  if (onNavigateCourses) onNavigateCourses('Foundation')
+                  else setActiveTab('catalog')
+                }
               }}
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-1 transition-all flex flex-col justify-between text-left cursor-pointer group"
+              className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
-                    <Compass weight="duotone" className="h-5 w-5 text-[#437118] group-hover:text-white" />
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] shadow-2xs group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                      <Compass weight="duotone" className="h-5 w-5 text-[#437118] group-hover:text-white" />
+                    </div>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-white text-[#437118] border border-emerald-300 shadow-2xs font-mono tracking-wide">
+                      START HERE
+                    </span>
                   </div>
-                  <span className="text-[10px] font-bold text-[#68707D] font-mono">
+                  <span className="text-[10px] font-bold text-[#1D2A62]/70 font-mono shrink-0">
                     STAGE 01
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-blue-700 transition-colors">
+                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#1D2A62] transition-colors leading-snug">
                     Foundation
                   </h3>
-                  <p className="text-xs text-[#68707D] leading-relaxed mt-1">
+                  <p className="text-xs text-slate-700 leading-relaxed mt-1 min-h-[36px]">
                     Understand your role and event direction.
                   </p>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] font-semibold text-[#437118] flex items-center gap-1">
-                <span>View Stage</span>
-                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+              <div className="pt-3 border-t border-[#87AECE]/30 mt-4 flex items-center justify-between text-xs font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
+                <span className="group-hover:underline underline-offset-4 flex items-center gap-1.5">
+                  View Courses
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                </span>
               </div>
             </div>
 
-            {/* Card 2: Plan & Lead */}
+            {/* Card 2: Plan & Lead (Pale light blue background) */}
             <div 
               role="button"
               tabIndex={0}
-              onClick={() => setActiveTab('skills')}
+              onClick={() => onNavigateCourses ? onNavigateCourses('Plan & Lead') : setActiveTab('catalog')}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') setActiveTab('skills')
+                if (e.key === 'Enter' || e.key === ' ') {
+                  if (onNavigateCourses) onNavigateCourses('Plan & Lead')
+                  else setActiveTab('catalog')
+                }
               }}
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-1 transition-all flex flex-col justify-between text-left cursor-pointer group"
+              className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] shadow-2xs group-hover:bg-[#437118] group-hover:text-white transition-colors">
                     <Users weight="duotone" className="h-5 w-5 text-[#437118] group-hover:text-white" />
                   </div>
-                  <span className="text-[10px] font-bold text-[#68707D] font-mono">
+                  <span className="text-[10px] font-bold text-[#1D2A62]/70 font-mono">
                     STAGE 02
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-blue-700 transition-colors">
+                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#1D2A62] transition-colors leading-snug">
                     Plan & Lead
                   </h3>
-                  <p className="text-xs text-[#68707D] leading-relaxed mt-1">
+                  <p className="text-xs text-slate-700 leading-relaxed mt-1 min-h-[36px]">
                     Coordinate work and lead the team.
                   </p>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] font-semibold text-[#437118] flex items-center gap-1">
-                <span>View Stage</span>
-                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+              <div className="pt-3 border-t border-[#87AECE]/30 mt-4 flex items-center justify-between text-xs font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
+                <span className="group-hover:underline underline-offset-4 flex items-center gap-1.5">
+                  View Courses
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                </span>
               </div>
             </div>
-
             {/* Card 3: Deliver */}
             <div 
               role="button"
               tabIndex={0}
-              onClick={() => setActiveTab('skills')}
+              onClick={() => onNavigateCourses ? onNavigateCourses('Deliver') : setActiveTab('catalog')}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') setActiveTab('skills')
+                if (e.key === 'Enter' || e.key === ' ') {
+                  if (onNavigateCourses) onNavigateCourses('Deliver')
+                  else setActiveTab('catalog')
+                }
               }}
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-1 transition-all flex flex-col justify-between text-left cursor-pointer group"
+              className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
-                    <RocketLaunch weight="duotone" className="h-5 w-5 text-[#437118] group-hover:text-white" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] border border-[#87AECE]/35 shadow-xs group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                    <RocketLaunch weight="bold" className="h-5 w-5 text-[#437118] group-hover:text-white" />
                   </div>
-                  <span className="text-[10px] font-bold text-[#68707D] font-mono">
+                  <span className="text-[10px] font-bold text-[#1D2A62]/70 font-mono">
                     STAGE 03
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
+                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#1D2A62] transition-colors leading-snug">
                     Deliver
                   </h3>
-                  <p className="text-xs text-[#68707D] leading-relaxed mt-1">
+                  <p className="text-xs text-slate-700 leading-relaxed mt-1 min-h-[36px]">
                     Prepare, rehearse, and execute with confidence.
                   </p>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] font-semibold text-[#437118] flex items-center gap-1">
-                <span>View Stage</span>
-                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+              <div className="pt-3 border-t border-[#87AECE]/30 mt-4 flex items-center justify-between text-xs font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
+                <span className="group-hover:underline underline-offset-4 flex items-center gap-1.5">
+                  View Courses
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                </span>
               </div>
             </div>
 
-            {/* Card 4: Reflect & Grow */}
+            {/* Card 4: Reflect & Grow (Pale light blue background) */}
             <div 
               role="button"
               tabIndex={0}
-              onClick={() => setActiveTab('skills')}
+              onClick={() => onNavigateCourses ? onNavigateCourses('Reflect & Grow') : setActiveTab('catalog')}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') setActiveTab('skills')
+                if (e.key === 'Enter' || e.key === ' ') {
+                  if (onNavigateCourses) onNavigateCourses('Reflect & Grow')
+                  else setActiveTab('catalog')
+                }
               }}
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-1 transition-all flex flex-col justify-between text-left cursor-pointer group"
+              className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#AFD06E]/30 text-[#437118] group-hover:bg-[#437118] group-hover:text-white transition-colors">
-                    <TrendUp weight="bold" className="h-5 w-5 text-[#437118] group-hover:text-white" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] border border-[#87AECE]/35 shadow-xs group-hover:bg-[#437118] group-hover:text-white transition-colors">
+                    <ArrowsClockwise weight="bold" className="h-5 w-5 text-[#437118] group-hover:text-white" />
                   </div>
-                  <span className="text-[10px] font-bold text-[#68707D] font-mono">
+                  <span className="text-[10px] font-bold text-[#1D2A62]/70 font-mono">
                     STAGE 04
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
+                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#1D2A62] transition-colors leading-snug">
                     Reflect & Grow
                   </h3>
-                  <p className="text-xs text-[#68707D] leading-relaxed mt-1">
+                  <p className="text-xs text-slate-700 leading-relaxed mt-1 min-h-[36px]">
                     Turn experience into better future practice.
                   </p>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 mt-3 text-[11px] font-semibold text-[#437118] flex items-center gap-1">
-                <span>View Stage</span>
-                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+              <div className="pt-3 border-t border-[#87AECE]/30 mt-4 flex items-center justify-between text-xs font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
+                <span className="group-hover:underline underline-offset-4 flex items-center gap-1.5">
+                  View Courses
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+      {/* Event Toolkit Resource Section (OneDrive Link) - Enhanced Gradient Forest Green #386b24 */}
+      <div className="rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-8 sm:p-10 lg:p-12 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-8 sm:gap-10 text-left relative overflow-hidden">
+        {/* Subtle Ambient Lighting Layers */}
+        <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-2xl" />
+        <div className="absolute -bottom-10 left-1/4 w-72 h-72 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-2xl" />
 
+        {/* Left Content */}
+        <div className="space-y-3 max-w-xl z-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-[#AFD06E] text-xs font-mono font-bold tracking-wide shadow-2xs">
+            <Sparkle weight="fill" className="h-3.5 w-3.5 text-[#AFD06E]" />
+            <span>EVENT TOOLKIT</span>
+          </div>
+
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+            Leading an event soon?
+          </h3>
+
+          <p className="text-sm sm:text-base text-white/90 leading-relaxed">
+            Use practical tools for final preparation and delivery.
+          </p>
+        </div>
+
+        {/* Right CTA Button: White button with #386b24 text matching "Current Course" */}
+        <div className="z-10 shrink-0">
+          <a
+            href="https://rmiteduau-my.sharepoint.com/:f:/g/personal/s4063545_rmit_edu_vn/IgDxRh5pupKaRL_0n7tpIJmwAd17HHL2UKdpAGAvvEenSkg?e=Y4ZQ76"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-12 px-7 rounded-xl bg-white hover:bg-slate-50 text-[#386b24] font-bold text-sm shadow-sm hover:shadow-md flex items-center gap-2 cursor-pointer transition-all active:scale-[0.98] inline-flex no-underline group/btn"
+          >
+            <span>Open Event Toolkit</span>
+            <ArrowRight className="h-4 w-4 text-[#386b24] group-hover/btn:translate-x-1 transition-transform" />
+          </a>
+        </div>
+      </div>
       {/* Sub-Views when navigated away from Home (e.g. clicking COURSES in header) */}
       {activeTab !== 'my-courses' && (
         <div className="pt-4 border-t border-slate-200 space-y-4">

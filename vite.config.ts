@@ -9,6 +9,9 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
+  server: {
+    allowedHosts: true,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

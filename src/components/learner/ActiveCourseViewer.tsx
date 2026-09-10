@@ -93,7 +93,7 @@ export function ActiveCourseViewer({
   }
 
   return (
-    <div className="min-h-[100dvh] bg-slate-50 py-6 font-sans">
+    <div className="min-h-[100dvh] bg-[var(--page-canvas,#FFFFFF)] py-6 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Top Navigation Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">

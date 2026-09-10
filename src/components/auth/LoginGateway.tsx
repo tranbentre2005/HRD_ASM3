@@ -30,7 +30,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-[#EDEDED] flex items-center justify-center p-3 sm:p-6 font-sans text-[#252A35]">
+    <div className="min-h-[100dvh] bg-[var(--page-canvas,#FFFFFF)] flex items-center justify-center p-3 sm:p-6 font-sans text-[#252A35]">
       {/* Main Container Card */}
       <div className="w-full max-w-5xl rounded-3xl bg-white shadow-xl overflow-hidden border border-[#87AECE]/25 transition-all">
         {/* Subtle Top Window Bar */}
@@ -55,44 +55,66 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
           {/* Left Column: Role Selection & Identity (6 cols) */}
           <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-between space-y-6">
             <div className="space-y-6">
-              {/* 2. Brand Cleanup: One compact logo lockup & quiet metadata */}
-              <div className="flex items-center justify-between gap-4">
+              {/* Brand Logo & Learner / Trainer Pills in Same Horizontal Row */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-auto flex items-center justify-center bg-transparent">
+                  <div className="h-11 w-auto flex items-center justify-center bg-transparent">
                     <img
                       src="/finance-club-logo-green.png"
                       alt="RMIT Finance Club Logo"
                       loading="eager"
-                      className="h-12 w-auto object-contain"
+                      className="h-11 w-auto object-contain"
                     />
                   </div>
-                  <div className="border-l border-[#EDEDED] pl-3">
+                  <div className="border-l border-[#EDEDED] pl-2.5">
                     <span className="text-xs font-bold text-[#1D2A62] tracking-tight uppercase block leading-tight">
                       RMIT FINANCE CLUB
                     </span>
-                    <span className="text-[11px] font-medium text-[#68707D] block leading-tight mt-0.5">
-                      Project Leader Learning Hub
+                    <span className="text-[10px] font-medium text-[#68707D] block leading-tight mt-0.5">
+                      Learning Hub
                     </span>
                   </div>
                 </div>
 
-                <span className="text-[11px] font-medium text-[#68707D] bg-[#EDEDED]/70 border border-[#87AECE]/30 rounded-full px-2.5 py-0.5">
-                  Cohort · ASM3
-                </span>
+                {/* Learner and Trainer buttons on the same row as logo */}
+                <div className="flex items-center p-1 rounded-full bg-slate-100 border border-slate-200 gap-1">
+                  <button
+                    type="button"
+                    onClick={() => handleSelectRole('learner')}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      selectedRole === 'learner'
+                        ? 'bg-[#1D2A62] text-white shadow-xs'
+                        : 'text-[#68707D] hover:text-[#1D2A62]'
+                    }`}
+                  >
+                    <GraduationCap className="h-3.5 w-3.5" />
+                    <span>Learner</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSelectRole('instructor')}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      selectedRole === 'instructor'
+                        ? 'bg-[#1D2A62] text-white shadow-xs'
+                        : 'text-[#68707D] hover:text-[#1D2A62]'
+                    }`}
+                  >
+                    <ChalkboardTeacher className="h-3.5 w-3.5" />
+                    <span>Trainer</span>
+                  </button>
+                </div>
               </div>
 
-              {/* 1. Headline & Hierarchy: All-caps with green-to-blue gradient, centered */}
-              <div className="pt-1 text-center">
-                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-snug text-center mx-auto">
-                  WELCOME TO RMIT VIETNAM FINANCE CLUB LEARNING HUB!
+              {/* Headline */}
+              <div className="pt-2 text-center">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight text-center mx-auto">
+                  WELCOME TO PROJECT LEADERS LEARNING HUB!
                 </h1>
               </div>
 
-              {/* 3. Role Cards: Equal height, informative, radio/check indicator */}
+              {/* Role Cards: No "You Are" - Directly Clickable Cards */}
               <div className="space-y-3 pt-1">
-                <p className="text-base sm:text-lg font-extrabold text-[#1D2A62] tracking-wider uppercase text-center">
-                  You are
-                </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {/* Option 1: Learner */}
@@ -137,10 +159,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-[#87AECE]/20 mt-3 text-xs text-[#1D2A62] font-semibold flex items-center gap-1">
-                      <span>Select</span>
-                      <ArrowRight className="h-3 w-3" />
-                    </div>
+
                   </div>
 
                   {/* Option 2: Trainer / Facilitator */}
@@ -185,10 +204,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-[#87AECE]/20 mt-3 text-xs text-[#1D2A62] font-semibold flex items-center gap-1">
-                      <span>Select</span>
-                      <ArrowRight className="h-3 w-3" />
-                    </div>
+
                   </div>
                 </div>
               </div>
@@ -219,9 +235,9 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
               {/* Ambient Radial Halo Bloom */}
               <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[460px] h-[460px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
 
-              {/* Subtle Concentric Leadership Arcs */}
+              {/* Subtle Concentric Leadership Arcs with gentle rotation */}
               <svg 
-                className="absolute inset-0 h-full w-full pointer-events-none -z-0 opacity-45 select-none overflow-visible"
+                className="absolute inset-0 h-full w-full pointer-events-none -z-0 opacity-45 select-none overflow-visible animate-spin-slow"
                 viewBox="0 0 400 400"
                 fill="none"
               >
@@ -234,12 +250,12 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                 <circle cx="200" cy="355" r="3.5" fill="#AFD06E" />
               </svg>
 
-              {/* Enlarged Team Illustration */}
+              {/* Enlarged Team Illustration with Smooth Floating Motion */}
               <img
                 src="/team-illustration-clean.png"
                 alt="RMIT Finance Club Project Leadership Team"
                 loading="eager"
-                className="relative z-10 w-full max-w-[460px] lg:max-w-[520px] max-h-[480px] sm:max-h-[530px] object-contain drop-shadow-md select-none transition-transform hover:scale-102"
+                className="relative z-10 w-full max-w-[460px] lg:max-w-[520px] max-h-[480px] sm:max-h-[530px] object-contain drop-shadow-md select-none animate-login-float hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
               />
             </div>
           </div>

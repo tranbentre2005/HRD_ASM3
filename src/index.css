@@ -1,12 +1,81 @@
 @import "tailwindcss";
 
+:root {
+  --page-canvas: #FFFFFF;
+}
+
 @layer base {
   * {
     border-color: #e2e8f0;
   }
+  html,
   body {
-    background-color: #f8fafc;
+    background-color: var(--page-canvas, #FFFFFF);
+    background: #FFFFFF;
     color: #0f172a;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
+}
+@keyframes hero-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(0.8deg);
+  }
+}
+
+.animate-hero-float {
+  animation: hero-float 4.5s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes login-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.6deg);
+  }
+}
+
+.animate-login-float {
+  animation: login-float 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes flow-line {
+  to {
+    stroke-dashoffset: -36;
+  }
+}
+
+.animate-flow-line {
+  animation: flow-line 2.4s linear infinite;
+}
+
+@keyframes gentle-bob {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(3.5px);
+  }
+}
+
+.animate-gentle-bob {
+  animation: gentle-bob 2s ease-in-out infinite;
 }

@@ -5,20 +5,22 @@ export interface Course {
   title: string
   code: string
   category: string
-  level: 'Foundational' | 'Intermediate' | 'Advanced'
+  level?: 'Foundational' | 'Intermediate' | 'Advanced'
   duration: string
-  totalLessons: number
-  completedLessons: number
+  totalLessons?: number
+  completedLessons?: number
   progress: number
-  instructorName: string
-  instructorTitle: string
-  instructorAvatar: string
-  thumbnail: string
+  instructorName?: string
+  instructorTitle?: string
+  instructorAvatar?: string
+  thumbnail?: string
+  briefIntro?: string
   description: string
   competencies: string[]
-  status: 'in-progress' | 'completed' | 'assigned' | 'upcoming'
+  status: 'in-progress' | 'completed' | 'assigned' | 'upcoming' | 'coming-soon'
   enrolledLearnersCount?: number
   averageScore?: number
+  recommendationNote?: string
   modules: CourseModule[]
 }
 
