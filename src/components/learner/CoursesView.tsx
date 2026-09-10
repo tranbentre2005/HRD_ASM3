@@ -120,9 +120,17 @@ export function CoursesView({
     return counts
   }, [courses])
 
-  // Filtered Courses calculation
+  // Signature course IDs for each category to push to the top of "All Courses"
+  const SIGNATURE_COURSE_IDS = [
+    "event-readiness",                    // Core Pathway (In Progress interactive course)
+    "leadership-essentials",              // Leadership Skills
+    "finance-for-project-leaders",        // Functional Essentials
+    "confidence-as-new-project-leader"    // Personal Development
+  ]
+
+  // Filtered Courses calculation with signature courses elevated to the top in "All Courses"
   const filteredCourses = useMemo(() => {
-    return courses.filter((course) => {
+    const list = courses.filter((course) => {
       const matchesCategory = selectedCategory === "all" || course.category === selectedCategory
       const query = searchQuery.trim().toLowerCase()
       const matchesSearch = !query || 
@@ -136,6 +144,18 @@ export function CoursesView({
         (course.competencies && course.competencies.some(c => c.toLowerCase().includes(query)))
       return matchesCategory && matchesSearch
     })
+
+    // If viewing All Courses without a search query, push the signature course of each category to the front
+    if (selectedCategory === "all" && !searchQuery.trim()) {
+      const signatureCourses = SIGNATURE_COURSE_IDS
+        .map(id => list.find(c => c.id === id || (id === "event-readiness" && (c.id === "course-1" || c.title.includes("Event Readiness")))))
+        .filter(Boolean) as Course[]
+
+      const otherCourses = list.filter(c => !signatureCourses.some(sc => sc.id === c.id))
+      return [...signatureCourses, ...otherCourses]
+    }
+
+    return list
   }, [courses, selectedCategory, searchQuery])
 
   // In-progress Event Readiness course for Featured Learning Strip
@@ -144,31 +164,81 @@ export function CoursesView({
            courses.find(c => c.status === "in-progress")
   }, [courses])
 
+  // Category theme styling helper: pale background, subtle border, icon container color, ambient corner aura
+  const getCategoryTheme = (category: string, isInProgress: boolean) => {
+    if (isInProgress) {
+      return {
+        bg: "bg-gradient-to-br from-white via-[#FAFCF8] to-[#EDF6E8]/90",
+        border: "border-[#AFD06E]/60 hover:border-[#437118]/70 shadow-xs hover:shadow-md",
+        iconBox: "bg-[#AFD06E]/25 text-[#386b24] border-[#AFD06E]/35",
+        aura: "from-[#AFD06E]/25"
+      }
+    }
+
+    switch (category) {
+      case "Core Pathway":
+        return {
+          bg: "bg-gradient-to-br from-white via-[#FCFDFB] to-[#F2F8EC]/85",
+          border: "border-[#AFD06E]/35 hover:border-[#437118]/60",
+          iconBox: "bg-[#AFD06E]/20 text-[#386b24] border-[#AFD06E]/30",
+          aura: "from-[#AFD06E]/18"
+        }
+      case "Leadership Skills":
+        return {
+          bg: "bg-gradient-to-br from-white via-[#FFFDF8] to-[#FEF7EB]/85",
+          border: "border-[#F59E0B]/30 hover:border-[#D97706]/60",
+          iconBox: "bg-[#F59E0B]/15 text-[#B45309] border-[#F59E0B]/25",
+          aura: "from-[#F59E0B]/18"
+        }
+      case "Functional Essentials":
+        return {
+          bg: "bg-gradient-to-br from-white via-[#FAFCFE] to-[#EFF6FA]/85",
+          border: "border-[#87AECE]/35 hover:border-[#1D2A62]/55",
+          iconBox: "bg-[#87AECE]/20 text-[#1D2A62] border-[#87AECE]/30",
+          aura: "from-[#87AECE]/22"
+        }
+      case "Personal Development":
+        return {
+          bg: "bg-gradient-to-br from-white via-[#FCFBFD] to-[#F4F1F9]/85",
+          border: "border-[#8B5CF6]/25 hover:border-[#7C3AED]/55",
+          iconBox: "bg-[#8B5CF6]/15 text-[#6D28D9] border-[#8B5CF6]/25",
+          aura: "from-[#8B5CF6]/18"
+        }
+      default:
+        return {
+          bg: "bg-gradient-to-br from-white via-[#FCFDFE] to-[#F5F8F4]/75",
+          border: "border-slate-200/85 hover:border-slate-300",
+          iconBox: "bg-[#AFD06E]/20 text-[#386b24] border-[#AFD06E]/30",
+          aura: "from-[#AFD06E]/15"
+        }
+    }
+  }
+
   // Helper to pick icon for course card based on title or stage
   const getCourseIcon = (course: Course) => {
     const t = (course.title + " " + (course.cardTitle || "")).toLowerCase()
-    if (t.includes("stepping")) return <Brain weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("fundamentals") || t.includes("direction")) return <Compass weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("planning") || t.includes("coordination")) return <CalendarCheck weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("leading the event team") || t.includes("delegation")) return <Users weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("cross-functional") || t.includes("collaboration")) return <TreeStructure weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("readiness")) return <ShieldCheck weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("rehearsal") || t.includes("simulation")) return <RocketLaunch weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("execution") || t.includes("live delivery")) return <Clock weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("feedback") || t.includes("reflection")) return <ArrowsClockwise weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("leadership essentials")) return <UserGear weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("teamwork")) return <Users weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("inclusive") || t.includes("accessible")) return <Heartbeat weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("ethics") || t.includes("responsible")) return <ShieldStar weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("communication") || t.includes("stakeholder")) return <ChatCircleText weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("problem-solving") || t.includes("pressure")) return <Timer weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("finance") || t.includes("budget")) return <Coins weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("marketing")) return <Megaphone weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("external relations")) return <Sparkle weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("operations") || t.includes("logistics")) return <Warehouse weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("hr") || t.includes("people")) return <Users weight="bold" className="h-5 w-5 text-[#437118]" />
-    if (t.includes("confidence")) return <Sparkle weight="bold" className="h-5 w-5 text-[#437118]" />
-    return <BookOpen weight="bold" className="h-5 w-5 text-[#437118]" />
+    if (t.includes("stepping")) return <Brain weight="bold" className="h-5 w-5" />
+    if (t.includes("fundamentals") || t.includes("direction")) return <Compass weight="bold" className="h-5 w-5" />
+    if (t.includes("planning") || t.includes("coordination")) return <CalendarCheck weight="bold" className="h-5 w-5" />
+    if (t.includes("leading the event team") || t.includes("delegation")) return <Users weight="bold" className="h-5 w-5" />
+    if (t.includes("cross-functional") || t.includes("collaboration")) return <TreeStructure weight="bold" className="h-5 w-5" />
+    if (t.includes("readiness")) return <ShieldCheck weight="bold" className="h-5 w-5" />
+    if (t.includes("rehearsal") || t.includes("simulation")) return <RocketLaunch weight="bold" className="h-5 w-5" />
+    if (t.includes("execution") || t.includes("live delivery")) return <Clock weight="bold" className="h-5 w-5" />
+    if (t.includes("feedback") || t.includes("reflection")) return <ArrowsClockwise weight="bold" className="h-5 w-5" />
+    if (t.includes("leadership essentials")) return <UserGear weight="bold" className="h-5 w-5" />
+    if (t.includes("teamwork")) return <Users weight="bold" className="h-5 w-5" />
+    if (t.includes("inclusive") || t.includes("accessible")) return <Heartbeat weight="bold" className="h-5 w-5" />
+    if (t.includes("ethics") || t.includes("responsible")) return <ShieldStar weight="bold" className="h-5 w-5" />
+    if (t.includes("communication") || t.includes("stakeholder")) return <ChatCircleText weight="bold" className="h-5 w-5" />
+    if (t.includes("problem-solving") || t.includes("pressure")) return <Timer weight="bold" className="h-5 w-5" />
+    if (t.includes("finance") || t.includes("budget")) return <Coins weight="bold" className="h-5 w-5" />
+    if (t.includes("marketing")) return <Megaphone weight="bold" className="h-5 w-5" />
+    if (t.includes("external relations")) return <Sparkle weight="bold" className="h-5 w-5" />
+    if (t.includes("operations") || t.includes("logistics")) return <Warehouse weight="bold" className="h-5 w-5" />
+    if (t.includes("hr") || t.includes("people")) return <Users weight="bold" className="h-5 w-5" />
+    if (t.includes("confidence")) return <Sparkle weight="bold" className="h-5 w-5" />
+    return <BookOpen weight="bold" className="h-5 w-5" />
   }
 
   const handleClearFilters = () => {
@@ -199,22 +269,16 @@ export function CoursesView({
       ? "8–10 min · Interactive"
       : `${course.duration}${course.courseType && !course.duration.includes(course.courseType) ? ` · ${course.courseType}` : ""}`
 
+    const theme = getCategoryTheme(course.category, isInProgress)
+
     return (
       <div
         key={course.id}
-        className={`rounded-2xl border transition-all flex flex-col justify-between h-full text-left relative overflow-hidden p-5 shadow-2xs hover:shadow-xs ${
-          isInProgress
-            ? "border-[#AFD06E]/60 bg-gradient-to-br from-white via-[#FAFCF8] to-[#EEF7E8]/85 shadow-xs"
-            : isCompleted
-            ? "border-emerald-200/80 bg-gradient-to-br from-white via-[#FAFCF9] to-[#ECF7ED]/70"
-            : "border-slate-200/85 bg-gradient-to-br from-white via-[#FCFDFE] to-[#F5F8F4]/70"
-        }`}
+        className={`group rounded-2xl border ${theme.border} ${theme.bg} transition-all duration-300 flex flex-col justify-between h-full text-left relative overflow-hidden p-5 shadow-2xs hover:shadow-md hover:-translate-y-1 cursor-pointer`}
       >
-        {/* Subtle Ambient Radial Bloom in top-right corner */}
+        {/* Subtle Ambient Radial Bloom in top-right corner that illuminates on hover */}
         <div 
-          className={`absolute -top-10 -right-10 w-28 h-28 rounded-full bg-radial via-transparent to-transparent pointer-events-none blur-lg ${
-            isInProgress ? "from-[#AFD06E]/20" : "from-[#AFD06E]/12"
-          }`} 
+          className={`absolute -top-10 -right-10 w-28 h-28 rounded-full bg-radial ${theme.aura} via-transparent to-transparent pointer-events-none blur-lg opacity-70 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500`} 
         />
 
         {/* Top & Main Section */}
@@ -222,7 +286,7 @@ export function CoursesView({
           {/* Top Row: Illustration Icon + Compact Course Number/Category Marker + Status Indicator */}
           <div className="flex items-center justify-between gap-2 pb-1">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#AFD06E]/25 text-[#386b24] flex items-center justify-center shrink-0 shadow-2xs border border-[#AFD06E]/30">
+              <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl ${theme.iconBox} flex items-center justify-center shrink-0 shadow-2xs border transition-transform duration-300 group-hover:scale-105`}>
                 {getCourseIcon(course)}
               </div>
               <span className="text-[11px] font-semibold text-slate-500 tracking-wider uppercase">
@@ -585,18 +649,6 @@ export function CoursesView({
             )}
           </div>
 
-          {/* Clear filter action if active */}
-          {(selectedCategory !== 'all' || searchQuery) && (
-            <div className="flex items-center justify-end text-xs px-0.5">
-              <button
-                type="button"
-                onClick={handleClearFilters}
-                className="text-xs font-semibold text-rose-600 hover:text-rose-700 underline cursor-pointer"
-              >
-                Clear filter
-              </button>
-            </div>
-          )}
 
           {/* Featured "CONTINUE LEARNING" Card from Image #1 */}
           {inProgressCourse && (selectedCategory === "all" || selectedCategory === "Core Pathway") && !searchQuery.trim() && (
