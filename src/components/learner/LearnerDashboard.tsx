@@ -180,9 +180,9 @@ export function LearnerDashboard({
             </div>
 
             <div className="flex items-center gap-4 my-auto py-1">
-              {/* Circular Gauge: 68px diameter (within 64px-72px) with centered 60% */}
-              <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
-                <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
+              {/* Circular Gauge: Exactly 70px diameter with centered 60% */}
+              <div className="relative h-[70px] w-[70px] flex items-center justify-center shrink-0">
+                <svg className="h-[70px] w-[70px] -rotate-90" viewBox="0 0 36 36">
                   <circle
                     cx="18"
                     cy="18"
@@ -210,7 +210,7 @@ export function LearnerDashboard({
 
               <div className="space-y-0.5">
                 <h4 className="text-base font-bold text-white leading-snug">
-                  60% of your pathway complete
+                  of your pathway complete
                 </h4>
                 <p className="text-xs text-slate-200 font-medium">
                   3 courses completed · 2 in progress
