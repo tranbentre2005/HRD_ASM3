@@ -441,12 +441,8 @@ export function CoursesView({
           {/* Ambient radial light layers matching banner */}
           <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-36 h-36 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none blur-xl" />
-          {/* Group 1: CATEGORIES */}
-          <div className="space-y-3 relative z-10">
-            <h2 className="text-[11px] font-bold text-[#1D2A62] tracking-wider uppercase">
-              CATEGORIES
-            </h2>
-
+          {/* Group 1: Category Navigation */}
+          <div className="relative z-10">
             <div className="space-y-1">
               {/* 1. All Courses (SquaresFour icon matching Image #1) */}
               <button
@@ -549,7 +545,7 @@ export function CoursesView({
           <div className="space-y-2.5 relative z-10">
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-                YOUR LEARNING PROGRESS
+                LEARNING PROGRESS
               </h3>
               <span className="inline-flex items-center text-[10px] font-bold text-[#1D2A62] bg-[#87AECE]/20 px-2.5 py-0.5 rounded-full border border-[#87AECE]/35 shrink-0">
                 Core Pathway
