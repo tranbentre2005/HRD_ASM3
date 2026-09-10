@@ -490,7 +490,7 @@ export function CoursesView({
                 <span className="font-semibold text-[#1D2A62]">Courses</span>
               </nav>
 
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
                 Course Library
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
