@@ -274,7 +274,9 @@ export function CoursesView({
     return (
       <div
         key={course.id}
-        className={`group rounded-2xl border ${theme.border} ${theme.bg} transition-all duration-300 flex flex-col justify-between h-full text-left relative overflow-hidden p-5 shadow-2xs hover:shadow-md hover:-translate-y-1 cursor-pointer`}
+        className={`group rounded-2xl border ${theme.border} ${theme.bg} transition-all duration-300 flex flex-col justify-between h-full text-left relative overflow-hidden p-5 shadow-2xs ${
+          isInProgress ? "hover:shadow-md hover:-translate-y-1 cursor-pointer" : "cursor-default select-none"
+        }`}
       >
         {/* Subtle Ambient Radial Bloom in top-right corner that illuminates on hover */}
         <div 
@@ -650,24 +652,24 @@ export function CoursesView({
           </div>
 
 
-          {/* Featured "CONTINUE LEARNING" Card from Image #1 */}
+          {/* Featured "CONTINUE LEARNING" Card from Image #1 - All Blue Palette */}
           {inProgressCourse && (selectedCategory === "all" || selectedCategory === "Core Pathway") && !searchQuery.trim() && (
-            <div className="rounded-xl border-l-4 border-l-[#437118] border-t border-r border-b border-slate-200/80 bg-[#F0F7FC] p-4 sm:p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
+            <div className="rounded-xl border-l-4 border-l-[#1D2A62] border-t border-r border-b border-[#87AECE]/35 bg-gradient-to-r from-[#F0F7FC] via-[#F6FAFD] to-[#EFF6FA] p-4 sm:p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
               <div className="space-y-2">
-                <span className="text-[10px] font-bold text-[#437118] uppercase tracking-wider block">
+                <span className="text-[10px] font-bold text-[#1D2A62] uppercase tracking-wider block">
                   CONTINUE LEARNING
                 </span>
                 <div className="flex items-center gap-3">
-                  {/* Progress ring inside continue strip */}
+                  {/* Progress ring inside continue strip - Deep Navy */}
                   <div className="relative h-9 w-9 flex items-center justify-center shrink-0">
                     <svg className="h-9 w-9 -rotate-90" viewBox="0 0 36 36">
-                      <circle cx="18" cy="18" r="15" fill="none" stroke="#E2E8F0" strokeWidth="4" />
+                      <circle cx="18" cy="18" r="15" fill="none" stroke="#87AECE" strokeOpacity="0.25" strokeWidth="4" />
                       <circle
                         cx="18"
                         cy="18"
                         r="15"
                         fill="none"
-                        stroke="#437118"
+                        stroke="#1D2A62"
                         strokeWidth="4"
                         strokeDasharray="94.25"
                         strokeDashoffset={94.25 * (1 - 0.40)}
@@ -679,8 +681,8 @@ export function CoursesView({
                     </span>
                   </div>
 
-                  {/* 06 Marker Badge */}
-                  <span className="px-2 py-0.5 rounded bg-[#AFD06E]/30 text-[#437118] text-xs font-bold shrink-0">
+                  {/* 06 Marker Badge - Azure / Navy */}
+                  <span className="px-2 py-0.5 rounded bg-[#87AECE]/25 border border-[#87AECE]/35 text-[#1D2A62] text-xs font-bold shrink-0">
                     06
                   </span>
 
