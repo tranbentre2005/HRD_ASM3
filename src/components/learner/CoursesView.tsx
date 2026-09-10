@@ -169,69 +169,52 @@ export function CoursesView({
   return (
     <div className="space-y-6 pb-16 font-sans text-left">
       {/* ========================================================================= */}
-      {/* 1. TOP NOTEBOOK BANNER CARD matching Image #1                             */}
+      {/* 1. TOP HERO BANNER: Styled identical to Home page banner                  */}
       {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs overflow-hidden flex items-center justify-between min-h-[140px] bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:24px_24px]">
-        {/* Notebook Spiral Binder on Left Edge */}
-        <div className="absolute left-0 top-0 bottom-0 w-8 bg-[#1D2A62] flex flex-col justify-around py-3 z-10 select-none shadow-sm">
-          {[...Array(7)].map((_, i) => (
-            <div key={i} className="flex items-center justify-between px-1">
-              <span className="h-3.5 w-1.5 rounded-full bg-slate-300 shadow-inner" />
-              <span className="h-2 w-3.5 rounded-full bg-white/30 border border-white/60" />
-            </div>
-          ))}
-        </div>
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:p-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between min-h-[140px]">
+        {/* Subtle Architectural Dot Matrix Grid */}
+        <div 
+          className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
+        />
 
-        {/* Banner Content (Offset for left spiral binder) */}
-        <div className="pl-6 sm:pl-8 space-y-1.5 z-10 max-w-2xl">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1D2A62] tracking-tight leading-tight">
+        {/* Ambient Radial Halo Blooms */}
+        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[450px] h-[450px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+        <div className="absolute -top-16 -left-16 w-80 h-80 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
+
+        {/* Subtle Concentric Leadership Arcs framing the right side */}
+        <svg 
+          className="absolute right-0 top-0 h-full w-[48%] pointer-events-none -z-0 opacity-45 select-none overflow-visible hidden md:block" 
+          viewBox="0 0 400 400" 
+          fill="none"
+        >
+          <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
+          <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
+          <circle cx="260" cy="180" r="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
+          <circle cx="165" cy="180" r="3.5" fill="#437118" />
+          <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
+          <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
+          <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
+        </svg>
+
+        {/* Banner Content */}
+        <div className="space-y-1.5 z-10 max-w-2xl relative">
+          <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
+            <span className="h-2 w-2 rounded-full bg-[#437118]" />
+            <span className="font-semibold text-slate-900">Project Leader</span>
+            <span className="text-slate-400">•</span>
+            <span>Course Library</span>
+            <span className="text-slate-300">|</span>
+            <span className="font-mono text-[#5A6578]">RFC-PL-2026</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1D2A62] tracking-tight leading-tight pt-1">
             Course Library
           </h1>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
             Explore practical courses designed to help you become a more capable Project Leader.
           </p>
         </div>
-
-        {/* Top Right Stationery Accents: Sticky tabs and pencil & ruler */}
-        <div className="hidden md:flex items-center relative z-10 shrink-0 select-none">
-          {/* Sticky Note Tabs hanging from top edge */}
-          <div className="absolute -top-8 right-28 flex items-start gap-1">
-            <span className="h-6 w-3.5 bg-[#AFD06E] rounded-b shadow-xs" />
-            <span className="h-7 w-3.5 bg-amber-300 rounded-b shadow-xs" />
-            <span className="h-5 w-3.5 bg-sky-300 rounded-b shadow-xs" />
-          </div>
-
-          {/* Pencil and Ruler SVG Illustration */}
-          <svg viewBox="0 0 160 100" className="h-24 w-36 overflow-visible opacity-90 drop-shadow-sm">
-            {/* Pink Ruler */}
-            <rect x="30" y="30" width="120" height="24" rx="4" fill="#FBCFE8" transform="rotate(-30 90 42)" stroke="#F472B6" strokeWidth="1.5" />
-            {/* Ruler Measurement Tick Marks */}
-            <g stroke="#DB2777" strokeWidth="1.2" opacity="0.75" transform="rotate(-30 90 42)">
-              <line x1="45" y1="30" x2="45" y2="38" />
-              <line x1="60" y1="30" x2="60" y2="42" />
-              <line x1="75" y1="30" x2="75" y2="38" />
-              <line x1="90" y1="30" x2="90" y2="42" />
-              <line x1="105" y1="30" x2="105" y2="38" />
-              <line x1="120" y1="30" x2="120" y2="42" />
-              <line x1="135" y1="30" x2="135" y2="38" />
-            </g>
-
-            {/* Navy Pencil with Wooden Tip */}
-            <g transform="rotate(-45 80 50)">
-              {/* Pencil body */}
-              <rect x="40" y="45" width="80" height="12" rx="2" fill="#1D2A62" />
-              {/* Eraser and metal band */}
-              <rect x="32" y="45" width="8" height="12" rx="2" fill="#F43F5E" />
-              <rect x="38" y="45" width="4" height="12" fill="#CBD5E1" />
-              {/* Wooden cone tip */}
-              <polygon points="120,45 132,51 120,57" fill="#FDE68A" />
-              {/* Graphite lead */}
-              <polygon points="128,49 132,51 128,53" fill="#1E293B" />
-            </g>
-          </svg>
-        </div>
       </div>
-
       {/* ========================================================================= */}
       {/* 2. TWO-COLUMN LAYOUT: Left Sidebar Card + Right Courses Area              */}
       {/* ========================================================================= */}
