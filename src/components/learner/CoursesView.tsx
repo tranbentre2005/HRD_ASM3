@@ -441,10 +441,10 @@ export function CoursesView({
           {/* Ambient radial light layers matching banner */}
           <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-36 h-36 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none blur-xl" />
-          {/* Group 1: BROWSE COURSES */}
+          {/* Group 1: CATEGORIES */}
           <div className="space-y-3 relative z-10">
             <h2 className="text-[11px] font-bold text-[#1D2A62] tracking-wider uppercase">
-              BROWSE COURSES
+              CATEGORIES
             </h2>
 
             <div className="space-y-1">
