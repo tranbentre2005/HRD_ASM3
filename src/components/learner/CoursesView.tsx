@@ -77,6 +77,33 @@ const CATEGORY_SECTIONS: CategorySectionDef[] = [
   }
 ]
 
+const BANNER_CONTENT: Record<string, { title: string; subtitle: string; countText?: string }> = {
+  all: {
+    title: "Course Library",
+    subtitle: "Explore practical courses designed to help you become a more capable Project Leader."
+  },
+  "Core Pathway": {
+    title: "Core Project Leader Pathway",
+    subtitle: "Build the core capability to plan, lead, deliver, and improve student events.",
+    countText: "9 courses"
+  },
+  "Leadership Skills": {
+    title: "Build Your Leadership Skills",
+    subtitle: "Strengthen the behaviours that help you lead people and decisions well.",
+    countText: "6 courses"
+  },
+  "Functional Essentials": {
+    title: "Functional Essentials",
+    subtitle: "Understand the cross-functional work that makes an event possible.",
+    countText: "5 courses"
+  },
+  "Personal Development": {
+    title: "Personal Development",
+    subtitle: "Build confidence, resilience, and practical habits for leading under pressure.",
+    countText: "3 courses"
+  }
+}
+
 export function CoursesView({
   courses,
   onSelectCourse,
@@ -97,12 +124,14 @@ export function CoursesView({
   const [selectedCategory, setSelectedCategory] = useState<FilterCategoryKey>(() => resolveCategoryKey(initialCategory))
   const [searchQuery, setSearchQuery] = useState("")
 
+  // Dynamic banner content derived from active category
+  const currentBanner = BANNER_CONTENT[selectedCategory] || BANNER_CONTENT.all
+
   useEffect(() => {
     if (initialCategory) {
       setSelectedCategory(resolveCategoryKey(initialCategory))
     }
   }, [initialCategory])
-
   // Count courses per category
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {
@@ -629,8 +658,8 @@ export function CoursesView({
               <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
             </svg>
 
-            {/* Left: Banner Content */}
-            <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-xl">
+            {/* Left: Banner Content with aria-live="polite" */}
+            <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-xl" aria-live="polite">
               {/* Breadcrumb: Home / Courses */}
               <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
                 <button
@@ -641,17 +670,30 @@ export function CoursesView({
                   Home
                 </button>
                 <span className="text-slate-300">/</span>
-                <span className="font-semibold text-[#1D2A62]">Courses</span>
+                {selectedCategory === "all" ? (
+                  <span className="font-semibold text-[#1D2A62]">Courses</span>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCategory("all")}
+                      className="hover:text-[#1D2A62] transition-colors cursor-pointer text-slate-600 hover:underline"
+                    >
+                      Courses
+                    </button>
+                    <span className="text-slate-300">/</span>
+                    <span className="font-semibold text-[#1D2A62]">{currentBanner.title}</span>
+                  </>
+                )}
               </nav>
 
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
-                Course Library
+                {currentBanner.title}
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                Explore practical courses designed to help you become a more capable Project Leader.
+                {currentBanner.subtitle}
               </p>
             </div>
-
             {/* Right: Attached Kanban Tablet Illustration in RFC Palette */}
             <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-2">
               <img
@@ -685,49 +727,17 @@ export function CoursesView({
             )}
           </div>
           {/* ===================================================================== */}
-          {/* COURSE CATALOGUE: 3 Courses per row (no categories when All Courses)  */}
-          {/* ===================================================================== */}
-          {selectedCategory === "all" ? (
-            /* All Courses: Single continuous 3-column grid without dividing into categories */
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredCourses.map((course) => renderCourseCard(course))}
-            </div>
-          ) : (
-            /* Specific Category View: 3 Courses per row */
-            <div className="space-y-8">
-              {CATEGORY_SECTIONS.filter(sec => sec.key === selectedCategory).map((sec) => {
-                const sectionCourses = filteredCourses.filter(c => c.category === sec.key)
-                if (sectionCourses.length === 0) return null
-
-                return (
-                  <section key={sec.key} className="space-y-3">
-                    {/* Category Title Header */}
-                    <div>
-                      <span className="text-[10px] font-bold text-[#437118] uppercase tracking-wider block">
-                        {sec.label}
-                      </span>
-                      <div className="flex items-center justify-between gap-2 mt-0.5">
-                        <h2 className="text-lg sm:text-xl font-extrabold text-[#1D2A62] tracking-tight">
-                          {sec.heading}
-                        </h2>
-                        <span className="text-xs text-slate-500 font-semibold">
-                          {sectionCourses.length} {sectionCourses.length === 1 ? 'course' : 'courses'}
-                        </span>
-                      </div>
-                      <p className="text-xs text-slate-600 mt-0.5">
-                        {sec.description}
-                      </p>
-                    </div>
-
-                    {/* 3-Column Cards Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {sectionCourses.map((course) => renderCourseCard(course))}
-                    </div>
-                  </section>
-                )
-              })}
+          {/* Below Search Field: Quiet contextual row when a specific category is selected */}
+          {selectedCategory !== "all" && (
+            <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-0.5 pt-0.5">
+              <span>{currentBanner.countText || `${filteredCourses.length} courses`}</span>
             </div>
           )}
+
+          {/* COURSE CATALOGUE: 3 Courses per row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredCourses.map((course) => renderCourseCard(course))}
+          </div>
 
           {/* Empty State */}
           {filteredCourses.length === 0 && (
