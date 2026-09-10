@@ -165,24 +165,23 @@ export function LearnerDashboard({
 
       {/* 3 Executive Metric Cards: Scaled down 10%, Navy borders on white cards, aligned title row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-        {/* Card 1: YOUR LEARNING PROGRESS (Deep Navy Gradient style matching Card 2) */}
+        {/* Card 1: PROGRESS SNAPSHOT */}
         <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
           {/* Ambient light layers */}
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="relative z-10">
-            {/* Aligned Top Title Row */}
-            <div className="h-7 flex items-center">
+          <div className="relative z-10 space-y-2">
+            <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
                 YOUR LEARNING PROGRESS
               </h3>
             </div>
 
-            <div className="flex items-center justify-center gap-4 my-auto py-2">
-              {/* Circular Gauge: Exactly 75px diameter with centered 60% */}
-              <div className="relative h-[75px] w-[75px] flex items-center justify-center shrink-0">
-                <svg className="h-[75px] w-[75px] -rotate-90" viewBox="0 0 36 36">
+            <div className="flex items-center gap-3.5 my-auto py-1">
+              {/* Circular Gauge: 56% */}
+              <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
+                <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
                   <circle
                     cx="18"
                     cy="18"
@@ -199,21 +198,21 @@ export function LearnerDashboard({
                     stroke="#87AECE"
                     strokeWidth="3"
                     strokeDasharray="94.25"
-                    strokeDashoffset="37.7"
+                    strokeDashoffset={94.25 * (1 - 0.56)}
                     strokeLinecap="round"
                   />
                 </svg>
-                <span className="absolute text-base font-extrabold text-white font-mono leading-none select-none">
-                  60%
+                <span className="absolute text-base font-extrabold text-white leading-none select-none">
+                  56%
                 </span>
               </div>
 
               <div className="space-y-0.5">
-                <h4 className="text-base font-bold text-white leading-snug">
-                  of your pathway complete
+                <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
+                  5 of 9 Core Pathway courses completed
                 </h4>
                 <p className="text-xs text-slate-200 font-medium">
-                  3 courses completed
+                  1 course in progress
                 </p>
               </div>
             </div>
@@ -258,8 +257,8 @@ export function LearnerDashboard({
               <div className="flex-1 h-3 bg-black/30 rounded-full overflow-hidden">
                 <div className="h-full bg-[#AFD06E] rounded-full w-[40%]" />
               </div>
-              <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono shrink-0">
-                40%
+              <span className="text-sm font-extrabold text-white shrink-0">
+                40% complete
               </span>
             </div>
             <button
@@ -274,51 +273,47 @@ export function LearnerDashboard({
         </div>
 
         {/* Card 3: NEXT UP (Deep Navy Gradient style matching Card 2) */}
-        <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
+        <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left relative overflow-hidden">
           {/* Ambient light layers */}
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="relative z-10 space-y-2.5">
+          <div className="relative z-10 space-y-2">
             {/* Aligned Top Title Row */}
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
                 NEXT UP
               </h3>
-              <span className="text-[10px] font-mono text-[#87AECE] font-bold bg-white/10 px-2 py-0.5 rounded-full border border-white/15">
-                STAGE 03
+              <span className="inline-flex items-center gap-1 bg-white/10 text-slate-200 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
+                <Clock className="h-3 w-3 text-slate-300" />
+                Coming Soon
               </span>
             </div>
 
             <div className="pt-0.5">
               <h4 className="text-base sm:text-lg font-bold text-white leading-snug">
-                {nextCourse?.title || "Rehearsal & Simulation"}
+                Rehearsal & Simulation
               </h4>
+              <p className="text-xs text-slate-200 mt-1 leading-relaxed">
+                Use rehearsal to find problems before participants do.
+              </p>
             </div>
 
-            {/* Clear, prominent course duration badge */}
-            <div className="pt-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-white/15 border border-white/20 text-white text-xs font-medium shadow-2xs">
-                <Clock weight="bold" className="h-4 w-4 text-[#AFD06E]" />
-                <span className="text-white/90">Estimated duration:</span>
-                <span className="font-bold text-[#AFD06E] font-mono">7 mins</span>
-              </div>
+            {/* Compact course metadata */}
+            <div className="pt-0.5">
+              <span className="text-xs font-medium text-[#AFD06E]">
+                07 · 7 min · Interactive Practice
+              </span>
             </div>
           </div>
 
-          <div className="pt-2 relative z-10">
-            <button
-              type="button"
-              onClick={() => onSelectCourse(nextCourse || heroCourse)}
-              className="w-full py-2 px-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#1D2A62] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer active:scale-[0.98] text-center"
-            >
-              <span>View Next Course</span>
-              <ArrowRight weight="bold" className="h-3.5 w-3.5 text-[#1D2A62]" />
-            </button>
+          <div className="pt-3 relative z-10 border-t border-white/15 mt-2">
+            <span className="text-xs text-slate-300 font-medium select-none">
+              Available soon
+            </span>
           </div>
         </div>
       </div>
-
       {/* About Learning Hub & Interactive Learning Pathway Section - Styled like Hero Banner (without concentric circles) */}
       <div 
         className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:p-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden transition-all duration-300"

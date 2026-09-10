@@ -3,8 +3,7 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { Play, ArrowLeft, Medal, Certificate, Eye, CheckCircle, ArrowRight } from "@phosphor-icons/react"
-
+import { Play, ArrowLeft, Medal, Certificate, Eye, CheckCircle, ArrowRight, Clock } from "@phosphor-icons/react"
 interface MyLearningViewProps {
   courses: Course[]
   certificates: CertificateItem[]
@@ -25,6 +24,8 @@ export function MyLearningView({
   const eventReadinessCourse = courses.find(
     (c) => c.id === "event-readiness" || c.id === "course-1" || c.title.includes("Event Readiness")
   ) || inProgressCourses[0] || courses[0]
+  const nextCourse = courses.find((c) => c.id === "rehearsal-simulation" || c.title.includes("Rehearsal"))
+
   return (
     <div className="space-y-8 pb-12 font-sans text-left">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
@@ -35,17 +36,25 @@ export function MyLearningView({
           </Button>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-[#1D2A62]">
-              My Learning Dashboard & Progress
+              My Learning
             </h1>
             <p className="text-xs text-[#68707D] mt-0.5">
-              Personal leadership training records, active courses, and certificates
+              Continue your learning and track the capabilities you are building.
             </p>
           </div>
         </div>
 
-        <span className="text-xs font-semibold text-[#1D2A62] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full w-fit">
-          {inProgressCourses.length} Active • {completedCourses.length} Completed
-        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 rounded-full">
+            5 courses completed
+          </span>
+          <span className="text-xs font-semibold text-[#437118] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+            1 course in progress
+          </span>
+          <span className="text-xs font-semibold text-[#1D2A62] bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">
+            56% Core Pathway complete
+          </span>
+        </div>
       </div>
 
       {/* In Progress Courses */}
@@ -72,17 +81,21 @@ export function MyLearningView({
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-[#68707D]">Completion Progress</span>
-                  <span className="font-bold text-[#1D2A62]">{course.progress}%</span>
+                  <span className="font-bold text-[#437118]">40% complete</span>
                 </div>
                 <Progress value={course.progress} className="h-2" />
               </div>
 
               <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs text-slate-500">{course.instructorName}</span>
-                <Button size="sm" onClick={() => onSelectCourse(course)}>
-                  <Play weight="fill" className="h-3.5 w-3.5 mr-1" />
-                  Resume Learning
-                </Button>
+                <span className="text-xs text-slate-500">{course.duration} · Interactive</span>
+                <button
+                  type="button"
+                  onClick={() => onSelectCourse(course)}
+                  className="h-8 px-4 rounded-lg bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs inline-flex items-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98]"
+                >
+                  <span>Continue Course</span>
+                  <ArrowRight className="h-3 w-3" />
+                </button>
               </div>
             </Card>
           ))}
@@ -118,6 +131,48 @@ export function MyLearningView({
             <span>Continue Course</span>
             <ArrowRight className="h-3 w-3" />
           </button>
+        </div>
+      </div>
+
+      {/* Completed Courses Section (Courses 01-05 in Demo Record) */}
+      <div className="space-y-4 pt-4 border-t border-slate-200">
+        <div className="flex items-center justify-between">
+          <h2 className="text-base font-bold text-[#1D2A62]">
+            Completed Courses ({completedCourses.length})
+          </h2>
+          <span className="text-xs text-slate-500 font-medium">
+            Core Pathway Foundation
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {completedCourses.map((course) => (
+            <Card key={course.id} className="border-slate-200/90 shadow-2xs bg-white p-4.5 space-y-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2 text-xs text-slate-500 mb-1">
+                    <span className="font-bold text-blue-700">{course.code}</span>
+                    <span>•</span>
+                    <span className="text-[11px] font-semibold text-slate-600">{course.duration}</span>
+                  </div>
+                  <h3 className="font-bold text-sm sm:text-base text-slate-900 leading-snug">
+                    {course.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2 mt-1">
+                    {course.cardIntro || course.briefIntro}
+                  </p>
+                </div>
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-[#437118] shrink-0 bg-[#AFD06E]/15 px-2.5 py-1 rounded-full border border-[#AFD06E]/30">
+                  <CheckCircle weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
+                  <span>Completed</span>
+                </span>
+              </div>
+
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                <span>Completed in demo record</span>
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
 
@@ -183,6 +238,41 @@ export function MyLearningView({
             <span>View Ready Check</span>
             <ArrowRight className="h-3 w-3" />
           </button>
+        </div>
+      </div>
+      <div className="space-y-4 pt-4 border-t border-slate-200">
+        <h2 className="text-base font-bold text-[#1D2A62]">
+          Recommended Next
+        </h2>
+
+        <div className="max-w-xl">
+          <Card className="border-slate-200/90 shadow-2xs bg-white p-5 space-y-3">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
+                  07 · CORE PATHWAY
+                </span>
+                <h3 className="font-bold text-base text-slate-900 leading-snug">
+                  Rehearsal & Simulation
+                </h3>
+                <p className="text-xs text-slate-600 mt-1">
+                  Use rehearsal to find problems before participants do.
+                </p>
+                <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mt-2">
+                  <Clock className="h-3.5 w-3.5 text-slate-400" />
+                  <span>7 min · Interactive Practice</span>
+                </div>
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-xs text-slate-400 font-medium shrink-0 bg-slate-100 px-2.5 py-1 rounded-full border border-slate-200">
+                <Clock className="h-3.5 w-3.5 text-slate-400" />
+                <span>Coming Soon</span>
+              </span>
+            </div>
+
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+              <span>Available soon</span>
+            </div>
+          </Card>
         </div>
       </div>
     </div>

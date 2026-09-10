@@ -16,11 +16,11 @@ export const INITIAL_COURSES: Course[] = [
     duration: "5 min",
     courseType: "Foundation",
     totalLessons: 3,
-    completedLessons: 0,
-    progress: 0,
+    completedLessons: 3,
+    progress: 100,
     briefIntro: "Understand what it really means to lead an event.",
     competencies: ["Role Clarity", "Visibility & Accountability", "Leadership Mindset"],
-    status: "coming-soon",
+    status: "completed",
     modules: []
   },
   {
@@ -35,11 +35,11 @@ export const INITIAL_COURSES: Course[] = [
     duration: "6 min",
     courseType: "Foundation",
     totalLessons: 4,
-    completedLessons: 0,
-    progress: 0,
+    completedLessons: 4,
+    progress: 100,
     briefIntro: "Start with purpose before building the plan.",
     competencies: ["Event Purpose", "Participant Needs", "Success Criteria"],
-    status: "coming-soon",
+    status: "completed",
     modules: []
   },
   {
@@ -54,11 +54,11 @@ export const INITIAL_COURSES: Course[] = [
     duration: "8 min",
     courseType: "Core",
     totalLessons: 4,
-    completedLessons: 0,
-    progress: 0,
+    completedLessons: 4,
+    progress: 100,
     briefIntro: "Turn ideas into a clear, workable event plan.",
     competencies: ["Work Breakdown", "Timeline Governance", "Dependency Management"],
-    status: "coming-soon",
+    status: "completed",
     modules: []
   },
   {
@@ -73,11 +73,11 @@ export const INITIAL_COURSES: Course[] = [
     duration: "8 min",
     courseType: "Leadership",
     totalLessons: 4,
-    completedLessons: 0,
-    progress: 0,
+    completedLessons: 4,
+    progress: 100,
     briefIntro: "Lead people with clarity, not control.",
     competencies: ["Delegation & Briefing", "Team Motivation", "Accountability"],
-    status: "coming-soon",
+    status: "completed",
     modules: []
   },
   {
@@ -92,11 +92,11 @@ export const INITIAL_COURSES: Course[] = [
     duration: "7 min",
     courseType: "Collaboration",
     totalLessons: 4,
-    completedLessons: 0,
-    progress: 0,
+    completedLessons: 4,
+    progress: 100,
     briefIntro: "Keep every team moving in the same direction.",
     competencies: ["Cross-Functional Alignment", "Shared Timelines", "Dependency Management"],
-    status: "coming-soon",
+    status: "completed",
     modules: []
   },
   {

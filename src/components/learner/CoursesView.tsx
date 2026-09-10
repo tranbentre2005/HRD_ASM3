@@ -245,8 +245,8 @@ export function CoursesView({
                 </span>
               )}
               {isCompleted && (
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
-                  <CheckCircle weight="fill" className="h-3.5 w-3.5 text-emerald-600" />
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#437118]">
+                  <CheckCircle weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
                   <span>Completed</span>
                 </span>
               )}
@@ -307,14 +307,9 @@ export function CoursesView({
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             ) : isCompleted ? (
-              <button
-                type="button"
-                onClick={() => onSelectCourse(course)}
-                className="w-full h-9 px-4 rounded-xl border border-emerald-300 bg-emerald-50/50 hover:bg-emerald-50 text-emerald-800 font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
-              >
-                <span>Review Course</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </button>
+              <div className="h-9 flex items-center text-xs text-slate-400 font-medium px-0.5 select-none">
+                <span>Completed in demo record</span>
+              </div>
             ) : isComingSoon ? (
               <div className="h-9 flex items-center text-xs text-slate-400 font-medium px-0.5 select-none">
                 <span>Available soon</span>
@@ -542,21 +537,21 @@ export function CoursesView({
                     stroke="#AFD06E"
                     strokeWidth="3.5"
                     strokeDasharray="94.25"
-                    strokeDashoffset={94.25 * (1 - 0.60)}
+                    strokeDashoffset={94.25 * (1 - 0.56)}
                     strokeLinecap="round"
                   />
                 </svg>
                 <span className="absolute text-xs font-extrabold text-white">
-                  60%
+                  56%
                 </span>
               </div>
 
               <div>
                 <h3 className="text-xs sm:text-[13px] font-bold text-white leading-tight">
-                  60% of your pathway complete
+                  5 of 9 Core Pathway courses completed
                 </h3>
                 <p className="text-[11px] text-emerald-100/80 mt-1 leading-snug">
-                  3 courses completed · 2 in progress
+                  1 course in progress
                 </p>
               </div>
             </div>
