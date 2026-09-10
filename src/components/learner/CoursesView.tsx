@@ -400,15 +400,15 @@ export function CoursesView({
       {/* ========================================================================= */}
       {/* TOP: Full-Width Course Library Banner                                     */}
       {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-3.5 sm:p-4 lg:py-3 lg:px-6 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between mb-4 sm:mb-5">
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-5 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between mb-6">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
         />
 
         {/* Ambient Radial Halo Blooms */}
-        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[240px] h-[240px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
-        <div className="absolute -top-12 -left-12 w-48 h-48 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
+        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+        <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
 
         {/* Subtle Concentric Leadership Arcs framing right side */}
         <svg 
@@ -426,9 +426,9 @@ export function CoursesView({
         </svg>
 
         {/* Left: Banner Content */}
-        <div className="space-y-1 z-10 relative text-left max-w-md lg:max-w-xl">
+        <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-xl">
           {/* Breadcrumb: Home / Courses */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
             <button
               type="button"
               onClick={onBackToHome}
@@ -440,10 +440,10 @@ export function CoursesView({
             <span className="font-semibold text-[#1D2A62]">Courses</span>
           </nav>
 
-          <h1 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight inline-block">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
             Course Library
           </h1>
-          <p className="text-xs text-slate-600 leading-normal font-medium">
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
             Explore practical courses designed to help you become a more capable Project Leader.
           </p>
         </div>
@@ -454,7 +454,7 @@ export function CoursesView({
             src="/courses-hero-kanban.png"
             alt="Course Library Kanban Task Board"
             loading="eager"
-            className="max-h-[85px] sm:max-h-[95px] lg:max-h-[105px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+            className="max-h-[130px] sm:max-h-[140px] lg:max-h-[150px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
           />
         </div>
       </div>
@@ -629,28 +629,27 @@ export function CoursesView({
         {/* ======================================================================= */}
         <div className="lg:col-span-8 xl:col-span-9 space-y-5">
 
-          {/* Top Search Input */}
-          <div className="relative rounded-xl border border-slate-200/90 bg-white p-1 shadow-2xs">
-            <MagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          {/* Top Search Input - Compact Size */}
+          <div className="relative max-w-sm sm:max-w-md rounded-xl border border-slate-200/90 bg-white p-0.5 shadow-2xs">
+            <MagnifyingGlass className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search courses, skills, or topics..."
-              className="w-full pl-10 pr-10 py-2 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent"
+              className="w-full pl-9 pr-9 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
                 title="Clear search"
               >
-                <X className="h-3.5 w-3.5" />
+                <X className="h-3 w-3" />
               </button>
             )}
           </div>
-
 
           {/* Featured "CONTINUE LEARNING" Card from Image #1 - All Blue Palette */}
           {inProgressCourse && (selectedCategory === "all" || selectedCategory === "Core Pathway") && !searchQuery.trim() && (
