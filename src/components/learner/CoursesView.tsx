@@ -522,12 +522,9 @@ export function CoursesView({
             )}
           </div>
 
-          {/* Subheader: Results count text */}
-          <div className="flex items-center justify-between text-xs text-slate-500 px-0.5">
-            <span className="font-medium">
-              Showing {selectedCategory === 'all' ? 'all courses' : selectedCategory} • <strong className="text-slate-800 font-mono">{filteredCourses.length} courses</strong>
-            </span>
-            {(selectedCategory !== 'all' || searchQuery) && (
+          {/* Clear filter action if active */}
+          {(selectedCategory !== 'all' || searchQuery) && (
+            <div className="flex items-center justify-end text-xs px-0.5">
               <button
                 type="button"
                 onClick={handleClearFilters}
@@ -535,8 +532,8 @@ export function CoursesView({
               >
                 Clear filter
               </button>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Featured "CONTINUE LEARNING" Card from Image #1 */}
           {inProgressCourse && (selectedCategory === "all" || selectedCategory === "Core Pathway") && !searchQuery.trim() && (
