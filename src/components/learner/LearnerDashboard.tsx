@@ -492,10 +492,10 @@ export function LearnerDashboard({
             <div 
               role="button"
               tabIndex={0}
-              onClick={() => onNavigateCourses ? onNavigateCourses('Foundation') : setActiveTab('catalog')}
+              onClick={() => onNavigateCourses ? onNavigateCourses('all') : setActiveTab('catalog')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
-                  if (onNavigateCourses) onNavigateCourses('Foundation')
+                  if (onNavigateCourses) onNavigateCourses('all')
                   else setActiveTab('catalog')
                 }
               }}
@@ -538,10 +538,10 @@ export function LearnerDashboard({
             <div 
               role="button"
               tabIndex={0}
-              onClick={() => onNavigateCourses ? onNavigateCourses('Plan & Lead') : setActiveTab('catalog')}
+              onClick={() => onNavigateCourses ? onNavigateCourses('all') : setActiveTab('catalog')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
-                  if (onNavigateCourses) onNavigateCourses('Plan & Lead')
+                  if (onNavigateCourses) onNavigateCourses('all')
                   else setActiveTab('catalog')
                 }
               }}
@@ -578,10 +578,10 @@ export function LearnerDashboard({
             <div 
               role="button"
               tabIndex={0}
-              onClick={() => onNavigateCourses ? onNavigateCourses('Deliver') : setActiveTab('catalog')}
+              onClick={() => onNavigateCourses ? onNavigateCourses('all') : setActiveTab('catalog')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
-                  if (onNavigateCourses) onNavigateCourses('Deliver')
+                  if (onNavigateCourses) onNavigateCourses('all')
                   else setActiveTab('catalog')
                 }
               }}
@@ -619,10 +619,10 @@ export function LearnerDashboard({
             <div 
               role="button"
               tabIndex={0}
-              onClick={() => onNavigateCourses ? onNavigateCourses('Reflect & Grow') : setActiveTab('catalog')}
+              onClick={() => onNavigateCourses ? onNavigateCourses('all') : setActiveTab('catalog')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
-                  if (onNavigateCourses) onNavigateCourses('Reflect & Grow')
+                  if (onNavigateCourses) onNavigateCourses('all')
                   else setActiveTab('catalog')
                 }
               }}
