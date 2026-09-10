@@ -300,6 +300,94 @@ export function CoursesView({
 
     const theme = getCategoryTheme(course.category, isInProgress)
 
+    if (isEventReadiness) {
+      return (
+        <div
+          key={course.id}
+          className="group rounded-2xl border border-slate-200/90 bg-white transition-all duration-300 flex flex-col justify-between h-full text-left overflow-hidden shadow-2xs hover:shadow-md hover:-translate-y-1 cursor-pointer relative"
+        >
+          {/* Top Widescreen Thumbnail Header with Overlapping Category Tag */}
+          <div>
+            <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-slate-100">
+              <img
+                src="/event-readiness-thumbnail.jpg"
+                alt="Event Readiness Workshop"
+                loading="eager"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              />
+
+              {/* Top-Right: In Progress Status Badge */}
+              <div className="absolute top-3 right-3 z-10">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-xs text-[#386b24] text-[10px] font-bold shadow-xs">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#386b24] animate-pulse" />
+                  <span>In Progress</span>
+                </span>
+              </div>
+
+              {/* Bottom-Left Overlapping Category Badge (matching "Technology" in Image #1) */}
+              <div className="absolute -bottom-3 left-4 z-10">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-[#1D2A62] text-white text-[10px] sm:text-[11px] font-bold shadow-xs tracking-wide">
+                  Core Pathway
+                </span>
+              </div>
+            </div>
+
+            {/* Main Content Area */}
+            <div className="pt-5 p-4 sm:p-5 space-y-2">
+              <h3 className="text-base sm:text-lg font-bold text-[#1D2A62] leading-snug line-clamp-2 group-hover:text-[#386b24] transition-colors">
+                {course.cardTitle || course.title}
+              </h3>
+
+              <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                {course.cardIntro || course.briefIntro}
+              </p>
+
+              {/* Two Metadata Icons Row (matching "12 Weeks" and "Beginner" in Image #1) */}
+              <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-slate-500 font-medium">
+                <div className="flex items-center gap-1.5">
+                  <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                  <span>8–10 min</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Sparkle className="h-3.5 w-3.5 text-[#386b24] shrink-0" />
+                  <span>Interactive · Core PL Skill</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Row (matching price & action in Image #1) */}
+          <div className="p-4 sm:p-5 pt-0">
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+              <div>
+                <span className="text-[10px] text-slate-400 font-medium block uppercase tracking-wider">Progress</span>
+                <span className="text-sm font-extrabold text-[#1D2A62] leading-none">
+                  {course.progress}% <span className="text-xs font-normal text-slate-400">complete</span>
+                </span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => onSelectCourse(course)}
+                className="h-8.5 px-4 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.98]"
+              >
+                <span>Continue</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
+
+            {/* Thin progress bar */}
+            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mt-2.5">
+              <div
+                className="h-full bg-[#437118] rounded-full transition-all"
+                style={{ width: `${course.progress}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div
         key={course.id}
