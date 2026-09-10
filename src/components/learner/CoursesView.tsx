@@ -28,7 +28,9 @@ import {
   Timer,
   ShieldStar,
   Compass,
-  X
+  X,
+  Stack,
+  User
 } from "@phosphor-icons/react"
 
 interface CoursesViewProps {
@@ -281,54 +283,49 @@ export function CoursesView({
         {/* ======================================================================= */}
         {/* LEFT COLUMN: Sidebar Card (Browse Courses & Metrics) - Level with Banner */}
         {/* ======================================================================= */}
-        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs space-y-6 text-left">
+        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs space-y-5 text-left">
           {/* Group 1: BROWSE COURSES */}
           <div className="space-y-3">
             <h2 className="text-[11px] font-bold text-[#1D2A62] tracking-wider uppercase font-mono">
               BROWSE COURSES
             </h2>
 
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               {/* 1. All Courses */}
               <button
                 type="button"
                 onClick={() => setSelectedCategory("all")}
-                className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "all"
-                    ? "bg-[#AFD06E]/15 border-l-4 border-l-[#437118] text-[#1D2A62] font-bold shadow-2xs"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
                     : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <SquaresFour weight="bold" className={`h-4 w-4 ${selectedCategory === "all" ? "text-[#437118]" : "text-slate-500"}`} />
-                  <div>
-                    <span className="block text-xs leading-tight">All Courses</span>
-                    <span className="text-[10px] text-slate-500 font-mono font-normal">
-                      {categoryCounts["all"]} courses
-                    </span>
-                  </div>
+                  <CheckCircle weight="bold" className={`h-4 w-4 ${selectedCategory === "all" ? "text-[#386b24]" : "text-slate-400"}`} />
+                  <span className="text-xs">All Courses</span>
                 </div>
-                {selectedCategory === "all" && (
-                  <CheckCircle weight="fill" className="h-4 w-4 text-[#437118] shrink-0" />
-                )}
+                <span className="text-xs text-slate-500 font-mono font-semibold">
+                  {categoryCounts["all"]}
+                </span>
               </button>
 
               {/* 2. Core Pathway */}
               <button
                 type="button"
                 onClick={() => setSelectedCategory("Core Pathway")}
-                className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Core Pathway"
-                    ? "bg-[#AFD06E]/15 border-l-4 border-l-[#437118] text-[#1D2A62] font-bold shadow-2xs"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
                     : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Target weight="bold" className={`h-4 w-4 ${selectedCategory === "Core Pathway" ? "text-[#437118]" : "text-slate-500"}`} />
+                  <Stack weight="bold" className={`h-4 w-4 ${selectedCategory === "Core Pathway" ? "text-[#386b24]" : "text-slate-500"}`} />
                   <span className="text-xs">Core Pathway</span>
                 </div>
-                <span className="text-[11px] text-slate-500 font-mono">
-                  {categoryCounts["Core Pathway"]} courses
+                <span className="text-xs text-slate-500 font-mono font-semibold">
+                  {categoryCounts["Core Pathway"]}
                 </span>
               </button>
 
@@ -336,18 +333,18 @@ export function CoursesView({
               <button
                 type="button"
                 onClick={() => setSelectedCategory("Leadership Skills")}
-                className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Leadership Skills"
-                    ? "bg-[#AFD06E]/15 border-l-4 border-l-[#437118] text-[#1D2A62] font-bold shadow-2xs"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
                     : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Users weight="bold" className={`h-4 w-4 ${selectedCategory === "Leadership Skills" ? "text-[#437118]" : "text-slate-500"}`} />
+                  <Users weight="bold" className={`h-4 w-4 ${selectedCategory === "Leadership Skills" ? "text-[#386b24]" : "text-slate-500"}`} />
                   <span className="text-xs">Leadership Skills</span>
                 </div>
-                <span className="text-[11px] text-slate-500 font-mono">
-                  {categoryCounts["Leadership Skills"]} courses
+                <span className="text-xs text-slate-500 font-mono font-semibold">
+                  {categoryCounts["Leadership Skills"]}
                 </span>
               </button>
 
@@ -355,18 +352,18 @@ export function CoursesView({
               <button
                 type="button"
                 onClick={() => setSelectedCategory("Functional Essentials")}
-                className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Functional Essentials"
-                    ? "bg-[#AFD06E]/15 border-l-4 border-l-[#437118] text-[#1D2A62] font-bold shadow-2xs"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
                     : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Gear weight="bold" className={`h-4 w-4 ${selectedCategory === "Functional Essentials" ? "text-[#437118]" : "text-slate-500"}`} />
+                  <Gear weight="bold" className={`h-4 w-4 ${selectedCategory === "Functional Essentials" ? "text-[#386b24]" : "text-slate-500"}`} />
                   <span className="text-xs">Functional Essentials</span>
                 </div>
-                <span className="text-[11px] text-slate-500 font-mono">
-                  {categoryCounts["Functional Essentials"]} courses
+                <span className="text-xs text-slate-500 font-mono font-semibold">
+                  {categoryCounts["Functional Essentials"]}
                 </span>
               </button>
 
@@ -374,18 +371,18 @@ export function CoursesView({
               <button
                 type="button"
                 onClick={() => setSelectedCategory("Personal Development")}
-                className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Personal Development"
-                    ? "bg-[#AFD06E]/15 border-l-4 border-l-[#437118] text-[#1D2A62] font-bold shadow-2xs"
+                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
                     : "hover:bg-slate-50 text-slate-700 font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Plant weight="bold" className={`h-4 w-4 ${selectedCategory === "Personal Development" ? "text-[#437118]" : "text-slate-500"}`} />
+                  <User weight="bold" className={`h-4 w-4 ${selectedCategory === "Personal Development" ? "text-[#386b24]" : "text-slate-500"}`} />
                   <span className="text-xs">Personal Development</span>
                 </div>
-                <span className="text-[11px] text-slate-500 font-mono">
-                  {categoryCounts["Personal Development"]} courses
+                <span className="text-xs text-slate-500 font-mono font-semibold">
+                  {categoryCounts["Personal Development"]}
                 </span>
               </button>
             </div>
@@ -393,66 +390,49 @@ export function CoursesView({
 
           <hr className="border-slate-100" />
 
-          {/* Group 2: AVAILABLE COURSES Metric */}
-          <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#1D2A62] flex items-center justify-center shrink-0 mt-0.5 border border-blue-100">
-              <BookOpen weight="bold" className="h-4 w-4" />
-            </div>
-            <div>
-              <span className="text-[10px] font-bold text-[#68707D] tracking-wider uppercase font-mono block">
-                AVAILABLE COURSES
-              </span>
-              <span className="text-2xl font-extrabold text-[#1D2A62] font-mono leading-none block mt-1">
-                {courses.length}
-              </span>
-              <p className="text-[11px] text-slate-500 mt-1">
-                Across 4 learning categories
-              </p>
-            </div>
-          </div>
+          {/* Group 2: YOUR LEARNING PROGRESS */}
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold text-[#1D2A62] tracking-wider uppercase font-mono block">
+              YOUR LEARNING PROGRESS
+            </span>
 
-          <hr className="border-slate-100" />
+            <div className="flex items-center gap-3.5">
+              {/* Circular progress ring (60% progress with #98D843 lime stroke & #E0F2FE pale azure track) */}
+              <div className="relative h-13 w-13 flex items-center justify-center shrink-0">
+                <svg className="h-13 w-13 -rotate-90" viewBox="0 0 36 36">
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15"
+                    fill="none"
+                    stroke="#E0F2FE"
+                    strokeWidth="3.5"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15"
+                    fill="none"
+                    stroke="#98D843"
+                    strokeWidth="3.5"
+                    strokeDasharray="94.25"
+                    strokeDashoffset={94.25 * (1 - 0.60)}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span className="absolute text-xs font-extrabold text-[#1D2A62] font-mono">
+                  60%
+                </span>
+              </div>
 
-          {/* Group 3: YOUR LEARNING PROGRESS Metric */}
-          <div className="flex items-start gap-3">
-            {/* Circular progress ring (40% progress for Event Readiness) */}
-            <div className="relative h-12 w-12 flex items-center justify-center shrink-0">
-              <svg className="h-12 w-12 -rotate-90" viewBox="0 0 36 36">
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="15"
-                  fill="none"
-                  stroke="#E2E8F0"
-                  strokeWidth="3.5"
-                />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="15"
-                  fill="none"
-                  stroke="#437118"
-                  strokeWidth="3.5"
-                  strokeDasharray="94.25"
-                  strokeDashoffset={94.25 * (1 - 0.40)}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span className="absolute text-[10px] font-bold text-[#1D2A62] font-mono">
-                40%
-              </span>
-            </div>
-
-            <div>
-              <span className="text-[10px] font-bold text-[#68707D] tracking-wider uppercase font-mono block">
-                YOUR LEARNING PROGRESS
-              </span>
-              <h3 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-tight mt-1">
-                Event Readiness
-              </h3>
-              <p className="text-[11px] text-slate-500 mt-0.5">
-                in progress
-              </p>
+              <div>
+                <h3 className="text-xs sm:text-[13px] font-bold text-[#1D2A62] leading-tight">
+                  60% of your pathway complete
+                </h3>
+                <p className="text-[11px] text-slate-500 mt-1 leading-snug">
+                  3 courses completed · 2 in progress
+                </p>
+              </div>
             </div>
           </div>
         </div>
