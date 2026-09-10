@@ -298,6 +298,7 @@ export function LearnerDashboard({
             <p className="text-[11px] sm:text-xs text-slate-200 font-medium leading-relaxed mt-1.5">
               Put your skills into practice with a realistic scenario.
             </p>
+          </div>
 
           <div className="pt-2 relative z-10">
             <button
