@@ -176,6 +176,9 @@ export function LearnerDashboard({
               <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
                 YOUR LEARNING PROGRESS
               </h3>
+              <span className="inline-flex items-center text-[10px] font-bold text-[#87AECE] bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
+                Core Pathway
+              </span>
             </div>
 
             <div className="flex items-center gap-3.5 my-auto py-1">
@@ -209,7 +212,7 @@ export function LearnerDashboard({
 
               <div className="space-y-0.5">
                 <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
-                  5 of 9 Core Pathway courses completed
+                  5 of 9 courses completed
                 </h4>
                 <p className="text-xs text-slate-200 font-medium">
                   1 course in progress

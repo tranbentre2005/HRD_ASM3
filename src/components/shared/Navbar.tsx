@@ -31,8 +31,7 @@ export function Navbar({
   const initial = (nameParts[nameParts.length - 1]?.[0] || displayName[0] || 'T').toUpperCase()
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md font-sans">
-
+    <header className="sticky top-0 z-40 w-full border-b border-[#AFD06E]/35 bg-gradient-to-r from-[#F4F9F1]/95 via-[#F8FCF6]/95 to-[#EDF6E8]/95 backdrop-blur-md font-sans transition-colors">
       {/* Main Navbar: Unified across roles */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-15 flex items-center justify-between gap-4">
         {/* 1. Logo -> Trang Home */}
