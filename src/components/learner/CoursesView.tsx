@@ -277,11 +277,73 @@ export function CoursesView({
   return (
     <div className="pb-16 font-sans text-left">
       {/* ========================================================================= */}
-      {/* TWO-COLUMN LAYOUT: Left Sidebar Section starts level with Right Banner     */}
+      {/* TOP: Full-Width Course Library Banner                                     */}
+      {/* ========================================================================= */}
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-5 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between mb-6">
+        {/* Subtle Architectural Dot Matrix Grid */}
+        <div 
+          className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
+        />
+
+        {/* Ambient Radial Halo Blooms */}
+        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+        <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
+
+        {/* Subtle Concentric Leadership Arcs framing right side */}
+        <svg 
+          className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block" 
+          viewBox="0 0 400 400" 
+          fill="none"
+        >
+          <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
+          <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
+          <circle cx="260" cy="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
+          <circle cx="165" cy="180" r="3.5" fill="#437118" />
+          <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
+          <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
+          <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
+        </svg>
+
+        {/* Left: Banner Content */}
+        <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-xl">
+          {/* Breadcrumb: Home / Courses */}
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <button
+              type="button"
+              onClick={onBackToHome}
+              className="hover:text-[#1D2A62] transition-colors cursor-pointer text-slate-600 hover:underline"
+            >
+              Home
+            </button>
+            <span className="text-slate-300">/</span>
+            <span className="font-semibold text-[#1D2A62]">Courses</span>
+          </nav>
+
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
+            Course Library
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+            Explore practical courses designed to help you become a more capable Project Leader.
+          </p>
+        </div>
+
+        {/* Right: Attached Kanban Tablet Illustration in RFC Palette */}
+        <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-2">
+          <img
+            src="/courses-hero-kanban.png"
+            alt="Course Library Kanban Task Board"
+            loading="eager"
+            className="max-h-[130px] sm:max-h-[140px] lg:max-h-[150px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+          />
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* TWO-COLUMN LAYOUT: Left Sidebar level with Right Search Bar                */}
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ======================================================================= */}
-        {/* LEFT COLUMN: Sidebar Card (Browse Courses & Metrics) - Level with Banner */}
+        {/* LEFT COLUMN: Sidebar Card (Browse Courses & Learning Progress)           */}
         {/* ======================================================================= */}
         <div className="lg:col-span-4 xl:col-span-3 rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs space-y-5 text-left">
           {/* Group 1: BROWSE COURSES */}
@@ -441,65 +503,6 @@ export function CoursesView({
         {/* RIGHT COLUMN: Search Bar + Featured Strip + Course Catalogue Cards       */}
         {/* ======================================================================= */}
         <div className="lg:col-span-8 xl:col-span-9 space-y-5">
-          {/* Top Compact Hero Banner: With attached workspace laptop illustration in RFC palette */}
-          <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-3.5 lg:px-7 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
-            {/* Subtle Architectural Dot Matrix Grid */}
-            <div 
-              className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
-            />
-
-            {/* Ambient Radial Halo Blooms */}
-            <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
-            <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
-
-            {/* Subtle Concentric Leadership Arcs framing right side */}
-            <svg 
-              className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block" 
-              viewBox="0 0 400 400" 
-              fill="none"
-            >
-              <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
-              <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
-              <circle cx="260" cy="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
-              <circle cx="165" cy="180" r="3.5" fill="#437118" />
-              <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
-              <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
-              <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
-            </svg>
-
-            {/* Left: Banner Content */}
-            <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-lg">
-              {/* Breadcrumb: Home / Courses */}
-              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-                <button
-                  type="button"
-                  onClick={onBackToHome}
-                  className="hover:text-[#1D2A62] transition-colors cursor-pointer text-slate-600 hover:underline"
-                >
-                  Home
-                </button>
-                <span className="text-slate-300">/</span>
-                <span className="font-semibold text-[#1D2A62]">Courses</span>
-              </nav>
-
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
-                Course Library
-              </h1>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                Explore practical courses designed to help you become a more capable Project Leader.
-              </p>
-            </div>
-
-            {/* Right: Attached Kanban Tablet Illustration in RFC Palette */}
-            <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-1">
-              <img
-                src="/courses-hero-kanban.png"
-                alt="Course Library Kanban Task Board"
-                loading="eager"
-                className="max-h-[125px] sm:max-h-[135px] lg:max-h-[142px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
-              />
-            </div>
-          </div>
 
           {/* Top Search Input */}
           <div className="relative rounded-xl border border-slate-200/90 bg-white p-1 shadow-2xs">
