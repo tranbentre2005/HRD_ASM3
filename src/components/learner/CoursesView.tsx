@@ -202,15 +202,33 @@ export function CoursesView({
     return (
       <div
         key={course.id}
-        className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between h-full text-left relative"
+        className={`rounded-2xl border transition-all flex flex-col justify-between h-full text-left relative overflow-hidden p-5 shadow-2xs hover:shadow-xs ${
+          isInProgress
+            ? "border-[#AFD06E]/60 bg-gradient-to-br from-white via-[#FAFCF8] to-[#EEF7E8]/85 shadow-xs"
+            : isCompleted
+            ? "border-emerald-200/80 bg-gradient-to-br from-white via-[#FAFCF9] to-[#ECF7ED]/70"
+            : "border-slate-200/85 bg-gradient-to-br from-white via-[#FCFDFE] to-[#F5F8F4]/70"
+        }`}
       >
+        {/* Subtle Ambient Radial Bloom in top-right corner */}
+        <div 
+          className={`absolute -top-10 -right-10 w-28 h-28 rounded-full bg-radial via-transparent to-transparent pointer-events-none blur-lg ${
+            isInProgress ? "from-[#AFD06E]/20" : "from-[#AFD06E]/12"
+          }`} 
+        />
+
         {/* Top & Main Section */}
-        <div>
-          {/* Top Row: Compact Course Number/Category Marker + Status Indicator */}
+        <div className="relative z-10">
+          {/* Top Row: Illustration Icon + Compact Course Number/Category Marker + Status Indicator */}
           <div className="flex items-center justify-between gap-2 pb-1">
-            <span className="text-[11px] font-semibold text-slate-500 tracking-wider uppercase font-mono">
-              {topMetadata}
-            </span>
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#AFD06E]/25 text-[#386b24] flex items-center justify-center shrink-0 shadow-2xs border border-[#AFD06E]/30">
+                {getCourseIcon(course)}
+              </div>
+              <span className="text-[11px] font-semibold text-slate-500 tracking-wider uppercase">
+                {topMetadata}
+              </span>
+            </div>
 
             {/* Status indicator: always icon plus text */}
             <div className="shrink-0 flex items-center">
@@ -254,7 +272,7 @@ export function CoursesView({
         </div>
 
         {/* Footer: Duration + Progress Row (In Progress only) + CTA or availability message */}
-        <div className="pt-3.5 mt-3.5 border-t border-slate-100 space-y-2.5">
+        <div className="pt-3.5 mt-3.5 border-t border-slate-100 space-y-2.5 relative z-10">
           {/* Duration metadata row with clock icon */}
           <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
             <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
@@ -266,7 +284,7 @@ export function CoursesView({
             <div className="space-y-1">
               <div className="flex items-center justify-between text-[11px] text-slate-600">
                 <span className="font-medium">Progress</span>
-                <span className="font-bold text-[#437118] font-mono">{course.progress}% complete</span>
+                <span className="font-bold text-[#437118]">{course.progress}% complete</span>
               </div>
               <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
                 <div
@@ -387,10 +405,14 @@ export function CoursesView({
         {/* ======================================================================= */}
         {/* LEFT COLUMN: Sidebar Card (Browse Courses & Learning Progress)           */}
         {/* ======================================================================= */}
-        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs space-y-5 text-left">
+        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-5 shadow-xs space-y-5 text-left relative overflow-hidden">
+          {/* Ambient radial light layers */}
+          <div className="absolute top-0 right-0 w-36 h-36 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-36 h-36 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-xl" />
+
           {/* Group 1: BROWSE COURSES */}
-          <div className="space-y-3">
-            <h2 className="text-[11px] font-bold text-[#1D2A62] tracking-wider uppercase font-mono">
+          <div className="space-y-3 relative z-10">
+            <h2 className="text-[11px] font-bold text-[#AFD06E] tracking-wider uppercase">
               BROWSE COURSES
             </h2>
 
@@ -401,15 +423,15 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("all")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "all"
-                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-slate-50 text-slate-700 font-medium"
+                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
+                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CheckCircle weight="bold" className={`h-4 w-4 ${selectedCategory === "all" ? "text-[#386b24]" : "text-slate-400"}`} />
+                  <CheckCircle weight="bold" className={`h-4 w-4 ${selectedCategory === "all" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
                   <span className="text-xs">All Courses</span>
                 </div>
-                <span className="text-xs text-slate-500 font-mono font-semibold">
+                <span className={`text-xs font-semibold ${selectedCategory === "all" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
                   {categoryCounts["all"]}
                 </span>
               </button>
@@ -420,15 +442,15 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("Core Pathway")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Core Pathway"
-                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-slate-50 text-slate-700 font-medium"
+                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
+                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Stack weight="bold" className={`h-4 w-4 ${selectedCategory === "Core Pathway" ? "text-[#386b24]" : "text-slate-500"}`} />
+                  <Stack weight="bold" className={`h-4 w-4 ${selectedCategory === "Core Pathway" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
                   <span className="text-xs">Core Pathway</span>
                 </div>
-                <span className="text-xs text-slate-500 font-mono font-semibold">
+                <span className={`text-xs font-semibold ${selectedCategory === "Core Pathway" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
                   {categoryCounts["Core Pathway"]}
                 </span>
               </button>
@@ -439,15 +461,15 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("Leadership Skills")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Leadership Skills"
-                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-slate-50 text-slate-700 font-medium"
+                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
+                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Users weight="bold" className={`h-4 w-4 ${selectedCategory === "Leadership Skills" ? "text-[#386b24]" : "text-slate-500"}`} />
+                  <Users weight="bold" className={`h-4 w-4 ${selectedCategory === "Leadership Skills" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
                   <span className="text-xs">Leadership Skills</span>
                 </div>
-                <span className="text-xs text-slate-500 font-mono font-semibold">
+                <span className={`text-xs font-semibold ${selectedCategory === "Leadership Skills" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
                   {categoryCounts["Leadership Skills"]}
                 </span>
               </button>
@@ -458,15 +480,15 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("Functional Essentials")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Functional Essentials"
-                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-slate-50 text-slate-700 font-medium"
+                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
+                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Gear weight="bold" className={`h-4 w-4 ${selectedCategory === "Functional Essentials" ? "text-[#386b24]" : "text-slate-500"}`} />
+                  <Gear weight="bold" className={`h-4 w-4 ${selectedCategory === "Functional Essentials" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
                   <span className="text-xs">Functional Essentials</span>
                 </div>
-                <span className="text-xs text-slate-500 font-mono font-semibold">
+                <span className={`text-xs font-semibold ${selectedCategory === "Functional Essentials" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
                   {categoryCounts["Functional Essentials"]}
                 </span>
               </button>
@@ -477,31 +499,31 @@ export function CoursesView({
                 onClick={() => setSelectedCategory("Personal Development")}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer text-left ${
                   selectedCategory === "Personal Development"
-                    ? "bg-[#EEF7E8] border-l-4 border-l-[#386b24] text-[#1D2A62] font-bold shadow-2xs"
-                    : "hover:bg-slate-50 text-slate-700 font-medium"
+                    ? "bg-white/20 border-l-4 border-l-[#AFD06E] text-white font-bold shadow-2xs backdrop-blur-xs"
+                    : "hover:bg-white/10 text-emerald-100/85 hover:text-white font-medium"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <User weight="bold" className={`h-4 w-4 ${selectedCategory === "Personal Development" ? "text-[#386b24]" : "text-slate-500"}`} />
+                  <User weight="bold" className={`h-4 w-4 ${selectedCategory === "Personal Development" ? "text-[#AFD06E]" : "text-emerald-200/70"}`} />
                   <span className="text-xs">Personal Development</span>
                 </div>
-                <span className="text-xs text-slate-500 font-mono font-semibold">
+                <span className={`text-xs font-semibold ${selectedCategory === "Personal Development" ? "text-[#AFD06E]" : "text-emerald-100/75"}`}>
                   {categoryCounts["Personal Development"]}
                 </span>
               </button>
             </div>
           </div>
 
-          <hr className="border-slate-100" />
+          <hr className="border-white/15 relative z-10" />
 
           {/* Group 2: YOUR LEARNING PROGRESS */}
-          <div className="space-y-3">
-            <span className="text-[10px] font-bold text-[#1D2A62] tracking-wider uppercase font-mono block">
+          <div className="space-y-3 relative z-10">
+            <span className="text-[10px] font-bold text-[#AFD06E] tracking-wider uppercase block">
               YOUR LEARNING PROGRESS
             </span>
 
             <div className="flex items-center gap-3.5">
-              {/* Circular progress ring (60% progress with #98D843 lime stroke & #E0F2FE pale azure track) */}
+              {/* Circular progress ring (60% progress with #AFD06E lime stroke & white/20 track) */}
               <div className="relative h-13 w-13 flex items-center justify-center shrink-0">
                 <svg className="h-13 w-13 -rotate-90" viewBox="0 0 36 36">
                   <circle
@@ -509,7 +531,7 @@ export function CoursesView({
                     cy="18"
                     r="15"
                     fill="none"
-                    stroke="#E0F2FE"
+                    stroke="rgba(255, 255, 255, 0.2)"
                     strokeWidth="3.5"
                   />
                   <circle
@@ -517,23 +539,23 @@ export function CoursesView({
                     cy="18"
                     r="15"
                     fill="none"
-                    stroke="#98D843"
+                    stroke="#AFD06E"
                     strokeWidth="3.5"
                     strokeDasharray="94.25"
                     strokeDashoffset={94.25 * (1 - 0.60)}
                     strokeLinecap="round"
                   />
                 </svg>
-                <span className="absolute text-xs font-extrabold text-[#1D2A62] font-mono">
+                <span className="absolute text-xs font-extrabold text-white">
                   60%
                 </span>
               </div>
 
               <div>
-                <h3 className="text-xs sm:text-[13px] font-bold text-[#1D2A62] leading-tight">
+                <h3 className="text-xs sm:text-[13px] font-bold text-white leading-tight">
                   60% of your pathway complete
                 </h3>
-                <p className="text-[11px] text-slate-500 mt-1 leading-snug">
+                <p className="text-[11px] text-emerald-100/80 mt-1 leading-snug">
                   3 courses completed · 2 in progress
                 </p>
               </div>
@@ -585,10 +607,9 @@ export function CoursesView({
           {inProgressCourse && (selectedCategory === "all" || selectedCategory === "Core Pathway") && !searchQuery.trim() && (
             <div className="rounded-xl border-l-4 border-l-[#437118] border-t border-r border-b border-slate-200/80 bg-[#F0F7FC] p-4 sm:p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
               <div className="space-y-2">
-                <span className="text-[10px] font-bold text-[#437118] uppercase tracking-wider font-mono block">
+                <span className="text-[10px] font-bold text-[#437118] uppercase tracking-wider block">
                   CONTINUE LEARNING
                 </span>
-
                 <div className="flex items-center gap-3">
                   {/* Progress ring inside continue strip */}
                   <div className="relative h-9 w-9 flex items-center justify-center shrink-0">
@@ -606,13 +627,13 @@ export function CoursesView({
                         strokeLinecap="round"
                       />
                     </svg>
-                    <span className="absolute text-[9px] font-bold text-[#1D2A62] font-mono">
+                    <span className="absolute text-[9px] font-bold text-[#1D2A62]">
                       40%
                     </span>
                   </div>
 
                   {/* 06 Marker Badge */}
-                  <span className="px-2 py-0.5 rounded bg-[#AFD06E]/30 text-[#437118] text-xs font-mono font-bold shrink-0">
+                  <span className="px-2 py-0.5 rounded bg-[#AFD06E]/30 text-[#437118] text-xs font-bold shrink-0">
                     06
                   </span>
 
@@ -661,14 +682,14 @@ export function CoursesView({
                   <section key={sec.key} className="space-y-3">
                     {/* Category Title Header */}
                     <div>
-                      <span className="text-[10px] font-bold text-[#437118] uppercase tracking-wider font-mono block">
+                      <span className="text-[10px] font-bold text-[#437118] uppercase tracking-wider block">
                         {sec.label}
                       </span>
                       <div className="flex items-center justify-between gap-2 mt-0.5">
                         <h2 className="text-lg sm:text-xl font-extrabold text-[#1D2A62] tracking-tight">
                           {sec.heading}
                         </h2>
-                        <span className="text-xs text-slate-500 font-mono">
+                        <span className="text-xs text-slate-500 font-semibold">
                           {sectionCourses.length} {sectionCourses.length === 1 ? 'course' : 'courses'}
                         </span>
                       </div>
