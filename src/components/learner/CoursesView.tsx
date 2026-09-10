@@ -171,7 +171,7 @@ export function CoursesView({
       {/* ========================================================================= */}
       {/* 1. TOP HERO BANNER: Styled identical to Home page banner                  */}
       {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:p-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between min-h-[140px]">
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:py-6 lg:px-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between min-h-[160px]">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
@@ -189,15 +189,15 @@ export function CoursesView({
         >
           <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
           <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
-          <circle cx="260" cy="180" r="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
+          <circle cx="260" cy="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
           <circle cx="165" cy="180" r="3.5" fill="#437118" />
           <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
           <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
           <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
         </svg>
 
-        {/* Banner Content */}
-        <div className="space-y-1.5 z-10 max-w-2xl relative">
+        {/* Left: Banner Content */}
+        <div className="space-y-2 z-10 max-w-2xl relative">
           <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
             <span className="h-2 w-2 rounded-full bg-[#437118]" />
             <span className="font-semibold text-slate-900">Project Leader</span>
@@ -207,12 +207,22 @@ export function CoursesView({
             <span className="font-mono text-[#5A6578]">RFC-PL-2026</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1D2A62] tracking-tight leading-tight pt-1">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1D2A62] tracking-tight leading-tight pt-0.5">
             Course Library
           </h1>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
             Explore practical courses designed to help you become a more capable Project Leader.
           </p>
+        </div>
+
+        {/* Right: Attached Vector Illustration Recolored in Brand Palette with Floating Motion */}
+        <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-2 lg:pr-6">
+          <img
+            src="/courses-hero-palette.png"
+            alt="Course Library Learning Exploration"
+            loading="eager"
+            className="max-h-[170px] sm:max-h-[195px] lg:max-h-[210px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+          />
         </div>
       </div>
       {/* ========================================================================= */}
