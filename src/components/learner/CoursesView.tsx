@@ -198,6 +198,19 @@ export function CoursesView({
 
         {/* Left: Banner Content */}
         <div className="space-y-2 z-10 max-w-2xl relative">
+          {/* Breadcrumb: Home / Courses */}
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <button
+              type="button"
+              onClick={onBackToHome}
+              className="hover:text-[#1D2A62] transition-colors cursor-pointer text-slate-600 hover:underline"
+            >
+              Home
+            </button>
+            <span className="text-slate-300">/</span>
+            <span className="font-semibold text-[#1D2A62]">Courses</span>
+          </nav>
+
           <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
             <span className="h-2 w-2 rounded-full bg-[#437118]" />
             <span className="font-semibold text-slate-900">Project Leader</span>
@@ -206,7 +219,6 @@ export function CoursesView({
             <span className="text-slate-300">|</span>
             <span className="font-mono text-[#5A6578]">RFC-PL-2026</span>
           </div>
-
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1D2A62] tracking-tight leading-tight pt-0.5">
             Course Library
           </h1>
