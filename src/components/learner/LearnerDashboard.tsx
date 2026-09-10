@@ -179,17 +179,17 @@ export function LearnerDashboard({
               </h3>
             </div>
 
-            <div className="flex items-center gap-3.5 my-auto py-1.5">
-              {/* Circular Gauge */}
-              <div className="relative h-14 w-14 flex items-center justify-center shrink-0">
-                <svg className="h-14 w-14 -rotate-90" viewBox="0 0 36 36">
+            <div className="flex items-center gap-4 my-auto py-1">
+              {/* Circular Gauge: 68px diameter (within 64px-72px) with centered 60% */}
+              <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
+                <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
                   <circle
                     cx="18"
                     cy="18"
                     r="15"
                     fill="none"
-                    stroke="rgba(255, 255, 255, 0.18)"
-                    strokeWidth="3.5"
+                    stroke="rgba(255, 255, 255, 0.2)"
+                    strokeWidth="3"
                   />
                   <circle
                     cx="18"
@@ -197,13 +197,13 @@ export function LearnerDashboard({
                     r="15"
                     fill="none"
                     stroke="#87AECE"
-                    strokeWidth="3.5"
-                    strokeDasharray="94.2"
-                    strokeDashoffset={94.2 * (1 - 0.60)}
+                    strokeWidth="3"
+                    strokeDasharray="94.25"
+                    strokeDashoffset="37.7"
                     strokeLinecap="round"
                   />
                 </svg>
-                <span className="absolute text-xs font-extrabold text-white font-mono">
+                <span className="absolute text-sm sm:text-base font-extrabold text-white font-mono leading-none select-none">
                   60%
                 </span>
               </div>
