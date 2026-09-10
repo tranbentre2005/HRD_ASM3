@@ -55,8 +55,8 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
           {/* Left Column: Role Selection & Identity (6 cols) */}
           <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-between space-y-6">
             <div className="space-y-6">
-              {/* Brand Logo & Learner / Trainer Pills in Same Horizontal Row */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+              {/* Brand Logo Header */}
+              <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-3">
                   <div className="h-11 w-auto flex items-center justify-center bg-transparent">
                     <img
@@ -74,35 +74,6 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                       Learning Hub
                     </span>
                   </div>
-                </div>
-
-                {/* Learner and Trainer buttons on the same row as logo */}
-                <div className="flex items-center p-1 rounded-full bg-slate-100 border border-slate-200 gap-1">
-                  <button
-                    type="button"
-                    onClick={() => handleSelectRole('learner')}
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                      selectedRole === 'learner'
-                        ? 'bg-[#1D2A62] text-white shadow-xs'
-                        : 'text-[#68707D] hover:text-[#1D2A62]'
-                    }`}
-                  >
-                    <GraduationCap className="h-3.5 w-3.5" />
-                    <span>Learner</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleSelectRole('instructor')}
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                      selectedRole === 'instructor'
-                        ? 'bg-[#1D2A62] text-white shadow-xs'
-                        : 'text-[#68707D] hover:text-[#1D2A62]'
-                    }`}
-                  >
-                    <ChalkboardTeacher className="h-3.5 w-3.5" />
-                    <span>Trainer</span>
-                  </button>
                 </div>
               </div>
 
