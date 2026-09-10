@@ -171,8 +171,7 @@ export function CoursesView({
       {/* ========================================================================= */}
       {/* 1. TOP HERO BANNER: Styled identical to Home page banner                  */}
       {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:py-6 lg:px-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between min-h-[160px]">
-        {/* Subtle Architectural Dot Matrix Grid */}
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:py-5 lg:px-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between min-h-[180px] sm:min-h-[210px] lg:min-h-[230px]">
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
         />
@@ -227,13 +226,13 @@ export function CoursesView({
           </p>
         </div>
 
-        {/* Right: Attached Vector Illustration Recolored in Brand Palette with Floating Motion */}
-        <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-2 lg:pr-6">
+        {/* Right: Attached Vector Illustration Recolored in Brand Palette with Floating Motion (Enlarged) */}
+        <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-4">
           <img
             src="/courses-hero-palette.png"
             alt="Course Library Learning Exploration"
             loading="eager"
-            className="max-h-[170px] sm:max-h-[195px] lg:max-h-[210px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+            className="max-h-[230px] sm:max-h-[265px] lg:max-h-[295px] xl:max-h-[315px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
           />
         </div>
       </div>
