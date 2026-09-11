@@ -44,7 +44,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
             </span>
           </div>
 
-          <div className="mt-[1.6px] flex items-start gap-3">
+          <div className="mt-[3.5px] flex items-start gap-3">
             {isEventReadiness && (
               <div className="translate-y-[25%] flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]">
                 <ClipboardText className="h-5 w-5" />
@@ -75,7 +75,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
         </div>
 
         <div className="space-y-2.5">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-[#1D2A62]">Course Syllabus & Modules</h3>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-[#1D2A62]">Course Syllabus</h3>
           <div className="space-y-2 text-xs">
             {course.modules.slice(0, 2).map((module, index) => (
               <div
@@ -102,7 +102,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-slate-100 pt-3 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 pt-3 sm:flex-row">
           <span className="text-xs font-medium text-slate-500">Continue when you are ready to learn.</span>
           <button
             type="button"
