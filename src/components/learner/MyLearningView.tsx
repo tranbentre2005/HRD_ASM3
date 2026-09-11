@@ -261,26 +261,16 @@ export function MyLearningView({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Left Column: CONTINUE LEARNING (7 cols) */}
         <div className="lg:col-span-7 xl:col-span-7 flex flex-col space-y-2">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-              CONTINUE LEARNING
-            </h2>
-            <button
-              type="button"
-              onClick={() => setIsOverviewOpen(true)}
-              className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
-            >
-              <span>View Course</span>
-              <ArrowRight className="h-3 w-3" />
-            </button>
-          </div>
+          <h2 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
+            CONTINUE LEARNING
+          </h2>
 
           <div className="rounded-2xl bg-white border border-slate-200/90 shadow-2xs p-5 sm:p-6 relative overflow-hidden flex-1 flex flex-col justify-between text-left">
             <div className="flex flex-col sm:flex-row gap-5 items-start">
               {/* Left Artwork Box matching Image #1 */}
               <div className="w-28 sm:w-36 h-36 rounded-xl bg-[#F0F7ED] p-2 flex items-center justify-center shrink-0 border border-[#AFD06E]/30 shadow-2xs">
                 <img
-                  src="/continue-learning-clipboard.png"
+                  src="/core-pathway-clipboard.png"
                   alt="Event Readiness Checklist"
                   className="max-h-[120px] w-auto object-contain select-none animate-hero-float"
                 />
@@ -341,10 +331,10 @@ export function MyLearningView({
               <div className="shrink-0">
                 <button
                   type="button"
-                  onClick={() => eventReadinessCourse && onSelectCourse(eventReadinessCourse)}
+                  onClick={() => setIsOverviewOpen(true)}
                   className="h-9 px-5 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.98] whitespace-nowrap"
                 >
-                  <span>Continue Course</span>
+                  <span>View Course</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
