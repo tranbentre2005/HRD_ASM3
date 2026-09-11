@@ -342,7 +342,7 @@ export function MyLearningView({
             </div>
 
             {/* Bottom Row: Progress bar & CTA Button */}
-            <div className="pt-4 mt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="pt-4 mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex-1 space-y-1.5 max-w-xs">
                 <div className="flex items-center justify-between text-xs font-medium text-slate-500">
                   <div className="h-1.5 flex-1 bg-slate-100 rounded-full overflow-hidden mr-3">
@@ -448,7 +448,7 @@ export function MyLearningView({
             </div>
 
             {/* Bottom Legend Row matching Image #1 */}
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+            <div className="pt-3 flex items-center justify-between text-xs text-slate-500 font-medium">
               <div className="flex items-center gap-1.5">
                 <CheckCircle weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
                 <span className="text-[11px]">Completed</span>
