@@ -46,7 +46,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
 
           <div className="mt-[3.5px] flex items-start gap-3">
             {isEventReadiness && (
-              <div className="translate-y-[25%] flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]">
+              <div className="translate-y-[35%] flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]">
                 <ClipboardText className="h-5 w-5" />
               </div>
             )}
