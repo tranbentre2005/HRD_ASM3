@@ -128,7 +128,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
             onClick={() => onContinue(course)}
             className="flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#1D2A62] px-6 text-xs font-semibold text-white shadow-sm transition-all hover:bg-[#16204a] active:scale-[0.98] sm:w-auto sm:text-sm"
           >
-            <span>Continue to Active Lesson</span>
+            <span>Continue Learning</span>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
