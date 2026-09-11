@@ -1,7 +1,6 @@
 import { useState } from "react"
 import {
   ArrowRight,
-  Bell,
   CheckCircle,
   GearSix,
   ShieldCheck,
@@ -94,7 +93,6 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
   const [clubUpdates, setClubUpdates] = useState(true)
   const [language, setLanguage] = useState("English")
   const [appearance, setAppearance] = useState("Light Mode")
-  const [reducedMotion, setReducedMotion] = useState(false)
   const [textSize, setTextSize] = useState("Default")
   const [showSignOutConfirmation, setShowSignOutConfirmation] = useState(false)
 
@@ -276,18 +274,6 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
             />
           </div>
           <div className="py-4">
-            <div className="mb-4 flex items-center gap-2">
-              <Bell className="h-4 w-4 text-[#437118]" />
-              <p className="text-sm font-bold text-[#1D2A62]">Accessibility</p>
-            </div>
-            <PreferenceToggle
-              label="Reduced Motion"
-              description="Limit non-essential animations and transitions across the Learning Hub."
-              checked={reducedMotion}
-              onChange={setReducedMotion}
-            />
-          </div>
-          <div className="py-4">
             <PreferenceSelect
               label="Text Size"
               description="Adjust the interface text size for more comfortable reading."
@@ -306,10 +292,6 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
               <SignOut className="h-5 w-5 text-rose-600" />
               <h2 className="text-lg font-extrabold tracking-tight text-[#1D2A62]">Account Management</h2>
             </div>
-            <p className="mt-1 text-sm font-bold text-[#1D2A62]">Sign Out</p>
-            <p className="mt-1 text-xs leading-relaxed text-slate-600">
-              Sign out of the Project Leader Learning Hub on this device.
-            </p>
           </div>
           {!showSignOutConfirmation && (
             <Button
