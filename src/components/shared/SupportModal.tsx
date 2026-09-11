@@ -45,7 +45,8 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
         </div>
         
         {/* Quick Resources */}
-        <div className="flex justify-end rounded-xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 p-2.5 text-white shadow-sm">
+        <div className="flex items-center justify-between rounded-xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 p-2.5 text-white shadow-sm">
+          <span className="text-xs font-bold text-[#AFD06E]">Quick Resources</span>
           <a
             href="https://rmiteduau-my.sharepoint.com/:f:/g/personal/s4063545_rmit_edu_vn/IgDxRh5pupKaRL_0n7tpIJmwAd17HHL2UKdpAGAvvEenSkg?e=Y4ZQ76"
             target="_blank"
@@ -75,7 +76,7 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
               <span>Project Leader Teams Channel</span>
             </div>
             <p className="text-xs font-mono text-[#68707D]">#rfc-project-leads-2026</p>
-            <p className="text-[11px] text-slate-500">Ask questions, share updates, and get quick support from peers and mentors.</p>
+            <p className="text-[11px] text-slate-500">Get quick support from peers and mentors.</p>
           </div>
         </div>
 
