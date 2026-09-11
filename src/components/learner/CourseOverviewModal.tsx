@@ -16,6 +16,18 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
   const overviewDescription = isEventReadiness
     ? "Learn to identify what matters most, verify critical information against reliable sources, and test whether connected event elements can work together before delivery."
     : course.description
+  const syllabusItems = isEventReadiness
+    ? [
+        { id: "learn-practise", title: "Learn & Practise", detail: "5 activities" },
+        { id: "check-understanding", title: "Check Your Understanding", detail: "2 activities" },
+        { id: "apply-event", title: "Apply to Your Event", detail: "1 job aid" },
+        { id: "reflection-feedback", title: "Reflection & Feedback", detail: "1 activity" }
+      ]
+    : course.modules.slice(0, 2).map((module) => ({
+        id: module.id,
+        title: module.title,
+        detail: `${module.lessons.length} lessons`
+      }))
 
   return (
     <div
@@ -77,7 +89,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
         <div className="space-y-2.5">
           <h3 className="text-xs font-bold uppercase tracking-wider text-[#1D2A62]">Course Syllabus</h3>
           <div className="space-y-2 text-xs">
-            {course.modules.slice(0, 2).map((module, index) => (
+            {syllabusItems.map((module, index) => (
               <div
                 key={module.id}
                 className={`flex items-center justify-between rounded-xl border p-3 ${
@@ -96,7 +108,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
                     {module.title}
                   </span>
                 </div>
-                <span className="shrink-0 text-slate-400">{module.lessons.length} lessons</span>
+                <span className="shrink-0 text-slate-400">{module.detail}</span>
               </div>
             ))}
           </div>
