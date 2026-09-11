@@ -128,7 +128,6 @@ export interface Announcement {
   eventTime?: string
   eventLocation?: string
   eventContact?: string
-  eventRegistrationUrl?: string
   ctaText?: string
   ctaAction?: 'my-learning' | 'courses' | 'course-detail' | 'external'
   ctaTarget?: string

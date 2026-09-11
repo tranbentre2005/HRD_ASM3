@@ -776,10 +776,6 @@ export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
     eventTime: "6:00 PM - 8:00 PM",
     eventLocation: "RMIT Saigon South Campus, Building 2, Room 2.4.05",
     eventContact: "events@rmitfinanceclub.com",
-    eventRegistrationUrl: "https://forms.gle/rmitfinanceclub",
-    ctaText: "Register now",
-    ctaAction: "external",
-    ctaTarget: "https://forms.gle/rmitfinanceclub"
   },
   {
     id: "ann-learning-hub-update",
