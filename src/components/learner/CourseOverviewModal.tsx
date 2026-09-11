@@ -71,16 +71,16 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-3 rounded-2xl border border-[#87AECE]/30 bg-[#F0F7FC] p-3.5 text-xs sm:grid-cols-3">
-          <div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="h-full min-w-0 rounded-2xl border border-[#87AECE]/30 bg-[#F0F7FC] p-3.5 text-xs">
             <span className="block font-medium text-slate-400">Duration</span>
             <span className="font-bold text-[#1D2A62]">{course.duration}</span>
           </div>
-          <div>
+          <div className="h-full min-w-0 rounded-2xl border border-[#87AECE]/30 bg-[#F0F7FC] p-3.5 text-xs">
             <span className="block font-medium text-slate-400">Progress</span>
             <span className="font-bold text-[#437118]">{course.progress}% complete</span>
           </div>
-          <div>
+          <div className="h-full min-w-0 rounded-2xl border border-[#87AECE]/30 bg-[#F0F7FC] p-3.5 text-xs">
             <span className="block font-medium text-slate-400">Facilitator</span>
             <span className="font-bold text-[#1D2A62]">{course.instructorName || "RMIT Finance Club L&D"}</span>
           </div>
