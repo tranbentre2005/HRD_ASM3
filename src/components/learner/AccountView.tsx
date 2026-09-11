@@ -12,7 +12,6 @@ import {
 } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 
 interface AccountViewProps {
   onLogout: () => void
@@ -155,12 +154,6 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
             </div>
             <div className="min-w-0">
               <h3 className="text-lg font-bold text-[#1D2A62]">Tran Le Bao Tran</h3>
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                <Badge variant="outline" className="text-[10px] text-[#1D2A62]">• Project Leader</Badge>
-                <Badge variant="outline" className="text-[10px] text-[#437118]">• Active Learner</Badge>
-                <Badge variant="outline" className="text-[10px] text-slate-600">• HR Department</Badge>
-                <Badge variant="outline" className="text-[10px] text-slate-600">• RMIT Finance Club</Badge>
-              </div>
               <p className="mt-2 text-xs leading-relaxed text-slate-600">
                 Building the skills to lead better events with clarity, confidence, and readiness.
               </p>
