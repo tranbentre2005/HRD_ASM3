@@ -1,4 +1,4 @@
-import { Dialog, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Dialog, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { 
   Lifebuoy, 
@@ -6,7 +6,8 @@ import {
   CalendarCheck, 
   Question, 
   ChatsTeardrop,
-  CheckCircle
+  ArrowRight,
+  Sparkle
 } from "@phosphor-icons/react"
 
 interface SupportModalProps {
@@ -43,6 +44,33 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
             Room 2.4.08, Saigon South Campus or via MS Teams
           </p>
         </div>
+        
+        {/* Quick Resources */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 p-4 sm:p-5 text-white shadow-sm">
+          <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 h-28 w-28 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-xl" />
+
+          <div className="relative z-10 space-y-2.5">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/15 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wide text-[#AFD06E]">
+              <Sparkle weight="fill" className="h-3 w-3 text-[#AFD06E]" />
+              <span>Quick Resources</span>
+            </div>
+            <h3 className="text-lg font-extrabold tracking-tight text-white">Event Toolkit</h3>
+            <p className="text-xs leading-relaxed text-white/90">
+              Access practical templates and checklists for event preparation, rehearsal, and delivery.
+            </p>
+            <a
+              href="https://rmiteduau-my.sharepoint.com/:f:/g/personal/s4063545_rmit_edu_vn/IgDxRh5pupKaRL_0n7tpIJmwAd17HHL2UKdpAGAvvEenSkg?e=Y4ZQ76"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-10 items-center gap-2 rounded-xl bg-white px-5 text-xs font-bold text-[#386b24] shadow-sm transition-all hover:bg-slate-50 hover:shadow-md active:scale-[0.98]"
+            >
+              <span>Open Event Toolkit</span>
+              <ArrowRight className="h-3.5 w-3.5 text-[#386b24]" />
+            </a>
+          </div>
+        </div>
+
 
         {/* Contact Channels */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
