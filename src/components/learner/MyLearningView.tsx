@@ -369,6 +369,20 @@ export function MyLearningView({
         <div className="lg:col-span-5 xl:col-span-5 flex flex-col space-y-2">
 
           <div className="rounded-2xl bg-white border border-slate-200/90 shadow-2xs p-5 flex-1 flex flex-col justify-between space-y-4 text-left">
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  if (onNavigateCourses) onNavigateCourses('Core Pathway')
+                  else onBackToHome()
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+                }}
+                className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
+              >
+                <span>View Pathway</span>
+                <ArrowRight className="h-3 w-3" />
+              </button>
+            </div>
             {/* Top row: Flag icon & Text matching Image #1 */}
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 text-[#386b24] flex items-center justify-center shrink-0 shadow-2xs mt-0.5">
@@ -376,7 +390,7 @@ export function MyLearningView({
               </div>
               <div>
                 <h3 className="text-sm font-bold text-[#1D2A62] leading-snug">
-                  Complete Event Readiness to unlock Course 07
+                  Complete Course 06 to unlock Course 07
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                   Finish the current course to continue your learning journey.
@@ -449,20 +463,6 @@ export function MyLearningView({
                 <Lock weight="bold" className="h-3 w-3 text-slate-400" />
                 <span className="text-[11px]">Locked</span>
               </div>
-            </div>
-            <div className="flex justify-end pt-3">
-              <button
-                type="button"
-                onClick={() => {
-                  if (onNavigateCourses) onNavigateCourses('Core Pathway')
-                  else onBackToHome()
-                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-                }}
-                className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
-              >
-                <span>View Pathway</span>
-                <ArrowRight className="h-3 w-3" />
-              </button>
             </div>
           </div>
         </div>
