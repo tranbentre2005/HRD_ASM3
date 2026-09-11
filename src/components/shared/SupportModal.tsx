@@ -84,12 +84,22 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
 
         {/* FAQ Highlights */}
         <div className="space-y-2 pt-2 border-t border-slate-100">
-          <p className="text-xs font-bold text-[#1D2A62] flex items-center gap-1.5">
-            <Question className="h-4 w-4 text-[#437118]" />
-            <span>Frequently Asked Questions</span>
-          </p>
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-xs font-bold text-[#1D2A62] flex items-center gap-1.5">
+              <Question className="h-4 w-4 text-[#437118]" />
+              <span>Frequently Asked Questions (5)</span>
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowAllFaqs((current) => !current)}
+              aria-expanded={showAllFaqs}
+              className="shrink-0 text-xs font-semibold text-[#1D2A62] transition-colors hover:text-[#437118] cursor-pointer"
+            >
+              {showAllFaqs ? 'View less' : 'View all'}
+            </button>
+          </div>
 
-          <div className="space-y-2 text-xs text-[#68707D]">
+          <div id="support-faq-list" className="space-y-2 text-xs text-[#68707D]">
             <details className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer">
               <summary className="font-semibold text-[#1D2A62]">
                 How do I continue a course I started?
@@ -139,17 +149,6 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
               </>
             )}
 
-            {!showAllFaqs && (
-              <div className="flex justify-end pt-1">
-                <button
-                  type="button"
-                  onClick={() => setShowAllFaqs(true)}
-                  className="text-xs font-semibold text-[#1D2A62] underline decoration-[#87AECE] underline-offset-2 transition-colors hover:text-[#437118] cursor-pointer"
-                >
-                  View all
-                </button>
-              </div>
-            )}
           </div>
         </div>
       </div>
