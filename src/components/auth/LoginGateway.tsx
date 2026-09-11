@@ -199,11 +199,6 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
 
               {selectedRole === 'instructor' && (
                 <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC]/70 p-4 sm:p-5 space-y-3 text-left">
-                  <div>
-                    <p className="mt-1 text-xs sm:text-sm leading-relaxed text-[#68707D]">
-                      This area is restricted to authorised RMIT Finance Club facilitators and trainers.
-                    </p>
-                  </div>
 
                   <div className="space-y-1.5">
                     <input
