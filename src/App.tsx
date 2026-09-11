@@ -64,11 +64,12 @@ export function App() {
     setLearnerTab('my-courses')
   }
 
-  // Handler: Navigate to Courses with category filter
+  // Handler: Navigate to Courses with category filter and scroll to top
   const handleNavigateToCourses = (category: string = 'all') => {
     setActiveCourseId(null)
     setCoursesCategoryFilter(category)
     setCurrentPage('courses')
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
   // Handler: Open Support Modal
