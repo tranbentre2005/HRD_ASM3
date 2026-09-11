@@ -64,7 +64,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
               {isEventReadiness ? (
                 <>
                   <span className="block">Event Readiness</span>
-                  <span className="block text-[0.9em]">From “Done” to Participant-Ready</span>
+                  <span className="block text-[0.9em] italic">From “Done” to Participant-Ready</span>
                 </>
               ) : (
                 course.title
