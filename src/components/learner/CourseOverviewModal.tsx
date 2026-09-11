@@ -34,7 +34,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
           <X className="h-5 w-5" />
         </button>
 
-        <div className="space-y-2">
+        <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <span className="rounded-full border border-[#AFD06E]/30 bg-[#AFD06E]/20 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#437118]">
               {overviewCode}
@@ -44,7 +44,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
             </span>
           </div>
 
-          <div className="flex items-start gap-3">
+          <div className="mt-[1.6px] flex items-start gap-3">
             {isEventReadiness && (
               <div className="translate-y-[25%] flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]">
                 <ClipboardText className="h-5 w-5" />
