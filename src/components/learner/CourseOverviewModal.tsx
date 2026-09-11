@@ -13,9 +13,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
   const isEventReadiness = course.id === "event-readiness" || course.id === "course-1" || course.title.includes("Event Readiness")
   const overviewCode = isEventReadiness ? "06 · DELIVER STAGE" : course.code
   const overviewLevel = isEventReadiness ? "Core Pathway" : course.level || "Foundational"
-  const overviewDescription = isEventReadiness
-    ? "Learn to identify what matters most, verify critical information against reliable sources, and test whether connected event elements can work together before delivery."
-    : course.description
+  const overviewDescription = course.description
   const syllabusItems = isEventReadiness
     ? [
         { id: "learn-practise", title: "Learn & Practise", detail: "5 activities" },
@@ -66,9 +64,11 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
               {course.title}
             </h2>
           </div>
-          <p className="text-xs leading-relaxed text-slate-600 sm:text-sm">
-            {overviewDescription}
-          </p>
+          {!isEventReadiness && (
+            <p className="text-xs leading-relaxed text-slate-600 sm:text-sm">
+              {overviewDescription}
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-3 rounded-2xl border border-[#87AECE]/30 bg-[#F0F7FC] p-3.5 text-xs sm:grid-cols-3">
