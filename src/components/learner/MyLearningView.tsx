@@ -9,7 +9,10 @@ import {
   Flag, 
   Lock, 
   ClipboardText,
-  ArrowSquareOut
+  ArrowSquareOut,
+  FileText,
+  ChartBar,
+  CaretRight
 } from "@phosphor-icons/react"
 
 interface MyLearningViewProps {
@@ -18,12 +21,14 @@ interface MyLearningViewProps {
   onSelectCourse: (course: Course) => void
   onViewCertificate: (cert: CertificateItem) => void
   onBackToHome: () => void
+  onNavigateCourses?: (category?: string) => void
 }
 
 export function MyLearningView({
   courses,
   onSelectCourse,
   onBackToHome,
+  onNavigateCourses,
 }: MyLearningViewProps) {
   const inProgressCourses = courses.filter((c) => c.status === "in-progress")
   const eventReadinessCourse = courses.find(
@@ -31,47 +36,27 @@ export function MyLearningView({
   ) || inProgressCourses[0] || courses[0]
 
   // Completed courses in Core Pathway for display in Completed Learning section
-  const completedCoreCourses = courses.filter(
-    (c) => c.status === "completed" && (c.category === "Core Pathway" || c.code.includes("01") || c.code.includes("02") || c.code.includes("03") || c.code.includes("04") || c.code.includes("05"))
-  ).slice(0, 3)
-
-  // Fallback completed courses if list is empty
-  const completedList = completedCoreCourses.length >= 3 ? completedCoreCourses : [
+  const completedList = [
     {
       id: "core-pl-role",
+      code: "01 · CORE PATHWAY",
       title: "Stepping into the Project Leader Role",
-      code: "01 · FOUNDATION",
-      category: "Core Pathway",
-      duration: "5 min",
-      status: "completed" as const,
-      progress: 100,
-      description: "Understand what it really means to lead an event.",
-      competencies: [],
-      modules: []
+      duration: "5 min · Foundation",
+      completedDate: "Completed on 12 Sep 2026"
     },
     {
       id: "event-fundamentals-strategic-direction",
+      code: "02 · CORE PATHWAY",
       title: "Event Fundamentals & Strategic Direction",
-      code: "02 · FOUNDATION",
-      category: "Core Pathway",
-      duration: "6 min",
-      status: "completed" as const,
-      progress: 100,
-      description: "Start with purpose before building the plan.",
-      competencies: [],
-      modules: []
+      duration: "6 min · Foundation",
+      completedDate: "Completed on 14 Sep 2026"
     },
     {
       id: "event-planning-coordination",
+      code: "03 · CORE PATHWAY",
       title: "Event Planning & Coordination",
-      code: "03 · CORE",
-      category: "Core Pathway",
-      duration: "8 min",
-      status: "completed" as const,
-      progress: 100,
-      description: "Turn ideas into a clear, workable event plan.",
-      competencies: [],
-      modules: []
+      duration: "8 min · Core",
+      completedDate: "Completed on 16 Sep 2026"
     }
   ]
 
@@ -270,60 +255,82 @@ export function MyLearningView({
       {/* 3. MIDDLE ROW: Continue Learning (Left) & Your Next Milestone (Right)      */}
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        {/* Left Column: CONTINUE LEARNING (8 cols) */}
-        <div className="lg:col-span-7 xl:col-span-8 flex flex-col space-y-2">
-          <h2 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-            CONTINUE LEARNING
-          </h2>
+        {/* Left Column: CONTINUE LEARNING (7 cols) */}
+        <div className="lg:col-span-7 xl:col-span-7 flex flex-col space-y-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
+              CONTINUE LEARNING
+            </h2>
+            <button
+              type="button"
+              onClick={() => eventReadinessCourse && onSelectCourse(eventReadinessCourse)}
+              className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>View Course</span>
+              <ArrowRight className="h-3 w-3" />
+            </button>
+          </div>
 
           <div className="rounded-2xl bg-white border border-slate-200/90 shadow-2xs p-5 sm:p-6 relative overflow-hidden flex-1 flex flex-col justify-between text-left">
-            {/* Left green stripe accent */}
-            <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#437118]" />
+            <div className="flex flex-col sm:flex-row gap-5 items-start">
+              {/* Left Artwork Box matching Image #1 */}
+              <div className="w-28 sm:w-36 h-36 rounded-xl bg-[#F0F7ED] p-2 flex items-center justify-center shrink-0 border border-[#AFD06E]/30 shadow-2xs">
+                <img
+                  src="/core-pathway-clipboard.png"
+                  alt="Event Readiness Checklist"
+                  className="max-h-[120px] w-auto object-contain select-none animate-hero-float"
+                />
+              </div>
 
-            <div className="space-y-2.5 pl-1.5">
-              {/* Top Row: Icon + Code + In Progress Pill */}
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[#AFD06E]/25 text-[#386b24] border border-[#AFD06E]/35 flex items-center justify-center shrink-0 shadow-2xs">
-                    <ShieldCheck weight="bold" className="h-5 w-5" />
-                  </div>
+              {/* Right Content Area */}
+              <div className="space-y-2 flex-1 min-w-0">
+                {/* Top Row: Code + In Progress Badge */}
+                <div className="flex items-center justify-between gap-2">
                   <span className="text-[11px] font-semibold text-slate-400 tracking-wider uppercase">
                     06 · CORE PATHWAY
                   </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF7E8] text-[#386b24] text-xs font-bold border border-[#AFD06E]/30 shrink-0">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#386b24] animate-pulse" />
+                    <span>In Progress · 40%</span>
+                  </span>
                 </div>
 
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#AFD06E]/20 border border-[#AFD06E]/35 text-[#386b24] text-xs font-bold shadow-2xs shrink-0">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#386b24] animate-pulse" />
-                  <span>IN PROGRESS · 40%</span>
-                </span>
-              </div>
+                {/* Title & Subtext */}
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-[#1D2A62] leading-snug">
+                    {eventReadinessCourse?.title || "Event Readiness | From “Done” to Participant-Ready"}
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                    {eventReadinessCourse?.cardIntro || "Know what to check before saying, “We’re ready.”"}
+                  </p>
+                </div>
 
-              {/* Title & Intro */}
-              <div className="pt-1">
-                <h3 className="text-base sm:text-lg font-bold text-[#1D2A62] leading-snug">
-                  {eventReadinessCourse?.title || "Event Readiness | From ‘Done’ to Participant-Ready"}
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed mt-1">
-                  {eventReadinessCourse?.cardIntro || "Know what to check before saying, ‘We’re ready.’"}
-                </p>
-              </div>
-
-              {/* Duration metadata */}
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium pt-1">
-                <Clock className="h-3.5 w-3.5 text-slate-400" />
-                <span>8–10 min · Interactive</span>
+                {/* 3 Info Items with Icons */}
+                <div className="space-y-1 pt-1 text-xs text-slate-600 font-medium">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                    <span>8–10 min · Interactive</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                    <span>Current lesson: 1.3 Test the Flow</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ChartBar className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                    <span>~ 2 min to next milestone</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Bottom Row: Progress bar & CTA Button */}
-            <div className="pt-4 mt-4 border-t border-slate-100 pl-1.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex-1 space-y-1.5">
+            <div className="pt-4 mt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex-1 space-y-1.5 max-w-xs">
                 <div className="flex items-center justify-between text-xs font-medium text-slate-500">
-                  <span>Progress</span>
+                  <div className="h-1.5 flex-1 bg-slate-100 rounded-full overflow-hidden mr-3">
+                    <div className="h-full bg-[#437118] rounded-full w-[40%]" />
+                  </div>
                   <span className="font-bold text-[#437118]">40%</span>
-                </div>
-                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-[#437118] rounded-full w-[40%]" />
                 </div>
               </div>
 
@@ -341,26 +348,39 @@ export function MyLearningView({
           </div>
         </div>
 
-        {/* Right Column: YOUR NEXT MILESTONE (4-5 cols) */}
-        <div className="lg:col-span-5 xl:col-span-4 flex flex-col space-y-2">
-          <h2 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-            YOUR NEXT MILESTONE
-          </h2>
+        {/* Right Column: YOUR NEXT MILESTONE (5 cols) */}
+        <div className="lg:col-span-5 xl:col-span-5 flex flex-col space-y-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
+              YOUR NEXT MILESTONE
+            </h2>
+            <button
+              type="button"
+              onClick={() => onNavigateCourses ? onNavigateCourses('Core Pathway') : onBackToHome()}
+              className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>View Pathway</span>
+              <ArrowRight className="h-3 w-3" />
+            </button>
+          </div>
 
-          <div className="rounded-2xl bg-white border border-slate-200/90 shadow-2xs p-5 flex-1 flex flex-col justify-between space-y-5 text-left">
-            {/* Top row: Flag icon & Text */}
+          <div className="rounded-2xl bg-white border border-slate-200/90 shadow-2xs p-5 flex-1 flex flex-col justify-between space-y-4 text-left">
+            {/* Top row: Flag icon & Text matching Image #1 */}
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 text-[#386b24] flex items-center justify-center shrink-0 shadow-2xs mt-0.5">
                 <Flag weight="fill" className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
-                  Complete Event Readiness to unlock course 07
+                <h3 className="text-sm font-bold text-[#1D2A62] leading-snug">
+                  Complete Event Readiness to unlock Course 07
                 </h3>
+                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
+                  Finish the current course to continue your learning journey.
+                </p>
               </div>
             </div>
 
-            {/* Stepper Timeline: 01 to 09 along line */}
+            {/* Stepper Timeline: 01 to 09 along line matching Image #1 */}
             <div className="pt-2">
               <div className="relative flex items-center justify-between">
                 {/* Background horizontal connector line */}
@@ -408,35 +428,78 @@ export function MyLearningView({
                 })}
               </div>
             </div>
+
+            {/* Bottom Legend Row matching Image #1 */}
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle weight="fill" className="h-3.5 w-3.5 text-[#437118]" />
+                <span className="text-[11px]">Completed</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3.5 h-3.5 rounded-full border-2 border-[#437118] flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#437118]" />
+                </div>
+                <span className="text-[11px]">In Progress</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Lock weight="bold" className="h-3 w-3 text-slate-400" />
+                <span className="text-[11px]">Locked</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* ========================================================================= */}
-      {/* 4. COMPLETED LEARNING: 3 Horizontal Cards Row                             */}
+      {/* 4. COMPLETED LEARNING: 3 Horizontal Cards matching Image #1               */}
       {/* ========================================================================= */}
       <div className="space-y-3 pt-2">
-        <h2 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-          COMPLETED LEARNING
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
+            COMPLETED LEARNING
+          </h2>
+          <button
+            type="button"
+            onClick={() => onNavigateCourses ? onNavigateCourses('Core Pathway') : onBackToHome()}
+            className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
+          >
+            <span>View All</span>
+            <ArrowRight className="h-3 w-3" />
+          </button>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {completedList.map((course) => (
             <div
               key={course.id}
-              className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs flex items-center justify-between gap-3 text-left hover:shadow-xs transition-all"
+              className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 shadow-2xs flex flex-col justify-between text-left hover:shadow-xs transition-all relative group"
             >
-              <div className="flex items-center gap-3 min-w-0">
-                <CheckCircle weight="fill" className="h-5 w-5 text-[#437118] shrink-0" />
-                <h3 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug truncate">
+              <div className="space-y-2">
+                {/* Top row: Green check + Category Code */}
+                <div className="flex items-center gap-2">
+                  <CheckCircle weight="fill" className="h-4 w-4 text-[#437118] shrink-0" />
+                  <span className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">
+                    {course.code}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
                   {course.title}
                 </h3>
+
+                {/* Duration */}
+                <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium pt-0.5">
+                  <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                  <span>{course.duration}</span>
+                </div>
               </div>
 
-              <span className="text-xs font-semibold text-[#1D2A62] shrink-0 hover:text-[#437118] flex items-center gap-1 cursor-default">
-                Review
-                <ArrowRight className="h-3 w-3" />
-              </span>
+              {/* Footer: Completion date & Right Arrow */}
+              <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+                <span>{course.completedDate}</span>
+                <CaretRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#1D2A62] group-hover:translate-x-0.5 transition-all" />
+              </div>
             </div>
           ))}
         </div>
@@ -447,7 +510,7 @@ export function MyLearningView({
       {/* ========================================================================= */}
       <div className="rounded-2xl border border-[#87AECE]/35 bg-gradient-to-r from-[#F0F7FC] via-[#F6FAFD] to-[#EFF6FA] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs mt-4 text-left">
         <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-xl bg-emerald-50 text-[#386b24] border border-emerald-200/60 flex items-center justify-center shrink-0 shadow-2xs">
+          <div className="w-11 h-11 rounded-xl bg-blue-100/70 text-[#1D2A62] border border-blue-200/50 flex items-center justify-center shrink-0 shadow-2xs">
             <ClipboardText weight="bold" className="h-6 w-6" />
           </div>
 
@@ -467,7 +530,7 @@ export function MyLearningView({
             onClick={() => eventReadinessCourse && onSelectCourse(eventReadinessCourse)}
             className="h-9 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-[#1D2A62] font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98] whitespace-nowrap"
           >
-            <span>Open Event Toolkit</span>
+            <span>Open Toolkit</span>
             <ArrowSquareOut className="h-3.5 w-3.5" />
           </button>
         </div>
