@@ -61,7 +61,14 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
               </div>
             )}
             <h2 id="course-overview-title" className="flex-1 text-xl font-extrabold leading-tight text-[#1D2A62] sm:text-2xl">
-              {course.title}
+              {isEventReadiness ? (
+                <>
+                  <span className="block">Event Readiness</span>
+                  <span className="block text-[0.9em]">| From “Done” to Participant-Ready</span>
+                </>
+              ) : (
+                course.title
+              )}
             </h2>
           </div>
           {!isEventReadiness && (
