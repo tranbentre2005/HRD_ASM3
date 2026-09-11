@@ -19,11 +19,7 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
   const [showAllFaqs, setShowAllFaqs] = useState(false)
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogHeader className="mb-1">
-        <div className="flex items-center gap-2 text-[#437118]">
-          <Lifebuoy className="h-5 w-5" />
-          <span className="text-xs font-bold uppercase tracking-wider">Help Desk & Mentoring</span>
-        </div>
+      <DialogHeader className="mb-4">
         <DialogTitle className="text-xl text-center font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent">
           Project Leader Support & Resources
         </DialogTitle>
