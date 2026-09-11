@@ -346,7 +346,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
       </Card>
 
       {onOpenSupport && (
-        <div className="flex flex-col gap-4 rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5 text-left shadow-2xs sm:flex-row sm:items-center sm:justify-between sm:p-6">
+        <div className="flex flex-col gap-4 rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5 text-left shadow-2xs sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div>
             <p className="text-sm font-extrabold text-[#1D2A62]">Need help with your account?</p>
             <p className="mt-1 text-xs leading-relaxed text-slate-600">
