@@ -529,23 +529,12 @@ export function LearnerDashboard({
               </div>
             </div>
 
-            {/* Card 2: Plan & Lead (Pale light blue background) */}
-            <div 
-              role="button"
-              tabIndex={0}
-              onClick={() => onNavigateCourses ? onNavigateCourses('all') : setActiveTab('catalog')}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  if (onNavigateCourses) onNavigateCourses('all')
-                  else setActiveTab('catalog')
-                }
-              }}
-              className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
-            >
+            {/* Card 2: Plan & Lead (Display-only without CTA) */}
+            <div className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs transition-all flex flex-col justify-between text-left select-none">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] shadow-2xs group-hover:bg-[#437118] group-hover:text-white transition-colors">
-                    <Users weight="duotone" className="h-5 w-5 text-[#437118] group-hover:text-white" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] shadow-2xs border border-slate-100">
+                    <Users weight="duotone" className="h-5 w-5 text-[#437118]" />
                   </div>
                   <span className="text-[10px] font-bold text-[#1D2A62]/70 font-mono">
                     STAGE 02
@@ -553,7 +542,7 @@ export function LearnerDashboard({
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#1D2A62] transition-colors leading-snug">
+                  <h3 className="text-base font-bold text-[#1D2A62] leading-snug">
                     Plan & Lead
                   </h3>
                   <p className="text-xs text-slate-700 leading-relaxed mt-1 min-h-[36px]">
@@ -561,31 +550,14 @@ export function LearnerDashboard({
                   </p>
                 </div>
               </div>
-
-              <div className="pt-3 border-t border-[#87AECE]/30 mt-4 flex items-center justify-between text-xs font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
-                <span className="group-hover:underline underline-offset-4 flex items-center gap-1.5">
-                  View Courses
-                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
             </div>
-            {/* Card 3: Deliver */}
-            <div 
-              role="button"
-              tabIndex={0}
-              onClick={() => onNavigateCourses ? onNavigateCourses('all') : setActiveTab('catalog')}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  if (onNavigateCourses) onNavigateCourses('all')
-                  else setActiveTab('catalog')
-                }
-              }}
-              className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
-            >
+
+            {/* Card 3: Deliver (Display-only without CTA) */}
+            <div className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs transition-all flex flex-col justify-between text-left select-none">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] border border-[#87AECE]/35 shadow-xs group-hover:bg-[#437118] group-hover:text-white transition-colors">
-                    <RocketLaunch weight="bold" className="h-5 w-5 text-[#437118] group-hover:text-white" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] border border-[#87AECE]/35 shadow-xs">
+                    <RocketLaunch weight="bold" className="h-5 w-5 text-[#437118]" />
                   </div>
                   <span className="text-[10px] font-bold text-[#1D2A62]/70 font-mono">
                     STAGE 03
@@ -593,7 +565,7 @@ export function LearnerDashboard({
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#1D2A62] transition-colors leading-snug">
+                  <h3 className="text-base font-bold text-[#1D2A62] leading-snug">
                     Deliver
                   </h3>
                   <p className="text-xs text-slate-700 leading-relaxed mt-1 min-h-[36px]">
@@ -601,32 +573,14 @@ export function LearnerDashboard({
                   </p>
                 </div>
               </div>
-
-              <div className="pt-3 border-t border-[#87AECE]/30 mt-4 flex items-center justify-between text-xs font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
-                <span className="group-hover:underline underline-offset-4 flex items-center gap-1.5">
-                  View Courses
-                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
             </div>
 
-            {/* Card 4: Reflect & Grow (Pale light blue background) */}
-            <div 
-              role="button"
-              tabIndex={0}
-              onClick={() => onNavigateCourses ? onNavigateCourses('all') : setActiveTab('catalog')}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  if (onNavigateCourses) onNavigateCourses('all')
-                  else setActiveTab('catalog')
-                }
-              }}
-              className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs hover:shadow-md hover:border-[#1D2A62] hover:-translate-y-0.5 transition-all flex flex-col justify-between text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
-            >
+            {/* Card 4: Reflect & Grow (Display-only without CTA) */}
+            <div className="h-full p-5 rounded-2xl bg-white border border-[#87AECE]/40 shadow-2xs transition-all flex flex-col justify-between text-left select-none">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] border border-[#87AECE]/35 shadow-xs group-hover:bg-[#437118] group-hover:text-white transition-colors">
-                    <ArrowsClockwise weight="bold" className="h-5 w-5 text-[#437118] group-hover:text-white" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#437118] border border-[#87AECE]/35 shadow-xs">
+                    <ArrowsClockwise weight="bold" className="h-5 w-5 text-[#437118]" />
                   </div>
                   <span className="text-[10px] font-bold text-[#1D2A62]/70 font-mono">
                     STAGE 04
@@ -634,20 +588,13 @@ export function LearnerDashboard({
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-[#1D2A62] group-hover:text-[#1D2A62] transition-colors leading-snug">
+                  <h3 className="text-base font-bold text-[#1D2A62] leading-snug">
                     Reflect & Grow
                   </h3>
                   <p className="text-xs text-slate-700 leading-relaxed mt-1 min-h-[36px]">
                     Turn experience into better future practice.
                   </p>
                 </div>
-              </div>
-
-              <div className="pt-3 border-t border-[#87AECE]/30 mt-4 flex items-center justify-between text-xs font-bold text-[#1D2A62] group-hover:text-[#437118] transition-colors">
-                <span className="group-hover:underline underline-offset-4 flex items-center gap-1.5">
-                  View Courses
-                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
               </div>
             </div>
           </div>
