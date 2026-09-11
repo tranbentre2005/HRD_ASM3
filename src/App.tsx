@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { UserRole, Course, CertificateItem, Announcement } from "@/data/types"
 import { 
   INITIAL_COURSES, 
@@ -16,6 +16,7 @@ import { CoursesView } from "@/components/learner/CoursesView"
 import { MyLearningView } from "@/components/learner/MyLearningView"
 import { AnnouncementsView } from "@/components/learner/AnnouncementsView"
 import { CourseOverviewModal } from "@/components/learner/CourseOverviewModal"
+import { EventReadinessCoursePage } from "@/components/learner/EventReadinessCoursePage"
 import { AccountView } from "@/components/learner/AccountView"
 
 export function App() {
@@ -28,16 +29,30 @@ export function App() {
 
   // Top-level Navigation Page State
   const [currentPage, setCurrentPage] = useState<'home' | 'courses' | 'my-learning' | 'announcements' | 'account'>('home')
+  const [isEventReadinessRoute, setIsEventReadinessRoute] = useState(() => window.location.pathname === '/courses/event-readiness')
   const [coursesCategoryFilter, setCoursesCategoryFilter] = useState<string>('all')
   // Sub-navigation within learner view
   const [activeCourseId, setActiveCourseId] = useState<string | null>(null)
   const [learnerTab, setLearnerTab] = useState<'my-courses' | 'catalog' | 'skills' | 'certificates'>('my-courses')
+  useEffect(() => {
+    const handlePopState = () => setIsEventReadinessRoute(window.location.pathname === '/courses/event-readiness')
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   // Certificate & Support Modal States
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null)
   const [isCertModalOpen, setIsCertModalOpen] = useState(false)
   const [isSupportModalOpen, setIsSupportModalOpen] = useState(false)
   const [selectedCourseOverview, setSelectedCourseOverview] = useState<Course | null>(null)
+  const navigateToEventReadiness = () => {
+    setActiveCourseId(null)
+    setSelectedCourseOverview(null)
+    setCurrentPage('courses')
+    setIsEventReadinessRoute(true)
+    window.history.pushState({}, '', '/courses/event-readiness')
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
 
   // Handler: Login as chosen role
   const handleLoginAs = (role: 'learner' | 'instructor', customName?: string) => {
@@ -46,6 +61,8 @@ export function App() {
       setCustomUserName(customName)
     }
     setActiveCourseId(null)
+    setIsEventReadinessRoute(false)
+    window.history.replaceState({}, '', '/')
     setCurrentPage('home')
     setLearnerTab('my-courses')
   }
@@ -65,6 +82,8 @@ export function App() {
     setCurrentPage('home')
     setLearnerTab('my-courses')
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    setIsEventReadinessRoute(false)
+    window.history.pushState({}, '', '/')
   }
 
   // Handlers for Announcements
@@ -96,6 +115,8 @@ export function App() {
     setCoursesCategoryFilter(category)
     setCurrentPage('courses')
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    setIsEventReadinessRoute(false)
+    window.history.pushState({}, '', '/')
   }
 
   // Handler: Open Support Modal
@@ -104,12 +125,11 @@ export function App() {
   }
 
 
-  // Handler: Route Event Readiness CTAs through the course overview
+  // Handler: Route Event Readiness CTAs to the dedicated course page
   const handleSelectCourse = (course: Course) => {
     const isEventReadiness = course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')
     if (isEventReadiness) {
-      setActiveCourseId(null)
-      setSelectedCourseOverview(course)
+      navigateToEventReadiness()
       return
     }
     setActiveCourseId(course.id)
@@ -117,12 +137,24 @@ export function App() {
 
   const handleContinueCourse = (course: Course) => {
     setSelectedCourseOverview(null)
+    if (course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')) {
+      navigateToEventReadiness()
+      return
+    }
     setActiveCourseId(course.id)
   }
 
   // Handler: Learner Back to Dashboard
   const handleBackToDashboard = () => {
     setActiveCourseId(null)
+  }
+
+  const handleBackFromEventReadiness = () => {
+    setActiveCourseId(null)
+    setIsEventReadinessRoute(false)
+    setCurrentPage('my-learning')
+    window.history.pushState({}, '', '/')
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
   // Handler: Update Course Lesson completion
@@ -156,6 +188,15 @@ export function App() {
       })
     )
   }
+  const handleEventReadinessProgress = (progress: number) => {
+    setCourses(prevCourses =>
+      prevCourses.map(course =>
+        course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')
+          ? { ...course, progress }
+          : course
+      )
+    )
+  }
 
 
   // Handler: Open Certificate View
@@ -164,6 +205,7 @@ export function App() {
     setIsCertModalOpen(true)
   }
 
+  const eventReadinessCourse = courses.find(course => course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')) || courses[0]
   const activeCourse = courses.find(c => c.id === activeCourseId || (activeCourseId === 'course-1' && c.id === 'event-readiness'))
 
   // 1. Welcome / Login Gateway View
@@ -182,11 +224,13 @@ export function App() {
       <div className="relative z-20">
         <Navbar
           currentRole={currentRole}
-          currentPage={currentPage}
+          currentPage={isEventReadinessRoute ? 'courses' : currentPage}
           onNavigate={(page) => {
+            setIsEventReadinessRoute(false)
             setActiveCourseId(null)
             setSelectedAnnouncementId(null)
             setCurrentPage(page)
+            window.history.pushState({}, '', '/')
           }}
           onLogout={handleLogout}
           onOpenSupport={handleOpenSupport}
@@ -201,7 +245,15 @@ export function App() {
       {/* Main Content Area */}
       <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-2 sm:pt-2.5 pb-12">
         {/* If an active course is open, prioritize ActiveCourseViewer regardless of page */}
-        {activeCourse ? (
+        {isEventReadinessRoute ? (
+          <EventReadinessCoursePage
+            course={eventReadinessCourse}
+            onBack={handleBackFromEventReadiness}
+            onNavigateHome={handleGoHome}
+            onNavigateCourses={() => handleNavigateToCourses('Core Pathway')}
+            onProgressChange={handleEventReadinessProgress}
+          />
+        ) : activeCourse ? (
           <ActiveCourseViewer
             course={activeCourse}
             onBack={handleBackToDashboard}
