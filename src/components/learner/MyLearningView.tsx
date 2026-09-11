@@ -141,92 +141,126 @@ export function MyLearningView({
       {/* 2. TOP METRIC CARDS ROW: 3 Equal Metric Cards                             */}
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-        {/* Card 1: Core Pathway Progress */}
-        <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs space-y-2 text-left">
-          <h3 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-            Core Pathway Progress
-          </h3>
+        {/* Card 1: Core Pathway Progress (Deep Navy Gradient matching Home) */}
+        <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden space-y-2">
+          {/* Ambient light layers */}
+          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="flex items-center gap-4 pt-1">
-            {/* Circular Gauge: 56% */}
-            <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
-              <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="15"
-                  fill="none"
-                  stroke="#E2E8F0"
-                  strokeWidth="3.5"
-                />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="15"
-                  fill="none"
-                  stroke="#437118"
-                  strokeWidth="3.5"
-                  strokeDasharray="94.25"
-                  strokeDashoffset={94.25 * (1 - 0.56)}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span className="absolute text-base font-extrabold text-[#1D2A62] leading-none select-none">
-                56%
+          <div className="relative z-10">
+            <div className="h-7 flex items-center justify-between gap-2">
+              <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
+                Core Pathway Progress
+              </h3>
+              <span className="inline-flex items-center text-[10px] font-bold text-[#87AECE] bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
+                Core Pathway
               </span>
             </div>
 
-            <div className="space-y-0.5">
-              <h4 className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug">
-                5 of 9 courses
-              </h4>
-              <p className="text-xs text-slate-500 font-medium">
-                completed
-              </p>
+            <div className="flex items-center gap-4 pt-1">
+              {/* Circular Gauge: 56% */}
+              <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
+                <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15"
+                    fill="none"
+                    stroke="rgba(255, 255, 255, 0.2)"
+                    strokeWidth="3.5"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15"
+                    fill="none"
+                    stroke="#87AECE"
+                    strokeWidth="3.5"
+                    strokeDasharray="94.25"
+                    strokeDashoffset={94.25 * (1 - 0.56)}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span className="absolute text-base font-extrabold text-white leading-none select-none">
+                  56%
+                </span>
+              </div>
+
+              <div className="space-y-0.5">
+                <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
+                  5 of 9 courses
+                </h4>
+                <p className="text-xs text-slate-200 font-medium">
+                  completed
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Card 2: In Progress */}
-        <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs space-y-2 text-left">
-          <h3 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-            In Progress
-          </h3>
+        {/* Card 2: In Progress (Forest Green Gradient matching Home) */}
+        <div className="rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden space-y-2">
+          {/* Ambient light layers */}
+          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="flex items-center gap-4 pt-1">
-            <div className="w-12 h-12 rounded-xl bg-cyan-50 border border-cyan-100 text-cyan-800 flex items-center justify-center shrink-0 shadow-2xs">
-              <BookOpen weight="bold" className="h-6 w-6 text-[#1D2A62]" />
+          <div className="relative z-10">
+            <div className="h-7 flex items-center justify-between gap-2">
+              <h3 className="text-xs font-bold text-[#AFD06E] tracking-wider uppercase">
+                In Progress
+              </h3>
+              <span className="inline-flex items-center gap-1.5 bg-white text-slate-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-2xs shrink-0">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#386b24]" />
+                In Progress
+              </span>
             </div>
 
-            <div className="space-y-0.5">
-              <h4 className="text-base sm:text-lg font-bold text-[#1D2A62] leading-snug">
-                1 course
-              </h4>
-              <p className="text-xs text-slate-500 font-medium">
-                Event Readiness
-              </p>
+            <div className="flex items-center gap-4 pt-1">
+              <div className="w-12 h-12 rounded-xl bg-white/15 border border-white/20 text-[#AFD06E] flex items-center justify-center shrink-0 shadow-2xs">
+                <BookOpen weight="bold" className="h-6 w-6 text-[#AFD06E]" />
+              </div>
+
+              <div className="space-y-0.5">
+                <h4 className="text-base sm:text-lg font-bold text-white leading-snug">
+                  1 course
+                </h4>
+                <p className="text-xs text-emerald-100/90 font-medium">
+                  Event Readiness
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Card 3: Learning Time */}
-        <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs space-y-2 text-left">
-          <h3 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-            Learning Time
-          </h3>
+        {/* Card 3: Learning Time (Deep Navy Gradient matching Home) */}
+        <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden space-y-2">
+          {/* Ambient light layers */}
+          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
+          <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="flex items-center gap-4 pt-1">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-blue-800 flex items-center justify-center shrink-0 shadow-2xs">
-              <Clock weight="bold" className="h-6 w-6 text-[#1D2A62]" />
+          <div className="relative z-10">
+            <div className="h-7 flex items-center justify-between gap-2">
+              <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
+                Learning Time
+              </h3>
+              <span className="inline-flex items-center text-[10px] font-bold text-[#87AECE] bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
+                Time Invested
+              </span>
             </div>
 
-            <div className="space-y-0.5">
-              <h4 className="text-base sm:text-lg font-bold text-[#1D2A62] leading-snug">
-                42 min
-              </h4>
-              <p className="text-xs text-slate-500 font-medium">
-                completed
-              </p>
+            <div className="flex items-center gap-4 pt-1">
+              <div className="w-12 h-12 rounded-xl bg-white/15 border border-white/20 text-[#87AECE] flex items-center justify-center shrink-0 shadow-2xs">
+                <Clock weight="bold" className="h-6 w-6 text-[#87AECE]" />
+              </div>
+
+              <div className="space-y-0.5">
+                <h4 className="text-base sm:text-lg font-bold text-white leading-snug">
+                  42 min
+                </h4>
+                <p className="text-xs text-slate-200 font-medium">
+                  completed
+                </p>
+              </div>
             </div>
           </div>
         </div>
