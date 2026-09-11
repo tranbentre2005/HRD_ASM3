@@ -209,7 +209,7 @@ export function Navbar({
               aria-haspopup="dialog"
               className={`relative p-2 rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
                 isPopoverOpen || currentPage === 'announcements'
-                  ? 'text-[#1D2A62]'
+                  ? 'text-[#386b24]'
                   : 'text-slate-600 hover:text-[#1D2A62]'
               }`}
             >
