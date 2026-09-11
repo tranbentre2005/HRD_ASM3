@@ -160,7 +160,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
             </div>
           </div>
           <div className="grid grid-cols-3 justify-items-center gap-3 border-t border-slate-100 pt-4 text-[10px]">
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-start gap-2 justify-self-start">
               <CalendarCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
               <div>
                 <p className="font-medium text-slate-500">Member since</p>
