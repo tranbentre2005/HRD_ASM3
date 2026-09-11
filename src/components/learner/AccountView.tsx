@@ -31,7 +31,7 @@ function PreferenceToggle({ label, description, checked, onChange }: PreferenceT
         <p className="text-sm font-bold text-[#1D2A62]">{label}</p>
         <p className="mt-1 max-w-2xl text-xs leading-relaxed text-slate-600">{description}</p>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 sm:mr-[10%]">
         <span className={`text-xs font-semibold ${checked ? "text-[#437118]" : "text-slate-500"}`}>
           {checked ? "On" : "Off"}
         </span>
@@ -236,7 +236,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
           </p>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+        <div className="relative mt-5 grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2 md:after:pointer-events-none md:after:absolute md:after:inset-y-0 md:after:left-1/2 md:after:w-px md:after:bg-slate-100 md:after:content-['']">
           <div className="min-w-0">
             <PreferenceToggle
               label="Email Notifications"
