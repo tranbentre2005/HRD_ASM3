@@ -309,7 +309,7 @@ export function Navbar({
 
           {/* Account Menu */}
           <div
-            className="relative pl-1"
+            className="relative pl-0"
             onMouseEnter={() => setIsAccountMenuOpen(true)}
             onMouseLeave={() => setIsAccountMenuOpen(false)}
             onFocus={() => setIsAccountMenuOpen(true)}
