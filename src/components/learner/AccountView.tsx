@@ -104,24 +104,8 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
     <div className="space-y-6 pb-16 font-sans text-left max-w-5xl mx-auto">
       <section className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-6 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
         <div className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-0" />
-        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
-        <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
-        <svg
-          className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block"
-          viewBox="0 0 400 400"
-          fill="none"
-          aria-hidden="true"
-        >
-          <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
-          <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
-          <circle cx="260" cy="230" r="210" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
-          <circle cx="165" cy="180" r="3.5" fill="#437118" />
-          <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
-          <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
-          <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
-        </svg>
 
-        <div className="relative z-10 flex items-center justify-between gap-6">
+        <div className="relative z-10 flex w-full items-center justify-between gap-6">
           <div className="space-y-1.5 text-left">
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
               <button
