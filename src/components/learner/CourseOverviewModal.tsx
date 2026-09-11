@@ -45,11 +45,11 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
         </button>
 
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <span className="rounded-full border border-[#AFD06E]/30 bg-[#AFD06E]/20 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#437118]">
+          <div className="flex items-center justify-end gap-1.5 pr-10">
+            <span className="rounded-full border border-[#AFD06E]/30 bg-[#AFD06E]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#437118]">
               {overviewCode}
             </span>
-            <span className="rounded-full border border-[#87AECE]/45 bg-[#EAF4FA] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#1D2A62]">
+            <span className="rounded-full border border-[#87AECE]/45 bg-[#EAF4FA] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#1D2A62]">
               {overviewLevel}
             </span>
           </div>
@@ -64,7 +64,7 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
               {isEventReadiness ? (
                 <>
                   <span className="block">Event Readiness</span>
-                  <span className="block text-[0.9em]">| From “Done” to Participant-Ready</span>
+                  <span className="block text-[0.9em]">From “Done” to Participant-Ready</span>
                 </>
               ) : (
                 course.title
