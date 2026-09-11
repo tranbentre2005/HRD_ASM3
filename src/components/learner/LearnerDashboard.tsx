@@ -95,7 +95,7 @@ export function LearnerDashboard({
   return (
     <div className="space-y-5 pb-6 font-sans">
       {/* Learner Hero Banner with Dynamic Background & Aligned Proportions */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:p-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-6 sm:p-8 lg:py-8 lg:px-10 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
