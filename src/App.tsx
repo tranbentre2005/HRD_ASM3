@@ -83,6 +83,9 @@ export function App() {
   const handleMarkAnnouncementAsRead = (id: string) => {
     setAnnouncements(prev => prev.map(a => a.id === id ? { ...a, isRead: true } : a))
   }
+  const handleMarkAllAnnouncementsAsRead = () => {
+    setAnnouncements(prev => prev.map(announcement => ({ ...announcement, isRead: true })))
+  }
 
   // Handler: Navigate to Courses with category filter and scroll to top
   const handleNavigateToCourses = (category: string = 'all') => {
@@ -177,6 +180,7 @@ export function App() {
           announcements={announcements}
           onOpenAnnouncement={handleOpenAnnouncement}
           onViewAllAnnouncements={handleViewAllAnnouncements}
+          onMarkAllAnnouncementsRead={handleMarkAllAnnouncementsAsRead}
         />
       </div>
 

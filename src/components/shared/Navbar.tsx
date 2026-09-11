@@ -20,6 +20,7 @@ interface NavbarProps {
   announcements?: Announcement[]
   onOpenAnnouncement?: (id: string) => void
   onViewAllAnnouncements?: () => void
+  onMarkAllAnnouncementsRead?: () => void
 }
 
 export function Navbar({ 
@@ -31,7 +32,8 @@ export function Navbar({
   userName, 
   announcements = [],
   onOpenAnnouncement,
-  onViewAllAnnouncements
+  onViewAllAnnouncements,
+  onMarkAllAnnouncementsRead
 }: NavbarProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false)
@@ -205,10 +207,10 @@ export function Navbar({
               aria-label="Open announcements"
               aria-expanded={isPopoverOpen}
               aria-haspopup="dialog"
-              className={`relative p-2 rounded-full transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
+              className={`relative p-2 rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
                 isPopoverOpen || currentPage === 'announcements'
-                  ? 'bg-[#1D2A62] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
+                  ? 'text-[#1D2A62]'
+                  : 'text-slate-600 hover:text-[#1D2A62]'
               }`}
             >
               <Bell className="h-5 w-5" />
@@ -282,8 +284,16 @@ export function Navbar({
                   )}
                 </div>
 
-                {/* Popover Footer: View all link */}
-                <div className="p-3 bg-slate-50/80 border-t border-slate-100 text-center">
+                {/* Popover Footer: Mark all read and view all */}
+                <div className="p-3 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between gap-3">
+                  <button
+                    type="button"
+                    onClick={() => onMarkAllAnnouncementsRead?.()}
+                    disabled={unreadCount === 0 || !onMarkAllAnnouncementsRead}
+                    className="text-xs font-bold text-[#1D2A62] hover:text-[#437118] disabled:cursor-not-allowed disabled:text-slate-400 cursor-pointer transition-colors"
+                  >
+                    Mark all read
+                  </button>
                   <button
                     type="button"
                     onClick={handleViewAllClick}
