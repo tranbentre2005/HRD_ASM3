@@ -1,5 +1,5 @@
 import { Course } from "@/data/types"
-import { ArrowRight, CheckCircle, X } from "@phosphor-icons/react"
+import { ArrowRight, CheckCircle, ClipboardText, X } from "@phosphor-icons/react"
 
 interface CourseOverviewModalProps {
   course: Course | null
@@ -10,6 +10,12 @@ interface CourseOverviewModalProps {
 
 export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: CourseOverviewModalProps) {
   if (!open || !course) return null
+  const isEventReadiness = course.id === "event-readiness" || course.id === "course-1" || course.title.includes("Event Readiness")
+  const overviewCode = isEventReadiness ? "06 · DELIVER STAGE" : course.code
+  const overviewLevel = isEventReadiness ? "Core Pathway" : course.level || "Foundational"
+  const overviewDescription = isEventReadiness
+    ? "Learn to identify what matters most, verify critical information against reliable sources, and test whether connected event elements can work together before delivery."
+    : course.description
 
   return (
     <div
@@ -31,17 +37,24 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <span className="rounded-full border border-[#AFD06E]/30 bg-[#AFD06E]/20 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#437118]">
-              {course.code}
+              {overviewCode}
             </span>
             <span className="text-xs text-slate-400">•</span>
-            <span className="text-xs font-semibold text-slate-500">{course.level || "Foundational"}</span>
+            <span className="text-xs font-semibold text-slate-500">{overviewLevel}</span>
           </div>
 
-          <h2 id="course-overview-title" className="text-xl font-extrabold leading-tight text-[#1D2A62] sm:text-2xl">
-            {course.title}
-          </h2>
+          <div className="flex items-start gap-3">
+            {isEventReadiness && (
+              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]">
+                <ClipboardText className="h-5 w-5" />
+              </div>
+            )}
+            <h2 id="course-overview-title" className="flex-1 text-xl font-extrabold leading-tight text-[#1D2A62] sm:text-2xl">
+              {course.title}
+            </h2>
+          </div>
           <p className="text-xs leading-relaxed text-slate-600 sm:text-sm">
-            {course.description}
+            {overviewDescription}
           </p>
         </div>
 
