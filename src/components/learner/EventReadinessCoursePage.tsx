@@ -213,7 +213,7 @@ export function EventReadinessCoursePage({
         <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0 max-w-3xl flex-1 lg:pr-40">
             <div className="flex items-end gap-3">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-1.5 text-[#437118]">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-1.5 text-[#437118] sm:h-24 sm:w-24 lg:h-32 lg:w-32">
                 <img
                   src="/core-pathway-clipboard.png"
                   alt="Event Readiness Checklist"
