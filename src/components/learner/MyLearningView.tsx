@@ -93,7 +93,7 @@ export function MyLearningView({
       {/* ========================================================================= */}
       {/* 1. TOP BANNER: Matching Courses Banner & Image #1                         */}
       {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-6 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-6 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between min-h-[190px] sm:min-h-[210px]">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-0" 
@@ -118,7 +118,7 @@ export function MyLearningView({
             <span className="font-semibold text-[#1D2A62]">My Learning</span>
           </nav>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#1D2A62] leading-tight pt-0.5 inline-block">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent leading-tight pt-0.5 inline-block">
             My Learning
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
@@ -126,13 +126,13 @@ export function MyLearningView({
           </p>
         </div>
 
-        {/* Right: Attached Learning Clipboard & Checklist Illustration */}
-        <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-0 lg:pr-2">
+        {/* Center-Right: Enlarged Learning Medal & Achievement Leader Illustration shifted inward */}
+        <div className="hidden sm:flex items-center justify-center relative z-10 shrink-0 pr-4 sm:pr-8 lg:pr-14 xl:pr-20">
           <img
-            src="/core-pathway-clipboard.png"
-            alt="My Learning Progress"
+            src="/mylearning-hero-medal.png"
+            alt="My Learning Achievement and Leadership Progress"
             loading="eager"
-            className="max-h-[115px] sm:max-h-[125px] lg:max-h-[135px] w-auto object-contain select-none animate-hero-float drop-shadow-sm hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+            className="max-h-[170px] sm:max-h-[190px] lg:max-h-[215px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
           />
         </div>
       </div>

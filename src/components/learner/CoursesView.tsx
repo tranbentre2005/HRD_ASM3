@@ -204,52 +204,52 @@ export function CoursesView({
            courses.find(c => c.status === "in-progress")
   }, [courses])
 
-  // Category theme styling helper: pale background, subtle border, icon container color, ambient corner aura
+  // Category theme styling helper: 20% deeper/richer backgrounds, borders, icon badges, and ambient auras
   const getCategoryTheme = (category: string, isInProgress: boolean) => {
     if (isInProgress) {
       return {
-        bg: "bg-gradient-to-br from-white via-[#FAFCF8] to-[#EDF6E8]/90",
-        border: "border-[#AFD06E]/60 hover:border-[#437118]/70 shadow-xs hover:shadow-md",
-        iconBox: "bg-[#AFD06E]/25 text-[#386b24] border-[#AFD06E]/35",
-        aura: "from-[#AFD06E]/25"
+        bg: "bg-gradient-to-br from-[#FAFCF8] via-[#F2F8EC] to-[#E3F2D7]",
+        border: "border-[#AFD06E]/80 hover:border-[#437118] shadow-xs hover:shadow-md",
+        iconBox: "bg-[#AFD06E]/40 text-[#2D5A1B] border-[#AFD06E]/60",
+        aura: "from-[#AFD06E]/35"
       }
     }
 
     switch (category) {
       case "Core Pathway":
         return {
-          bg: "bg-gradient-to-br from-white via-[#FCFDFB] to-[#F2F8EC]/85",
-          border: "border-[#AFD06E]/35 hover:border-[#437118]/60",
-          iconBox: "bg-[#AFD06E]/20 text-[#386b24] border-[#AFD06E]/30",
-          aura: "from-[#AFD06E]/18"
+          bg: "bg-gradient-to-br from-[#FAFCF8] via-[#F4F9F0] to-[#E6F3DC]",
+          border: "border-[#AFD06E]/65 hover:border-[#437118]/80",
+          iconBox: "bg-[#AFD06E]/35 text-[#2D5A1B] border-[#AFD06E]/50",
+          aura: "from-[#AFD06E]/30"
         }
       case "Leadership Skills":
         return {
-          bg: "bg-gradient-to-br from-white via-[#FFFDF8] to-[#FEF7EB]/85",
-          border: "border-[#F59E0B]/30 hover:border-[#D97706]/60",
-          iconBox: "bg-[#F59E0B]/15 text-[#B45309] border-[#F59E0B]/25",
-          aura: "from-[#F59E0B]/18"
+          bg: "bg-gradient-to-br from-[#FFFDF8] via-[#FEF9EE] to-[#FDF0D5]",
+          border: "border-[#F59E0B]/50 hover:border-[#D97706]/80",
+          iconBox: "bg-[#F59E0B]/25 text-[#92400E] border-[#F59E0B]/40",
+          aura: "from-[#F59E0B]/30"
         }
       case "Functional Essentials":
         return {
-          bg: "bg-gradient-to-br from-white via-[#FAFCFE] to-[#EFF6FA]/85",
-          border: "border-[#87AECE]/35 hover:border-[#1D2A62]/55",
-          iconBox: "bg-[#87AECE]/20 text-[#1D2A62] border-[#87AECE]/30",
-          aura: "from-[#87AECE]/22"
+          bg: "bg-gradient-to-br from-[#FAFCFE] via-[#F2F7FC] to-[#E2EFF8]",
+          border: "border-[#87AECE]/55 hover:border-[#1D2A62]/75",
+          iconBox: "bg-[#87AECE]/35 text-[#131D47] border-[#87AECE]/50",
+          aura: "from-[#87AECE]/35"
         }
       case "Personal Development":
         return {
-          bg: "bg-gradient-to-br from-white via-[#FCFBFD] to-[#F4F1F9]/85",
-          border: "border-[#8B5CF6]/25 hover:border-[#7C3AED]/55",
-          iconBox: "bg-[#8B5CF6]/15 text-[#6D28D9] border-[#8B5CF6]/25",
-          aura: "from-[#8B5CF6]/18"
+          bg: "bg-gradient-to-br from-[#FCFBFD] via-[#F8F5FC] to-[#ECE4F6]",
+          border: "border-[#8B5CF6]/45 hover:border-[#7C3AED]/75",
+          iconBox: "bg-[#8B5CF6]/25 text-[#5B21B6] border-[#8B5CF6]/40",
+          aura: "from-[#8B5CF6]/30"
         }
       default:
         return {
-          bg: "bg-gradient-to-br from-white via-[#FCFDFE] to-[#F5F8F4]/75",
-          border: "border-slate-200/85 hover:border-slate-300",
-          iconBox: "bg-[#AFD06E]/20 text-[#386b24] border-[#AFD06E]/30",
-          aura: "from-[#AFD06E]/15"
+          bg: "bg-gradient-to-br from-[#FAFCF8] via-[#F4F9F0] to-[#E6F3DC]",
+          border: "border-slate-300/80 hover:border-slate-400",
+          iconBox: "bg-[#AFD06E]/30 text-[#2D5A1B] border-[#AFD06E]/45",
+          aura: "from-[#AFD06E]/25"
         }
     }
   }
