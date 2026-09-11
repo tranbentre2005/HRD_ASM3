@@ -145,40 +145,16 @@ export function AnnouncementsView({
   if (selectedItem) {
     return (
       <div className="space-y-6 pb-16 font-sans text-left max-w-4xl mx-auto">
-        {/* Top Breadcrumb & Back Navigation */}
-        <div className="space-y-2 pb-3 border-b border-slate-200">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-            <button
-              type="button"
-              onClick={onBackToHome}
-              className="hover:text-[#1D2A62] transition-colors cursor-pointer text-slate-600 hover:underline"
-            >
-              Home
-            </button>
-            <span className="text-slate-300">/</span>
-            <button
-              type="button"
-              onClick={() => onSelectAnnouncement(null)}
-              className="hover:text-[#1D2A62] transition-colors cursor-pointer text-slate-600 hover:underline"
-            >
-              Announcements
-            </button>
-            <span className="text-slate-300">/</span>
-            <span className="font-semibold text-[#1D2A62] truncate max-w-xs sm:max-w-md">
-              {selectedItem.title}
-            </span>
-          </nav>
-
-          <div className="pt-2">
-            <button
-              type="button"
-              onClick={() => onSelectAnnouncement(null)}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D2A62] hover:text-[#437118] transition-colors cursor-pointer py-1"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span>Back to announcements</span>
-            </button>
-          </div>
+        {/* Top Back Navigation */}
+        <div className="pb-3 border-b border-slate-200">
+          <button
+            type="button"
+            onClick={() => onSelectAnnouncement(null)}
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D2A62] hover:text-[#437118] transition-colors cursor-pointer py-1"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>Back to announcements</span>
+          </button>
         </div>
 
         {/* Announcement Detail Article Card */}
