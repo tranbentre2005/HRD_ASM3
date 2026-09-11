@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Course, CertificateItem } from "@/data/types"
 import { 
   ArrowLeft, 
@@ -13,7 +14,8 @@ import {
   FileText,
   ChartBar,
   CaretRight,
-  Sparkle
+  Sparkle,
+  X
 } from "@phosphor-icons/react"
 
 interface MyLearningViewProps {
@@ -31,6 +33,7 @@ export function MyLearningView({
   onBackToHome,
   onNavigateCourses,
 }: MyLearningViewProps) {
+  const [isOverviewOpen, setIsOverviewOpen] = useState(false)
   const inProgressCourses = courses.filter((c) => c.status === "in-progress")
   const eventReadinessCourse = courses.find(
     (c) => c.id === "event-readiness" || c.id === "course-1" || c.title.includes("Event Readiness")
@@ -264,7 +267,7 @@ export function MyLearningView({
             </h2>
             <button
               type="button"
-              onClick={() => eventReadinessCourse && onSelectCourse(eventReadinessCourse)}
+              onClick={() => setIsOverviewOpen(true)}
               className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
             >
               <span>View Course</span>
@@ -357,7 +360,11 @@ export function MyLearningView({
             </h2>
             <button
               type="button"
-              onClick={() => onNavigateCourses ? onNavigateCourses('Core Pathway') : onBackToHome()}
+              onClick={() => {
+                if (onNavigateCourses) onNavigateCourses('Core Pathway')
+                else onBackToHome()
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+              }}
               className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
             >
               <span>View Pathway</span>
@@ -452,7 +459,7 @@ export function MyLearningView({
       </div>
 
       {/* ========================================================================= */}
-      {/* 4. COMPLETED LEARNING: 3 Horizontal Cards matching Image #1               */}
+      {/* 4. COMPLETED LEARNING: 3 Cards Row synced with Core Pathway colors         */}
       {/* ========================================================================= */}
       <div className="space-y-3 pt-2">
         <div className="flex items-center justify-between">
@@ -461,7 +468,11 @@ export function MyLearningView({
           </h2>
           <button
             type="button"
-            onClick={() => onNavigateCourses ? onNavigateCourses('Core Pathway') : onBackToHome()}
+            onClick={() => {
+              if (onNavigateCourses) onNavigateCourses('Core Pathway')
+              else onBackToHome()
+              window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+            }}
             className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
           >
             <span>View All</span>
@@ -473,13 +484,13 @@ export function MyLearningView({
           {completedList.map((course) => (
             <div
               key={course.id}
-              className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 shadow-2xs flex flex-col justify-between text-left hover:shadow-xs transition-all relative group"
+              className="rounded-2xl border border-[#AFD06E]/65 bg-gradient-to-br from-[#FAFCF8] via-[#F4F9F0] to-[#E6F3DC] p-4 sm:p-5 shadow-2xs flex flex-col justify-between text-left hover:shadow-xs transition-all relative group"
             >
               <div className="space-y-2">
                 {/* Top row: Green check + Category Code */}
                 <div className="flex items-center gap-2">
                   <CheckCircle weight="fill" className="h-4 w-4 text-[#437118] shrink-0" />
-                  <span className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">
+                  <span className="text-[10px] font-semibold text-slate-500 tracking-wider uppercase">
                     {course.code}
                   </span>
                 </div>
@@ -490,14 +501,14 @@ export function MyLearningView({
                 </h3>
 
                 {/* Duration */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium pt-0.5">
+                <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium pt-0.5">
                   <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
                   <span>{course.duration}</span>
                 </div>
               </div>
 
               {/* Footer: Completion date & Right Arrow */}
-              <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+              <div className="pt-3 mt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-500">
                 <span>{course.completedDate}</span>
                 <CaretRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#1D2A62] group-hover:translate-x-0.5 transition-all" />
               </div>
@@ -543,6 +554,99 @@ export function MyLearningView({
           </a>
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* 6. COURSE OVERVIEW MODAL (for View Course CTA)                            */}
+      {/* ========================================================================= */}
+      {isOverviewOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+          <div className="relative w-full max-w-2xl rounded-3xl bg-white border border-[#87AECE]/30 shadow-2xl p-6 sm:p-8 space-y-5 text-left overflow-hidden">
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setIsOverviewOpen(false)}
+              className="absolute right-5 top-5 p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Header Badge */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-bold text-[#437118] uppercase tracking-wider bg-[#AFD06E]/20 px-2.5 py-0.5 rounded-full border border-[#AFD06E]/30">
+                  06 · CORE PATHWAY
+                </span>
+                <span className="text-xs text-slate-400">•</span>
+                <span className="text-xs font-semibold text-slate-500">Foundation</span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-extrabold text-[#1D2A62] leading-tight">
+                Event Readiness | From “Done” to Participant-Ready
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Learn how to prioritise participant-critical elements, verify important information against reliable sources, and test whether connected event components can work together before delivery.
+              </p>
+            </div>
+
+            {/* Info Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3.5 rounded-2xl bg-[#F0F7FC] border border-[#87AECE]/30 text-xs">
+              <div>
+                <span className="text-slate-400 block font-medium">Duration</span>
+                <span className="font-bold text-[#1D2A62]">8–10 mins</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block font-medium">Progress</span>
+                <span className="font-bold text-[#437118]">40% complete</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block font-medium">Facilitator</span>
+                <span className="font-bold text-[#1D2A62]">MSc. Hoang Le Tram</span>
+              </div>
+            </div>
+
+            {/* Syllabus Roadmap */}
+            <div className="space-y-2.5">
+              <h3 className="text-xs font-bold text-[#1D2A62] uppercase tracking-wider">
+                Course Syllabus & Modules
+              </h3>
+              <div className="space-y-2 text-xs">
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle weight="fill" className="h-4 w-4 text-[#437118]" />
+                    <span className="font-medium text-slate-800">Part 1: Active Listening and Communication Psychology</span>
+                  </div>
+                  <span className="text-slate-400">3 lessons</span>
+                </div>
+                <div className="p-3 rounded-xl bg-[#EEF7E8] border border-[#AFD06E]/40 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-[#437118] animate-pulse" />
+                    <span className="font-bold text-[#1D2A62]">Part 2: The SBI Constructive Feedback Model (Current)</span>
+                  </div>
+                  <span className="text-[#437118] font-semibold">Lesson 1.3 Active</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Action */}
+            <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="text-xs text-slate-500 font-medium">
+                Recommended before final preparation or rehearsal.
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsOverviewOpen(false)
+                  if (eventReadinessCourse) onSelectCourse(eventReadinessCourse)
+                }}
+                className="h-10 px-6 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98] w-full sm:w-auto cursor-pointer"
+              >
+                <span>Continue to Active Lesson (1.3)</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

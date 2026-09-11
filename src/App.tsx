@@ -280,6 +280,7 @@ export function App() {
                 onSelectCourse={handleSelectCourse}
                 onViewCertificate={handleViewCertificate}
                 onBackToHome={handleGoHome}
+                onNavigateCourses={handleNavigateToCourses}
               />
             )}
 
