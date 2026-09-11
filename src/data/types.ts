@@ -112,3 +112,24 @@ export interface CertificateItem {
   grade: string
   competencies: string[]
 }
+
+export type AnnouncementType = 'learning' | 'new-course' | 'club-event' | 'platform-update'
+
+export interface Announcement {
+  id: string
+  type: AnnouncementType
+  title: string
+  preview: string
+  body: string
+  publishedAt: string
+  relativeTime: string
+  isRead: boolean
+  eventDate?: string
+  eventTime?: string
+  eventLocation?: string
+  eventContact?: string
+  eventRegistrationUrl?: string
+  ctaText?: string
+  ctaAction?: 'my-learning' | 'courses' | 'course-detail' | 'external'
+  ctaTarget?: string
+}

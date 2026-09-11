@@ -1,4 +1,4 @@
-import { Course, AssignmentSubmission, LearnerProgressItem, CertificateItem } from "./types"
+import { Course, AssignmentSubmission, LearnerProgressItem, CertificateItem, Announcement } from "./types"
 
 export const INITIAL_COURSES: Course[] = [
   // ==========================================
@@ -735,5 +735,63 @@ export const INITIAL_CERTIFICATES: CertificateItem[] = [
     hours: 6,
     grade: "High Distinction (91/100)",
     competencies: ["Design Thinking", "Cross-Functional Alignment", "Root Cause Analysis"]
+  }
+]
+
+export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
+  {
+    id: "ann-course-completion",
+    type: "learning",
+    title: "Course completed: Event Readiness",
+    preview: "Great work - you completed Event Readiness.",
+    body: "You completed Event Readiness | From 'Done' to Participant-Ready. You are now ready to continue building confidence through rehearsal and live event delivery.",
+    publishedAt: "Sep 11, 2026 at 14:30",
+    relativeTime: "Just now",
+    isRead: false,
+    ctaText: "View My Learning",
+    ctaAction: "my-learning"
+  },
+  {
+    id: "ann-new-course-release",
+    type: "new-course",
+    title: "New course available: Rehearsal & Simulation",
+    preview: "A new Core Pathway course is now ready to explore.",
+    body: "Rehearsal & Simulation is now available in the Core Project Leader Pathway. Learn how to test event flow, hand-offs, technical cues, and participant-facing moments before delivery.",
+    publishedAt: "Sep 11, 2026 at 12:15",
+    relativeTime: "2h ago",
+    isRead: false,
+    ctaText: "View Course",
+    ctaAction: "courses"
+  },
+  {
+    id: "ann-pl-sharing-session",
+    type: "club-event",
+    title: "Upcoming event: Project Leader Sharing Session",
+    preview: "Thursday, 6:00 PM · RMIT Saigon South Campus",
+    body: "Join an interactive sharing session with experienced Project Leaders. Learn practical approaches to planning, coordination, rehearsal, risk management, and live event delivery.",
+    publishedAt: "Sep 10, 2026 at 18:00",
+    relativeTime: "Yesterday",
+    isRead: false,
+    eventDate: "Thursday, Sep 24, 2026",
+    eventTime: "6:00 PM - 8:00 PM",
+    eventLocation: "RMIT Saigon South Campus, Building 2, Room 2.4.05",
+    eventContact: "events@rmitfinanceclub.com",
+    eventRegistrationUrl: "https://forms.gle/rmitfinanceclub",
+    ctaText: "Register now",
+    ctaAction: "external",
+    ctaTarget: "https://forms.gle/rmitfinanceclub"
+  },
+  {
+    id: "ann-learning-hub-update",
+    type: "platform-update",
+    title: "Learning Hub update",
+    preview: "The Event Execution Toolkit is now available.",
+    body: "You can now access practical templates and checklists for final preparation, rehearsal, and live delivery through the Event Execution Toolkit.",
+    publishedAt: "Sep 08, 2026 at 09:00",
+    relativeTime: "3 days ago",
+    isRead: true,
+    ctaText: "Open Toolkit",
+    ctaAction: "external",
+    ctaTarget: "https://rmiteduau-my.sharepoint.com/:f:/g/personal/s4063545_rmit_edu_vn/IgDxRh5pupKaRL_0n7tpIJmwAd17HHL2UKdpAGAvvEenSkg?e=Y4ZQ76"
   }
 ]

@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { UserRole, Course, CertificateItem, AssignmentSubmission, LearnerProgressItem } from "@/data/types"
+import { UserRole, Course, CertificateItem, AssignmentSubmission, LearnerProgressItem, Announcement } from "@/data/types"
 import { 
   INITIAL_COURSES, 
   INITIAL_SUBMISSIONS, 
   INITIAL_LEARNERS, 
-  INITIAL_CERTIFICATES 
+  INITIAL_CERTIFICATES,
+  INITIAL_ANNOUNCEMENTS
 } from "@/data/mockData"
 
 import { LoginGateway } from "@/components/auth/LoginGateway"
@@ -26,6 +27,8 @@ export function App() {
   const [submissions, setSubmissions] = useState<AssignmentSubmission[]>(INITIAL_SUBMISSIONS)
   const [learners, setLearners] = useState<LearnerProgressItem[]>(INITIAL_LEARNERS)
   const [certificates] = useState<CertificateItem[]>(INITIAL_CERTIFICATES)
+  const [announcements, setAnnouncements] = useState<Announcement[]>(() => INITIAL_ANNOUNCEMENTS)
+  const [selectedAnnouncementId, setSelectedAnnouncementId] = useState<string | null>(null)
 
   // Top-level Navigation Page State
   const [currentPage, setCurrentPage] = useState<'home' | 'courses' | 'my-learning' | 'announcements' | 'account'>('home')
@@ -60,8 +63,30 @@ export function App() {
   // Handler: Return to Home (Dashboard)
   const handleGoHome = () => {
     setActiveCourseId(null)
+    setSelectedAnnouncementId(null)
     setCurrentPage('home')
     setLearnerTab('my-courses')
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
+
+  // Handlers for Announcements
+  const handleOpenAnnouncement = (id: string) => {
+    setActiveCourseId(null)
+    setAnnouncements(prev => prev.map(a => a.id === id ? { ...a, isRead: true } : a))
+    setSelectedAnnouncementId(id)
+    setCurrentPage('announcements')
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
+
+  const handleViewAllAnnouncements = () => {
+    setActiveCourseId(null)
+    setSelectedAnnouncementId(null)
+    setCurrentPage('announcements')
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
+
+  const handleMarkAnnouncementAsRead = (id: string) => {
+    setAnnouncements(prev => prev.map(a => a.id === id ? { ...a, isRead: true } : a))
   }
 
   // Handler: Navigate to Courses with category filter and scroll to top
@@ -205,13 +230,16 @@ export function App() {
           currentPage={currentPage}
           onNavigate={(page) => {
             setActiveCourseId(null)
+            setSelectedAnnouncementId(null)
             setCurrentPage(page)
           }}
           onRoleChange={handleRoleChange}
           onLogout={handleLogout}
           onOpenSupport={handleOpenSupport}
           userName={customUserName}
-          unreadCount={submissions.filter(s => s.status === 'pending').length}
+          announcements={announcements}
+          onOpenAnnouncement={handleOpenAnnouncement}
+          onViewAllAnnouncements={handleViewAllAnnouncements}
         />
       </div>
 
@@ -287,10 +315,24 @@ export function App() {
             {/* Page 4: Announcements View */}
             {currentPage === 'announcements' && (
               <AnnouncementsView
+                announcements={announcements}
+                selectedAnnouncementId={selectedAnnouncementId}
+                onSelectAnnouncement={(id) => setSelectedAnnouncementId(id)}
+                onMarkAsRead={handleMarkAnnouncementAsRead}
                 onBackToHome={handleGoHome}
+                onNavigateMyLearning={() => {
+                  setActiveCourseId(null)
+                  setCurrentPage('my-learning')
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+                }}
+                onNavigateCourses={() => {
+                  setActiveCourseId(null)
+                  setCoursesCategoryFilter('all')
+                  setCurrentPage('courses')
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+                }}
               />
             )}
-
             {/* Page 5: Account View */}
             {currentPage === 'account' && (
               <AccountView

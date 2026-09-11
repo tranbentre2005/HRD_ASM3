@@ -1,9 +1,14 @@
-import { useState } from "react"
-import { UserRole } from "@/data/types"
+import { useState, useRef, useEffect } from "react"
+import { UserRole, Announcement } from "@/data/types"
 import { 
-  Bell
+  Bell, 
+  CheckCircle, 
+  RocketLaunch, 
+  CalendarCheck, 
+  Sparkle, 
+  ArrowRight,
+  Megaphone
 } from "@phosphor-icons/react"
-import { Badge } from "@/components/ui/badge"
 
 interface NavbarProps {
   currentRole: UserRole
@@ -13,22 +18,120 @@ interface NavbarProps {
   onLogout: () => void
   onOpenSupport?: () => void
   userName?: string
-  unreadCount?: number
+  announcements?: Announcement[]
+  onOpenAnnouncement?: (id: string) => void
+  onViewAllAnnouncements?: () => void
 }
 
 export function Navbar({ 
   currentRole, 
   currentPage = 'home',
   onNavigate,
-  onRoleChange, 
-  onLogout, 
   onOpenSupport,
   userName, 
-  unreadCount = 2 
+  announcements = [],
+  onOpenAnnouncement,
+  onViewAllAnnouncements
 }: NavbarProps) {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+  const popoverRef = useRef<HTMLDivElement>(null)
+  const bellButtonRef = useRef<HTMLButtonElement>(null)
+
   const displayName = userName?.trim() || (currentRole === 'learner' ? 'Nguyen Minh Tuan' : 'MSc. Hoang Le Tram')
   const nameParts = displayName.split(' ')
   const initial = (nameParts[nameParts.length - 1]?.[0] || displayName[0] || 'T').toUpperCase()
+
+  const unreadCount = announcements.filter(a => !a.isRead).length
+  const recentAnnouncements = announcements.slice(0, 4)
+
+  // Close popover when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        popoverRef.current && 
+        !popoverRef.current.contains(event.target as Node) &&
+        bellButtonRef.current && 
+        !bellButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsPopoverOpen(false)
+      }
+    }
+
+    // Close on Escape key
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsPopoverOpen(false)
+        bellButtonRef.current?.focus()
+      }
+    }
+
+    if (isPopoverOpen) {
+      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("keydown", handleKeyDown)
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [isPopoverOpen])
+
+  const handleTogglePopover = () => {
+    setIsPopoverOpen(prev => !prev)
+  }
+
+  const handleItemClick = (id: string) => {
+    setIsPopoverOpen(false)
+    if (onOpenAnnouncement) {
+      onOpenAnnouncement(id)
+    } else {
+      onNavigate('announcements')
+    }
+  }
+
+  const handleViewAllClick = () => {
+    setIsPopoverOpen(false)
+    if (onViewAllAnnouncements) {
+      onViewAllAnnouncements()
+    } else {
+      onNavigate('announcements')
+    }
+  }
+
+  const getAnnouncementIcon = (type: Announcement['type']) => {
+    switch (type) {
+      case 'learning':
+        return (
+          <div className="w-8 h-8 rounded-xl bg-emerald-50 text-[#386b24] border border-emerald-200/60 flex items-center justify-center shrink-0 shadow-2xs">
+            <CheckCircle weight="fill" className="h-4 w-4" />
+          </div>
+        )
+      case 'new-course':
+        return (
+          <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1D2A62] border border-blue-200/60 flex items-center justify-center shrink-0 shadow-2xs">
+            <RocketLaunch weight="bold" className="h-4 w-4" />
+          </div>
+        )
+      case 'club-event':
+        return (
+          <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 border border-amber-200/60 flex items-center justify-center shrink-0 shadow-2xs">
+            <CalendarCheck weight="bold" className="h-4 w-4" />
+          </div>
+        )
+      case 'platform-update':
+        return (
+          <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-700 border border-purple-200/60 flex items-center justify-center shrink-0 shadow-2xs">
+            <Sparkle weight="fill" className="h-4 w-4" />
+          </div>
+        )
+      default:
+        return (
+          <div className="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
+            <Megaphone weight="bold" className="h-4 w-4" />
+          </div>
+        )
+    }
+  }
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#AFD06E]/35 bg-gradient-to-r from-[#F4F9F1]/95 via-[#F8FCF6]/95 to-[#EDF6E8]/95 backdrop-blur-md font-sans transition-colors">
@@ -56,6 +159,7 @@ export function Navbar({
             <p className="text-[11px] text-slate-500 font-medium block leading-tight mt-0.5">Project Leader Learning Hub</p>
           </div>
         </button>
+
         {/* Right: Navigation (Courses, My Learning, Support) placed on the right next to Bell and Account */}
         <div className="flex items-center gap-2 sm:gap-3">
           <nav className="flex items-center gap-1.5 sm:gap-2">
@@ -65,7 +169,7 @@ export function Navbar({
               className={`px-3.5 py-1.5 rounded-xl text-sm transition-all cursor-pointer ${
                 currentPage === 'courses'
                   ? 'bg-[#1D2A62] text-white font-bold shadow-xs'
-                  : 'text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100 font-medium'
+                  : 'text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100/80 font-medium'
               }`}
             >
               Courses
@@ -77,7 +181,7 @@ export function Navbar({
               className={`px-3.5 py-1.5 rounded-xl text-sm transition-all cursor-pointer ${
                 currentPage === 'my-learning'
                   ? 'bg-[#1D2A62] text-white font-bold shadow-xs'
-                  : 'text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100 font-medium'
+                  : 'text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100/80 font-medium'
               }`}
             >
               My Learning
@@ -86,34 +190,115 @@ export function Navbar({
             <button
               type="button"
               onClick={onOpenSupport}
-              className="px-3.5 py-1.5 rounded-xl text-sm text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100 font-medium transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-xl text-sm text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100/80 font-medium transition-all cursor-pointer"
             >
               Support
             </button>
           </nav>
 
-          {/* Announcements Bell Icon */}
-          <button
-            type="button"
-            onClick={() => onNavigate('announcements')}
-            className={`relative p-2 rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
-              currentPage === 'announcements'
-                ? 'bg-[#1D2A62] text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-            aria-label="Announcements Page"
-            title="View Announcements"
-          >
-            <Bell className="h-5 w-5" />
-            {unreadCount > 0 && (
-              <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white shadow-2xs">
-                {unreadCount}
-              </span>
+          {/* Announcements Bell Popover Trigger */}
+          <div className="relative">
+            <button
+              ref={bellButtonRef}
+              type="button"
+              onClick={handleTogglePopover}
+              aria-label="Open announcements"
+              aria-expanded={isPopoverOpen}
+              aria-haspopup="dialog"
+              className={`relative p-2 rounded-full transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
+                isPopoverOpen || currentPage === 'announcements'
+                  ? 'bg-[#1D2A62] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
+              }`}
+            >
+              <Bell className="h-5 w-5" />
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white shadow-2xs">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+
+            {/* Compact Announcement Popover */}
+            {isPopoverOpen && (
+              <div
+                ref={popoverRef}
+                role="dialog"
+                aria-label="Recent Announcements"
+                className="absolute right-0 top-full mt-2 w-80 sm:w-96 rounded-2xl bg-white border border-[#87AECE]/35 shadow-xl z-50 overflow-hidden text-left font-sans animate-fade-in"
+              >
+                {/* Popover Header */}
+                <div className="p-3.5 px-4 bg-gradient-to-r from-[#F0F7FC] via-[#F8FCF6] to-[#EEF7E8] border-b border-slate-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="font-extrabold text-sm text-[#1D2A62]">
+                      Announcements
+                    </span>
+                    {unreadCount > 0 && (
+                      <span className="px-2 py-0.5 rounded-full bg-[#AFD06E]/30 text-[#386b24] text-[10px] font-bold">
+                        {unreadCount} new
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Popover Items (Top 4 most recent) */}
+                <div className="divide-y divide-slate-100 max-h-[360px] overflow-y-auto">
+                  {recentAnnouncements.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => handleItemClick(item.id)}
+                      className={`w-full p-3.5 px-4 flex items-start gap-3 text-left transition-colors cursor-pointer hover:bg-slate-50/90 ${
+                        !item.isRead ? 'bg-emerald-50/40' : 'bg-white'
+                      }`}
+                    >
+                      {getAnnouncementIcon(item.type)}
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-1">
+                          <h4 className="font-bold text-xs sm:text-[13px] text-[#1D2A62] truncate">
+                            {item.title}
+                          </h4>
+                          {!item.isRead && (
+                            <span className="h-2 w-2 rounded-full bg-[#437118] shrink-0 animate-pulse" title="Unread" />
+                          )}
+                        </div>
+
+                        <p className="text-xs text-slate-500 truncate mt-0.5">
+                          {item.preview}
+                        </p>
+
+                        <span className="text-[11px] text-slate-400 font-medium block mt-1">
+                          {item.relativeTime}
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+
+                  {recentAnnouncements.length === 0 && (
+                    <div className="p-6 text-center text-xs text-slate-500">
+                      No announcements at this time.
+                    </div>
+                  )}
+                </div>
+
+                {/* Popover Footer: View all link */}
+                <div className="p-3 bg-slate-50/80 border-t border-slate-100 text-center">
+                  <button
+                    type="button"
+                    onClick={handleViewAllClick}
+                    className="text-xs font-bold text-[#1D2A62] hover:text-[#437118] inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+                  >
+                    <span>View all announcements</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              </div>
             )}
-          </button>
+          </div>
 
           {/* Account Icon (1 initial letter) */}
-          <div className="pl-1 border-l border-slate-200">
+          <div className="pl-1 border-l border-slate-200/80">
             <button
               type="button"
               onClick={() => onNavigate('account')}
