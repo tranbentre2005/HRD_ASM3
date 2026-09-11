@@ -202,18 +202,18 @@ export function EventReadinessCoursePage({
 
       <section className="relative overflow-hidden rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#F8FCF6] to-[#EEF7E8] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] sm:p-7">
         <div className="pointer-events-none absolute -right-12 -top-16 h-48 w-48 rounded-full bg-[#AFD06E]/20 blur-3xl" />
+        <div className="mb-3 flex flex-wrap items-center gap-2 lg:absolute lg:right-7 lg:top-7 lg:justify-end">
+          <span className="rounded-full border border-[#AFD06E]/35 bg-[#EEF7E8] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#437118]">
+            06 · DELIVER STAGE
+          </span>
+          <span className="rounded-full border border-[#87AECE]/45 bg-[#EAF4FA] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#1D2A62]">
+            Core Pathway
+          </span>
+        </div>
         <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0 max-w-3xl flex-1 lg:pr-40">
-            <div className="mb-3 flex flex-wrap items-center gap-2 lg:absolute lg:right-7 lg:top-7 lg:justify-end">
-              <span className="rounded-full border border-[#AFD06E]/35 bg-[#EEF7E8] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#437118]">
-                06 · DELIVER STAGE
-              </span>
-              <span className="rounded-full border border-[#87AECE]/45 bg-[#EAF4FA] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#1D2A62]">
-                Core Pathway
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="mt-1 flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-1.5 text-[#437118]">
+            <div className="flex items-end gap-3">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-1.5 text-[#437118]">
                 <img
                   src="/core-pathway-clipboard.png"
                   alt="Event Readiness Checklist"
