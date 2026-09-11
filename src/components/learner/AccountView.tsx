@@ -198,7 +198,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
               <p className="text-[11px] font-medium text-slate-500">Full Name</p>
               <p className="mt-1 text-sm font-bold text-[#1D2A62]">Tran Le Bao Tran</p>
             </div>
-            <div>
+            <div className="sm:ml-[30%]">
               <p className="text-[11px] font-medium text-slate-500">Display Name</p>
               <p className="mt-1 text-sm font-bold text-[#1D2A62]">Bao Tran</p>
             </div>
@@ -206,7 +206,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
               <p className="text-[11px] font-medium text-slate-500">Mail Address</p>
               <p className="mt-1 text-sm font-bold text-[#1D2A62]">s4063545@rmit.edu.vn</p>
             </div>
-            <div>
+            <div className="sm:ml-[30%]">
               <p className="text-[11px] font-medium text-slate-500">Current Role</p>
               <p className="mt-1 text-sm font-bold text-[#1D2A62]">HR Member</p>
             </div>
@@ -214,7 +214,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
               <p className="text-[11px] font-medium text-slate-500">Organisation</p>
               <p className="mt-1 text-sm font-bold text-[#1D2A62]">RMIT Vietnam Finance Club</p>
             </div>
-            <div>
+            <div className="sm:ml-[30%]">
               <p className="text-[11px] font-medium text-slate-500">Learning Status</p>
               <p className="mt-1 flex items-center gap-1.5 text-sm font-bold text-[#437118]">
                 <CheckCircle weight="fill" className="h-4 w-4" />
