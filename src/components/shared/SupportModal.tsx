@@ -76,7 +76,7 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
               <span>Project Leader Teams Channel</span>
             </div>
             <p className="text-xs font-mono text-[#68707D]">#rfc-project-leads-2026</p>
-            <p className="text-[11px] text-slate-500">Get quick support from peers and mentors.</p>
+            <p className="text-[11px] text-slate-500">Get support from peers and mentors.</p>
           </div>
         </div>
 
