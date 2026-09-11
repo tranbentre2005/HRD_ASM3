@@ -148,7 +148,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
             </Button>
           </div>
 
-          <div className="flex flex-col items-center gap-3 border-t border-slate-100 pt-5 text-center">
+          <div className="flex items-center justify-center gap-4 border-t border-slate-100 pt-5 text-left">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#AFD06E]/60 bg-[#386b24] text-xl font-extrabold text-white shadow-sm">
               T
             </div>
