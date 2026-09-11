@@ -101,13 +101,13 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
   }
 
   return (
-    <div className="space-y-6 pb-12 font-sans">
-      <section className="relative overflow-hidden rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] sm:p-6 lg:px-8 lg:py-5">
-        <div className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none" />
-        <div className="absolute -left-16 -top-16 h-64 w-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent blur-xl pointer-events-none" />
-        <div className="absolute right-4 top-1/2 h-[380px] w-[380px] -translate-y-1/2 rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent blur-2xl pointer-events-none" />
+    <div className="space-y-6 pb-16 font-sans text-left max-w-5xl mx-auto">
+      <section className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-6 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
+        <div className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-0" />
+        <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
+        <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
         <svg
-          className="absolute right-0 top-0 hidden h-full w-[45%] overflow-visible opacity-40 pointer-events-none md:block"
+          className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block"
           viewBox="0 0 400 400"
           fill="none"
           aria-hidden="true"
@@ -147,7 +147,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
         </div>
       </section>
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card className="space-y-5 border-slate-200/90 bg-white p-5 text-left shadow-sm sm:p-6">
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -174,7 +174,24 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
                 <Badge variant="outline" className="text-[10px] text-slate-600">• HR Department</Badge>
                 <Badge variant="outline" className="text-[10px] text-slate-600">• RMIT Finance Club</Badge>
               </div>
+              <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                Building the skills to lead better events with clarity, confidence, and readiness.
+              </p>
             </div>
+          <div className="grid grid-cols-3 gap-3 border-t border-slate-100 pt-4 text-[10px]">
+            <div>
+              <p className="font-medium text-slate-500">Member since</p>
+              <p className="mt-1 font-bold text-[#1D2A62]">Aug 2025</p>
+            </div>
+            <div>
+              <p className="font-medium text-slate-500">Learning pathway</p>
+              <p className="mt-1 font-bold text-[#1D2A62]">Event Readiness</p>
+            </div>
+            <div>
+              <p className="font-medium text-slate-500">Department</p>
+              <p className="mt-1 font-bold text-[#1D2A62]">Human Resources</p>
+            </div>
+          </div>
           </div>
         </Card>
 
@@ -229,58 +246,65 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
           <GearSix className="h-5 w-5 text-[#437118]" />
           <h2 className="text-lg font-extrabold tracking-tight text-[#1D2A62]">Settings & Preferences</h2>
         </div>
+        <p className="mt-1 text-xs leading-relaxed text-slate-500">
+          Customise your learning experience and notification preferences.
+        </p>
 
-        <div className="mt-5 divide-y divide-slate-100 border-t border-slate-100">
-          <div className="py-4">
-            <PreferenceToggle
-              label="Email Notifications"
-              description="Receive important course updates, reminders, and learning announcements."
-              checked={emailNotifications}
-              onChange={setEmailNotifications}
-            />
+        <div className="mt-5 grid grid-cols-1 gap-x-6 border-t border-slate-100 md:grid-cols-2">
+          <div className="divide-y divide-slate-100">
+            <div className="py-4">
+              <PreferenceToggle
+                label="Email Notifications"
+                description="Receive important course updates, reminders, and learning announcements."
+                checked={emailNotifications}
+                onChange={setEmailNotifications}
+              />
+            </div>
+            <div className="py-4">
+              <PreferenceToggle
+                label="Learning Reminders"
+                description="Get reminders to help you stay on track with your learning."
+                checked={learningReminders}
+                onChange={setLearningReminders}
+              />
+            </div>
+            <div className="py-4">
+              <PreferenceToggle
+                label="Club Updates"
+                description="Receive selected updates about new learning resources, tools, and Project Leader development opportunities."
+                checked={clubUpdates}
+                onChange={setClubUpdates}
+              />
+            </div>
           </div>
-          <div className="py-4">
-            <PreferenceToggle
-              label="Learning Reminders"
-              description="Get reminders to help you stay on track with your learning."
-              checked={learningReminders}
-              onChange={setLearningReminders}
-            />
-          </div>
-          <div className="py-4">
-            <PreferenceToggle
-              label="Club Updates"
-              description="Receive selected updates about new learning resources, tools, and Project Leader development opportunities."
-              checked={clubUpdates}
-              onChange={setClubUpdates}
-            />
-          </div>
-          <div className="py-4">
-            <PreferenceSelect
-              label="Language"
-              description="Choose your preferred platform language."
-              value={language}
-              options={["English", "Vietnamese"]}
-              onChange={setLanguage}
-            />
-          </div>
-          <div className="py-4">
-            <PreferenceSelect
-              label="Appearance"
-              description="Choose how the Learning Hub looks on your device."
-              value={appearance}
-              options={["Light Mode", "Dark Mode", "Use Device Setting"]}
-              onChange={setAppearance}
-            />
-          </div>
-          <div className="py-4">
-            <PreferenceSelect
-              label="Text Size"
-              description="Adjust the interface text size for more comfortable reading."
-              value={textSize}
-              options={["Small", "Default", "Large"]}
-              onChange={setTextSize}
-            />
+          <div className="divide-y divide-slate-100">
+            <div className="py-4">
+              <PreferenceSelect
+                label="Language"
+                description="Choose your preferred platform language."
+                value={language}
+                options={["English", "Vietnamese"]}
+                onChange={setLanguage}
+              />
+            </div>
+            <div className="py-4">
+              <PreferenceSelect
+                label="Appearance"
+                description="Choose how the Learning Hub looks on your device."
+                value={appearance}
+                options={["Light Mode", "Dark Mode", "Use Device Setting"]}
+                onChange={setAppearance}
+              />
+            </div>
+            <div className="py-4">
+              <PreferenceSelect
+                label="Text Size"
+                description="Adjust the interface text size for more comfortable reading."
+                value={textSize}
+                options={["Small", "Default", "Large"]}
+                onChange={setTextSize}
+              />
+            </div>
           </div>
         </div>
       </Card>
