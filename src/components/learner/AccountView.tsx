@@ -5,7 +5,10 @@ import {
   GearSix,
   ShieldCheck,
   SignOut,
-  UserCircle
+  UserCircle,
+  CalendarCheck,
+  BookOpen,
+  UsersThree
 } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -147,10 +150,10 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
           </div>
 
           <div className="flex items-center gap-4 border-t border-slate-100 pt-5">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#87AECE]/50 bg-[#1D2A62] text-xl font-extrabold text-white shadow-sm">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#AFD06E]/60 bg-[#386b24] text-xl font-extrabold text-white shadow-sm">
               T
             </div>
-            <div>
+            <div className="min-w-0">
               <h3 className="text-lg font-bold text-[#1D2A62]">Tran Le Bao Tran</h3>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 <Badge variant="outline" className="text-[10px] text-[#1D2A62]">• Project Leader</Badge>
@@ -162,20 +165,29 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
                 Building the skills to lead better events with clarity, confidence, and readiness.
               </p>
             </div>
-          <div className="grid grid-cols-3 gap-3 border-t border-slate-100 pt-4 text-[10px]">
-            <div>
-              <p className="font-medium text-slate-500">Member since</p>
-              <p className="mt-1 font-bold text-[#1D2A62]">Aug 2025</p>
-            </div>
-            <div>
-              <p className="font-medium text-slate-500">Learning pathway</p>
-              <p className="mt-1 font-bold text-[#1D2A62]">Event Readiness</p>
-            </div>
-            <div>
-              <p className="font-medium text-slate-500">Department</p>
-              <p className="mt-1 font-bold text-[#1D2A62]">Human Resources</p>
-            </div>
           </div>
+          <div className="grid grid-cols-3 gap-3 border-t border-slate-100 pt-4 text-[10px]">
+            <div className="flex items-start gap-2">
+              <CalendarCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
+              <div>
+                <p className="font-medium text-slate-500">Member since</p>
+                <p className="mt-1 font-bold text-[#1D2A62]">Aug 2025</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
+              <div>
+                <p className="font-medium text-slate-500">Learning pathway</p>
+                <p className="mt-1 font-bold text-[#1D2A62]">Event Readiness</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <UsersThree className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
+              <div>
+                <p className="font-medium text-slate-500">Department</p>
+                <p className="mt-1 font-bold text-[#1D2A62]">Human Resources</p>
+              </div>
+            </div>
           </div>
         </Card>
 
