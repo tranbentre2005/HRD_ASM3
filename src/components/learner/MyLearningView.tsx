@@ -280,7 +280,7 @@ export function MyLearningView({
               {/* Left Artwork Box matching Image #1 */}
               <div className="w-28 sm:w-36 h-36 rounded-xl bg-[#F0F7ED] p-2 flex items-center justify-center shrink-0 border border-[#AFD06E]/30 shadow-2xs">
                 <img
-                  src="/core-pathway-clipboard.png"
+                  src="/continue-learning-clipboard.png"
                   alt="Event Readiness Checklist"
                   className="max-h-[120px] w-auto object-contain select-none animate-hero-float"
                 />
@@ -518,25 +518,25 @@ export function MyLearningView({
       </div>
 
       {/* ========================================================================= */}
-      {/* 5. EVENT EXECUTION TOOLKIT: Formatted to match Home page card             */}
+      {/* 5. EVENT EXECUTION SUPPORT: Formatted to match Home page card             */}
       {/* ========================================================================= */}
-      <div className="rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-6 sm:p-8 lg:p-10 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-6 sm:gap-8 text-left relative overflow-hidden mt-6">
+      <div className="rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-6 sm:p-8 lg:p-10 shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 text-left relative overflow-hidden mt-6">
         {/* Ambient lighting layers */}
         <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-2xl" />
         <div className="absolute -bottom-10 left-1/4 w-72 h-72 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-2xl" />
 
         {/* Left Content */}
-        <div className="space-y-3 max-w-2xl z-10">
+        <div className="space-y-2.5 max-w-4xl z-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-[#AFD06E] text-xs font-bold tracking-wide shadow-2xs">
             <Sparkle weight="fill" className="h-3.5 w-3.5 text-[#AFD06E]" />
-            <span>EVENT TOOLKIT</span>
+            <span>EVENT EXECUTION SUPPORT</span>
           </div>
 
           <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-tight">
-            EVENT EXECUTION TOOLKIT
+            EVENT EXECUTION SUPPORT
           </h3>
 
-          <p className="text-sm text-white/90 leading-relaxed">
+          <p className="text-xs sm:text-sm text-white/90 leading-relaxed block max-w-3xl lg:max-w-4xl xl:whitespace-nowrap">
             Leading an event soon? Open practical templates and checklists for final preparation, rehearsal, and live delivery.
           </p>
         </div>
@@ -549,7 +549,7 @@ export function MyLearningView({
             rel="noopener noreferrer"
             className="h-11 px-6 rounded-xl bg-white hover:bg-slate-50 text-[#386b24] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md flex items-center gap-2 cursor-pointer transition-all active:scale-[0.98] inline-flex no-underline group/btn whitespace-nowrap"
           >
-            <span>Open Event Toolkit</span>
+            <span>Open Event Support</span>
             <ArrowRight className="h-3.5 w-3.5 text-[#386b24] group-hover/btn:translate-x-1 transition-transform" />
           </a>
         </div>
