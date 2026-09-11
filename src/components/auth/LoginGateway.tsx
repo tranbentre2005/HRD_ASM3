@@ -206,12 +206,10 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label htmlFor="facilitator-password" className="block text-xs font-semibold text-[#1D2A62]">
-                      Enter facilitator password
-                    </label>
                     <input
                       id="facilitator-password"
                       type="password"
+                      placeholder="Enter password"
                       value={facilitatorPassword}
                       onChange={(e) => {
                         setFacilitatorPassword(e.target.value)
