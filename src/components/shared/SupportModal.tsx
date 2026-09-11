@@ -18,17 +18,17 @@ interface SupportModalProps {
 export function SupportModal({ open, onOpenChange }: SupportModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogHeader>
+      <DialogHeader className="mb-1">
         <div className="flex items-center gap-2 text-[#437118]">
           <Lifebuoy className="h-5 w-5" />
           <span className="text-xs font-bold uppercase tracking-wider">Help Desk & Mentoring</span>
         </div>
-        <DialogTitle className="text-xl text-[#1D2A62]">
+        <DialogTitle className="text-xl text-center font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent">
           Project Leader Support & Resources
         </DialogTitle>
       </DialogHeader>
 
-      <div className="space-y-4 pt-2 text-xs sm:text-sm text-[#252A35]">
+      <div className="space-y-4 pt-0 text-xs sm:text-sm text-[#252A35]">
         {/* Office Hours Card */}
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
           <div className="flex items-center gap-2 text-[#1D2A62] font-bold text-xs">
