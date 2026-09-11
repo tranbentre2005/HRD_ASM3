@@ -610,11 +610,8 @@ export function CoursesView({
 
                 <div className="p-3.5 rounded-xl bg-slate-50/90 border border-slate-200/80 space-y-2">
                   <h4 className="text-xs sm:text-sm font-bold text-[#1D2A62] leading-snug">
-                    {inProgressCourse.title}
+                    {inProgressCourse.cardTitle || inProgressCourse.title}
                   </h4>
-                  <p className="text-[11px] text-slate-600 leading-relaxed">
-                    {inProgressCourse.recommendedNote || inProgressCourse.cardIntro}
-                  </p>
 
                   <div className="pt-1">
                     <button
