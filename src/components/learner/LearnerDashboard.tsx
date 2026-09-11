@@ -122,14 +122,6 @@ export function LearnerDashboard({
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           {/* Left Column: Welcome Headline, Subtitle & Primary CTA */}
           <div className="lg:col-span-7 space-y-4 text-left">
-            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600 font-medium">
-              <span className="h-2 w-2 rounded-full bg-[#437118]" />
-              <span className="font-semibold text-slate-900">Project Leader</span>
-              <span className="text-slate-400">•</span>
-              <span>Management Committee</span>
-              <span className="text-slate-300">|</span>
-              <span className="font-mono text-[#5A6578]">RFC-PL-2026</span>
-            </div>
 
             <h1 className="text-2xl sm:text-3xl lg:text-[38px] font-extrabold tracking-tight bg-gradient-to-r from-[#437118] via-[#1D2A62] to-[#1D2A62] bg-clip-text text-transparent leading-[1.15]">
               Welcome back, Project Leader!
