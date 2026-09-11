@@ -146,7 +146,7 @@ export function AnnouncementsView({
     return (
       <div className="space-y-6 pb-16 font-sans text-left max-w-4xl mx-auto">
         {/* Top Back Navigation */}
-        <div className="pb-3 border-b border-slate-200">
+        <div className="pb-1">
           <button
             type="button"
             onClick={() => onSelectAnnouncement(null)}
@@ -219,7 +219,7 @@ export function AnnouncementsView({
           )}
 
           {/* Action CTA Area */}
-          <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <span className="text-xs text-slate-500 font-medium">
               RMIT Finance Club • Project Leader Learning Hub
             </span>
@@ -281,7 +281,7 @@ export function AnnouncementsView({
       </div>
 
       {/* Filter Chips / Tabs */}
-      <div className="flex flex-wrap items-center gap-2 pt-1 pb-1 border-b border-slate-200">
+      <div className="flex flex-wrap items-center gap-2 pt-1 pb-1">
         {filterTabs.map((tab) => {
           const isActive = selectedFilter === tab.key
           const count = tab.key === 'all' 
