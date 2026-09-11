@@ -213,7 +213,7 @@ export function Navbar({
                   : 'text-slate-600 hover:text-[#1D2A62]'
               }`}
             >
-              <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
+              <Bell className="h-4 w-4 sm:h-5 sm:w-5 -translate-x-[10%] scale-110" />
               {unreadCount > 0 && (
                 <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white shadow-2xs">
                   {unreadCount}
