@@ -43,7 +43,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
       spread: 60,
       origin: { y: 0.6 }
     })
-    onLoginAs('learner', 'Nguyen Minh Tuan')
+    onLoginAs('learner', 'Tran Le Bao Tran')
   }
 
   return (

@@ -26,6 +26,7 @@ export function Navbar({
   currentRole, 
   currentPage = 'home',
   onNavigate,
+  onLogout,
   onOpenSupport,
   userName, 
   announcements = [],
@@ -33,10 +34,10 @@ export function Navbar({
   onViewAllAnnouncements
 }: NavbarProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false)
   const popoverRef = useRef<HTMLDivElement>(null)
   const bellButtonRef = useRef<HTMLButtonElement>(null)
-
-  const displayName = userName?.trim() || (currentRole === 'learner' ? 'Nguyen Minh Tuan' : 'MSc. Hoang Le Tram')
+  const displayName = userName?.trim() || (currentRole === 'learner' ? 'Tran Le Bao Tran' : 'MSc. Hoang Le Tram')
   const nameParts = displayName.split(' ')
   const initial = (nameParts[nameParts.length - 1]?.[0] || displayName[0] || 'T').toUpperCase()
 
@@ -296,11 +297,18 @@ export function Navbar({
             )}
           </div>
 
-          {/* Account Icon (1 initial letter) */}
-          <div className="pl-1">
+          {/* Account Menu */}
+          <div
+            className="relative pl-1"
+            onMouseEnter={() => setIsAccountMenuOpen(true)}
+            onMouseLeave={() => setIsAccountMenuOpen(false)}
+            onFocus={() => setIsAccountMenuOpen(true)}
+          >
             <button
               type="button"
               onClick={() => onNavigate('account')}
+              aria-expanded={isAccountMenuOpen}
+              aria-haspopup="menu"
               className={`h-9 w-9 rounded-full flex items-center justify-center font-extrabold text-sm shadow-xs border-2 transition-transform active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
                 currentPage === 'account'
                   ? 'bg-[#437118] text-white border-white ring-2 ring-[#1D2A62]'
@@ -311,6 +319,35 @@ export function Navbar({
             >
               <span>{initial}</span>
             </button>
+
+            {isAccountMenuOpen && (
+              <div className="absolute right-0 top-full z-50 w-36 pt-1" role="menu" aria-label="Account menu">
+                <div className="overflow-hidden rounded-xl border border-slate-200 bg-white p-1 shadow-xl">
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setIsAccountMenuOpen(false)
+                      onNavigate('account')
+                    }}
+                    className="w-full rounded-lg px-3 py-2 text-left text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-[#1D2A62] cursor-pointer"
+                  >
+                    Settings
+                  </button>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setIsAccountMenuOpen(false)
+                      onLogout()
+                    }}
+                    className="w-full rounded-lg px-3 py-2 text-left text-xs font-semibold text-rose-600 transition-colors hover:bg-rose-50 hover:text-rose-700 cursor-pointer"
+                  >
+                    Log out
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -259,9 +259,9 @@ export function App() {
             {/* Page 5: Account View */}
             {currentPage === 'account' && (
               <AccountView
-                userName={customUserName}
                 onLogout={handleLogout}
                 onBackToHome={handleGoHome}
+                onOpenSupport={handleOpenSupport}
               />
             )}
           </>
