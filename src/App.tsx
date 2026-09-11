@@ -1,9 +1,7 @@
 import { useState } from "react"
-import { UserRole, Course, CertificateItem, AssignmentSubmission, LearnerProgressItem, Announcement } from "@/data/types"
+import { UserRole, Course, CertificateItem, Announcement } from "@/data/types"
 import { 
   INITIAL_COURSES, 
-  INITIAL_SUBMISSIONS, 
-  INITIAL_LEARNERS, 
   INITIAL_CERTIFICATES,
   INITIAL_ANNOUNCEMENTS
 } from "@/data/mockData"
@@ -18,14 +16,11 @@ import { CoursesView } from "@/components/learner/CoursesView"
 import { MyLearningView } from "@/components/learner/MyLearningView"
 import { AnnouncementsView } from "@/components/learner/AnnouncementsView"
 import { AccountView } from "@/components/learner/AccountView"
-import { InstructorDashboard } from "@/components/instructor/InstructorDashboard"
 
 export function App() {
   const [currentRole, setCurrentRole] = useState<UserRole>('login')
   const [customUserName, setCustomUserName] = useState<string>('')
   const [courses, setCourses] = useState<Course[]>(INITIAL_COURSES)
-  const [submissions, setSubmissions] = useState<AssignmentSubmission[]>(INITIAL_SUBMISSIONS)
-  const [learners, setLearners] = useState<LearnerProgressItem[]>(INITIAL_LEARNERS)
   const [certificates] = useState<CertificateItem[]>(INITIAL_CERTIFICATES)
   const [announcements, setAnnouncements] = useState<Announcement[]>(() => INITIAL_ANNOUNCEMENTS)
   const [selectedAnnouncementId, setSelectedAnnouncementId] = useState<string | null>(null)
@@ -43,7 +38,7 @@ export function App() {
   const [isSupportModalOpen, setIsSupportModalOpen] = useState(false)
 
   // Handler: Login as chosen role
-  const handleLoginAs = (role: 'learner' | 'instructor', customName?: string) => {
+  const handleLoginAs = (role: 'learner', customName?: string) => {
     setCurrentRole(role)
     if (customName) {
       setCustomUserName(customName)
@@ -102,12 +97,6 @@ export function App() {
     setIsSupportModalOpen(true)
   }
 
-  // Handler: Role Switch within portal
-  const handleRoleChange = (role: UserRole) => {
-    setCurrentRole(role)
-    setActiveCourseId(null)
-    setCurrentPage('home')
-  }
 
   // Handler: Learner Select Course to enter classroom
   const handleSelectCourse = (course: Course) => {
@@ -151,57 +140,6 @@ export function App() {
     )
   }
 
-  // Handler: Learner submits assignment
-  const handleSubmitAssignment = (
-    courseId: string,
-    lessonId: string,
-    text: string,
-    fileName?: string
-  ) => {
-    const course = courses.find(c => c.id === courseId)
-    const lesson = course?.modules.flatMap(m => m.lessons).find(l => l.id === lessonId)
-
-    const newSubmission: AssignmentSubmission = {
-      id: `sub-${Date.now()}`,
-      courseId,
-      courseTitle: course?.title || "Leadership Course",
-      lessonId,
-      lessonTitle: lesson?.title || "Practical Assignment",
-      learnerId: "lrn-1",
-      learnerName: customUserName || "Nguyen Minh Tuan",
-      learnerAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-      department: "Finance & Investment",
-      submittedAt: new Date().toISOString(),
-      content: text,
-      attachmentName: fileName || "Event_Execution_Template.docx",
-      status: "pending"
-    }
-
-    setSubmissions(prev => [newSubmission, ...prev])
-  }
-
-  // Handler: Instructor creates new course
-  const handleCreateCourse = (newCourse: Course) => {
-    setCourses(prev => [newCourse, ...prev])
-  }
-
-  // Handler: Instructor grades assignment
-  const handleGradeSubmission = (submissionId: string, score: number, feedback: string) => {
-    setSubmissions(prev =>
-      prev.map(sub => {
-        if (sub.id === submissionId) {
-          return {
-            ...sub,
-            score,
-            feedback,
-            status: "graded",
-            gradedBy: customUserName || "MSc. Hoang Le Tram"
-          }
-        }
-        return sub
-      })
-    )
-  }
 
   // Handler: Open Certificate View
   const handleViewCertificate = (cert: CertificateItem) => {
@@ -233,7 +171,6 @@ export function App() {
             setSelectedAnnouncementId(null)
             setCurrentPage(page)
           }}
-          onRoleChange={handleRoleChange}
           onLogout={handleLogout}
           onOpenSupport={handleOpenSupport}
           userName={customUserName}
@@ -251,7 +188,6 @@ export function App() {
             course={activeCourse}
             onBack={handleBackToDashboard}
             onUpdateCourseProgress={handleUpdateCourseProgress}
-            onSubmitAssignment={handleSubmitAssignment}
           />
         ) : (
           <>
@@ -274,19 +210,6 @@ export function App() {
                   />
                 )}
 
-                {currentRole === 'instructor' && (
-                  <InstructorDashboard
-                    courses={courses}
-                    submissions={submissions}
-                    learners={learners}
-                    onCreateCourse={handleCreateCourse}
-                    onGradeSubmission={handleGradeSubmission}
-                    onSelectCourse={(course) => {
-                      setActiveCourseId(course.id)
-                      setCurrentRole('learner')
-                    }}
-                  />
-                )}
               </>
             )}
 
@@ -336,9 +259,7 @@ export function App() {
             {/* Page 5: Account View */}
             {currentPage === 'account' && (
               <AccountView
-                currentRole={currentRole}
                 userName={customUserName}
-                onRoleChange={handleRoleChange}
                 onLogout={handleLogout}
                 onBackToHome={handleGoHome}
               />

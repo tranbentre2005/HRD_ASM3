@@ -1,24 +1,20 @@
-import { User, GraduationCap, ChalkboardTeacher, SignOut, ArrowLeft, ShieldCheck, EnvelopeSimple, Buildings } from "@phosphor-icons/react"
+import { SignOut, ArrowLeft } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 interface AccountViewProps {
   userName?: string
-  currentRole: 'learner' | 'instructor'
-  onRoleChange: (role: 'learner' | 'instructor') => void
   onLogout: () => void
   onBackToHome: () => void
 }
 
 export function AccountView({
   userName,
-  currentRole,
-  onRoleChange,
   onLogout,
   onBackToHome,
 }: AccountViewProps) {
-  const displayName = userName?.trim() || (currentRole === 'learner' ? 'Nguyen Minh Tuan' : 'MSc. Hoang Le Tram')
+  const displayName = userName?.trim() || 'Nguyen Minh Tuan'
   const initial = (displayName.split(' ').pop()?.[0] || 'T').toUpperCase()
 
   return (
@@ -45,7 +41,7 @@ export function AccountView({
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold text-[#1D2A62]">{displayName}</h2>
                 <Badge variant="default" className="bg-[#1D2A62] text-white">
-                  {currentRole === 'learner' ? 'Project Leader' : 'Facilitator'}
+                  Project Leader
                 </Badge>
               </div>
               <p className="text-xs text-[#68707D] mt-0.5">RMIT Vietnam Finance Club • Leadership Cohort 2026</p>
@@ -86,20 +82,6 @@ export function AccountView({
           </div>
         </div>
 
-        {/* Switch Role Option */}
-        <div className="p-4 rounded-xl border border-[#87AECE]/40 bg-linear-to-r from-blue-50/50 to-emerald-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h3 className="text-sm font-bold text-[#1D2A62]">Looking to manage curriculum and review submissions?</h3>
-            <p className="text-xs text-[#68707D] mt-0.5">Switch your active perspective between Project Leader (Learner) and Facilitator (Trainer).</p>
-          </div>
-          <Button
-            size="sm"
-            onClick={() => onRoleChange(currentRole === 'learner' ? 'instructor' : 'learner')}
-            className="bg-[#1D2A62] hover:bg-[#16204a] text-white text-xs font-semibold h-9 px-4 shrink-0 cursor-pointer"
-          >
-            {currentRole === 'learner' ? 'Switch to Facilitator' : 'Switch to Learner'}
-          </Button>
-        </div>
       </Card>
     </div>
   )

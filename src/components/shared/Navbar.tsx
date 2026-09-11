@@ -14,7 +14,6 @@ interface NavbarProps {
   currentRole: UserRole
   currentPage?: 'home' | 'courses' | 'my-learning' | 'announcements' | 'account'
   onNavigate: (page: 'home' | 'courses' | 'my-learning' | 'announcements' | 'account') => void
-  onRoleChange: (role: UserRole) => void
   onLogout: () => void
   onOpenSupport?: () => void
   userName?: string

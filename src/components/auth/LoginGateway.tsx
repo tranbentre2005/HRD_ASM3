@@ -8,7 +8,7 @@ import {
 import confetti from "canvas-confetti"
 
 interface LoginGatewayProps {
-  onLoginAs: (role: 'learner' | 'instructor', customName?: string) => void
+  onLoginAs: (role: 'learner', customName?: string) => void
 }
 
 export function LoginGateway({ onLoginAs }: LoginGatewayProps) {

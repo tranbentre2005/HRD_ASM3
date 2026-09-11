@@ -23,14 +23,12 @@ interface ActiveCourseViewerProps {
   course: Course
   onBack: () => void
   onUpdateCourseProgress: (courseId: string, lessonId: string, completed: boolean) => void
-  onSubmitAssignment: (courseId: string, lessonId: string, text: string, fileName?: string) => void
 }
 
 export function ActiveCourseViewer({
   course,
   onBack,
   onUpdateCourseProgress,
-  onSubmitAssignment,
 }: ActiveCourseViewerProps) {
   const allLessons: Lesson[] = course.modules.flatMap(m => m.lessons)
   const initialLesson = allLessons.find(l => !l.completed) || allLessons[0]
@@ -70,7 +68,6 @@ export function ActiveCourseViewer({
       return
     }
     setAssignmentSubmitted(true)
-    onSubmitAssignment(course.id, activeLesson.id, assignmentText, attachmentName || "SBI_Scenario_TuanNM.docx")
     confetti({
       particleCount: 70,
       spread: 70,

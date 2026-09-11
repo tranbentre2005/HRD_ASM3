@@ -1,4 +1,4 @@
-export type UserRole = 'login' | 'learner' | 'instructor'
+export type UserRole = 'login' | 'learner'
 
 export interface Course {
   id: string
@@ -64,39 +64,6 @@ export interface AssignmentPrompt {
   maxScore: number
 }
 
-export interface AssignmentSubmission {
-  id: string
-  courseId: string
-  courseTitle: string
-  lessonId: string
-  lessonTitle: string
-  learnerId: string
-  learnerName: string
-  learnerAvatar: string
-  department: string
-  submittedAt: string
-  content: string
-  attachmentName?: string
-  status: 'pending' | 'graded'
-  score?: number
-  feedback?: string
-  gradedBy?: string
-}
-
-export interface LearnerProgressItem {
-  id: string
-  name: string
-  email: string
-  department: string
-  roleTitle: string
-  avatar: string
-  coursesEnrolled: number
-  completedCourses: number
-  overallProgress: number
-  lastActive: string
-  status: 'on-track' | 'needs-attention' | 'completed'
-  scoreAverage: number
-}
 
 export interface CertificateItem {
   id: string
