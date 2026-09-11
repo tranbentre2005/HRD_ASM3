@@ -8,9 +8,10 @@ import {
 import confetti from "canvas-confetti"
 
 interface LoginGatewayProps {
-  onLoginAs: (role: 'learner', customName?: string) => void
+  onLoginAs: (role: 'learner' | 'instructor', customName?: string) => void
 }
 
+const FACILITATOR_PASSWORD = '12345'
 export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
   const [selectedRole, setSelectedRole] = useState<'learner' | 'instructor'>('learner')
   const [facilitatorPassword, setFacilitatorPassword] = useState("")
@@ -24,7 +25,16 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
 
   const handleContinue = () => {
     if (selectedRole === 'instructor') {
-      setAccessDenied(true)
+      if (facilitatorPassword === FACILITATOR_PASSWORD) {
+        confetti({
+          particleCount: 40,
+          spread: 60,
+          origin: { y: 0.6 }
+        })
+        onLoginAs('instructor', 'MSc. Hoang Le Tram')
+      } else {
+        setAccessDenied(true)
+      }
       return
     }
 

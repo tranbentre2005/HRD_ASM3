@@ -38,7 +38,7 @@ export function App() {
   const [isSupportModalOpen, setIsSupportModalOpen] = useState(false)
 
   // Handler: Login as chosen role
-  const handleLoginAs = (role: 'learner', customName?: string) => {
+  const handleLoginAs = (role: 'learner' | 'instructor', customName?: string) => {
     setCurrentRole(role)
     if (customName) {
       setCustomUserName(customName)
