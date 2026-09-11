@@ -138,20 +138,20 @@ export function Navbar({
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#AFD06E]/35 bg-gradient-to-r from-[#F4F9F1]/95 via-[#F8FCF6]/95 to-[#EDF6E8]/95 backdrop-blur-md font-sans transition-colors">
       {/* Main Navbar: Unified across roles */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-15 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-15 flex items-center justify-between gap-2 sm:gap-4">
         {/* 1. Logo -> Trang Home */}
         <button
           type="button"
           onClick={() => onNavigate('home')}
-          className="flex items-center gap-3 cursor-pointer group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] rounded-lg p-1 -ml-1 transition-opacity hover:opacity-90"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] rounded-lg p-1 -ml-1 transition-opacity hover:opacity-90"
           title="Return to Home"
           aria-label="Return to Home"
         >
-          <div className="h-10 w-auto flex items-center justify-center bg-transparent shrink-0">
+          <div className="h-8 sm:h-10 w-auto flex items-center justify-center bg-transparent shrink-0">
             <img
               src="/finance-club-logo-green.png"
               alt="RMIT Finance Club Logo"
-              className="h-10 w-auto object-contain drop-shadow-2xs"
+              className="h-8 sm:h-10 w-auto object-contain drop-shadow-2xs"
             />
           </div>
           <div className="hidden sm:block">
@@ -163,12 +163,12 @@ export function Navbar({
         </button>
 
         {/* Right: Navigation (Courses, My Learning, Support) placed on the right next to Bell and Account */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          <nav className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-0.5 sm:gap-3">
+          <nav className="flex items-center gap-0 sm:gap-2">
             <button
               type="button"
               onClick={() => onNavigate('courses')}
-              className={`px-3.5 py-1.5 rounded-xl text-sm transition-all cursor-pointer ${
+              className={`px-1.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-sm transition-all cursor-pointer ${
                 currentPage === 'courses'
                   ? 'bg-[#1D2A62] text-white font-bold shadow-xs'
                   : 'text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100/80 font-medium'
@@ -180,7 +180,7 @@ export function Navbar({
             <button
               type="button"
               onClick={() => onNavigate('my-learning')}
-              className={`px-3.5 py-1.5 rounded-xl text-sm transition-all cursor-pointer ${
+              className={`px-1.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-sm transition-all cursor-pointer ${
                 currentPage === 'my-learning'
                   ? 'bg-[#1D2A62] text-white font-bold shadow-xs'
                   : 'text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100/80 font-medium'
@@ -192,7 +192,7 @@ export function Navbar({
             <button
               type="button"
               onClick={onOpenSupport}
-              className="px-3.5 py-1.5 rounded-xl text-sm text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100/80 font-medium transition-all cursor-pointer"
+              className="px-1.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-sm text-slate-600 hover:text-[#1D2A62] hover:bg-slate-100/80 font-medium transition-all cursor-pointer"
             >
               Support
             </button>
@@ -207,13 +207,13 @@ export function Navbar({
               aria-label="Open announcements"
               aria-expanded={isPopoverOpen}
               aria-haspopup="dialog"
-              className={`relative p-2 rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
+              className={`relative p-1.5 sm:p-2 rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
                 isPopoverOpen || currentPage === 'announcements'
                   ? 'text-[#386b24]'
                   : 'text-slate-600 hover:text-[#1D2A62]'
               }`}
             >
-              <Bell className="h-5 w-5" />
+              <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
               {unreadCount > 0 && (
                 <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white shadow-2xs">
                   {unreadCount}
