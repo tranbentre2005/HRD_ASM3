@@ -34,13 +34,14 @@ export function MyLearningView({
   onNavigateCourses,
 }: MyLearningViewProps) {
   const [isOverviewOpen, setIsOverviewOpen] = useState(false)
+  const [showAllCompleted, setShowAllCompleted] = useState(false)
   const inProgressCourses = courses.filter((c) => c.status === "in-progress")
   const eventReadinessCourse = courses.find(
     (c) => c.id === "event-readiness" || c.id === "course-1" || c.title.includes("Event Readiness")
   ) || inProgressCourses[0] || courses[0]
 
-  // Completed courses in Core Pathway for display in Completed Learning section
-  const completedList = [
+  // All 5 Completed courses in Core Pathway for display in Completed Learning section
+  const allCompletedList = [
     {
       id: "core-pl-role",
       code: "01 · CORE PATHWAY",
@@ -61,8 +62,24 @@ export function MyLearningView({
       title: "Event Planning & Coordination",
       duration: "8 min · Core",
       completedDate: "Completed on 16 Sep 2026"
+    },
+    {
+      id: "leading-event-team",
+      code: "04 · CORE PATHWAY",
+      title: "Leading the Event Team",
+      duration: "8 min · Leadership",
+      completedDate: "Completed on 18 Sep 2026"
+    },
+    {
+      id: "cross-functional-collaboration",
+      code: "05 · CORE PATHWAY",
+      title: "Cross-Functional Collaboration",
+      duration: "7 min · Collaboration",
+      completedDate: "Completed on 20 Sep 2026"
     }
   ]
+
+  const displayedCompleted = showAllCompleted ? allCompletedList : allCompletedList.slice(0, 3)
 
   // 9 Stepper nodes for Core Pathway
   const pathwaySteps = [
@@ -458,20 +475,16 @@ export function MyLearningView({
           </h2>
           <button
             type="button"
-            onClick={() => {
-              if (onNavigateCourses) onNavigateCourses('Core Pathway')
-              else onBackToHome()
-              window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-            }}
+            onClick={() => setShowAllCompleted(!showAllCompleted)}
             className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
           >
-            <span>View All</span>
-            <ArrowRight className="h-3 w-3" />
+            <span>{showAllCompleted ? "Show Less" : "View All (5)"}</span>
+            <ArrowRight className={`h-3 w-3 transition-transform ${showAllCompleted ? "-rotate-90" : ""}`} />
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {completedList.map((course) => (
+          {displayedCompleted.map((course) => (
             <div
               key={course.id}
               className="rounded-2xl border border-[#AFD06E]/65 bg-gradient-to-br from-[#FAFCF8] via-[#F4F9F0] to-[#E6F3DC] p-4 sm:p-5 shadow-2xs flex flex-col justify-between text-left hover:shadow-xs transition-all relative group"
