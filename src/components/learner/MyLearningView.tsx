@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Course, CertificateItem } from "@/data/types"
 import { 
-  ArrowLeft, 
   CheckCircle, 
   ArrowRight, 
   Clock, 
@@ -15,7 +14,6 @@ import {
   ChartBar,
   CaretRight,
   Sparkle,
-  X
 } from "@phosphor-icons/react"
 
 interface MyLearningViewProps {
@@ -33,7 +31,6 @@ export function MyLearningView({
   onBackToHome,
   onNavigateCourses,
 }: MyLearningViewProps) {
-  const [isOverviewOpen, setIsOverviewOpen] = useState(false)
   const [showAllCompleted, setShowAllCompleted] = useState(false)
   const inProgressCourses = courses.filter((c) => c.status === "in-progress")
   const eventReadinessCourse = courses.find(
@@ -362,7 +359,7 @@ export function MyLearningView({
               <div className="shrink-0">
                 <button
                   type="button"
-                  onClick={() => setIsOverviewOpen(true)}
+                  onClick={() => onSelectCourse(eventReadinessCourse)}
                   className="h-9 px-5 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.98] whitespace-nowrap"
                 >
                   <span>View Course</span>
@@ -572,98 +569,6 @@ export function MyLearningView({
         </div>
       </div>
 
-      {/* ========================================================================= */}
-      {/* 6. COURSE OVERVIEW MODAL (for View Course CTA)                            */}
-      {/* ========================================================================= */}
-      {isOverviewOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
-          <div className="relative w-full max-w-2xl rounded-3xl bg-white border border-[#87AECE]/30 shadow-2xl p-6 sm:p-8 space-y-5 text-left overflow-hidden">
-            {/* Close Button */}
-            <button
-              type="button"
-              onClick={() => setIsOverviewOpen(false)}
-              className="absolute right-5 top-5 p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            {/* Header Badge */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-bold text-[#437118] uppercase tracking-wider bg-[#AFD06E]/20 px-2.5 py-0.5 rounded-full border border-[#AFD06E]/30">
-                  06 · CORE PATHWAY
-                </span>
-                <span className="text-xs text-slate-400">•</span>
-                <span className="text-xs font-semibold text-slate-500">Foundation</span>
-              </div>
-
-              <h2 className="text-xl sm:text-2xl font-extrabold text-[#1D2A62] leading-tight">
-                Event Readiness | From “Done” to Participant-Ready
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Learn how to prioritise participant-critical elements, verify important information against reliable sources, and test whether connected event components can work together before delivery.
-              </p>
-            </div>
-
-            {/* Info Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3.5 rounded-2xl bg-[#F0F7FC] border border-[#87AECE]/30 text-xs">
-              <div>
-                <span className="text-slate-400 block font-medium">Duration</span>
-                <span className="font-bold text-[#1D2A62]">8–10 mins</span>
-              </div>
-              <div>
-                <span className="text-slate-400 block font-medium">Progress</span>
-                <span className="font-bold text-[#437118]">40% complete</span>
-              </div>
-              <div>
-                <span className="text-slate-400 block font-medium">Facilitator</span>
-                <span className="font-bold text-[#1D2A62]">MSc. Hoang Le Tram</span>
-              </div>
-            </div>
-
-            {/* Syllabus Roadmap */}
-            <div className="space-y-2.5">
-              <h3 className="text-xs font-bold text-[#1D2A62] uppercase tracking-wider">
-                Course Syllabus & Modules
-              </h3>
-              <div className="space-y-2 text-xs">
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle weight="fill" className="h-4 w-4 text-[#437118]" />
-                    <span className="font-medium text-slate-800">Part 1: Active Listening and Communication Psychology</span>
-                  </div>
-                  <span className="text-slate-400">3 lessons</span>
-                </div>
-                <div className="p-3 rounded-xl bg-[#EEF7E8] border border-[#AFD06E]/40 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-[#437118] animate-pulse" />
-                    <span className="font-bold text-[#1D2A62]">Part 2: The SBI Constructive Feedback Model (Current)</span>
-                  </div>
-                  <span className="text-[#437118] font-semibold">Lesson 1.3 Active</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer Action */}
-            <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <span className="text-xs text-slate-500 font-medium">
-                Recommended before final preparation or rehearsal.
-              </span>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsOverviewOpen(false)
-                  if (eventReadinessCourse) onSelectCourse(eventReadinessCourse)
-                }}
-                className="h-10 px-6 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98] w-full sm:w-auto cursor-pointer"
-              >
-                <span>Continue to Active Lesson (1.3)</span>
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

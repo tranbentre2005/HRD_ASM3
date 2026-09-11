@@ -15,6 +15,7 @@ import { ActiveCourseViewer } from "@/components/learner/ActiveCourseViewer"
 import { CoursesView } from "@/components/learner/CoursesView"
 import { MyLearningView } from "@/components/learner/MyLearningView"
 import { AnnouncementsView } from "@/components/learner/AnnouncementsView"
+import { CourseOverviewModal } from "@/components/learner/CourseOverviewModal"
 import { AccountView } from "@/components/learner/AccountView"
 
 export function App() {
@@ -36,6 +37,7 @@ export function App() {
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null)
   const [isCertModalOpen, setIsCertModalOpen] = useState(false)
   const [isSupportModalOpen, setIsSupportModalOpen] = useState(false)
+  const [selectedCourseOverview, setSelectedCourseOverview] = useState<Course | null>(null)
 
   // Handler: Login as chosen role
   const handleLoginAs = (role: 'learner' | 'instructor', customName?: string) => {
@@ -52,6 +54,7 @@ export function App() {
   const handleLogout = () => {
     setCurrentRole('login')
     setActiveCourseId(null)
+    setSelectedCourseOverview(null)
     setCurrentPage('home')
   }
 
@@ -101,8 +104,19 @@ export function App() {
   }
 
 
-  // Handler: Learner Select Course to enter classroom
+  // Handler: Route Event Readiness CTAs through the course overview
   const handleSelectCourse = (course: Course) => {
+    const isEventReadiness = course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')
+    if (isEventReadiness) {
+      setActiveCourseId(null)
+      setSelectedCourseOverview(course)
+      return
+    }
+    setActiveCourseId(course.id)
+  }
+
+  const handleContinueCourse = (course: Course) => {
+    setSelectedCourseOverview(null)
     setActiveCourseId(course.id)
   }
 
@@ -283,6 +297,14 @@ export function App() {
       <SupportModal
         open={isSupportModalOpen}
         onOpenChange={setIsSupportModalOpen}
+      />
+      <CourseOverviewModal
+        course={selectedCourseOverview}
+        open={selectedCourseOverview !== null}
+        onOpenChange={(open) => {
+          if (!open) setSelectedCourseOverview(null)
+        }}
+        onContinue={handleContinueCourse}
       />
 
       {/* Footer */}
