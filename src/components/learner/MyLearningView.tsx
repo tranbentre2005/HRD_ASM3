@@ -393,7 +393,7 @@ export function MyLearningView({
                   </button>
                 </div>
                 <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-                  Finish the current course to continue your learning journey.
+                  Finish the current course to continue your journey.
                 </p>
               </div>
             </div>
