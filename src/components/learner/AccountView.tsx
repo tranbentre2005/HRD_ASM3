@@ -148,11 +148,11 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
             </Button>
           </div>
 
-          <div className="flex items-center gap-4 border-t border-slate-100 pt-5">
+          <div className="flex flex-col items-center gap-3 border-t border-slate-100 pt-5 text-center">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#AFD06E]/60 bg-[#386b24] text-xl font-extrabold text-white shadow-sm">
               T
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 max-w-sm">
               <h3 className="text-lg font-bold text-[#1D2A62]">Tran Le Bao Tran</h3>
               <p className="mt-2 text-xs leading-relaxed text-slate-600">
                 Building the skills to lead better events with clarity, confidence, and readiness.
@@ -167,7 +167,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
                 <p className="mt-1 font-bold text-[#1D2A62]">Aug 2025</p>
               </div>
             </div>
-            <div className="flex items-center justify-center gap-2">
+            <div className="relative -left-[10%] flex items-center justify-center gap-2">
               <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
               <div>
                 <p className="font-medium text-slate-500">Learning pathway</p>
