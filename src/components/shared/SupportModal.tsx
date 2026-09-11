@@ -25,9 +25,6 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
         <DialogTitle className="text-xl text-[#1D2A62]">
           Project Leader Support & Resources
         </DialogTitle>
-        <DialogDescription>
-          Assistance channels for RMIT Finance Club project directors, event leads, and committee members.
-        </DialogDescription>
       </DialogHeader>
 
       <div className="space-y-4 pt-2 text-xs sm:text-sm text-[#252A35]">
@@ -35,10 +32,15 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
           <div className="flex items-center gap-2 text-[#1D2A62] font-bold text-xs">
             <CalendarCheck className="h-4 w-4 text-[#437118]" />
-            <span>Weekly Facilitator Office Hours</span>
+            <span>Project Leader Support Hours</span>
           </div>
           <p className="text-xs text-[#68707D] leading-relaxed">
-            Every Friday from 16:00 to 18:00 (Room 2.4.08, Saigon South Campus or via MS Teams channel). One-on-one coaching for milestone planning and team leadership.
+            Drop in for guidance on course activities, event preparation, team coordination, or applying learning tools to your project.
+          </p>
+          <p className="text-xs text-[#68707D] leading-relaxed">
+            Every Friday · 16:00–18:00
+            <br />
+            Room 2.4.08, Saigon South Campus or via MS Teams
           </p>
         </div>
 
@@ -56,10 +58,10 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
           <div className="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1">
             <div className="flex items-center gap-2 text-xs font-bold text-[#1D2A62]">
               <ChatsTeardrop className="h-4 w-4 text-[#437118]" />
-              <span>Leadership Teams Channel</span>
+              <span>Project Leader Teams Channel</span>
             </div>
             <p className="text-xs font-mono text-[#68707D]">#rfc-project-leads-2026</p>
-            <p className="text-[11px] text-slate-500">Immediate peer & mentor assistance</p>
+            <p className="text-[11px] text-slate-500">Ask questions, share updates, and get quick support from peers and mentors.</p>
           </div>
         </div>
 
