@@ -31,7 +31,7 @@ function PreferenceToggle({ label, description, checked, onChange }: PreferenceT
         <p className="text-sm font-bold text-[#1D2A62]">{label}</p>
         <p className="mt-1 max-w-2xl text-xs leading-relaxed text-slate-600">{description}</p>
       </div>
-      <div className="flex items-center gap-2 sm:mr-[10%]">
+      <div className="flex items-center gap-2">
         <span className={`text-xs font-semibold ${checked ? "text-[#437118]" : "text-slate-500"}`}>
           {checked ? "On" : "Off"}
         </span>
