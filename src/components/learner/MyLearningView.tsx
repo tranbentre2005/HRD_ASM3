@@ -93,7 +93,7 @@ export function MyLearningView({
       {/* ========================================================================= */}
       {/* 1. TOP BANNER: Matching Courses Banner & Image #1                         */}
       {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-6 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between min-h-[190px] sm:min-h-[210px]">
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-4 sm:p-5 lg:py-4 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-0" 
@@ -132,7 +132,7 @@ export function MyLearningView({
             src="/mylearning-hero-medal.png"
             alt="My Learning Achievement and Leadership Progress"
             loading="eager"
-            className="max-h-[170px] sm:max-h-[190px] lg:max-h-[215px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
+            className="max-h-[145px] sm:max-h-[160px] lg:max-h-[175px] w-auto object-contain select-none animate-hero-float drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out cursor-pointer"
           />
         </div>
       </div>
