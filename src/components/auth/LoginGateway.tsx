@@ -13,20 +13,27 @@ interface LoginGatewayProps {
 
 export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
   const [selectedRole, setSelectedRole] = useState<'learner' | 'instructor'>('learner')
+  const [facilitatorPassword, setFacilitatorPassword] = useState("")
+  const [accessDenied, setAccessDenied] = useState(false)
 
   const handleSelectRole = (role: 'learner' | 'instructor') => {
     setSelectedRole(role)
+    setAccessDenied(false)
+    if (role === 'learner') setFacilitatorPassword("")
+  }
+
+  const handleContinue = () => {
+    if (selectedRole === 'instructor') {
+      setAccessDenied(true)
+      return
+    }
+
     confetti({
       particleCount: 40,
       spread: 60,
       origin: { y: 0.6 }
     })
-    const name = role === 'learner' ? 'Nguyen Minh Tuan' : 'MSc. Hoang Le Tram'
-    onLoginAs(role, name)
-  }
-
-  const handleContinue = () => {
-    handleSelectRole(selectedRole)
+    onLoginAs('learner', 'Nguyen Minh Tuan')
   }
 
   return (
@@ -92,9 +99,9 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                   <div
                     role="button"
                     tabIndex={0}
-                    onClick={() => setSelectedRole('learner')}
+                    onClick={() => handleSelectRole('learner')}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') setSelectedRole('learner')
+                      if (e.key === 'Enter' || e.key === ' ') handleSelectRole('learner')
                     }}
                     className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between text-left h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
                       selectedRole === 'learner'
@@ -133,13 +140,13 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
 
                   </div>
 
-                  {/* Option 2: Trainer / Facilitator */}
+                  {/* Option 2: Facilitator / Trainer */}
                   <div
                     role="button"
                     tabIndex={0}
-                    onClick={() => setSelectedRole('instructor')}
+                    onClick={() => handleSelectRole('instructor')}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') setSelectedRole('instructor')
+                      if (e.key === 'Enter' || e.key === ' ') handleSelectRole('instructor')
                     }}
                     className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between text-left h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${
                       selectedRole === 'instructor'
@@ -167,7 +174,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
 
                       <div className="space-y-1">
                         <h2 className="text-base font-bold text-[#1D2A62] leading-tight">
-                          Trainer / Facilitator
+                          Facilitator / Trainer
                         </h2>
                         <p className="text-[11px] text-[#68707D] leading-relaxed">
                           Guide learners and access tools for workshop and session delivery.
@@ -180,6 +187,47 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                 </div>
               </div>
 
+              {selectedRole === 'instructor' && (
+                <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC]/70 p-4 sm:p-5 space-y-3 text-left">
+                  <div>
+                    <h2 className="text-sm sm:text-base font-bold text-[#1D2A62]">
+                      Facilitator access
+                    </h2>
+                    <p className="mt-1 text-xs sm:text-sm leading-relaxed text-[#68707D]">
+                      This area is restricted to authorised RMIT Finance Club facilitators and trainers.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label htmlFor="facilitator-password" className="block text-xs font-semibold text-[#1D2A62]">
+                      Enter facilitator password
+                    </label>
+                    <input
+                      id="facilitator-password"
+                      type="password"
+                      value={facilitatorPassword}
+                      onChange={(e) => {
+                        setFacilitatorPassword(e.target.value)
+                        setAccessDenied(false)
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault()
+                          handleContinue()
+                        }
+                      }}
+                      aria-invalid={accessDenied}
+                      className="w-full h-11 rounded-xl border border-slate-200 bg-white px-3.5 text-sm text-[#252A35] outline-none transition-colors focus:border-[#1D2A62] focus:ring-2 focus:ring-[#87AECE]/40"
+                    />
+                    {accessDenied && (
+                      <p role="alert" className="text-xs font-semibold leading-relaxed text-rose-700">
+                        Access restricted. A valid facilitator password is required, and this account is not authorised.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* 4. Color Consistency: Deep Navy Primary CTA */}
               <button
                 type="button"
@@ -187,7 +235,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                 className="w-full h-12 rounded-full bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-sm transition-all active:scale-[0.98] shadow-sm cursor-pointer flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1D2A62]"
               >
                 <span>
-                  {selectedRole === 'learner' ? 'Continue as Learner' : 'Continue as Trainer / Facilitator'}
+                  {selectedRole === 'learner' ? 'Continue as Learner' : 'Continue as Facilitator / Trainer'}
                 </span>
                 <ArrowRight className="h-4 w-4" />
               </button>
