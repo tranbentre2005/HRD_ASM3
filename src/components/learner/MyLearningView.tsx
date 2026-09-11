@@ -99,15 +99,29 @@ export function MyLearningView({
       {/* ========================================================================= */}
       {/* 1. TOP BANNER: Matching Courses Banner & Image #1                         */}
       {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-4 sm:p-5 lg:py-4 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
+      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-5 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
-          className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-0" 
+          className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
         />
 
         {/* Ambient Radial Halo Blooms */}
         <div className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-[380px] h-[380px] rounded-full bg-radial from-[#AFD06E]/20 via-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-2xl" />
         <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-radial from-[#87AECE]/15 to-transparent pointer-events-none -z-0 blur-xl" />
+        {/* Subtle Concentric Leadership Arcs framing the achievement artwork */}
+        <svg 
+          className="absolute right-0 top-0 h-full w-[45%] pointer-events-none -z-0 opacity-40 select-none overflow-visible hidden md:block" 
+          viewBox="0 0 400 400" 
+          fill="none"
+        >
+          <circle cx="260" cy="180" r="95" stroke="#87AECE" strokeWidth="1.5" strokeDasharray="4 4" />
+          <circle cx="260" cy="180" r="160" stroke="#87AECE" strokeWidth="1" strokeDasharray="6 6" />
+          <circle cx="260" cy="230" stroke="#AFD06E" strokeWidth="1.2" strokeDasharray="5 5" />
+          <circle cx="165" cy="180" r="3.5" fill="#437118" />
+          <circle cx="260" cy="20" r="3.5" fill="#1D2A62" />
+          <circle cx="355" cy="180" r="3.5" fill="#87AECE" />
+          <circle cx="260" cy="340" r="3.5" fill="#AFD06E" />
+        </svg>
 
         {/* Left: Banner Content */}
         <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-xl">

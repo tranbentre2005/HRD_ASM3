@@ -298,7 +298,7 @@ export function Navbar({
           </div>
 
           {/* Account Icon (1 initial letter) */}
-          <div className="pl-1 border-l border-slate-200/80">
+          <div className="pl-1">
             <button
               type="button"
               onClick={() => onNavigate('account')}
