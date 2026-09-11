@@ -39,13 +39,14 @@ export function CourseOverviewModal({ course, open, onOpenChange, onContinue }: 
             <span className="rounded-full border border-[#AFD06E]/30 bg-[#AFD06E]/20 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#437118]">
               {overviewCode}
             </span>
-            <span className="text-xs text-slate-400">•</span>
-            <span className="text-xs font-semibold text-slate-500">{overviewLevel}</span>
+            <span className="rounded-full border border-[#87AECE]/45 bg-[#EAF4FA] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#1D2A62]">
+              {overviewLevel}
+            </span>
           </div>
 
           <div className="flex items-start gap-3">
             {isEventReadiness && (
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]">
+              <div className="translate-y-[25%] flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]">
                 <ClipboardText className="h-5 w-5" />
               </div>
             )}
