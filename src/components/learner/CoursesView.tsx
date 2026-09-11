@@ -88,22 +88,22 @@ const BANNER_CONTENT: Record<string, { title: string; subtitle: string; countTex
     title: "Core Project Leader Pathway",
     subtitle: "Build the core capability to plan, lead, deliver, and improve student events.",
     countText: "9 courses",
-    image: "/core-pathway-clipboard.png",
-    imageAlt: "Core Project Leader Pathway Checklist and Blueprint"
+    image: "/courses-hero-kanban.png",
+    imageAlt: "Course Library Kanban Task Board"
   },
   "Leadership Skills": {
     title: "Build Your Leadership Skills",
     subtitle: "Strengthen the behaviours that help you lead people and decisions well.",
     countText: "6 courses",
     image: "/courses-hero-kanban.png",
-    imageAlt: "Leadership Skills"
+    imageAlt: "Course Library Kanban Task Board"
   },
   "Functional Essentials": {
     title: "Functional Essentials",
     subtitle: "Understand the cross-functional work that makes an event possible.",
     countText: "5 courses",
-    image: "/functional-essentials-puzzle.png",
-    imageAlt: "Functional Essentials Cross-Functional Collaboration Puzzle"
+    image: "/courses-hero-kanban.png",
+    imageAlt: "Course Library Kanban Task Board"
   },
   "Personal Development": {
     title: "Personal Development",
