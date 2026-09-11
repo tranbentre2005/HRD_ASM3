@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
 import {
   ArrowRight,
   CheckCircle,
@@ -19,7 +19,7 @@ interface AccountViewProps {
 
 interface PreferenceToggleProps {
   label: string
-  description: string
+  description: ReactNode
   checked: boolean
   onChange: (checked: boolean) => void
 }
@@ -274,7 +274,13 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
           <div className="min-w-0">
             <PreferenceToggle
               label="Club Updates"
-              description="Receive selected updates about new learning resources, tools, and Project Leader development opportunities."
+              description={
+                <>
+                  Receive selected updates about new learning resources, tools,{" "}
+                  <br />
+                  and Project Leader development opportunities.
+                </>
+              }
               checked={clubUpdates}
               onChange={setClubUpdates}
             />
