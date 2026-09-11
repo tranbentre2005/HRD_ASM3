@@ -166,22 +166,22 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3 border-t border-slate-100 pt-4 text-[10px]">
-            <div className="flex items-start gap-2">
+          <div className="grid grid-cols-3 justify-items-center gap-3 border-t border-slate-100 pt-4 text-[10px]">
+            <div className="flex items-center justify-center gap-2">
               <CalendarCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
               <div>
                 <p className="font-medium text-slate-500">Member since</p>
                 <p className="mt-1 font-bold text-[#1D2A62]">Aug 2025</p>
               </div>
             </div>
-            <div className="flex items-start gap-2">
+            <div className="flex items-center justify-center gap-2">
               <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
               <div>
                 <p className="font-medium text-slate-500">Learning pathway</p>
                 <p className="mt-1 font-bold text-[#1D2A62]">Event Readiness</p>
               </div>
             </div>
-            <div className="flex items-start gap-2">
+            <div className="flex items-center justify-center gap-2">
               <UsersThree className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
               <div>
                 <p className="font-medium text-slate-500">Department</p>
