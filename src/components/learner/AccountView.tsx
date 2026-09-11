@@ -226,69 +226,67 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
       </div>
 
       <Card className="border-slate-200/90 bg-white p-5 text-left shadow-sm sm:p-6">
-        <div className="flex items-center gap-2">
-          <GearSix className="h-5 w-5 text-[#437118]" />
-          <h2 className="text-lg font-extrabold tracking-tight text-[#1D2A62]">Settings & Preferences</h2>
-        </div>
-        <p className="mt-1 text-xs leading-relaxed text-slate-500">
-          Customise your learning experience and notification preferences.
-        </p>
-
-        <div className="mt-5 grid grid-cols-1 gap-x-6 border-t border-slate-100 md:grid-cols-2">
-          <div className="divide-y divide-slate-100">
-            <div className="py-4">
-              <PreferenceToggle
-                label="Email Notifications"
-                description="Receive important course updates, reminders, and learning announcements."
-                checked={emailNotifications}
-                onChange={setEmailNotifications}
-              />
-            </div>
-            <div className="py-4">
-              <PreferenceToggle
-                label="Learning Reminders"
-                description="Get reminders to help you stay on track with your learning."
-                checked={learningReminders}
-                onChange={setLearningReminders}
-              />
-            </div>
-            <div className="py-4">
-              <PreferenceToggle
-                label="Club Updates"
-                description="Receive selected updates about new learning resources, tools, and Project Leader development opportunities."
-                checked={clubUpdates}
-                onChange={setClubUpdates}
-              />
-            </div>
+        <div className="border-b border-slate-100 pb-4">
+          <div className="flex items-center gap-2">
+            <GearSix className="h-5 w-5 text-[#437118]" />
+            <h2 className="text-lg font-extrabold tracking-tight text-[#1D2A62]">Settings & Preferences</h2>
           </div>
-          <div className="divide-y divide-slate-100">
-            <div className="py-4">
-              <PreferenceSelect
-                label="Language"
-                description="Choose your preferred platform language."
-                value={language}
-                options={["English", "Vietnamese"]}
-                onChange={setLanguage}
-              />
-            </div>
-            <div className="py-4">
-              <PreferenceSelect
-                label="Appearance"
-                description="Choose how the Learning Hub looks on your device."
-                value={appearance}
-                options={["Light Mode", "Dark Mode", "Use Device Setting"]}
-                onChange={setAppearance}
-              />
-            </div>
-            <div className="py-4">
-              <PreferenceSelect
-                label="Text Size"
-                description="Adjust the interface text size for more comfortable reading."
-                value={textSize}
-                options={["Small", "Default", "Large"]}
-                onChange={setTextSize}
-              />
-            </div>
+          <p className="mt-1 text-xs leading-relaxed text-slate-500">
+            Customise your learning experience and notification preferences.
+          </p>
+        </div>
+
+        <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+          <div className="min-w-0">
+            <PreferenceToggle
+              label="Email Notifications"
+              description="Receive important course updates, reminders, and learning announcements."
+              checked={emailNotifications}
+              onChange={setEmailNotifications}
+            />
+          </div>
+          <div className="min-w-0">
+            <PreferenceSelect
+              label="Language"
+              description="Choose your preferred platform language."
+              value={language}
+              options={["English", "Vietnamese"]}
+              onChange={setLanguage}
+            />
+          </div>
+          <div className="min-w-0">
+            <PreferenceToggle
+              label="Learning Reminders"
+              description="Get reminders to help you stay on track with your learning."
+              checked={learningReminders}
+              onChange={setLearningReminders}
+            />
+          </div>
+          <div className="min-w-0">
+            <PreferenceSelect
+              label="Appearance"
+              description="Choose how the Learning Hub looks on your device."
+              value={appearance}
+              options={["Light Mode", "Dark Mode", "Use Device Setting"]}
+              onChange={setAppearance}
+            />
+          </div>
+          <div className="min-w-0">
+            <PreferenceToggle
+              label="Club Updates"
+              description="Receive selected updates about new learning resources, tools, and Project Leader development opportunities."
+              checked={clubUpdates}
+              onChange={setClubUpdates}
+            />
+          </div>
+          <div className="min-w-0">
+            <PreferenceSelect
+              label="Text Size"
+              description="Adjust the interface text size for more comfortable reading."
+              value={textSize}
+              options={["Small", "Default", "Large"]}
+              onChange={setTextSize}
+            />
           </div>
         </div>
       </Card>
