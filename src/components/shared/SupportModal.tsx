@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Dialog, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { 
@@ -15,6 +16,7 @@ interface SupportModalProps {
 }
 
 export function SupportModal({ open, onOpenChange }: SupportModalProps) {
+  const [showAllFaqs, setShowAllFaqs] = useState(false)
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogHeader className="mb-1">
@@ -90,26 +92,69 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
           <div className="space-y-2 text-xs text-[#68707D]">
             <details className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer">
               <summary className="font-semibold text-[#1D2A62]">
-                How are practical SBI scenario assignments evaluated?
+                How do I continue a course I started?
               </summary>
               <p className="mt-1.5 pl-2 border-l-2 border-[#87AECE] text-[11px] leading-relaxed">
-                Facilitators grade assignments against the 4-part rubric (Context, Objective Behavior, Impact, Coaching Questions) on a 100-point scale. Feedback is delivered directly to your student portal.
+                Go to My Learning and select Continue Course from your current course card.
               </p>
             </details>
 
             <details className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer">
               <summary className="font-semibold text-[#1D2A62]">
-                How can I share or verify my certificate?
+                Where can I find the Event Readiness Checklist?
               </summary>
               <p className="mt-1.5 pl-2 border-l-2 border-[#87AECE] text-[11px] leading-relaxed">
-                Every certificate issued carries an authenticated credential ID verifiable by student leadership and club executive boards. You can download the PDF or copy the share link directly.
+                Open the Event Toolkit from My Learning or the Event Readiness course.
               </p>
             </details>
+
+            {showAllFaqs && (
+              <>
+                <details className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer">
+                  <summary className="font-semibold text-[#1D2A62]">
+                    What should I do if I need help applying a tool to my event?
+                  </summary>
+                  <p className="mt-1.5 pl-2 border-l-2 border-[#87AECE] text-[11px] leading-relaxed">
+                    Join the Project Leader Teams Channel, attend a support session, or contact a mentor for guidance.
+                  </p>
+                </details>
+
+                <details className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer">
+                  <summary className="font-semibold text-[#1D2A62]">
+                    How is my course progress tracked?
+                  </summary>
+                  <p className="mt-1.5 pl-2 border-l-2 border-[#87AECE] text-[11px] leading-relaxed">
+                    Your learning progress updates as your complete lessons, activities, and knowledge checks.
+                  </p>
+                </details>
+
+                <details className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer">
+                  <summary className="font-semibold text-[#1D2A62]">
+                    Can I review a completed course?
+                  </summary>
+                  <p className="mt-1.5 pl-2 border-l-2 border-[#87AECE] text-[11px] leading-relaxed">
+                    Yes. Completed courses remain available in My Learning for review at any time.
+                  </p>
+                </details>
+              </>
+            )}
+
+            {!showAllFaqs && (
+              <div className="flex justify-end pt-1">
+                <button
+                  type="button"
+                  onClick={() => setShowAllFaqs(true)}
+                  className="text-xs font-semibold text-[#1D2A62] underline decoration-[#87AECE] underline-offset-2 transition-colors hover:text-[#437118] cursor-pointer"
+                >
+                  View all
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="pt-4 border-t border-slate-100 flex justify-end mt-4">
+      <div className="pt-4 flex justify-end mt-4">
         <Button variant="outline" size="sm" onClick={() => onOpenChange(false)}>
           Close
         </Button>
