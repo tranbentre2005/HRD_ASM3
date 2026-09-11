@@ -83,7 +83,7 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
         </div>
 
         {/* FAQ Highlights */}
-        <div className="space-y-2 pt-2 border-t border-slate-100">
+        <div className="space-y-2 pt-2">
           <div className="flex items-center justify-between gap-3">
             <p className="text-xs font-bold text-[#1D2A62] flex items-center gap-1.5">
               <Question className="h-4 w-4 text-[#437118]" />
