@@ -200,8 +200,8 @@ export function EventReadinessCoursePage({
         <span className="font-semibold text-[#1D2A62]">Event Readiness</span>
       </nav>
 
-      <section className="relative overflow-hidden rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#F8FCF6] to-[#EEF7E8] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] sm:p-7">
-        <div className="pointer-events-none absolute -right-12 -top-16 h-48 w-48 rounded-full bg-[#AFD06E]/20 blur-3xl" />
+      <section className="relative overflow-hidden rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] sm:p-7">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30" />
         <div className="mb-3 flex flex-wrap items-center gap-2 lg:absolute lg:right-7 lg:top-7 lg:justify-end">
           <span className="rounded-full border border-[#AFD06E]/35 bg-[#EEF7E8] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#437118]">
             06 · DELIVER STAGE
