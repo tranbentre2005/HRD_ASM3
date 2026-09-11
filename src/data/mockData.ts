@@ -635,8 +635,6 @@ export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
     publishedAt: "Sep 11, 2026 at 12:15",
     relativeTime: "2h ago",
     isRead: false,
-    ctaText: "View Course",
-    ctaAction: "courses"
   },
   {
     id: "ann-pl-sharing-session",
