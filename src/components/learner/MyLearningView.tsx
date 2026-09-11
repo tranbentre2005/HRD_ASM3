@@ -12,7 +12,8 @@ import {
   ArrowSquareOut,
   FileText,
   ChartBar,
-  CaretRight
+  CaretRight,
+  Sparkle
 } from "@phosphor-icons/react"
 
 interface MyLearningViewProps {
@@ -506,33 +507,40 @@ export function MyLearningView({
       </div>
 
       {/* ========================================================================= */}
-      {/* 5. EVENT EXECUTION TOOLKIT: Bottom Banner matching Image #1               */}
+      {/* 5. EVENT EXECUTION TOOLKIT: Formatted to match Home page card             */}
       {/* ========================================================================= */}
-      <div className="rounded-2xl border border-[#87AECE]/35 bg-gradient-to-r from-[#F0F7FC] via-[#F6FAFD] to-[#EFF6FA] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs mt-4 text-left">
-        <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-xl bg-blue-100/70 text-[#1D2A62] border border-blue-200/50 flex items-center justify-center shrink-0 shadow-2xs">
-            <ClipboardText weight="bold" className="h-6 w-6" />
+      <div className="rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-6 sm:p-8 lg:p-10 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-6 sm:gap-8 text-left relative overflow-hidden mt-6">
+        {/* Ambient lighting layers */}
+        <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-2xl" />
+        <div className="absolute -bottom-10 left-1/4 w-72 h-72 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-2xl" />
+
+        {/* Left Content */}
+        <div className="space-y-3 max-w-2xl z-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-[#AFD06E] text-xs font-bold tracking-wide shadow-2xs">
+            <Sparkle weight="fill" className="h-3.5 w-3.5 text-[#AFD06E]" />
+            <span>EVENT TOOLKIT</span>
           </div>
 
-          <div className="space-y-0.5">
-            <h3 className="text-xs font-extrabold text-[#1D2A62] tracking-wider uppercase">
-              EVENT EXECUTION TOOLKIT
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Leading an event soon? Open practical templates and checklists for final preparation, rehearsal, and live delivery.
-            </p>
-          </div>
+          <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-tight">
+            EVENT EXECUTION TOOLKIT
+          </h3>
+
+          <p className="text-sm text-white/90 leading-relaxed">
+            Leading an event soon? Open practical templates and checklists for final preparation, rehearsal, and live delivery.
+          </p>
         </div>
 
-        <div className="shrink-0">
-          <button
-            type="button"
-            onClick={() => eventReadinessCourse && onSelectCourse(eventReadinessCourse)}
-            className="h-9 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-[#1D2A62] font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98] whitespace-nowrap"
+        {/* Right CTA Button: White button with #386b24 text matching Home card */}
+        <div className="z-10 shrink-0">
+          <a
+            href="https://rmiteduau-my.sharepoint.com/:f:/g/personal/s4063545_rmit_edu_vn/IgDxRh5pupKaRL_0n7tpIJmwAd17HHL2UKdpAGAvvEenSkg?e=Y4ZQ76"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-11 px-6 rounded-xl bg-white hover:bg-slate-50 text-[#386b24] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md flex items-center gap-2 cursor-pointer transition-all active:scale-[0.98] inline-flex no-underline group/btn whitespace-nowrap"
           >
-            <span>Open Toolkit</span>
-            <ArrowSquareOut className="h-3.5 w-3.5" />
-          </button>
+            <span>Open Event Toolkit</span>
+            <ArrowRight className="h-3.5 w-3.5 text-[#386b24] group-hover/btn:translate-x-1 transition-transform" />
+          </a>
         </div>
       </div>
     </div>
