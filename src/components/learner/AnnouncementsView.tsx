@@ -144,19 +144,18 @@ export function AnnouncementsView({
   // =========================================================================
   if (selectedItem) {
     return (
-      <div className="space-y-6 pb-16 font-sans text-left max-w-4xl mx-auto">
-        {/* Top Back Navigation */}
-        <div className="pb-1">
+      <div className="space-y-3 pb-16 font-sans text-left max-w-4xl mx-auto pt-1 sm:pt-2">
+        {/* Top Back Navigation - Larger & Closer to Information Card */}
+        <div>
           <button
             type="button"
             onClick={() => onSelectAnnouncement(null)}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D2A62] hover:text-[#437118] transition-colors cursor-pointer py-1"
+            className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-[#1D2A62] hover:text-[#437118] transition-colors cursor-pointer py-1 group"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform" />
             <span>Back to announcements</span>
           </button>
         </div>
-
         {/* Announcement Detail Article Card */}
         <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 lg:p-10 shadow-sm space-y-6">
           {/* Header Row: Type Badge + Published Time */}
