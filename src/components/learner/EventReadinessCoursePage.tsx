@@ -321,11 +321,11 @@ export function EventReadinessCoursePage({
                   </p>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
-                      ["Notice", "Identify what matters most to participants."],
+                      ["Notice", "Identify what deserves attention most to participants."],
                       ["Verify", "Check critical information against reliable sources."],
-                      ["Test", "Confirm connected event elements work together."]
+                      ["Test", "Confirm key event elements work together before delivery."]
                     ].map(([title, copy]) => (
-                      <div key={title} className="rounded-2xl border border-[#AFD06E]/35 bg-[#EEF7E8] p-4">
+                      <div key={title} className="rounded-2xl border border-[#AFD06E]/35 bg-[#EEF7E8] p-4 text-center">
                         <p className="font-bold text-[#1D2A62]">{title}</p>
                         <p className="mt-1 text-xs text-slate-600">{copy}</p>
                       </div>
