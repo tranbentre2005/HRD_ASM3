@@ -475,7 +475,7 @@ export function EventReadinessCoursePage({
                     <div>
                       <h3 className="mt-3 text-center text-lg font-bold uppercase text-[#1D2A62]">Readiness Pathway - The critical transition</h3>
                       <div
-                        className="mt-[18px] flex flex-col items-stretch gap-2 outline-none sm:flex-row sm:items-end sm:gap-0"
+                        className="mt-[21px] flex flex-col items-stretch gap-2 outline-none sm:flex-row sm:items-end sm:gap-0"
                         tabIndex={0}
                         onMouseEnter={() => setIsPathwayHovered(true)}
                         onMouseLeave={() => setIsPathwayHovered(false)}
@@ -529,7 +529,8 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-base font-bold uppercase tracking-wide text-[#1D2A62]">Comparison between “Done” and “Ready” meaning</h3>
+                      <h3 className="text-center text-lg font-bold text-[#1D2A62]">Done vs Ready</h3>
+                      <p className="mt-1 text-center text-sm text-slate-600">What changes when a task moves from complete to participant-ready?</p>
                       <div className="mt-3 grid gap-3 md:grid-cols-2">
                         <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                           <p className="font-bold text-[#2F668B]">DONE - A task-level status</p>
