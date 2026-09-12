@@ -616,6 +616,11 @@ export function EventReadinessCoursePage({
                             <h3 className={`text-base font-extrabold tracking-wide ${isDoneCategory ? "text-[#2F668B]" : "text-[#437118]"}`}>{category}</h3>
                             <span className="rounded-full bg-white/75 px-2 py-1 text-[11px] font-semibold text-slate-500">{categoryStatements.length}/3</span>
                           </div>
+                          {readinessAllCorrect && (
+                            <p className={`mt-1 text-xs font-semibold ${isDoneCategory ? "text-[#2F668B]" : "text-[#437118]"}`}>
+                              {isDoneCategory ? "A task-level status" : "An event-level judgement"}
+                            </p>
+                          )}
                           <div className="mt-3 space-y-2">
                             {categoryStatements.map(statement => {
                               const isCorrect = readinessSubmitted && statement.category === category
@@ -656,6 +661,11 @@ export function EventReadinessCoursePage({
                               <p className="rounded-xl border border-dashed border-slate-300 bg-white/50 p-4 text-center text-xs text-slate-500">Drop statements here</p>
                             )}
                           </div>
+                          {readinessAllCorrect && (
+                            <p className="mt-3 text-xs font-semibold text-[#1D2A62]">
+                              {isDoneCategory ? "Outcome: You have an output" : "Outcome: You have confidence it can work"}
+                            </p>
+                          )}
                         </div>
                       )
                     })}
