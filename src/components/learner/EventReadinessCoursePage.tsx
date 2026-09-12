@@ -180,6 +180,8 @@ export function EventReadinessCoursePage({
 
   const isCompleted = completedLessonIds.includes(activeLesson.id)
   const isGettingStarted = activeLesson.section === "GETTING STARTED"
+  const isLearnAndPractise = activeLesson.section === "LEARN & PRACTISE"
+  const isDarkHeader = isGettingStarted || isLearnAndPractise
   const primaryLabel = "Next"
 
   return (
@@ -296,13 +298,19 @@ export function EventReadinessCoursePage({
 
         <main className="min-w-0 space-y-5">
           <Card className="overflow-hidden border-slate-200/90 shadow-sm">
-            <div className={`flex flex-col gap-4 border-b p-5 sm:flex-row sm:items-start sm:justify-between sm:p-7 ${isGettingStarted ? "border-[#AFD06E]/30 bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31]" : "border-slate-100 bg-[#F8FCF6]"}`}>
+            <div className={`flex flex-col gap-4 border-b p-5 sm:flex-row sm:items-start sm:justify-between sm:p-7 ${
+              isGettingStarted
+                ? "border-[#AFD06E]/30 bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31]"
+                : isLearnAndPractise
+                  ? "border-[#87AECE]/35 bg-gradient-to-br from-[#132552] via-[#1D4B85] to-[#2F6FA3]"
+                  : "border-slate-100 bg-[#F8FCF6]"
+            }`}>
               <div>
-                <p className={`text-[10px] font-extrabold uppercase tracking-wider ${isGettingStarted ? "text-[#D8F0B0]" : "text-[#437118]"}`}>{activeLesson.section}</p>
-                <h2 className={`mt-1 text-xl font-extrabold leading-tight ${isGettingStarted ? "text-white" : "text-[#1D2A62]"} sm:text-2xl`}>{activeLesson.title}</h2>
+                <p className={`text-[10px] font-extrabold uppercase tracking-wider ${isDarkHeader ? "text-[#C8E3F5]" : "text-[#437118]"}`}>{activeLesson.section}</p>
+                <h2 className={`mt-1 text-xl font-extrabold leading-tight ${isDarkHeader ? "text-white" : "text-[#1D2A62]"} sm:text-2xl`}>{activeLesson.title}</h2>
               </div>
-              <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1 ${isGettingStarted ? "bg-white/15 text-white ring-white/25" : "bg-white text-slate-500 ring-slate-200"}`}>
-                {isCompleted ? <CheckCircle weight="fill" className={`h-3.5 w-3.5 ${isGettingStarted ? "text-[#AFD06E]" : "text-[#437118]"}`} /> : <Target className={`h-3.5 w-3.5 ${isGettingStarted ? "text-[#D8F0B0]" : "text-[#1D2A62]"}`} />}
+              <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1 ${isDarkHeader ? "bg-white/15 text-white ring-white/25" : "bg-white text-slate-500 ring-slate-200"}`}>
+                {isCompleted ? <CheckCircle weight="fill" className={`h-3.5 w-3.5 ${isDarkHeader ? "text-[#AFD06E]" : "text-[#437118]"}`} /> : <Target className={`h-3.5 w-3.5 ${isDarkHeader ? "text-[#C8E3F5]" : "text-[#1D2A62]"}`} />}
                 {isCompleted ? "Completed" : `Item ${activeLessonIndex + 1} of ${OUTLINE_ITEMS.length}`}
               </span>
             </div>
