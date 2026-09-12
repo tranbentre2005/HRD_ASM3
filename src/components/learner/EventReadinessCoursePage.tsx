@@ -11,7 +11,9 @@ import {
   Clock,
   Flag,
   Lightbulb,
+  Microphone,
   PlayCircle,
+  Presentation,
   ShieldCheck,
   Sparkle,
   Target,
@@ -376,14 +378,24 @@ export function EventReadinessCoursePage({
 
                   <div className="grid gap-3 md:grid-cols-3">
                     {[
-                      { title: "Venue & speakers", copy: "The venue is booked. Speakers are confirmed.", Icon: Flag },
-                      { title: "Team & run sheet", copy: "Volunteers are assigned. A run sheet exists.", Icon: UsersThree },
-                      { title: "Participant materials", copy: "Participant List done. Slide done, MC script done.", Icon: BookOpen }
-                    ].map(({ title, copy, Icon }) => (
-                      <div key={title} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs">
-                        <Icon weight="fill" className="h-5 w-5 text-[#2F668B]" />
-                        <p className="mt-3 font-bold text-[#1D2A62]">{title}</p>
-                        <p className="mt-1 text-xs leading-relaxed text-slate-600">{copy}</p>
+                      { title: "MC Script", owner: "Program Team", Icon: Microphone },
+                      { title: "Participant Slides", owner: "Content Team", Icon: Presentation },
+                      { title: "Participant List", owner: "Registration Team", Icon: UsersThree }
+                    ].map(({ title, owner, Icon }) => (
+                      <div key={title} className={`min-h-60 rounded-2xl border bg-white p-5 shadow-2xs sm:p-7 ${title === "Participant Slides" ? "border-[#6E9D75]" : "border-[#D5E4D7]"}`}>
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF7F0] text-[#668B45]">
+                            <Icon weight="regular" className="h-7 w-7" />
+                          </div>
+                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#D5E4D7] bg-[#F2F7F3] px-3 py-1.5 text-sm font-medium text-slate-600">
+                            <Check className="h-4 w-4 text-[#668B72]" />
+                            Done
+                          </span>
+                        </div>
+                        <div className="mt-8">
+                          <p className="text-xl font-bold leading-tight text-[#151A17]">{title}</p>
+                          <p className="mt-2 text-sm text-slate-600">Owner: {owner}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
