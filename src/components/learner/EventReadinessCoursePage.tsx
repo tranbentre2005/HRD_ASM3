@@ -336,13 +336,13 @@ export function EventReadinessCoursePage({
                   <p>By the end of Event Readiness, you will be able to:</p>
                   <ul className="space-y-3">
                     {[
-                      "Recognise which event elements require the most attention before delivery based on their potential impact on participants and event flow.",
-                      "Use reliable, up-to-date sources to verify that critical information is accurate and ready for use.",
-                      "Identify readiness gaps when completed tasks still need to be tested together, and select appropriate follow-up actions to ensure the event flow works as intended."
-                    ].map(outcome => (
-                      <li key={outcome} className="flex items-center gap-2">
-                        <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-[#437118]" />
-                        <span className="font-medium">{outcome}</span>
+                      { text: "Recognise which event elements require the most attention before delivery based on their potential impact on participants and event flow.", colorClass: "text-[#437118]" },
+                      { text: "Use reliable, up-to-date sources to verify that critical information is accurate and ready for use.", colorClass: "text-[#2F668B]" },
+                      { text: "Identify readiness gaps when completed tasks still need to be tested together, and select appropriate follow-up actions to ensure the event flow works as intended.", colorClass: "text-[#A66C00]" }
+                    ].map(({ text, colorClass }) => (
+                      <li key={text} className="flex items-center gap-2">
+                        <CheckCircle weight="fill" className={`h-4 w-4 shrink-0 ${colorClass}`} />
+                        <span className={`font-medium ${colorClass}`}>{text}</span>
                       </li>
                     ))}
                   </ul>
