@@ -40,6 +40,7 @@ type SavedCourseState = {
   activeLessonId: string
   completedLessonIds: string[]
   quickCheckAnswer: string
+  openingQuestionAnswer: string
   feedbackRating: string
   feedbackText: string
 }
@@ -91,6 +92,7 @@ function getSavedCourseState(): SavedCourseState {
     activeLessonId: "1.0-done-ready",
     completedLessonIds: DEFAULT_COMPLETED_IDS,
     quickCheckAnswer: "",
+    openingQuestionAnswer: "",
     feedbackRating: "",
     feedbackText: ""
   }
@@ -112,6 +114,7 @@ function getSavedCourseState(): SavedCourseState {
       activeLessonId,
       completedLessonIds,
       quickCheckAnswer: typeof parsed.quickCheckAnswer === "string" ? parsed.quickCheckAnswer : "",
+      openingQuestionAnswer: typeof parsed.openingQuestionAnswer === "string" ? parsed.openingQuestionAnswer : "",
       feedbackRating: typeof parsed.feedbackRating === "string" ? parsed.feedbackRating : "",
       feedbackText: typeof parsed.feedbackText === "string" ? parsed.feedbackText : ""
     }
@@ -130,6 +133,7 @@ export function EventReadinessCoursePage({
   const [activeLessonId, setActiveLessonId] = useState(initialState.activeLessonId)
   const [completedLessonIds, setCompletedLessonIds] = useState(initialState.completedLessonIds)
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
+  const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -145,10 +149,11 @@ export function EventReadinessCoursePage({
       activeLessonId,
       completedLessonIds,
       quickCheckAnswer,
+      openingQuestionAnswer,
       feedbackRating,
       feedbackText
     }))
-  }, [activeLessonId, completedLessonIds, quickCheckAnswer, feedbackRating, feedbackText])
+  }, [activeLessonId, completedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackRating, feedbackText])
 
   const markComplete = (lessonId: string) => {
     setCompletedLessonIds(previous => previous.includes(lessonId) ? previous : [...previous, lessonId])
@@ -359,11 +364,65 @@ export function EventReadinessCoursePage({
 
               {activeLesson.id === "1.0-done-ready" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#EAF4FA] p-5">
-                    <div className="flex items-center gap-2 font-bold text-[#1D2A62]"><Lightbulb weight="fill" className="h-5 w-5 text-[#437118]" />Done is evidence. Ready is confidence.</div>
-                    <p className="mt-2 text-xs text-slate-600">A finished checklist does not guarantee that participants can find, understand, and use what they need.</p>
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                    <div className="flex items-center gap-2 font-bold text-[#1D2A62]">
+                      <Clock weight="fill" className="h-5 w-5 text-[#2F668B]" />
+                      Opening Question
+                    </div>
+                    <p className="mt-3 text-base font-bold text-[#1D2A62]">48 hours before the event</p>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-600">The venue is booked. Speakers are confirmed. Volunteers are assigned. A run sheet exists. Participant List done. Slide done, MC script done.</p>
                   </div>
-                  <p>Separate completion from readiness by checking the participant journey from first message to final handover.</p>
+
+                  <div className="grid gap-3 md:grid-cols-3">
+                    {[
+                      { title: "Venue & speakers", copy: "The venue is booked. Speakers are confirmed.", Icon: Flag },
+                      { title: "Team & run sheet", copy: "Volunteers are assigned. A run sheet exists.", Icon: UsersThree },
+                      { title: "Participant materials", copy: "Participant List done. Slide done, MC script done.", Icon: BookOpen }
+                    ].map(({ title, copy, Icon }) => (
+                      <div key={title} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs">
+                        <Icon weight="fill" className="h-5 w-5 text-[#2F668B]" />
+                        <p className="mt-3 font-bold text-[#1D2A62]">{title}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-slate-600">{copy}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#EAF4FA] p-5">
+                    <p className="font-bold text-[#1D2A62]">Can the team say the event is ready for participants?</p>
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      {[
+                        { value: "yes", label: "A. Yes. Major tasks are complete." },
+                        { value: "not-necessarily", label: "B. Not necessarily." }
+                      ].map(({ value, label }) => (
+                        <button
+                          key={value}
+                          type="button"
+                          onClick={() => setOpeningQuestionAnswer(value)}
+                          className={`rounded-xl border p-3 text-left text-sm font-semibold transition-colors cursor-pointer ${openingQuestionAnswer === value ? "border-[#2F668B] bg-[#2F668B] text-white ring-1 ring-[#2F668B]" : "border-[#87AECE]/40 bg-white text-[#1D2A62] hover:bg-[#F0F7FC]"}`}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {openingQuestionAnswer && (
+                    <div className={`rounded-2xl border p-5 ${openingQuestionAnswer === "yes" ? "border-[#F3C979]/45 bg-[#FFF7E5]" : "border-[#AFD06E]/40 bg-[#EEF7E8]"}`}>
+                      <p className="font-bold text-[#1D2A62]">Feedback</p>
+                      {openingQuestionAnswer === "yes" ? (
+                        <>
+                          <p className="mt-2 font-bold text-[#A66C00]">Not quite.</p>
+                          <p className="mt-1 text-xs leading-relaxed text-slate-600">A task can be complete but still contain outdated information, depend on another version, or fail when used together with other event elements.</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="mt-2 font-bold text-[#437118]">Exactly.</p>
+                          <p className="mt-1 text-xs leading-relaxed text-slate-600">Completion tells you a task was finished. It does not prove the information is current, connected assets match, or the full sequence will work in practice.</p>
+                          <p className="mt-3 text-xs leading-relaxed text-slate-600">An event is participant-ready only when the end-to-end experience can work for the people attending it.</p>
+                        </>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
 
