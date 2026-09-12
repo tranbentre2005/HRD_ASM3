@@ -432,8 +432,7 @@ export function EventReadinessCoursePage({
                           ) : (
                             <>
                               <p className="font-bold text-[#437118]">Exactly.</p>
-                              <p className="mt-1 text-xs leading-relaxed text-slate-600">Completion tells you a task was finished. It does not prove the information is current, connected assets match, or the full sequence will work in practice.</p>
-                              <p className="mt-3 text-xs leading-relaxed text-slate-600">An event is participant-ready only when the end-to-end experience can work for the people attending it.</p>
+                              <p className="mt-1 text-xs leading-relaxed text-slate-600">Completion tells you a task was finished. It does not prove the information is current, connected assets match, or the full sequence will work in practice. An event is participant-ready only when the end-to-end experience can work for the people attending it.</p>
                             </>
                           )}
                         </div>
