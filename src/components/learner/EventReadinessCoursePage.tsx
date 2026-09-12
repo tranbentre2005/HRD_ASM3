@@ -336,9 +336,9 @@ export function EventReadinessCoursePage({
                   <p>By the end of Event Readiness, you will be able to:</p>
                   <ul className="space-y-3">
                     {[
-                      "Prioritise participant-critical details before delivery.",
-                      "Validate dates, owners, locations, links, and instructions against a trusted source.",
-                      "Use a short simulation to test whether the event flow works as one connected experience."
+                      "Recognise which event elements require the most attention before delivery based on their potential impact on participants and event flow.",
+                      "Use reliable, up-to-date sources to verify that critical information is accurate and ready for use.",
+                      "Identify readiness gaps when completed tasks still need to be tested together, and select appropriate follow-up actions to ensure the event flow works as intended."
                     ].map(outcome => (
                       <li key={outcome} className="flex items-start gap-2">
                         <CheckCircle weight="fill" className="mt-0.5 h-4 w-4 shrink-0 text-[#437118]" />
