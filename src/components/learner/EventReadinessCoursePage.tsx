@@ -81,7 +81,6 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
     title: "LEARN & PRACTISE",
     items: [
       { id: "1.0-done-ready", title: "1.0 | What Does “Event Ready” Actually Mean?", section: "LEARN & PRACTISE" },
-      { id: "1.1-ready-framework", title: "1.1 | The Event Ready Framework", section: "LEARN & PRACTISE" },
       { id: "1.2-ready-simulation", title: "1.2 | Event Ready Simulation", section: "LEARN & PRACTISE" }
     ]
   },
@@ -196,7 +195,7 @@ export function EventReadinessCoursePage({
 
   const handlePrimaryAction = () => {
     if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
-    if (activeLesson.id === "1.1-ready-framework" && !readinessAllCorrect) return
+    if (activeLesson.id === "1.0-done-ready" && (openingQuestionAnswer !== "not-necessarily" || !readinessAllCorrect)) return
 
     markComplete(activeLesson.id)
     const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
@@ -571,45 +570,6 @@ export function EventReadinessCoursePage({
                         })}
                       </div>
                     </div>
-                    <div>
-                      <h3 className="text-center text-lg font-bold text-[#1D2A62]">DONE VS READY</h3>
-                      <p className="mt-1 text-center text-sm text-slate-600">What changes when a task moves from complete to participant-ready?</p>
-                      <div className="mt-3 grid gap-3 md:grid-cols-2">
-                        <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                          <p className="font-bold text-[#2F668B]">DONE - A task-level status</p>
-                          <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
-                            <li>• Someone completed the task.</li>
-                            <li>• The owner reports it is finished.</li>
-                            <li>• The individual output exists.</li>
-                          </ul>
-                          <p className="mt-4 text-sm font-semibold text-[#1D2A62]">Outcome: You have an output.</p>
-                        </div>
-                        <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
-                          <p className="font-bold text-[#437118]">READY - An event-level judgement</p>
-                          <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
-                            <li>• Critical information is accurate and current.</li>
-                            <li>• Important dependencies have been checked.</li>
-                            <li>• The relevant sequence has been tested for delivery.</li>
-                          </ul>
-                          <p className="mt-4 text-sm font-semibold text-[#1D2A62]">Outcome: You have confidence it can work.</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
-                      <div className="flex items-center gap-2 font-bold text-[#437118]">
-                        <Lightbulb weight="fill" className="h-5 w-5" />
-                        Key Takeaway
-                      </div>
-                      <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">Readiness is an event-level judgement, not a collection of completed tasks.</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-slate-600">Completion tells you what is finished. Readiness tells you whether it can work reliably in the real event.</p>
-                    </div>
-                  </div>
-                  )}
-                </div>
-              )}
-
-              {activeLesson.id === "1.1-ready-framework" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   <div className="space-y-1">
                     <p className="font-semibold text-[#1D2A62]">Drag each statement into the correct category: Done or Ready.</p>
@@ -732,7 +692,11 @@ export function EventReadinessCoursePage({
                     </div>
                   )}
                 </div>
+                  </div>
+                  )}
+                </div>
               )}
+
 
               {activeLesson.id === "1.2-ready-simulation" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
@@ -820,7 +784,7 @@ export function EventReadinessCoursePage({
                   ) : (
                     <span />
                   )}
-                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.1-ready-framework" && !readinessAllCorrect)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                     {primaryLabel}
                     <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Button>
