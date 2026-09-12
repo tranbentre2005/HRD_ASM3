@@ -315,9 +315,9 @@ export function EventReadinessCoursePage({
                   </p>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
-                      { title: "Notice", copy: "Identify what deserves attention most to participants.", cardClass: "border-[#AFD06E]/35 bg-[#EEF7E8]", Icon: Lightbulb },
-                      { title: "Verify", copy: "Check critical information against reliable sources.", cardClass: "border-[#87AECE]/35 bg-[#F0F7FC]", Icon: ShieldCheck },
-                      { title: "Test", copy: "Confirm key event elements work together before delivery.", cardClass: "border-[#F3C979]/45 bg-[#FFF7E5]", Icon: PlayCircle }
+                      { title: "Prioritise", copy: "Identify what matters most to participants and event delivery.", cardClass: "border-[#AFD06E]/35 bg-[#EEF7E8]", Icon: Lightbulb },
+                      { title: "Verify", copy: "Check critical information against reliable, up-to-date sources.", cardClass: "border-[#87AECE]/35 bg-[#F0F7FC]", Icon: ShieldCheck },
+                      { title: "Test", copy: "Confirm that connected event elements work together before delivery.", cardClass: "border-[#F3C979]/45 bg-[#FFF7E5]", Icon: PlayCircle }
                     ].map(({ title, copy, cardClass, Icon }) => (
                       <div key={title} className={`rounded-2xl border p-4 text-center ${cardClass}`}>
                         <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/80 text-[#437118] ring-1 ring-black/5">
