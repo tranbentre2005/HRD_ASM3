@@ -83,7 +83,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                       className="h-11 w-auto object-contain"
                     />
                   </div>
-                  <div className="pl-2.5" style={{ transform: "translate(-15%, 10%)" }}>
+                  <div className="pl-2.5" style={{ transform: "translate(12%, 10%)" }}>
                     <span className="text-xs font-bold text-[#1D2A62] tracking-tight uppercase block leading-tight">
                       RMIT VIETNAM FINANCE CLUB SGS
                     </span>
