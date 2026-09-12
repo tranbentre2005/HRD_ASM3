@@ -571,7 +571,7 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <h3 className="mt-3 text-center text-lg font-bold uppercase text-[#1D2A62]">DONE VS READY</h3>
+                  <h3 className="mt-[15px] text-center text-lg font-bold uppercase text-[#386b24]">DONE VS READY</h3>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-4">
                     <div className="flex items-center gap-2">
