@@ -425,7 +425,7 @@ export function EventReadinessCoursePage({
                           key={value}
                           type="button"
                           onClick={() => setOpeningQuestionAnswer(value)}
-                          className={`rounded-xl border p-3 text-left text-sm font-semibold transition-colors cursor-pointer ${openingQuestionAnswer === value ? "border-[#2F668B] bg-[#2F668B] text-white ring-1 ring-[#2F668B]" : "border-[#87AECE]/40 bg-white text-[#1D2A62] hover:bg-[#F0F7FC]"}`}
+                          className={`rounded-xl border p-3 text-center text-sm font-semibold transition-colors cursor-pointer ${openingQuestionAnswer === value ? "border-[#2F668B] bg-[#2F668B] text-white ring-1 ring-[#2F668B]" : "border-[#87AECE]/40 bg-white text-[#1D2A62] hover:bg-[#F0F7FC]"}`}
                         >
                           {label}
                         </button>
@@ -469,7 +469,7 @@ export function EventReadinessCoursePage({
                     </div>
 
                     <div>
-                      <h3 className="text-base font-bold text-[#1D2A62]">Readiness Pathway - The critical transition</h3>
+                      <h3 className="text-center text-base font-bold uppercase text-[#1D2A62]">Readiness Pathway - The critical transition</h3>
                       <div className="mt-3 grid gap-3 sm:grid-cols-4">
                         {[
                           { label: "Done", detail: "Output exists", Icon: CheckCircle, className: "border-[#87AECE]/35 bg-[#F0F7FC] text-[#2F668B]" },
@@ -484,7 +484,6 @@ export function EventReadinessCoursePage({
                           </div>
                         ))}
                       </div>
-                      <p className="mt-3 text-center text-sm font-bold tracking-wide text-[#1D2A62]">Done → Verify → Test → Ready</p>
                     </div>
 
                     <div>
