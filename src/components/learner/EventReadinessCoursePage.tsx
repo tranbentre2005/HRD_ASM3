@@ -316,8 +316,8 @@ export function EventReadinessCoursePage({
             <div className="space-y-6 p-5 sm:p-7">
               {activeLesson.id === "course-overview" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <p>
-                    Event readiness is the final verification step before delivery. This course helps you check the details that participants experience, not only the work your team has completed behind the scenes.
+                  <p className="text-[#1D2A62]">
+                    Event readiness is the final verification step before delivery. This course helps you check the details that participants experience, not only the work your team has completed behind the scenes. It helps Project Leaders understand what “event ready” really means and how to move an event from simply being done to being ready for participants.
                   </p>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
