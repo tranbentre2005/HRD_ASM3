@@ -340,8 +340,8 @@ export function EventReadinessCoursePage({
                       "Use reliable, up-to-date sources to verify that critical information is accurate and ready for use.",
                       "Identify readiness gaps when completed tasks still need to be tested together, and select appropriate follow-up actions to ensure the event flow works as intended."
                     ].map(outcome => (
-                      <li key={outcome} className="flex items-start gap-2">
-                        <CheckCircle weight="fill" className="mt-0.5 h-4 w-4 shrink-0 text-[#437118]" />
+                      <li key={outcome} className="flex items-center gap-2">
+                        <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-[#437118]" />
                         <span>{outcome}</span>
                       </li>
                     ))}
