@@ -454,7 +454,7 @@ export function EventReadinessCoursePage({
                 </div>
               )}
 
-              <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex w-full items-center justify-between gap-3">
                   {activeLessonIndex > 0 ? (
                     <Button type="button" variant="outline" onClick={handlePrevious} className="flex-1 cursor-pointer sm:flex-none">
