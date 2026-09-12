@@ -20,7 +20,8 @@ import {
   ShieldCheck,
   Sparkle,
   Target,
-  UsersThree
+  UsersThree,
+  XCircle
 } from "@phosphor-icons/react"
 
 interface EventReadinessCoursePageProps {
@@ -49,6 +50,22 @@ type SavedCourseState = {
   feedbackRating: string
   feedbackText: string
 }
+type ReadinessCategory = "DONE" | "READY"
+
+type ReadinessStatement = {
+  id: string
+  text: string
+  category: ReadinessCategory
+}
+
+const READINESS_STATEMENTS: ReadinessStatement[] = [
+  { id: "output-exists", text: "The output exists.", category: "DONE" },
+  { id: "owner-finished", text: "The owner says it is finished.", category: "DONE" },
+  { id: "participant-information-verified", text: "The latest participant information has been verified.", category: "READY" },
+  { id: "connected-assets-tested", text: "The MC script, participant list, and slides have been tested together.", category: "READY" },
+  { id: "slide-deck-completed", text: "The slide deck has been completed.", category: "DONE" },
+  { id: "event-sequence-checked", text: "The final event sequence has been checked for delivery.", category: "READY" }
+]
 
 const COURSE_PROGRESS_KEY = "rmit-finance-club:event-readiness-progress"
 
@@ -141,12 +158,16 @@ export function EventReadinessCoursePage({
   const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
+  const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
+  const [readinessSubmitted, setReadinessSubmitted] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
   const completedCount = completedLessonIds.length
+  const readinessAllPlaced = READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id])
+  const readinessAllCorrect = readinessSubmitted && readinessAllPlaced && READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id] === statement.category)
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
     : Math.max(course.progress, Math.round((completedCount / OUTLINE_ITEMS.length) * 100))
@@ -175,6 +196,7 @@ export function EventReadinessCoursePage({
 
   const handlePrimaryAction = () => {
     if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
+    if (activeLesson.id === "1.1-ready-framework" && !readinessAllCorrect) return
 
     markComplete(activeLesson.id)
     const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
@@ -184,6 +206,27 @@ export function EventReadinessCoursePage({
 
     const nextLesson = OUTLINE_ITEMS[activeLessonIndex + 1]
     if (nextLesson) setActiveLessonId(nextLesson.id)
+  }
+  const handleReadinessPlacement = (statementId: string, category: ReadinessCategory) => {
+    setReadinessPlacements(previous => ({ ...previous, [statementId]: category }))
+    setReadinessSubmitted(false)
+  }
+
+  const handleReadinessDrop = (event: React.DragEvent<HTMLDivElement>, category: ReadinessCategory) => {
+    event.preventDefault()
+    const statementId = event.dataTransfer.getData("text/plain")
+    if (READINESS_STATEMENTS.some(statement => statement.id === statementId)) {
+      handleReadinessPlacement(statementId, category)
+    }
+  }
+
+  const handleReadinessSubmit = () => {
+    if (readinessAllPlaced) setReadinessSubmitted(true)
+  }
+
+  const handleReadinessTryAgain = () => {
+    setReadinessPlacements({})
+    setReadinessSubmitted(false)
   }
   const handlePrevious = () => {
     const previousLesson = OUTLINE_ITEMS[activeLessonIndex - 1]
@@ -568,20 +611,126 @@ export function EventReadinessCoursePage({
 
               {activeLesson.id === "1.1-ready-framework" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <p>Use the Event Ready Framework as a repeatable three-step scan:</p>
-                  <div className="grid gap-3 md:grid-cols-3">
-                    {[
-                      ["1", "Participant-critical", "What must be clear for people to take the next step?"],
-                      ["2", "Source-verified", "Which details need a reliable source before sharing?"],
-                      ["3", "Connected flow", "Where could one broken handoff interrupt the experience?"]
-                    ].map(([number, title, copy]) => (
-                      <div key={number} className="rounded-2xl border border-[#87AECE]/40 bg-gradient-to-br from-[#1D2A62] via-[#274B89] to-[#356B9A] p-4 shadow-2xs">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white ring-1 ring-white/25">{number}</span>
-                        <p className="mt-3 font-bold text-white">{title}</p>
-                        <p className="mt-1 text-xs text-[#DCEBFA]">{copy}</p>
-                      </div>
-                    ))}
+                  <div className="space-y-1">
+                    <p className="font-semibold text-[#1D2A62]">Drag each statement into the correct category: Done or Ready.</p>
+                    <p className="text-xs text-slate-500">Move every card into one of the two columns, then submit your answers.</p>
                   </div>
+
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-4">
+                    <div className="flex items-center gap-2">
+                      <Target className="h-5 w-5 text-[#437118]" />
+                      <div>
+                        <p className="font-bold text-[#1D2A62]">Statements to sort</p>
+                        <p className="text-xs text-slate-500">{readinessAllPlaced ? "All statements have been placed." : `${READINESS_STATEMENTS.length - Object.keys(readinessPlacements).length} statements left to place.`}</p>
+                      </div>
+                    </div>
+                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                      {READINESS_STATEMENTS.filter(statement => !readinessPlacements[statement.id]).map(statement => (
+                        <div
+                          key={statement.id}
+                          draggable
+                          onDragStart={event => {
+                            event.dataTransfer.effectAllowed = "move"
+                            event.dataTransfer.setData("text/plain", statement.id)
+                          }}
+                          aria-label={`Drag statement: ${statement.text}`}
+                          className="cursor-grab rounded-xl border border-slate-200 bg-white p-3 text-xs font-medium text-slate-700 shadow-2xs transition hover:-translate-y-0.5 hover:border-[#87AECE] hover:shadow-sm active:cursor-grabbing"
+                        >
+                          {statement.text}
+                        </div>
+                      ))}
+                      {readinessAllPlaced && (
+                        <p className="text-xs font-medium text-[#437118] sm:col-span-2">All cards are in a category. Review your choices, then submit.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="grid gap-3 md:grid-cols-2">
+                    {(["DONE", "READY"] as ReadinessCategory[]).map(category => {
+                      const categoryStatements = READINESS_STATEMENTS.filter(statement => readinessPlacements[statement.id] === category)
+                      const isDoneCategory = category === "DONE"
+                      return (
+                        <div
+                          key={category}
+                          onDragOver={event => event.preventDefault()}
+                          onDrop={event => handleReadinessDrop(event, category)}
+                          className={`min-h-52 rounded-2xl border p-4 transition-colors ${isDoneCategory ? "border-[#87AECE]/45 bg-[#F0F7FC]" : "border-[#AFD06E]/45 bg-[#EEF7E8]"}`}
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <h3 className={`text-base font-extrabold tracking-wide ${isDoneCategory ? "text-[#2F668B]" : "text-[#437118]"}`}>{category}</h3>
+                            <span className="rounded-full bg-white/75 px-2 py-1 text-[11px] font-semibold text-slate-500">{categoryStatements.length}/3</span>
+                          </div>
+                          <div className="mt-3 space-y-2">
+                            {categoryStatements.map(statement => {
+                              const isCorrect = readinessSubmitted && statement.category === category
+                              const isIncorrect = readinessSubmitted && statement.category !== category
+                              return (
+                                <div
+                                  key={statement.id}
+                                  draggable
+                                  onDragStart={event => {
+                                    event.dataTransfer.effectAllowed = "move"
+                                    event.dataTransfer.setData("text/plain", statement.id)
+                                  }}
+                                  className={`cursor-grab rounded-xl border bg-white p-3 text-xs font-medium shadow-2xs transition active:cursor-grabbing ${
+                                    isCorrect
+                                      ? "border-[#70A64B] ring-1 ring-[#70A64B]/40"
+                                      : isIncorrect
+                                        ? "border-[#D66B5D] ring-1 ring-[#D66B5D]/30"
+                                        : "border-white/80 hover:-translate-y-0.5 hover:shadow-sm"
+                                  }`}
+                                >
+                                  <div className="flex items-start justify-between gap-2">
+                                    <span className="text-slate-700">{statement.text}</span>
+                                    {readinessSubmitted && (
+                                      isCorrect
+                                        ? <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-[#437118]" />
+                                        : <XCircle weight="fill" className="h-4 w-4 shrink-0 text-[#B7473C]" />
+                                    )}
+                                  </div>
+                                  {readinessSubmitted && (
+                                    <p className={`mt-1 text-[11px] font-semibold ${isCorrect ? "text-[#437118]" : "text-[#B7473C]"}`}>
+                                      {isCorrect ? "Correct" : `Incorrect — belongs in ${statement.category}`}
+                                    </p>
+                                  )}
+                                </div>
+                              )
+                            })}
+                            {categoryStatements.length === 0 && (
+                              <p className="rounded-xl border border-dashed border-slate-300 bg-white/50 p-4 text-center text-xs text-slate-500">Drop statements here</p>
+                            )}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+
+                  <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-xs text-slate-500">{readinessSubmitted ? `${READINESS_STATEMENTS.filter(statement => readinessPlacements[statement.id] === statement.category).length} of ${READINESS_STATEMENTS.length} statements are correct.` : "Submit once all six statements are in a category."}</p>
+                    <Button type="button" onClick={handleReadinessSubmit} disabled={!readinessAllPlaced || readinessAllCorrect} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                      Submit
+                    </Button>
+                  </div>
+
+                  {readinessSubmitted && !readinessAllCorrect && (
+                    <div className="flex flex-col gap-3 rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-4 sm:flex-row sm:items-center sm:justify-between">
+                      <p className="text-xs font-semibold text-[#8B5E00]">Some placements are incorrect. Try again and move the cards to the right category.</p>
+                      <Button type="button" variant="outline" onClick={handleReadinessTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                        Try Again
+                      </Button>
+                    </div>
+                  )}
+
+                  {readinessAllCorrect && (
+                    <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#437118]">
+                        <Lightbulb weight="fill" className="h-5 w-5" />
+                        Key Takeaway
+                      </div>
+                      <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">Readiness is an event-level judgement, not a collection of completed tasks.</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-600">Completion tells you what is finished. Readiness tells you whether it can work reliably in the real event.</p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -671,7 +820,7 @@ export function EventReadinessCoursePage({
                   ) : (
                     <span />
                   )}
-                  <Button type="button" onClick={handlePrimaryAction} disabled={activeLesson.id === "2.0-quick-check" && !quickCheckAnswer} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.1-ready-framework" && !readinessAllCorrect)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                     {primaryLabel}
                     <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Button>
