@@ -188,20 +188,20 @@ export function EventReadinessCoursePage({
 
   return (
     <div className="space-y-5 pb-16 font-sans text-left">
-      <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs font-medium text-slate-500">
-        <button type="button" onClick={onNavigateHome} className="cursor-pointer transition-colors hover:text-[#1D2A62] hover:underline">
-          Home
-        </button>
-        <span className="text-slate-300">/</span>
-        <button type="button" onClick={onNavigateCourses} className="cursor-pointer transition-colors hover:text-[#1D2A62] hover:underline">
-          Courses
-        </button>
-        <span className="text-slate-300">/</span>
-        <span className="font-semibold text-[#1D2A62]">Event Readiness</span>
-      </nav>
 
       <section className="relative overflow-hidden rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] sm:p-7">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30" />
+        <nav aria-label="Breadcrumb" className="relative z-10 mb-5 flex flex-wrap items-center gap-1.5 text-xs font-medium text-slate-500">
+          <button type="button" onClick={onNavigateHome} className="cursor-pointer transition-colors hover:text-[#1D2A62] hover:underline">
+            Home
+          </button>
+          <span className="text-slate-300">/</span>
+          <button type="button" onClick={onNavigateCourses} className="cursor-pointer transition-colors hover:text-[#1D2A62] hover:underline">
+            Courses
+          </button>
+          <span className="text-slate-300">/</span>
+          <span className="font-semibold text-[#1D2A62]">Event Readiness</span>
+        </nav>
         <div className="mb-3 flex flex-wrap items-center gap-2 lg:absolute lg:right-7 lg:top-7 lg:justify-end">
           <span className="rounded-full border border-[#AFD06E]/35 bg-[#EEF7E8] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#437118]">
             06 · DELIVER STAGE
