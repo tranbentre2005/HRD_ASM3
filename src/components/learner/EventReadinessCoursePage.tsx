@@ -222,7 +222,7 @@ export function EventReadinessCoursePage({
               </div>
               <div className="min-w-0">
                 <h1 className="inline-block text-2xl font-extrabold leading-tight tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent sm:text-3xl lg:whitespace-nowrap">
-                  <span>Event Readiness</span>{" "}
+                  <span>Event Readiness</span>{" | "}
                   <span className="text-[0.82em] italic">From “Done” to Participant-Ready</span>
                 </h1>
                 <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
