@@ -571,8 +571,9 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
+                  <h3 className="mt-3 text-center text-lg font-bold uppercase text-[#1D2A62]">DONE VS READY</h3>
                   <div className="space-y-1">
-                    <p className="font-semibold text-[#1D2A62]">Drag each statement into the correct category: Done or Ready.</p>
+                    <p className="font-semibold text-[#1D2A62]">Drag each statement into the correct category.</p>
                     <p className="text-xs text-slate-500">Move every card into one of the two columns, then submit your answers.</p>
                   </div>
 
@@ -665,21 +666,17 @@ export function EventReadinessCoursePage({
                     })}
                   </div>
 
-                  <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-xs text-slate-500">{readinessSubmitted ? `${READINESS_STATEMENTS.filter(statement => readinessPlacements[statement.id] === statement.category).length} of ${READINESS_STATEMENTS.length} statements are correct.` : "Submit once all six statements are in a category."}</p>
+                  <div className="flex justify-end gap-2 rounded-2xl border border-slate-200 bg-white p-4">
+                    {readinessSubmitted && !readinessAllCorrect && (
+                      <Button type="button" variant="outline" onClick={handleReadinessTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                        Try Again
+                      </Button>
+                    )}
                     <Button type="button" onClick={handleReadinessSubmit} disabled={!readinessAllPlaced || readinessAllCorrect} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
                       Submit
                     </Button>
                   </div>
 
-                  {readinessSubmitted && !readinessAllCorrect && (
-                    <div className="flex flex-col gap-3 rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-4 sm:flex-row sm:items-center sm:justify-between">
-                      <p className="text-xs font-semibold text-[#8B5E00]">Some placements are incorrect. Try again and move the cards to the right category.</p>
-                      <Button type="button" variant="outline" onClick={handleReadinessTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                        Try Again
-                      </Button>
-                    </div>
-                  )}
 
                   {readinessAllCorrect && (
                     <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
