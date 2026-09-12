@@ -368,10 +368,10 @@ export function EventReadinessCoursePage({
                       ["2", "Source-verified", "Which details need a reliable source before sharing?"],
                       ["3", "Connected flow", "Where could one broken handoff interrupt the experience?"]
                     ].map(([number, title, copy]) => (
-                      <div key={number} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1D2A62] text-xs font-bold text-white">{number}</span>
-                        <p className="mt-3 font-bold text-[#1D2A62]">{title}</p>
-                        <p className="mt-1 text-xs text-slate-600">{copy}</p>
+                      <div key={number} className="rounded-2xl border border-[#87AECE]/40 bg-gradient-to-br from-[#1D2A62] via-[#274B89] to-[#356B9A] p-4 shadow-2xs">
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white ring-1 ring-white/25">{number}</span>
+                        <p className="mt-3 font-bold text-white">{title}</p>
+                        <p className="mt-1 text-xs text-[#DCEBFA]">{copy}</p>
                       </div>
                     ))}
                   </div>
