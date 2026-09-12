@@ -45,7 +45,6 @@ type SavedCourseState = {
 }
 
 const COURSE_PROGRESS_KEY = "rmit-finance-club:event-readiness-progress"
-const MINIMUM_LESSON_TIME = 15000
 
 const OUTLINE_SECTIONS: OutlineSection[] = [
   {
@@ -133,7 +132,6 @@ export function EventReadinessCoursePage({
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
-  const [isLessonUnlocked, setIsLessonUnlocked] = useState(false)
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
@@ -141,11 +139,6 @@ export function EventReadinessCoursePage({
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
     : Math.max(course.progress, Math.round((completedCount / OUTLINE_ITEMS.length) * 100))
-  useEffect(() => {
-    setIsLessonUnlocked(false)
-    const unlockTimer = window.setTimeout(() => setIsLessonUnlocked(true), MINIMUM_LESSON_TIME)
-    return () => window.clearTimeout(unlockTimer)
-  }, [activeLessonId])
 
   useEffect(() => {
     window.localStorage.setItem(COURSE_PROGRESS_KEY, JSON.stringify({
@@ -169,7 +162,7 @@ export function EventReadinessCoursePage({
   }
 
   const handlePrimaryAction = () => {
-    if (!isLessonUnlocked || (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer)) return
+    if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
 
     markComplete(activeLesson.id)
     const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
@@ -187,15 +180,7 @@ export function EventReadinessCoursePage({
 
   const isCompleted = completedLessonIds.includes(activeLesson.id)
   const isCourseOverview = activeLesson.id === "course-overview"
-  const primaryLabel = isCourseOverview
-    ? "Next"
-    : activeLesson.id === "2.0-quick-check" && !quickCheckAnswer
-      ? "Submit Quick Check"
-      : activeLesson.id === "4.0-course-feedback"
-        ? "Complete Course"
-        : isCompleted
-          ? "Continue Learning"
-          : "Mark Complete & Continue"
+  const primaryLabel = "Next"
 
   return (
     <div className="space-y-5 pb-16 font-sans text-left">
@@ -470,24 +455,20 @@ export function EventReadinessCoursePage({
               )}
 
               <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
-                {isLessonUnlocked ? (
-                  <div className="flex w-full items-center justify-end gap-3">
-                    {activeLessonIndex > 0 && (
-                      <Button type="button" variant="outline" onClick={handlePrevious} className="w-full cursor-pointer sm:w-auto">
-                        <ArrowLeft className="mr-1.5 h-4 w-4" />
-                        Previous
-                      </Button>
-                    )}
-                    <Button type="button" onClick={handlePrimaryAction} disabled={activeLesson.id === "2.0-quick-check" && !quickCheckAnswer} className="w-full cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:w-auto">
-                      {primaryLabel}
-                      <ArrowRight className="ml-1.5 h-4 w-4" />
+                <div className="flex w-full items-center justify-between gap-3">
+                  {activeLessonIndex > 0 ? (
+                    <Button type="button" variant="outline" onClick={handlePrevious} className="flex-1 cursor-pointer sm:flex-none">
+                      <ArrowLeft className="mr-1.5 h-4 w-4" />
+                      Previous
                     </Button>
-                  </div>
-                ) : (
-                  <p className="w-full text-center text-xs font-medium text-slate-500">
-                    Spend 15 seconds on this lesson to unlock navigation.
-                  </p>
-                )}
+                  ) : (
+                    <span />
+                  )}
+                  <Button type="button" onClick={handlePrimaryAction} disabled={activeLesson.id === "2.0-quick-check" && !quickCheckAnswer} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                    {primaryLabel}
+                    <ArrowRight className="ml-1.5 h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </div>
           </Card>
