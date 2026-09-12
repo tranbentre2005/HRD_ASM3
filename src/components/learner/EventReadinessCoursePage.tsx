@@ -226,7 +226,7 @@ export function EventReadinessCoursePage({
                   <span>Event Readiness</span>{" | "}
                   <span>From “Done” to Participant-Ready</span>
                 </h1>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600" style={{ transform: "translateY(-10%)" }}>
                   Learn the practical checks that turn a completed event plan into a delivery-ready experience.
                 </p>
                 <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-[#1D2A62]">
