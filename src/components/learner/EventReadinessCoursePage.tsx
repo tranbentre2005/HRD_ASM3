@@ -189,7 +189,7 @@ export function EventReadinessCoursePage({
   return (
     <div className="space-y-5 pb-16 font-sans text-left">
 
-      <section className="relative overflow-hidden rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] sm:p-7">
+      <section className="relative overflow-hidden rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-4 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] sm:p-5">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30" />
         <nav aria-label="Breadcrumb" className="relative z-10 mb-5 flex flex-wrap items-center gap-1.5 text-xs font-medium text-slate-500">
           <button type="button" onClick={onNavigateHome} className="cursor-pointer transition-colors hover:text-[#1D2A62] hover:underline">
@@ -213,7 +213,7 @@ export function EventReadinessCoursePage({
         <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0 max-w-3xl flex-1 lg:max-w-4xl lg:pr-40">
             <div className="flex items-end gap-[15.6px]">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-1.5 text-[#437118] sm:h-24 sm:w-24 lg:h-32 lg:w-32">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-1.5 text-[#437118] sm:h-20 sm:w-20 lg:h-24 lg:w-24">
                 <img
                   src="/core-pathway-clipboard.png"
                   alt="Event Readiness Checklist"
@@ -223,7 +223,7 @@ export function EventReadinessCoursePage({
               <div className="min-w-0">
                 <h1 className="inline-block text-2xl font-extrabold leading-tight tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent sm:text-3xl lg:whitespace-nowrap">
                   <span>Event Readiness</span>{" | "}
-                  <span className="text-[0.82em] italic">From “Done” to Participant-Ready</span>
+                  <span className="text-[#1D2A62]">From “Done” to Participant-Ready</span>
                 </h1>
                 <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
                   Learn the practical checks that turn a completed event plan into a delivery-ready experience.
