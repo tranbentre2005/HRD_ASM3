@@ -649,11 +649,6 @@ export function EventReadinessCoursePage({
                                         : <XCircle weight="fill" className="h-4 w-4 shrink-0 text-[#B7473C]" />
                                     )}
                                   </div>
-                                  {readinessSubmitted && (
-                                    <p className={`mt-1 text-[11px] font-semibold ${isCorrect ? "text-[#437118]" : "text-[#B7473C]"}`}>
-                                      {isCorrect ? "Correct" : `Incorrect — belongs in ${statement.category}`}
-                                    </p>
-                                  )}
                                 </div>
                               )
                             })}
