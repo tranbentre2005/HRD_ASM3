@@ -572,17 +572,12 @@ export function EventReadinessCoursePage({
                     </div>
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   <h3 className="mt-3 text-center text-lg font-bold uppercase text-[#1D2A62]">DONE VS READY</h3>
-                  <div className="space-y-1">
-                    <p className="font-semibold text-[#1D2A62]">Drag each statement into the correct category.</p>
-                    <p className="text-xs text-slate-500">Move every card into one of the two columns, then submit your answers.</p>
-                  </div>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-4">
                     <div className="flex items-center gap-2">
                       <Target className="h-5 w-5 text-[#437118]" />
                       <div>
-                        <p className="font-bold text-[#1D2A62]">Statements to sort</p>
-                        <p className="text-xs text-slate-500">{readinessAllPlaced ? "All statements have been placed." : `${READINESS_STATEMENTS.length - Object.keys(readinessPlacements).length} statements left to place.`}</p>
+                        <p className="font-semibold text-[#1D2A62]">Drag each statement into the correct category.</p>
                       </div>
                     </div>
                     <div className="mt-3 grid gap-2 sm:grid-cols-2">
