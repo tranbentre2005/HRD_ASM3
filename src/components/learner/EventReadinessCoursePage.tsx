@@ -443,12 +443,12 @@ export function EventReadinessCoursePage({
                         <div className="min-w-0">
                           {openingQuestionAnswer === "yes" ? (
                             <>
-                              <p className="font-bold text-[#A66C00]">Not quite.</p>
+                              <p className="font-bold text-[#A66C00]">NOT QUITE.</p>
                               <p className="mt-1 text-xs leading-relaxed text-slate-600">A task can be complete but still contain outdated information, depend on another version, or fail when used together with other event elements.</p>
                             </>
                           ) : (
                             <>
-                              <p className="font-bold text-[#437118]">Exactly.</p>
+                              <p className="font-bold text-[#437118]">EXACTLY.</p>
                               <p className="mt-1 text-xs leading-relaxed text-slate-600">Completion tells you a task was finished. It does not prove the information is current, connected assets match, or the full sequence will work in practice. An event is participant-ready only when the end-to-end experience can work for the people attending it.</p>
                             </>
                           )}
@@ -466,7 +466,7 @@ export function EventReadinessCoursePage({
                     <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
                       <div className="flex items-center gap-2 font-bold text-[#437118]">
                         <Lightbulb weight="fill" className="h-5 w-5" />
-                        Mindset shift
+                        Mindset Shift
                       </div>
                       <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">Understanding the difference</h3>
                       <p className="mt-1 text-sm leading-relaxed text-slate-600">Why completing individual tasks does not guarantee the overall event will succeed.</p>
