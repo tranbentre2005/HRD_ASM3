@@ -83,9 +83,9 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
                       className="h-11 w-auto object-contain"
                     />
                   </div>
-                  <div className="border-l border-[#EDEDED] pl-2.5">
+                  <div className="pl-2.5">
                     <span className="text-xs font-bold text-[#1D2A62] tracking-tight uppercase block leading-tight">
-                      RMIT FINANCE CLUB
+                      RMIT VIETNAM FINANCE CLUB SGS
                     </span>
                     <span className="text-[10px] font-medium text-[#68707D] block leading-tight mt-0.5">
                       Learning Hub
