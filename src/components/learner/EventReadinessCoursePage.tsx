@@ -364,13 +364,15 @@ export function EventReadinessCoursePage({
 
               {activeLesson.id === "1.0-done-ready" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2 font-bold text-[#1D2A62]">
                       <Clock weight="fill" className="h-5 w-5 text-[#2F668B]" />
                       Opening Question
                     </div>
-                    <p className="mt-3 text-base font-bold text-[#1D2A62]">48 hours before the event</p>
-                    <p className="mt-1 text-xs leading-relaxed text-slate-600">The venue is booked. Speakers are confirmed. Volunteers are assigned. A run sheet exists. Participant List done. Slide done, MC script done.</p>
+                    <p className="pt-2 text-base font-bold text-[#1D2A62]">48 hours before the event</p>
+                    <p className="text-xs leading-relaxed text-slate-600">The venue is booked. Speakers are confirmed. Volunteers are assigned. The run sheet is complete. The participant list, slides, and MC script are all marked done.</p>
+                    <p className="pt-1 font-semibold text-[#1D2A62]">Everything looks ready.</p>
+                    <p className="font-semibold text-[#1D2A62]">But is it?</p>
                   </div>
 
                   <div className="grid gap-3 md:grid-cols-3">
