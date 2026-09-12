@@ -81,6 +81,7 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
     title: "LEARN & PRACTISE",
     items: [
       { id: "1.0-done-ready", title: "1.0 | What Does “Event Ready” Actually Mean?", section: "LEARN & PRACTISE" },
+      { id: "1.1-ready-framework", title: "1.1 | The Event Ready Framework", section: "LEARN & PRACTISE" },
       { id: "1.2-ready-simulation", title: "1.2 | Event Ready Simulation", section: "LEARN & PRACTISE" }
     ]
   },
@@ -695,6 +696,22 @@ export function EventReadinessCoursePage({
               )}
 
 
+              {activeLesson.id === "1.1-ready-framework" && (
+                <div className="space-y-5 text-sm leading-relaxed text-slate-700">
+                  <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                    <div className="flex items-center gap-2 font-bold text-[#437118]">
+                      <Target weight="fill" className="h-5 w-5" />
+                      IMPACT
+                    </div>
+                    <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">A. IMPACT - What Should a Project Leader Pay Attention To?</h3>
+                  </div>
+                  <p>As a Project Leader, you don’t need to check everything yourself. What matters is knowing which elements could directly affect participants, important stakeholders, or the delivery of the event.</p>
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                    <h3 className="text-lg font-bold text-[#1D2A62]">Participant-critical elements</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">Definition:</span> Participant-critical elements are parts of the event where an error could directly affect someone’s experience or disrupt an important part of delivery.</p>
+                  </div>
+                </div>
+              )}
               {activeLesson.id === "1.2-ready-simulation" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   <div className="flex items-start gap-3 rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
