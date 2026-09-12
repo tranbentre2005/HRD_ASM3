@@ -382,20 +382,20 @@ export function EventReadinessCoursePage({
                       { title: "Participant Slides", status: "Completed yesterday", owner: "Content Team", Icon: Presentation },
                       { title: "Participant List", status: "Updated today · 10:00 AM", owner: "Registration Team", Icon: UsersThree }
                     ].map(({ title, status, owner, Icon }) => (
-                      <div key={title} className={`min-h-60 rounded-2xl border bg-white p-5 shadow-2xs sm:p-7 ${title === "Participant Slides" ? "border-[#6E9D75]" : "border-[#D5E4D7]"}`}>
+                      <div key={title} className={`min-h-48 rounded-2xl border bg-white p-4 shadow-2xs sm:p-5 ${title === "Participant Slides" ? "border-[#6E9D75]" : "border-[#D5E4D7]"}`}>
                         <div className="flex items-start justify-between gap-3">
-                          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF7F0] text-[#668B45]">
-                            <Icon weight="regular" className="h-7 w-7" />
+                          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#EEF7F0] text-[#668B45]">
+                            <Icon weight="regular" className="h-6 w-6" />
                           </div>
-                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#D5E4D7] bg-[#F2F7F3] px-3 py-1.5 text-sm font-medium text-slate-600">
-                            <Check className="h-4 w-4 text-[#668B72]" />
+                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#D5E4D7] bg-[#F2F7F3] px-2.5 py-1 text-xs font-medium text-slate-600">
+                            <Check className="h-3.5 w-3.5 text-[#668B72]" />
                             Done
                           </span>
                         </div>
-                        <div className="mt-8">
-                          <p className="text-xl font-bold leading-tight text-[#151A17]">{title}</p>
-                          <p className="mt-2 text-sm font-medium text-[#437118]">{status}</p>
-                          <p className="mt-1 text-sm text-slate-600">Owner: {owner}</p>
+                        <div className="mt-5">
+                          <p className="text-lg font-bold leading-tight text-[#151A17]">{title}</p>
+                          <p className="mt-1.5 text-xs font-medium text-[#437118]">{status}</p>
+                          <p className="mt-1 text-xs text-slate-600">Owner: {owner}</p>
                         </div>
                       </div>
                     ))}
