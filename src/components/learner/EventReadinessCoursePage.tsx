@@ -257,10 +257,10 @@ export function EventReadinessCoursePage({
       <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[280px_minmax(0,1fr)]">
         <aside className="lg:sticky lg:top-20">
           <Card className="border-slate-200/90 p-4 shadow-sm sm:p-5">
-            <div className="mb-4 flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="mb-4 flex items-center justify-between pb-3">
               <div className="flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-[#437118]" />
-                <h2 className="text-sm font-extrabold text-[#1D2A62]">Course Outline</h2>
+                <h2 className="text-sm font-extrabold text-[#1D2A62]">Course Syllabus</h2>
               </div>
               <span className="text-[11px] font-bold text-slate-500">{completedCount}/{OUTLINE_ITEMS.length}</span>
             </div>
