@@ -1,8 +1,6 @@
 import { useState } from "react"
 import { Dialog, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
 import { 
-  Lifebuoy, 
   EnvelopeSimple, 
   CalendarCheck, 
   Question, 
@@ -149,11 +147,6 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
         </div>
       </div>
 
-      <div className="pt-4 flex justify-end mt-4">
-        <Button variant="outline" size="sm" onClick={() => onOpenChange(false)}>
-          Close
-        </Button>
-      </div>
     </Dialog>
   )
 }
