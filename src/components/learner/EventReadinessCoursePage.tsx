@@ -444,6 +444,69 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                   )}
+                  <div className="space-y-5">
+                    <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#437118]">
+                        <Lightbulb weight="fill" className="h-5 w-5" />
+                        Mindset shift
+                      </div>
+                      <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">Understanding the difference</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-600">Why completing individual tasks does not guarantee the overall event will succeed.</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-bold text-[#1D2A62]">Readiness Pathway - The critical transition</h3>
+                      <div className="mt-3 grid gap-3 sm:grid-cols-4">
+                        {[
+                          { label: "Done", detail: "Output exists", Icon: CheckCircle, className: "border-[#87AECE]/35 bg-[#F0F7FC] text-[#2F668B]" },
+                          { label: "Verify", detail: "Version & data", Icon: ShieldCheck, className: "border-[#87AECE]/35 bg-[#F0F7FC] text-[#2F668B]" },
+                          { label: "Test", detail: "Sequence run", Icon: Target, className: "border-[#F3C979]/45 bg-[#FFF7E5] text-[#A66C00]" },
+                          { label: "Ready", detail: "Participant ready", Icon: Flag, className: "border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]" }
+                        ].map(({ label, detail, Icon, className }) => (
+                          <div key={label} className={`rounded-2xl border p-4 ${className}`}>
+                            <Icon weight="fill" className="h-5 w-5" />
+                            <p className="mt-3 font-bold text-[#1D2A62]">{label}</p>
+                            <p className="mt-1 text-xs text-slate-600">{detail}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="mt-3 text-center text-sm font-bold tracking-wide text-[#1D2A62]">Done → Verify → Test → Ready</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-bold uppercase tracking-wide text-[#1D2A62]">Comparison between “Done” and “Ready” meaning</h3>
+                      <div className="mt-3 grid gap-3 md:grid-cols-2">
+                        <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                          <p className="font-bold text-[#2F668B]">DONE - A task-level status</p>
+                          <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                            <li>• Someone completed the task.</li>
+                            <li>• The owner reports it is finished.</li>
+                            <li>• The individual output exists.</li>
+                          </ul>
+                          <p className="mt-4 text-sm font-semibold text-[#1D2A62]">Outcome: You have an output.</p>
+                        </div>
+                        <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
+                          <p className="font-bold text-[#437118]">READY - An event-level judgement</p>
+                          <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                            <li>• Critical information is accurate and current.</li>
+                            <li>• Important dependencies have been checked.</li>
+                            <li>• The relevant sequence has been tested for delivery.</li>
+                          </ul>
+                          <p className="mt-4 text-sm font-semibold text-[#1D2A62]">Outcome: You have confidence it can work.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#87AECE]/35 bg-[#EAF4FA] p-5">
+                      <p className="text-sm font-bold text-[#1D2A62]">Bottom takeaway:</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Task completion tells you what has been finished. Event readiness tells you whether it can work reliably in the real event.</p>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#1D2A62]/20 bg-[#1D2A62] p-5 text-white">
+                      <p className="text-sm font-bold text-[#DCEBFA]">Key takeaway:</p>
+                      <p className="mt-2 text-sm font-semibold leading-relaxed">Readiness is an event-level judgement, not a collection of completed tasks.</p>
+                    </div>
+                  </div>
                 </div>
               )}
 
