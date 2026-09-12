@@ -140,6 +140,7 @@ export function EventReadinessCoursePage({
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
   const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
+  const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -473,28 +474,60 @@ export function EventReadinessCoursePage({
 
                     <div>
                       <h3 className="text-center text-base font-bold uppercase text-[#1D2A62]">Readiness Pathway - The critical transition</h3>
-                      <div className="mt-4 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-0">
+                      <div
+                        className="mt-4 flex flex-col items-stretch gap-2 outline-none sm:flex-row sm:items-end sm:gap-0"
+                        tabIndex={0}
+                        onMouseEnter={() => setIsPathwayHovered(true)}
+                        onMouseLeave={() => setIsPathwayHovered(false)}
+                        onFocus={() => setIsPathwayHovered(true)}
+                        onBlur={event => {
+                          if (!event.currentTarget.contains(event.relatedTarget as Node)) setIsPathwayHovered(false)
+                        }}
+                      >
                         {[
                           { label: "Done", detail: "Output exists", Icon: FileText, circleClass: "bg-[#EAF4FA] text-[#1D4B85]", panelClass: "bg-[#F0F7FC]", numberClass: "bg-[#2F668B]" },
                           { label: "Verify", detail: "Information checked", Icon: MagnifyingGlass, circleClass: "bg-[#EAF4FA] text-[#1D4B85]", panelClass: "bg-[#F0F7FC]", numberClass: "bg-[#2F668B]" },
                           { label: "Test", detail: "Connections tested", Icon: Gear, circleClass: "bg-[#FFF7E5] text-[#B77711]", panelClass: "bg-[#FFF7E5]", numberClass: "bg-[#B77711]" },
                           { label: "Ready", detail: "Participant-ready", Icon: Flag, circleClass: "bg-[#EEF7E8] text-[#437118]", panelClass: "bg-[#EEF7E8]", numberClass: "bg-[#437118]" }
-                        ].map(({ label, detail, Icon, circleClass, panelClass, numberClass }, index) => (
-                          <Fragment key={label}>
-                            <div className="min-w-0 flex-1">
-                              <div className={`relative mx-auto flex h-20 w-20 items-center justify-center rounded-full ${circleClass}`}>
-                                <span className={`absolute -left-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white ${numberClass}`}>{index + 1}</span>
-                                <Icon weight="regular" className="h-9 w-9" />
+                        ].map(({ label, detail, Icon, circleClass, panelClass, numberClass }, index) => {
+                          const isVisible = index === 0 || isPathwayHovered
+                          const isArrowVisible = isPathwayHovered && index < 3
+                          return (
+                            <Fragment key={label}>
+                              <div
+                                className="min-w-0 flex-1 overflow-hidden"
+                                style={{
+                                  flex: isVisible ? "1 1 0%" : "0 0 0px",
+                                  maxWidth: isVisible ? "100%" : "0px",
+                                  opacity: isVisible ? 1 : 0,
+                                  transform: isVisible ? "translateX(0)" : "translateX(-12px)",
+                                  transition: "flex-basis 450ms ease, max-width 450ms ease, opacity 300ms ease, transform 450ms ease",
+                                  transitionDelay: isVisible ? `${index * 120}ms` : "0ms"
+                                }}
+                              >
+                                <div className={`relative mx-auto flex h-20 w-20 items-center justify-center rounded-full ${circleClass}`}>
+                                  <span className={`absolute -left-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white ${numberClass}`}>{index + 1}</span>
+                                  <Icon weight="regular" className="h-9 w-9" />
+                                </div>
+                                <div className={`mt-2 rounded-2xl p-3 text-center ${panelClass}`}>
+                                  <p className="font-bold text-[#1D2A62]">{label}</p>
+                                  <p className="mt-1 text-xs text-slate-600">{detail}</p>
+                                </div>
                               </div>
-                              <div className={`mt-2 rounded-2xl p-3 text-center ${panelClass}`}>
-                                <p className="font-bold text-[#1D2A62]">{label}</p>
-                                <p className="mt-1 text-xs text-slate-600">{detail}</p>
-                              </div>
-                            </div>
-                            {index < 3 && <ArrowRight className="mx-auto h-5 w-5 shrink-0 rotate-90 text-[#87AECE] sm:mx-3 sm:rotate-0" />}
-                          </Fragment>
-                        ))}
-
+                              {index < 3 && (
+                                <ArrowRight
+                                  className="mx-auto h-5 w-5 shrink-0 rotate-90 text-[#87AECE] sm:mx-3 sm:mb-7 sm:rotate-0"
+                                  style={{
+                                    width: isArrowVisible ? "1.25rem" : "0px",
+                                    opacity: isArrowVisible ? 1 : 0,
+                                    transition: "width 350ms ease, opacity 250ms ease",
+                                    transitionDelay: isArrowVisible ? `${(index + 1) * 120 - 60}ms` : "0ms"
+                                  }}
+                                />
+                              )}
+                            </Fragment>
+                          )
+                        })}
                       </div>
                     </div>
                     <div>
