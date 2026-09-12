@@ -367,8 +367,8 @@ export function EventReadinessCoursePage({
               {activeLesson.id === "1.0-done-ready" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 font-bold text-[#1D2A62]">
-                      <Clock weight="fill" className="h-5 w-5 text-[#2F668B]" />
+                    <div className="flex items-center gap-2 font-bold text-[#437118]">
+                      <Clock weight="fill" className="h-5 w-5 text-[#668B45]" />
                       Opening Question
                     </div>
                     <p className="pt-2 font-semibold text-[#1D2A62]">48 hours before the event</p>
@@ -422,19 +422,27 @@ export function EventReadinessCoursePage({
 
                   {openingQuestionAnswer && (
                     <div className={`rounded-2xl border p-5 ${openingQuestionAnswer === "yes" ? "border-[#F3C979]/45 bg-[#FFF7E5]" : "border-[#AFD06E]/40 bg-[#EEF7E8]"}`}>
-                      <p className="font-bold text-[#1D2A62]">Feedback</p>
-                      {openingQuestionAnswer === "yes" ? (
-                        <>
-                          <p className="mt-2 font-bold text-[#A66C00]">Not quite.</p>
-                          <p className="mt-1 text-xs leading-relaxed text-slate-600">A task can be complete but still contain outdated information, depend on another version, or fail when used together with other event elements.</p>
-                        </>
-                      ) : (
-                        <>
-                          <p className="mt-2 font-bold text-[#437118]">Exactly.</p>
-                          <p className="mt-1 text-xs leading-relaxed text-slate-600">Completion tells you a task was finished. It does not prove the information is current, connected assets match, or the full sequence will work in practice.</p>
-                          <p className="mt-3 text-xs leading-relaxed text-slate-600">An event is participant-ready only when the end-to-end experience can work for the people attending it.</p>
-                        </>
-                      )}
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          {openingQuestionAnswer === "yes" ? (
+                            <>
+                              <p className="font-bold text-[#A66C00]">Not quite.</p>
+                              <p className="mt-1 text-xs leading-relaxed text-slate-600">A task can be complete but still contain outdated information, depend on another version, or fail when used together with other event elements.</p>
+                            </>
+                          ) : (
+                            <>
+                              <p className="font-bold text-[#437118]">Exactly.</p>
+                              <p className="mt-1 text-xs leading-relaxed text-slate-600">Completion tells you a task was finished. It does not prove the information is current, connected assets match, or the full sequence will work in practice.</p>
+                              <p className="mt-3 text-xs leading-relaxed text-slate-600">An event is participant-ready only when the end-to-end experience can work for the people attending it.</p>
+                            </>
+                          )}
+                        </div>
+                        {openingQuestionAnswer === "yes" && (
+                          <button type="button" onClick={() => setOpeningQuestionAnswer("")} className="shrink-0 cursor-pointer rounded-lg border border-[#D8B457] bg-white/70 px-3 py-1.5 text-xs font-semibold text-[#8B5E00] transition-colors hover:bg-white">
+                            Try Again
+                          </button>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
