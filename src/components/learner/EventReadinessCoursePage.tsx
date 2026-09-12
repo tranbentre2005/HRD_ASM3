@@ -371,8 +371,7 @@ export function EventReadinessCoursePage({
                     </div>
                     <p className="pt-2 text-base font-bold text-[#1D2A62]">48 hours before the event</p>
                     <p className="text-xs leading-relaxed text-slate-600">The venue is booked. Speakers are confirmed. Volunteers are assigned. The run sheet is complete. The participant list, slides, and MC script are all marked done.</p>
-                    <p className="pt-1 font-semibold text-[#1D2A62]">Everything looks ready.</p>
-                    <p className="font-semibold text-[#1D2A62]">But is it?</p>
+                    <p className="pt-1 font-semibold text-[#1D2A62]">Everything looks ready. But is it?</p>
                   </div>
 
                   <div className="grid gap-3 md:grid-cols-3">
