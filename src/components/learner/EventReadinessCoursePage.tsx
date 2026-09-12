@@ -405,8 +405,8 @@ export function EventReadinessCoursePage({
                     <p className="font-bold text-[#1D2A62]">All three are marked “Done”. Is the participant-introduction sequence ready?</p>
                     <div className="mt-4 grid gap-3 sm:grid-cols-2">
                       {[
-                        { value: "yes", label: "Yes — all three tasks are complete." },
-                        { value: "not-necessarily", label: "Not necessarily — the information may no longer be aligned." }
+                        { value: "yes", label: "Yes, all three tasks are complete." },
+                        { value: "not-necessarily", label: "Not necessarily, the information may be out of sync." }
                       ].map(({ value, label }) => (
                         <button
                           key={value}
