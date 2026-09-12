@@ -529,7 +529,7 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-center text-lg font-bold text-[#1D2A62]">Done vs Ready</h3>
+                      <h3 className="text-center text-lg font-bold text-[#1D2A62]">DONE VS READY</h3>
                       <p className="mt-1 text-center text-sm text-slate-600">What changes when a task moves from complete to participant-ready?</p>
                       <div className="mt-3 grid gap-3 md:grid-cols-2">
                         <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
@@ -553,14 +553,13 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
 
-                    <div className="rounded-2xl border border-[#87AECE]/35 bg-[#EAF4FA] p-5">
-                      <p className="text-sm font-bold text-[#1D2A62]">Bottom takeaway:</p>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Task completion tells you what has been finished. Event readiness tells you whether it can work reliably in the real event.</p>
-                    </div>
-
-                    <div className="rounded-2xl border border-[#1D2A62]/20 bg-[#1D2A62] p-5 text-white">
-                      <p className="text-sm font-bold text-[#DCEBFA]">Key takeaway:</p>
-                      <p className="mt-2 text-sm font-semibold leading-relaxed">Readiness is an event-level judgement, not a collection of completed tasks.</p>
+                    <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#437118]">
+                        <Lightbulb weight="fill" className="h-5 w-5" />
+                        Key Takeaway
+                      </div>
+                      <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">Readiness is an event-level judgement, not a collection of completed tasks.</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-600">Completion tells you what is finished. Readiness tells you whether it can work reliably in the real event.</p>
                     </div>
                   </div>
                   )}
