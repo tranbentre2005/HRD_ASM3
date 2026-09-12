@@ -326,7 +326,7 @@ export function EventReadinessCoursePage({
               {activeLesson.id === "course-overview" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   <p className="text-[#1D2A62]">
-                    Event readiness is the final check before delivery. It shifts the focus from what the team has completed behind the scenes to what participants will actually experience. This course helps Project Leaders understand what “event ready” really means and how to move an event from simply being done to being participant-ready. Learners practise how to:
+                    <strong>Event Readiness</strong> is the final check before delivery. It shifts the focus from what the team has completed behind the scenes to what participants will actually experience.<br />This course will help Project Leaders understand what “event ready” really means and how to move an event from simply being done to being participant-ready. Learners practise how to:
                   </p>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
