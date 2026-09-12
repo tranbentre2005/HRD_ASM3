@@ -378,10 +378,10 @@ export function EventReadinessCoursePage({
 
                   <div className="grid gap-3 md:grid-cols-3">
                     {[
-                      { title: "MC Script", owner: "Program Team", Icon: Microphone },
-                      { title: "Participant Slides", owner: "Content Team", Icon: Presentation },
-                      { title: "Participant List", owner: "Registration Team", Icon: UsersThree }
-                    ].map(({ title, owner, Icon }) => (
+                      { title: "MC Script", status: "Rehearsed yesterday", owner: "Program Team", Icon: Microphone },
+                      { title: "Participant Slides", status: "Completed yesterday", owner: "Content Team", Icon: Presentation },
+                      { title: "Participant List", status: "Updated today · 10:00 AM", owner: "Registration Team", Icon: UsersThree }
+                    ].map(({ title, status, owner, Icon }) => (
                       <div key={title} className={`min-h-60 rounded-2xl border bg-white p-5 shadow-2xs sm:p-7 ${title === "Participant Slides" ? "border-[#6E9D75]" : "border-[#D5E4D7]"}`}>
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF7F0] text-[#668B45]">
@@ -394,18 +394,19 @@ export function EventReadinessCoursePage({
                         </div>
                         <div className="mt-8">
                           <p className="text-xl font-bold leading-tight text-[#151A17]">{title}</p>
-                          <p className="mt-2 text-sm text-slate-600">Owner: {owner}</p>
+                          <p className="mt-2 text-sm font-medium text-[#437118]">{status}</p>
+                          <p className="mt-1 text-sm text-slate-600">Owner: {owner}</p>
                         </div>
                       </div>
                     ))}
                   </div>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#EAF4FA] p-5">
-                    <p className="font-bold text-[#1D2A62]">Can the team say the event is ready for participants?</p>
+                    <p className="font-bold text-[#1D2A62]">All three are marked “Done”. Is the participant-introduction sequence ready?</p>
                     <div className="mt-4 grid gap-3 sm:grid-cols-2">
                       {[
-                        { value: "yes", label: "A. Yes. Major tasks are complete." },
-                        { value: "not-necessarily", label: "B. Not necessarily." }
+                        { value: "yes", label: "Yes — all three tasks are complete." },
+                        { value: "not-necessarily", label: "Not necessarily — the information may no longer be aligned." }
                       ].map(({ value, label }) => (
                         <button
                           key={value}
