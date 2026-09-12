@@ -261,26 +261,30 @@ export function EventReadinessCoursePage({
               <span className="text-[11px] font-bold text-slate-500">{completedCount}/{OUTLINE_ITEMS.length}</span>
             </div>
             <div className="space-y-4">
-              {OUTLINE_SECTIONS.map(section => (
-                <div key={section.title} className="space-y-1.5">
-                  <h3 className="px-2 text-[10px] font-extrabold tracking-wider text-[#437118]">{section.title}</h3>
-                  <div className="space-y-1">
-                    {section.items.map(item => {
-                      const itemCompleted = completedLessonIds.includes(item.id)
-                      const itemActive = activeLesson.id === item.id
-                      return (
-                        <button
-                          key={item.id}
-                          type="button"
-                          onClick={() => setActiveLessonId(item.id)}
-                          className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-xs transition-colors cursor-pointer ${
-                            itemActive
-                              ? "bg-[#EAF4FA] font-bold text-[#1D2A62] ring-1 ring-[#87AECE]/45"
-                              : "text-slate-600 hover:bg-slate-50"
-                          }`}
+              {OUTLINE_SECTIONS.map(section => {
+                const isGettingStarted = section.title === "GETTING STARTED"
+                return (
+                  <div key={section.title} className={`space-y-1.5 rounded-xl p-2 ${isGettingStarted ? "bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31]" : ""}`}>
+                    <h3 className={`px-2 text-[10px] font-extrabold tracking-wider ${isGettingStarted ? "text-[#AFD06E]" : "text-[#437118]"}`}>{section.title}</h3>
+                    <div className="space-y-1">
+                      {section.items.map(item => {
+                        const itemCompleted = completedLessonIds.includes(item.id)
+                        const itemActive = activeLesson.id === item.id
+                        return (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => setActiveLessonId(item.id)}
+                            className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-xs transition-colors cursor-pointer ${
+                              itemActive
+                                ? "bg-[#EAF4FA] font-bold text-[#1D2A62] ring-1 ring-[#87AECE]/45"
+                                : isGettingStarted
+                                  ? "text-white hover:bg-white/10"
+                                  : "text-slate-600 hover:bg-slate-50"
+                            }`}
                         >
                           {itemCompleted ? (
-                            <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-[#437118]" />
+                            <CheckCircle weight="fill" className={`h-4 w-4 shrink-0 ${isGettingStarted ? "text-[#AFD06E]" : "text-[#437118]"}`} />
                           ) : item.id.includes("1.") ? (
                             <PlayCircle className="h-4 w-4 shrink-0 text-slate-400" />
                           ) : (
@@ -292,7 +296,8 @@ export function EventReadinessCoursePage({
                     })}
                   </div>
                 </div>
-              ))}
+                )
+              })}
             </div>
           </Card>
         </aside>
