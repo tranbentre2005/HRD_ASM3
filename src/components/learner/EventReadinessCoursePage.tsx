@@ -177,7 +177,8 @@ export function EventReadinessCoursePage({
   }
 
   const isCompleted = completedLessonIds.includes(activeLesson.id)
-  const primaryLabel = activeLesson.id === "course-overview"
+  const isCourseOverview = activeLesson.id === "course-overview"
+  const primaryLabel = isCourseOverview
     ? "Start Learning"
     : activeLesson.id === "2.0-quick-check" && !quickCheckAnswer
       ? "Submit Quick Check"
@@ -262,10 +263,9 @@ export function EventReadinessCoursePage({
             </div>
             <div className="space-y-4">
               {OUTLINE_SECTIONS.map(section => {
-                const isGettingStarted = section.title === "GETTING STARTED"
                 return (
-                  <div key={section.title} className={`space-y-1.5 rounded-xl p-2 ${isGettingStarted ? "bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31]" : ""}`}>
-                    <h3 className={`px-2 text-[10px] font-extrabold tracking-wider ${isGettingStarted ? "text-[#AFD06E]" : "text-[#437118]"}`}>{section.title}</h3>
+                  <div key={section.title} className="space-y-1.5">
+                    <h3 className="px-2 text-[10px] font-extrabold tracking-wider text-[#437118]">{section.title}</h3>
                     <div className="space-y-1">
                       {section.items.map(item => {
                         const itemCompleted = completedLessonIds.includes(item.id)
@@ -278,13 +278,11 @@ export function EventReadinessCoursePage({
                             className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-xs transition-colors cursor-pointer ${
                               itemActive
                                 ? "bg-[#EAF4FA] font-bold text-[#1D2A62] ring-1 ring-[#87AECE]/45"
-                                : isGettingStarted
-                                  ? "text-white hover:bg-white/10"
-                                  : "text-slate-600 hover:bg-slate-50"
+                                : "text-slate-600 hover:bg-slate-50"
                             }`}
                         >
                           {itemCompleted ? (
-                            <CheckCircle weight="fill" className={`h-4 w-4 shrink-0 ${isGettingStarted ? "text-[#AFD06E]" : "text-[#437118]"}`} />
+                            <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-[#437118]" />
                           ) : item.id.includes("1.") ? (
                             <PlayCircle className="h-4 w-4 shrink-0 text-slate-400" />
                           ) : (
@@ -304,13 +302,13 @@ export function EventReadinessCoursePage({
 
         <main className="min-w-0 space-y-5">
           <Card className="overflow-hidden border-slate-200/90 shadow-sm">
-            <div className="flex flex-col gap-4 border-b border-slate-100 bg-[#F8FCF6] p-5 sm:flex-row sm:items-start sm:justify-between sm:p-7">
+            <div className={`flex flex-col gap-4 border-b p-5 sm:flex-row sm:items-start sm:justify-between sm:p-7 ${isCourseOverview ? "border-[#AFD06E]/30 bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31]" : "border-slate-100 bg-[#F8FCF6]"}`}>
               <div>
-                <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#437118]">{activeLesson.section}</p>
-                <h2 className="mt-1 text-xl font-extrabold leading-tight text-[#1D2A62] sm:text-2xl">{activeLesson.title}</h2>
+                <p className={`text-[10px] font-extrabold uppercase tracking-wider ${isCourseOverview ? "text-[#D8F0B0]" : "text-[#437118]"}`}>{activeLesson.section}</p>
+                <h2 className={`mt-1 text-xl font-extrabold leading-tight ${isCourseOverview ? "text-white" : "text-[#1D2A62]"} sm:text-2xl`}>{activeLesson.title}</h2>
               </div>
-              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">
-                {isCompleted ? <CheckCircle weight="fill" className="h-3.5 w-3.5 text-[#437118]" /> : <Target className="h-3.5 w-3.5 text-[#1D2A62]" />}
+              <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1 ${isCourseOverview ? "bg-white/15 text-white ring-white/25" : "bg-white text-slate-500 ring-slate-200"}`}>
+                {isCompleted ? <CheckCircle weight="fill" className={`h-3.5 w-3.5 ${isCourseOverview ? "text-[#AFD06E]" : "text-[#437118]"}`} /> : <Target className={`h-3.5 w-3.5 ${isCourseOverview ? "text-[#D8F0B0]" : "text-[#1D2A62]"}`} />}
                 {isCompleted ? "Completed" : `Item ${activeLessonIndex + 1} of ${OUTLINE_ITEMS.length}`}
               </span>
             </div>
