@@ -136,6 +136,7 @@ export function EventReadinessCoursePage({
   const [completedLessonIds, setCompletedLessonIds] = useState(initialState.completedLessonIds)
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
   const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
+  const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -382,7 +383,19 @@ export function EventReadinessCoursePage({
                       { title: "Participant Slides", status: "Completed yesterday", owner: "Content Team", Icon: Presentation },
                       { title: "Participant List", status: "Updated today · 10:00 AM", owner: "Registration Team", Icon: UsersThree }
                     ].map(({ title, status, owner, Icon }) => (
-                      <div key={title} className={`min-h-48 rounded-2xl border bg-white p-4 shadow-2xs sm:p-5 ${title === "Participant Slides" ? "border-[#6E9D75]" : "border-[#D5E4D7]"}`}>
+                      <button
+                        key={title}
+                        type="button"
+                        aria-pressed={selectedAssetCard === title}
+                        onClick={() => setSelectedAssetCard(current => current === title ? null : title)}
+                        className={`min-h-48 cursor-pointer rounded-2xl border bg-white p-4 text-left shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#87AECE] sm:p-5 ${
+                          selectedAssetCard === title
+                            ? "border-[#437118] ring-2 ring-[#AFD06E]/50"
+                            : title === "Participant Slides"
+                              ? "border-[#6E9D75]"
+                              : "border-[#D5E4D7]"
+                        }`}
+                      >
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#EEF7F0] text-[#668B45]">
                             <Icon weight="regular" className="h-6 w-6" />
@@ -397,7 +410,7 @@ export function EventReadinessCoursePage({
                           <p className="mt-1.5 text-xs font-medium text-[#437118]">{status}</p>
                           <p className="mt-1 text-xs text-slate-600">Owner: {owner}</p>
                         </div>
-                      </div>
+                      </button>
                     ))}
                   </div>
 
