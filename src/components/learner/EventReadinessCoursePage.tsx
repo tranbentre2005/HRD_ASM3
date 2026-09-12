@@ -57,7 +57,7 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
   {
     title: "LEARN & PRACTISE",
     items: [
-      { id: "1.0-done-ready", title: "1.0 | Done ≠ Ready", section: "LEARN & PRACTISE" },
+      { id: "1.0-done-ready", title: "1.0 | What Does “Event Ready” Actually Mean?", section: "LEARN & PRACTISE" },
       { id: "1.1-ready-framework", title: "1.1 | The Event Ready Framework", section: "LEARN & PRACTISE" },
       { id: "1.2-ready-simulation", title: "1.2 | Event Ready Simulation", section: "LEARN & PRACTISE" }
     ]
