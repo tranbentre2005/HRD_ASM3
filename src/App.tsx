@@ -149,13 +149,6 @@ export function App() {
     setActiveCourseId(null)
   }
 
-  const handleBackFromEventReadiness = () => {
-    setActiveCourseId(null)
-    setIsEventReadinessRoute(false)
-    setCurrentPage('my-learning')
-    window.history.pushState({}, '', '/')
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }
 
   // Handler: Update Course Lesson completion
   const handleUpdateCourseProgress = (courseId: string, lessonId: string, completed: boolean) => {
@@ -248,7 +241,6 @@ export function App() {
         {isEventReadinessRoute ? (
           <EventReadinessCoursePage
             course={eventReadinessCourse}
-            onBack={handleBackFromEventReadiness}
             onNavigateHome={handleGoHome}
             onNavigateCourses={() => handleNavigateToCourses('Core Pathway')}
             onProgressChange={handleEventReadinessProgress}

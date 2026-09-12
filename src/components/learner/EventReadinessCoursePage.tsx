@@ -20,7 +20,6 @@ import {
 
 interface EventReadinessCoursePageProps {
   course: Course
-  onBack: () => void
   onNavigateHome: () => void
   onNavigateCourses: () => void
   onProgressChange?: (progress: number) => void
@@ -46,6 +45,7 @@ type SavedCourseState = {
 }
 
 const COURSE_PROGRESS_KEY = "rmit-finance-club:event-readiness-progress"
+const MINIMUM_LESSON_TIME = 15000
 
 const OUTLINE_SECTIONS: OutlineSection[] = [
   {
@@ -123,7 +123,6 @@ function getSavedCourseState(): SavedCourseState {
 
 export function EventReadinessCoursePage({
   course,
-  onBack,
   onNavigateHome,
   onNavigateCourses,
   onProgressChange
@@ -134,6 +133,7 @@ export function EventReadinessCoursePage({
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
+  const [isLessonUnlocked, setIsLessonUnlocked] = useState(false)
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
@@ -141,6 +141,11 @@ export function EventReadinessCoursePage({
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
     : Math.max(course.progress, Math.round((completedCount / OUTLINE_ITEMS.length) * 100))
+  useEffect(() => {
+    setIsLessonUnlocked(false)
+    const unlockTimer = window.setTimeout(() => setIsLessonUnlocked(true), MINIMUM_LESSON_TIME)
+    return () => window.clearTimeout(unlockTimer)
+  }, [activeLessonId])
 
   useEffect(() => {
     window.localStorage.setItem(COURSE_PROGRESS_KEY, JSON.stringify({
@@ -164,7 +169,7 @@ export function EventReadinessCoursePage({
   }
 
   const handlePrimaryAction = () => {
-    if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
+    if (!isLessonUnlocked || (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer)) return
 
     markComplete(activeLesson.id)
     const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
@@ -175,11 +180,15 @@ export function EventReadinessCoursePage({
     const nextLesson = OUTLINE_ITEMS[activeLessonIndex + 1]
     if (nextLesson) setActiveLessonId(nextLesson.id)
   }
+  const handlePrevious = () => {
+    const previousLesson = OUTLINE_ITEMS[activeLessonIndex - 1]
+    if (previousLesson) setActiveLessonId(previousLesson.id)
+  }
 
   const isCompleted = completedLessonIds.includes(activeLesson.id)
   const isCourseOverview = activeLesson.id === "course-overview"
   const primaryLabel = isCourseOverview
-    ? "Start Learning"
+    ? "Next"
     : activeLesson.id === "2.0-quick-check" && !quickCheckAnswer
       ? "Submit Quick Check"
       : activeLesson.id === "4.0-course-feedback"
@@ -321,11 +330,11 @@ export function EventReadinessCoursePage({
                   </p>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
-                      ["Notice", "Identify what deserves attention most to participants."],
-                      ["Verify", "Check critical information against reliable sources."],
-                      ["Test", "Confirm key event elements work together before delivery."]
-                    ].map(([title, copy]) => (
-                      <div key={title} className="rounded-2xl border border-[#AFD06E]/35 bg-[#EEF7E8] p-4 text-center">
+                      ["Notice", "Identify what deserves attention most to participants.", "border-[#AFD06E]/35 bg-[#EEF7E8]"],
+                      ["Verify", "Check critical information against reliable sources.", "border-[#87AECE]/35 bg-[#F0F7FC]"],
+                      ["Test", "Confirm key event elements work together before delivery.", "border-[#F3C979]/45 bg-[#FFF7E5]"]
+                    ].map(([title, copy, cardClass]) => (
+                      <div key={title} className={`rounded-2xl border p-4 text-center ${cardClass}`}>
                         <p className="font-bold text-[#1D2A62]">{title}</p>
                         <p className="mt-1 text-xs text-slate-600">{copy}</p>
                       </div>
@@ -457,15 +466,25 @@ export function EventReadinessCoursePage({
                 </div>
               )}
 
-              <div className="flex flex-col-reverse gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
-                <Button type="button" variant="outline" onClick={onBack} className="w-full cursor-pointer sm:w-auto">
-                  <ArrowLeft className="mr-1.5 h-4 w-4" />
-                  Back to My Learning
-                </Button>
-                <Button type="button" onClick={handlePrimaryAction} disabled={activeLesson.id === "2.0-quick-check" && !quickCheckAnswer} className="w-full cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:w-auto">
-                  {primaryLabel}
-                  <ArrowRight className="ml-1.5 h-4 w-4" />
-                </Button>
+              <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                {isLessonUnlocked ? (
+                  <div className="flex w-full items-center justify-end gap-3">
+                    {activeLessonIndex > 0 && (
+                      <Button type="button" variant="outline" onClick={handlePrevious} className="w-full cursor-pointer sm:w-auto">
+                        <ArrowLeft className="mr-1.5 h-4 w-4" />
+                        Previous
+                      </Button>
+                    )}
+                    <Button type="button" onClick={handlePrimaryAction} disabled={activeLesson.id === "2.0-quick-check" && !quickCheckAnswer} className="w-full cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:w-auto">
+                      {primaryLabel}
+                      <ArrowRight className="ml-1.5 h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <p className="w-full text-center text-xs font-medium text-slate-500">
+                    Spend 15 seconds on this lesson to unlock navigation.
+                  </p>
+                )}
               </div>
             </div>
           </Card>
