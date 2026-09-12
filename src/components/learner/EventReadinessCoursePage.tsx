@@ -444,6 +444,7 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                   )}
+                  {openingQuestionAnswer === "not-necessarily" && (
                   <div className="space-y-5">
                     <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
                       <div className="flex items-center gap-2 font-bold text-[#437118]">
@@ -507,6 +508,7 @@ export function EventReadinessCoursePage({
                       <p className="mt-2 text-sm font-semibold leading-relaxed">Readiness is an event-level judgement, not a collection of completed tasks.</p>
                     </div>
                   </div>
+                  )}
                 </div>
               )}
 
