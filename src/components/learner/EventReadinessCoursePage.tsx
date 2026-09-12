@@ -342,7 +342,7 @@ export function EventReadinessCoursePage({
                     ].map(outcome => (
                       <li key={outcome} className="flex items-center gap-2">
                         <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-[#437118]" />
-                        <span>{outcome}</span>
+                        <span className="font-medium">{outcome}</span>
                       </li>
                     ))}
                   </ul>
