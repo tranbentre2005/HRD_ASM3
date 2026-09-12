@@ -473,9 +473,9 @@ export function EventReadinessCoursePage({
                     </div>
 
                     <div>
-                      <h3 className="text-center text-base font-bold uppercase text-[#1D2A62]">Readiness Pathway - The critical transition</h3>
+                      <h3 className="mt-3 text-center text-lg font-bold uppercase text-[#1D2A62]">Readiness Pathway - The critical transition</h3>
                       <div
-                        className="mt-4 flex flex-col items-stretch gap-2 outline-none sm:flex-row sm:items-end sm:gap-0"
+                        className="mt-[18px] flex flex-col items-stretch gap-2 outline-none sm:flex-row sm:items-end sm:gap-0"
                         tabIndex={0}
                         onMouseEnter={() => setIsPathwayHovered(true)}
                         onMouseLeave={() => setIsPathwayHovered(false)}
@@ -495,13 +495,11 @@ export function EventReadinessCoursePage({
                           return (
                             <Fragment key={label}>
                               <div
-                                className="min-w-0 flex-1 overflow-hidden"
+                                className="min-w-0 overflow-hidden sm:flex-1 sm:overflow-visible"
                                 style={{
-                                  flex: isVisible ? "1 1 0%" : "0 0 0px",
-                                  maxWidth: isVisible ? "100%" : "0px",
                                   opacity: isVisible ? 1 : 0,
                                   transform: isVisible ? "translateX(0)" : "translateX(-12px)",
-                                  transition: "flex-basis 450ms ease, max-width 450ms ease, opacity 300ms ease, transform 450ms ease",
+                                  transition: "opacity 300ms ease, transform 450ms ease",
                                   transitionDelay: isVisible ? `${index * 120}ms` : "0ms"
                                 }}
                               >
@@ -516,7 +514,7 @@ export function EventReadinessCoursePage({
                               </div>
                               {index < 3 && (
                                 <ArrowRight
-                                  className="mx-auto h-5 w-5 shrink-0 rotate-90 text-[#87AECE] sm:mx-3 sm:mb-7 sm:rotate-0"
+                                  className="mx-auto h-5 w-5 max-h-0 shrink-0 rotate-90 text-[#87AECE] sm:mx-3 sm:mb-7 sm:max-h-5 sm:rotate-0"
                                   style={{
                                     width: isArrowVisible ? "1.25rem" : "0px",
                                     opacity: isArrowVisible ? 1 : 0,
