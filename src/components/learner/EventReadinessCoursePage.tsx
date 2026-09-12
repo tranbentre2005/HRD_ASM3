@@ -8,6 +8,7 @@ import {
   BookOpen,
   Check,
   CheckCircle,
+  Clock,
   Flag,
   Lightbulb,
   PlayCircle,
@@ -228,6 +229,10 @@ export function EventReadinessCoursePage({
                 <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
                   Learn the practical checks that turn a completed event plan into a delivery-ready experience.
                 </p>
+                <div className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-[#1D2A62]">
+                  <Clock className="h-3.5 w-3.5 text-[#437118]" />
+                  <span>{course.duration} · Interactive</span>
+                </div>
               </div>
             </div>
           </div>
