@@ -73,7 +73,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
           <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-between space-y-6">
             <div className="space-y-6">
               {/* Brand Logo Header */}
-              <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-100">
+              <div className="flex items-center justify-between gap-3 pb-3">
                 <div className="flex items-center gap-3">
                   <div className="h-11 w-auto flex items-center justify-center bg-transparent">
                     <img
