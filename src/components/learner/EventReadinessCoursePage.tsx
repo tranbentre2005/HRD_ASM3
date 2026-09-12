@@ -160,6 +160,7 @@ export function EventReadinessCoursePage({
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
   const [readinessSubmitted, setReadinessSubmitted] = useState(false)
+  const [impactPriorityAnswer, setImpactPriorityAnswer] = useState("")
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -196,7 +197,7 @@ export function EventReadinessCoursePage({
 
   const handlePrimaryAction = () => {
     if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
-    if (activeLesson.id === "1.0-done-ready" && (openingQuestionAnswer !== "not-necessarily" || !readinessAllCorrect)) return
+    if (activeLesson.id === "1.1-ready-framework" && impactPriorityAnswer !== "C") return
 
     markComplete(activeLesson.id)
     const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
@@ -705,11 +706,103 @@ export function EventReadinessCoursePage({
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">A. IMPACT - What Should a Project Leader Pay Attention To?</h3>
                   </div>
+
                   <p>As a Project Leader, you don’t need to check everything yourself. What matters is knowing which elements could directly affect participants, important stakeholders, or the delivery of the event.</p>
+
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                     <h3 className="text-lg font-bold text-[#1D2A62]">Participant-critical elements</h3>
                     <p className="mt-3 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">Definition:</span> Participant-critical elements are parts of the event where an error could directly affect someone’s experience or disrupt an important part of delivery.</p>
                   </div>
+
+                  <div className="rounded-2xl border border-[#AFD06E]/45 bg-[#EEF7E8] p-5">
+                    <h3 className="text-lg font-bold text-[#1D2A62]">Higher attention examples</h3>
+                    <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                      {[
+                        "Participant names, photos, and registration data",
+                        "Speaker information and arrival requirements",
+                        "Event timing and participant communication",
+                        "Check-in process and key transitions",
+                        "Critical AV and delivery hand-offs"
+                      ].map(item => <li key={item}>• {item}</li>)}
+                    </ul>
+                  </div>
+
+                  <div className="rounded-2xl border border-[#F3C979]/55 bg-[#FFF7E5] p-5">
+                    <h3 className="text-lg font-bold text-[#1D2A62]">Lower Immediate Priority</h3>
+                    <p className="mt-1 text-sm text-slate-600">Can be handled once critical paths are secured:</p>
+                    <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                      {[
+                        "Small formatting inconsistency",
+                        "Minor decorative typo on background banner",
+                        "Optional aesthetic improvement",
+                        "Non-critical layout details"
+                      ].map(item => <li key={item}>• {item}</li>)}
+                    </ul>
+                    <p className="mt-4 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#8B5E00]">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
+                  </div>
+
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
+                    <div className="flex items-center gap-2 font-bold text-[#437118]">
+                      <Target weight="fill" className="h-5 w-5" />
+                      Mini Activity
+                    </div>
+                    <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Would You Check First?</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">Scenario:</span> Final rehearsal starts in 30 minutes. Your team reports the following updates.</p>
+                    <div className="mt-4 grid gap-2">
+                      {[
+                        { value: "A", title: "Backdrop", copy: "A small typo appears in a decorative sentence." },
+                        { value: "B", title: "Participant Slides", copy: "Slides were completed yesterday." },
+                        { value: "C", title: "Participant List", copy: "Two participant details were updated this morning." },
+                        { value: "D", title: "AV System", copy: "Tested and working." },
+                        { value: "E", title: "Refreshments", copy: "Quantity is slightly above the estimate." }
+                      ].map(({ value, title, copy }) => (
+                        <button
+                          key={value}
+                          type="button"
+                          onClick={() => setImpactPriorityAnswer(value)}
+                          className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-colors cursor-pointer ${
+                            impactPriorityAnswer === value
+                              ? value === "C"
+                                ? "border-[#437118] bg-[#EEF7E8] ring-1 ring-[#437118]"
+                                : "border-[#B7473C] bg-[#FFF1EF] ring-1 ring-[#B7473C]/40"
+                              : "border-slate-200 bg-white hover:bg-slate-50"
+                          }`}
+                        >
+                          <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${impactPriorityAnswer === value ? value === "C" ? "bg-[#437118] text-white" : "bg-[#B7473C] text-white" : "bg-[#EAF4FA] text-[#1D4B85]"}`}>{value}</span>
+                          <span>
+                            <span className="block font-bold text-[#1D2A62]">{title}</span>
+                            <span className="mt-0.5 block text-xs leading-relaxed text-slate-600">{copy}</span>
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                    <p className="mt-4 text-xs font-semibold italic text-[#1D2A62]">Ask yourself: “If this goes wrong live, who is affected?”</p>
+                    {impactPriorityAnswer && (
+                      <div className={`mt-4 rounded-xl border p-4 ${impactPriorityAnswer === "C" ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
+                        <p className={`font-bold ${impactPriorityAnswer === "C" ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAnswer === "C" ? "Good priority." : "Not the best first priority."}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-slate-600">{impactPriorityAnswer === "C" ? "The participant list changed after the slides were completed. This could create incorrect participant-facing information across multiple event assets." : "This issue still matters, but another update could directly affect participants and multiple connected event materials."}</p>
+                        {impactPriorityAnswer !== "C" && (
+                          <Button type="button" variant="outline" onClick={() => setImpactPriorityAnswer("")} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                            Try Again
+                          </Button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="rounded-2xl border border-[#AFD06E]/45 bg-[#EEF7E8] p-5">
+                    <p className="text-sm leading-relaxed text-[#1D2A62]"><span className="font-bold">Impact rule:</span> Prioritise by potential impact, not by what is easiest to fix.</p>
+                  </div>
+
+                  {impactPriorityAnswer === "C" && (
+                    <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#437118]">
+                        <Lightbulb weight="fill" className="h-5 w-5" />
+                        Key Takeaway
+                      </div>
+                      <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">When time is limited, focus first on what could most directly affect participants or delivery.</p>
+                    </div>
+                  )}
                 </div>
               )}
               {activeLesson.id === "1.2-ready-simulation" && (
@@ -798,7 +891,7 @@ export function EventReadinessCoursePage({
                   ) : (
                     <span />
                   )}
-                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && impactPriorityAnswer !== "C")} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                     {primaryLabel}
                     <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Button>
