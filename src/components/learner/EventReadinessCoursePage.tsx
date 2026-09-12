@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { Fragment, useEffect, useMemo, useState } from "react"
 import { Course } from "@/data/types"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -9,8 +9,11 @@ import {
   Check,
   CheckCircle,
   Clock,
+  FileText,
   Flag,
+  Gear,
   Lightbulb,
+  MagnifyingGlass,
   Microphone,
   PlayCircle,
   Presentation,
@@ -470,22 +473,30 @@ export function EventReadinessCoursePage({
 
                     <div>
                       <h3 className="text-center text-base font-bold uppercase text-[#1D2A62]">Readiness Pathway - The critical transition</h3>
-                      <div className="mt-3 grid gap-3 sm:grid-cols-4">
+                      <div className="mt-4 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-0">
                         {[
-                          { label: "Done", detail: "Output exists", Icon: CheckCircle, className: "border-[#87AECE]/35 bg-[#F0F7FC] text-[#2F668B]" },
-                          { label: "Verify", detail: "Version & data", Icon: ShieldCheck, className: "border-[#87AECE]/35 bg-[#F0F7FC] text-[#2F668B]" },
-                          { label: "Test", detail: "Sequence run", Icon: Target, className: "border-[#F3C979]/45 bg-[#FFF7E5] text-[#A66C00]" },
-                          { label: "Ready", detail: "Participant ready", Icon: Flag, className: "border-[#AFD06E]/40 bg-[#EEF7E8] text-[#437118]" }
-                        ].map(({ label, detail, Icon, className }) => (
-                          <div key={label} className={`rounded-2xl border p-4 ${className}`}>
-                            <Icon weight="fill" className="h-5 w-5" />
-                            <p className="mt-3 font-bold text-[#1D2A62]">{label}</p>
-                            <p className="mt-1 text-xs text-slate-600">{detail}</p>
-                          </div>
+                          { label: "Done", detail: "Output exists", Icon: FileText, circleClass: "bg-[#EAF4FA] text-[#1D4B85]", panelClass: "bg-[#F0F7FC]", numberClass: "bg-[#2F668B]" },
+                          { label: "Verify", detail: "Information checked", Icon: MagnifyingGlass, circleClass: "bg-[#EAF4FA] text-[#1D4B85]", panelClass: "bg-[#F0F7FC]", numberClass: "bg-[#2F668B]" },
+                          { label: "Test", detail: "Connections tested", Icon: Gear, circleClass: "bg-[#FFF7E5] text-[#B77711]", panelClass: "bg-[#FFF7E5]", numberClass: "bg-[#B77711]" },
+                          { label: "Ready", detail: "Participant-ready", Icon: Flag, circleClass: "bg-[#EEF7E8] text-[#437118]", panelClass: "bg-[#EEF7E8]", numberClass: "bg-[#437118]" }
+                        ].map(({ label, detail, Icon, circleClass, panelClass, numberClass }, index) => (
+                          <Fragment key={label}>
+                            <div className="min-w-0 flex-1">
+                              <div className={`relative mx-auto flex h-20 w-20 items-center justify-center rounded-full ${circleClass}`}>
+                                <span className={`absolute -left-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white ${numberClass}`}>{index + 1}</span>
+                                <Icon weight="regular" className="h-9 w-9" />
+                              </div>
+                              <div className={`mt-2 rounded-2xl p-3 text-center ${panelClass}`}>
+                                <p className="font-bold text-[#1D2A62]">{label}</p>
+                                <p className="mt-1 text-xs text-slate-600">{detail}</p>
+                              </div>
+                            </div>
+                            {index < 3 && <ArrowRight className="mx-auto h-5 w-5 shrink-0 rotate-90 text-[#87AECE] sm:mx-3 sm:rotate-0" />}
+                          </Fragment>
                         ))}
+
                       </div>
                     </div>
-
                     <div>
                       <h3 className="text-base font-bold uppercase tracking-wide text-[#1D2A62]">Comparison between “Done” and “Ready” meaning</h3>
                       <div className="mt-3 grid gap-3 md:grid-cols-2">
