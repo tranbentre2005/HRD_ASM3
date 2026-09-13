@@ -169,7 +169,8 @@ export function EventReadinessCoursePage({
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
   const [readinessSubmitted, setReadinessSubmitted] = useState(false)
-  const [impactPriorityAnswer, setImpactPriorityAnswer] = useState("")
+  const [impactPriorityAnswers, setImpactPriorityAnswers] = useState<string[]>([])
+  const [impactPrioritySubmitted, setImpactPrioritySubmitted] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -178,6 +179,7 @@ export function EventReadinessCoursePage({
   const completedCount = completedLessonIds.length
   const readinessAllPlaced = READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id])
   const readinessAllCorrect = readinessSubmitted && readinessAllPlaced && READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id] === statement.category)
+  const impactPriorityAllCorrect = impactPrioritySubmitted && impactPriorityAnswers.length === 2 && ["B", "C"].every(answer => impactPriorityAnswers.includes(answer))
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
     : Math.max(course.progress, Math.round((completedCount / OUTLINE_ITEMS.length) * 100))
@@ -209,6 +211,23 @@ export function EventReadinessCoursePage({
     if (lessonIndex === -1 || !isLessonUnlocked(lessonIndex)) return
     setActiveLessonId(lessonId)
   }
+  const handleImpactPriorityToggle = (value: string) => {
+    setImpactPrioritySubmitted(false)
+    setImpactPriorityAnswers(previous => previous.includes(value)
+      ? previous.filter(answer => answer !== value)
+      : previous.length < 2
+        ? [...previous, value]
+        : previous)
+  }
+
+  const handleImpactPrioritySubmit = () => {
+    if (impactPriorityAnswers.length === 2) setImpactPrioritySubmitted(true)
+  }
+
+  const handleImpactPriorityTryAgain = () => {
+    setImpactPriorityAnswers([])
+    setImpactPrioritySubmitted(false)
+  }
 
   const markComplete = (lessonId: string) => {
     setCompletedLessonIds(previous => previous.includes(lessonId) ? previous : [...previous, lessonId])
@@ -223,7 +242,7 @@ export function EventReadinessCoursePage({
 
   const handlePrimaryAction = () => {
     if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
-    if (activeLesson.id === "1.1-ready-framework" && impactPriorityAnswer !== "C") return
+    if (activeLesson.id === "1.1-ready-framework" && !impactPriorityAllCorrect) return
 
     markComplete(activeLesson.id)
     const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
@@ -787,44 +806,69 @@ export function EventReadinessCoursePage({
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Would You Check First?</h3>
                     <p className="mt-3 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">Scenario:</span> Final rehearsal starts in 30 minutes. Your team reports the following updates.</p>
-                    <div className="mt-4 grid gap-2">
+                    <p className="mt-3 text-xs font-semibold text-[#1D2A62]">Choose up to 2 answers, then submit.</p>
+                    <div className="mt-3 grid gap-2">
                       {[
                         { value: "A", title: "Backdrop", copy: "A small typo appears in a decorative sentence." },
                         { value: "B", title: "Participant Slides", copy: "Slides were completed yesterday." },
                         { value: "C", title: "Participant List", copy: "Two participant details were updated this morning." },
                         { value: "D", title: "AV System", copy: "Tested and working." },
                         { value: "E", title: "Refreshments", copy: "Quantity is slightly above the estimate." }
-                      ].map(({ value, title, copy }) => (
-                        <button
-                          key={value}
-                          type="button"
-                          onClick={() => setImpactPriorityAnswer(value)}
-                          className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-colors cursor-pointer ${
-                            impactPriorityAnswer === value
-                              ? value === "C"
-                                ? "border-[#437118] bg-[#EEF7E8] ring-1 ring-[#437118]"
-                                : "border-[#B7473C] bg-[#FFF1EF] ring-1 ring-[#B7473C]/40"
-                              : "border-slate-200 bg-white hover:bg-slate-50"
-                          }`}
-                        >
-                          <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${impactPriorityAnswer === value ? value === "C" ? "bg-[#437118] text-white" : "bg-[#B7473C] text-white" : "bg-[#EAF4FA] text-[#1D4B85]"}`}>{value}</span>
-                          <span>
-                            <span className="block font-bold text-[#1D2A62]">{title}</span>
-                            <span className="mt-0.5 block text-xs leading-relaxed text-slate-600">{copy}</span>
-                          </span>
-                        </button>
-                      ))}
+                      ].map(({ value, title, copy }) => {
+                        const isSelected = impactPriorityAnswers.includes(value)
+                        const isCorrectOption = value === "B" || value === "C"
+                        return (
+                          <button
+                            key={value}
+                            type="button"
+                            disabled={impactPrioritySubmitted}
+                            aria-pressed={isSelected}
+                            onClick={() => handleImpactPriorityToggle(value)}
+                            className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-colors ${
+                              impactPrioritySubmitted
+                                ? isCorrectOption
+                                  ? "border-[#70A64B] bg-[#EEF7E8] ring-1 ring-[#70A64B]/40"
+                                  : isSelected
+                                    ? "border-[#D66B5D] bg-[#FFF1EF] ring-1 ring-[#D66B5D]/30"
+                                    : "border-slate-200 bg-white"
+                                : isSelected
+                                  ? "border-[#1D2A62] bg-[#EAF4FA] ring-1 ring-[#1D2A62]"
+                                  : "border-slate-200 bg-white hover:bg-slate-50"
+                            }`}
+                          >
+                            <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                              impactPrioritySubmitted && isCorrectOption
+                                ? "bg-[#437118] text-white"
+                                : impactPrioritySubmitted && isSelected
+                                  ? "bg-[#B7473C] text-white"
+                                  : isSelected
+                                    ? "bg-[#1D2A62] text-white"
+                                    : "bg-[#EAF4FA] text-[#1D4B85]"
+                            }`}>{value}</span>
+                            <span>
+                              <span className="block font-bold text-[#1D2A62]">{title}</span>
+                              <span className="mt-0.5 block text-xs leading-relaxed text-slate-600">{copy}</span>
+                            </span>
+                          </button>
+                        )
+                      })}
                     </div>
+                    <p className="mt-3 text-xs font-semibold text-slate-500">{impactPriorityAnswers.length}/2 answers selected</p>
                     <p className="mt-4 text-xs font-semibold italic text-[#1D2A62]">Ask yourself: “If this goes wrong live, who is affected?”</p>
-                    {impactPriorityAnswer && (
-                      <div className={`mt-4 rounded-xl border p-4 ${impactPriorityAnswer === "C" ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                        <p className={`font-bold ${impactPriorityAnswer === "C" ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAnswer === "C" ? "Good priority." : "Not the best first priority."}</p>
-                        <p className="mt-1 text-xs leading-relaxed text-slate-600">{impactPriorityAnswer === "C" ? "The participant list changed after the slides were completed. This could create incorrect participant-facing information across multiple event assets." : "This issue still matters, but another update could directly affect participants and multiple connected event materials."}</p>
-                        {impactPriorityAnswer !== "C" && (
-                          <Button type="button" variant="outline" onClick={() => setImpactPriorityAnswer("")} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                            Try Again
-                          </Button>
-                        )}
+                    <div className="mt-4 flex justify-end gap-2">
+                      {impactPrioritySubmitted && !impactPriorityAllCorrect && (
+                        <Button type="button" variant="outline" onClick={handleImpactPriorityTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                          Try Again
+                        </Button>
+                      )}
+                      <Button type="button" onClick={handleImpactPrioritySubmit} disabled={impactPriorityAnswers.length !== 2 || impactPrioritySubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                        Submit
+                      </Button>
+                    </div>
+                    {impactPrioritySubmitted && (
+                      <div className={`mt-4 rounded-xl border p-4 ${impactPriorityAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
+                        <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Good priority." : "Not the best first priority."}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "The participant list changed after the slides were completed. This could create incorrect participant-facing information across multiple event assets." : "This issue still matters, but another update could directly affect participants and multiple connected event materials."}</p>
                       </div>
                     )}
                   </div>
@@ -833,7 +877,7 @@ export function EventReadinessCoursePage({
                     <p className="text-sm leading-relaxed text-[#1D2A62]"><span className="font-bold">Impact rule:</span> Prioritise by potential impact, not by what is easiest to fix.</p>
                   </div>
 
-                  {impactPriorityAnswer === "C" && (
+                  {impactPriorityAllCorrect && (
                     <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
                       <div className="flex items-center gap-2 font-bold text-[#437118]">
                         <Lightbulb weight="fill" className="h-5 w-5" />
@@ -930,7 +974,7 @@ export function EventReadinessCoursePage({
                   ) : (
                     <span />
                   )}
-                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && impactPriorityAnswer !== "C")} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !impactPriorityAllCorrect)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                     {primaryLabel}
                     <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Button>
