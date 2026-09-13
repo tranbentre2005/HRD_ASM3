@@ -177,6 +177,8 @@ export function EventReadinessCoursePage({
   const [verificationSourceAnswer, setVerificationSourceAnswer] = useState("")
   const [verificationSourceSubmitted, setVerificationSourceSubmitted] = useState(false)
   const [connectionDiagramNodes, setConnectionDiagramNodes] = useState<string[]>([])
+  const [connectionQuestionAnswer, setConnectionQuestionAnswer] = useState("")
+  const [connectionQuestionSubmitted, setConnectionQuestionSubmitted] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -194,6 +196,8 @@ export function EventReadinessCoursePage({
   const connectionSequenceClicked = connectionDiagramNodes.includes("sequence")
   const connectionLiveClicked = connectionDiagramNodes.includes("live")
   const connectionCoreVisible = connectionSourceClicked && connectionBranchesClicked && connectionSequenceClicked && connectionLiveClicked
+  const connectionQuestionAllCorrect = connectionQuestionSubmitted && connectionQuestionAnswer === "C"
+  const connectionComplete = connectionCoreVisible && connectionQuestionAllCorrect
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
@@ -280,10 +284,14 @@ export function EventReadinessCoursePage({
     if (node === "live" && !connectionSequenceClicked) return
     setConnectionDiagramNodes(previous => previous.includes(node) ? previous : [...previous, node])
   }
+  const handleConnectionQuestionTryAgain = () => {
+    setConnectionQuestionAnswer("")
+    setConnectionQuestionSubmitted(false)
+  }
 
   const handlePrimaryAction = () => {
     if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
-    if (activeLesson.id === "1.1-ready-framework" && !evidenceVerificationComplete) return
+    if (activeLesson.id === "1.1-ready-framework" && !connectionComplete) return
 
     markComplete(activeLesson.id)
     const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
@@ -1222,6 +1230,74 @@ export function EventReadinessCoursePage({
                           </div>
                         </>
                       )}
+                      {connectionCoreVisible && (
+                        <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                          <h3 className="text-lg font-bold text-[#1D2A62]">Which rehearsal gives stronger evidence that the participant-introduction sequence is ready?</h3>
+                          <div className="mt-4 space-y-2">
+                            {[
+                              { value: "A", label: "The MC reads the final script alone." },
+                              { value: "B", label: "Marketing checks the slides again." },
+                              { value: "C", label: "The MC runs the participant-introduction sequence using the final script, final slides, and latest participant information." }
+                            ].map(({ value, label }) => {
+                              const isSelected = connectionQuestionAnswer === value
+                              const isCorrectOption = value === "C"
+                              return (
+                                <button
+                                  key={value}
+                                  type="button"
+                                  disabled={connectionQuestionSubmitted}
+                                  aria-pressed={isSelected}
+                                  onClick={() => {
+                                    setConnectionQuestionAnswer(value)
+                                    setConnectionQuestionSubmitted(true)
+                                  }}
+                                  className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition ${
+                                    connectionQuestionSubmitted
+                                      ? connectionQuestionAllCorrect && isCorrectOption
+                                        ? "border-[#70A64B] bg-[#EEF7E8]"
+                                        : isSelected
+                                          ? "border-[#D66B5D] bg-[#FFF1EF]"
+                                          : "border-slate-200 bg-white"
+                                      : isSelected
+                                        ? "border-[#1D2A62] bg-[#EAF4FA] ring-1 ring-[#1D2A62]"
+                                        : "border-slate-200 bg-white hover:bg-slate-50"
+                                  }`}
+                                >
+                                  <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                                    connectionQuestionSubmitted && connectionQuestionAllCorrect && isCorrectOption
+                                      ? "bg-[#437118] text-white"
+                                      : connectionQuestionSubmitted && isSelected
+                                        ? "bg-[#B7473C] text-white"
+                                        : isSelected
+                                          ? "bg-[#1D2A62] text-white"
+                                          : "bg-[#EAF4FA] text-[#1D4B85]"
+                                  }`}>{value}</span>
+                                  <span className="text-slate-700">{label}</span>
+                                </button>
+                              )
+                            })}
+                          </div>
+                          {connectionQuestionSubmitted && (
+                            <div className={`mt-4 rounded-xl border p-4 ${connectionQuestionAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
+                              {connectionQuestionAllCorrect ? (
+                                <>
+                                  <p className="font-bold text-[#437118]">Correct.</p>
+                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">The event does not happen as separate files and tasks.</p>
+                                  <p className="mt-2 text-sm leading-relaxed text-slate-600">A readiness test should reproduce the critical connection participants will actually experience.</p>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="font-bold text-[#8B5E00]">Not quite.</p>
+                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Choose the rehearsal that uses the final script, final slides, and latest participant information together.</p>
+                                  <Button type="button" variant="outline" onClick={handleConnectionQuestionTryAgain} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                                    Try Again
+                                  </Button>
+                                </>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -1312,7 +1388,7 @@ export function EventReadinessCoursePage({
                   ) : (
                     <span />
                   )}
-                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !evidenceVerificationComplete)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !connectionComplete)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                     {primaryLabel}
                     <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Button>
