@@ -884,6 +884,32 @@ export function EventReadinessCoursePage({
                       <p className="mt-2 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">In practice:</span> When time is limited, focus first on what could most directly affect participants or delivery.</p>
                     </div>
                   )}
+                  {impactPriorityAllCorrect && (
+                    <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                        <ShieldCheck weight="fill" className="h-5 w-5" />
+                        B. EVIDENCE
+                      </div>
+                      <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">How do I know it is correct?</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-700"><span className="font-bold text-[#1D2A62]">“Done” is a status.</span> “Verified” requires evidence.</p>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-600">A team member saying that a task is complete tells you the work has been finished. But for participant-critical information, completion alone does not prove that the information is accurate, current, and approved for use.</p>
+                      <p className="mt-4 text-sm font-bold text-[#1D2A62]">Before sign-off, ask three questions:</p>
+                      <ol className="mt-3 space-y-3">
+                        <li className="rounded-xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
+                          <p className="text-sm font-bold text-[#1D2A62]">1. What is the approved source of truth?</p>
+                          <p className="mt-1 text-sm leading-relaxed text-slate-600">Which source should be used to confirm this information?</p>
+                        </li>
+                        <li className="rounded-xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
+                          <p className="text-sm font-bold text-[#1D2A62]">2. Am I checking the latest approved version?</p>
+                          <p className="mt-1 text-sm leading-relaxed text-slate-600">Has anything changed since this asset was created?</p>
+                        </li>
+                        <li className="rounded-xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
+                          <p className="text-sm font-bold text-[#1D2A62]">3. Does the critical information match?</p>
+                          <p className="mt-1 text-sm leading-relaxed text-slate-600">Do names, photos, dates, roles, speaker details, and other participant-facing information match the approved source?</p>
+                        </li>
+                      </ol>
+                    </div>
+                  )}
                 </div>
               )}
               {activeLesson.id === "1.2-ready-simulation" && (
