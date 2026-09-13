@@ -807,6 +807,27 @@ export function EventReadinessCoursePage({
                       Submit
                     </Button>
                   </div>
+                  {readinessSubmitted && (
+                    <div className={`rounded-2xl border p-5 ${readinessAllCorrect ? "border-[#AFD06E]/40 bg-[#EEF7E8]" : "border-[#F3C979]/50 bg-[#FFF7E5]"}`}>
+                      <div className="flex items-center gap-2 font-bold text-[#437118]">
+                        <Lightbulb weight="fill" className="h-5 w-5" />
+                        Activity Feedback
+                      </div>
+                      {readinessAllCorrect ? (
+                        <>
+                          <p className="mt-3 font-bold text-[#437118]">Great work.</p>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-600">You identified the difference between task completion and event readiness.</p>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-600">A task can be Done without being Ready. Readiness requires evidence that critical information is current and that connected elements can work together in delivery.</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="mt-3 font-bold text-[#A66C00]">Almost there.</p>
+                          <p className="mt-2 text-sm font-semibold text-[#1D2A62]">Ask yourself:</p>
+                          <p className="mt-1 text-sm leading-relaxed text-slate-600">Does this statement only show that a task has been completed, or does it provide evidence that the event can work as intended?</p>
+                        </>
+                      )}
+                    </div>
+                  )}
 
 
                   {readinessAllCorrect && (
