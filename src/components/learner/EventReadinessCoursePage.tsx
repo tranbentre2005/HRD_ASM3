@@ -180,8 +180,6 @@ export function EventReadinessCoursePage({
   const [connectionDiagramNodes, setConnectionDiagramNodes] = useState<string[]>([])
   const [connectionChallengeAnswer, setConnectionChallengeAnswer] = useState("")
   const [connectionChallengeSubmitted, setConnectionChallengeSubmitted] = useState(false)
-  const [rehearsalChoiceAnswer, setRehearsalChoiceAnswer] = useState("")
-  const [rehearsalChoiceSubmitted, setRehearsalChoiceSubmitted] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -201,8 +199,7 @@ export function EventReadinessCoursePage({
   const connectionLiveClicked = connectionDiagramNodes.includes("live")
   const connectionCoreVisible = connectionSourceClicked && connectionBranchesClicked && connectionSyncCheckClicked && connectionSequenceClicked && connectionLiveClicked
   const connectionChallengeAllCorrect = connectionChallengeSubmitted && connectionChallengeAnswer === "slide-hand-off"
-  const rehearsalChoiceAllCorrect = rehearsalChoiceSubmitted && rehearsalChoiceAnswer === "C"
-  const connectionComplete = connectionCoreVisible && connectionChallengeAllCorrect && rehearsalChoiceAllCorrect
+  const connectionComplete = connectionCoreVisible && connectionChallengeAllCorrect
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
@@ -294,10 +291,6 @@ export function EventReadinessCoursePage({
     setConnectionChallengeSubmitted(false)
   }
 
-  const handleRehearsalChoiceTryAgain = () => {
-    setRehearsalChoiceAnswer("")
-    setRehearsalChoiceSubmitted(false)
-  }
 
   const handlePrimaryAction = () => {
     if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
@@ -1278,7 +1271,7 @@ export function EventReadinessCoursePage({
                             Connection Challenge
                           </div>
                           <div className="mt-4 grid gap-3 md:grid-cols-3">
-                            <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4">
+                            <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4 text-center">
                               <h3 className="text-sm font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
                               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
                                 <li>Nguyễn Minh Anh</li>
@@ -1286,7 +1279,7 @@ export function EventReadinessCoursePage({
                                 <li>Lê Hoàng Nam</li>
                               </ul>
                             </div>
-                            <div className="rounded-xl border border-[#AFD06E]/55 bg-[#F2FAED] p-4">
+                            <div className="rounded-xl border border-[#AFD06E]/55 bg-[#F2FAED] p-4 text-center">
                               <h3 className="text-sm font-bold text-[#1D2A62]">Final MC script</h3>
                               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
                                 <li>Nguyễn Minh Anh</li>
@@ -1301,7 +1294,7 @@ export function EventReadinessCoursePage({
                                 setConnectionChallengeAnswer("slide-hand-off")
                                 setConnectionChallengeSubmitted(true)
                               }}
-                              className={`rounded-xl border p-4 text-left transition ${
+                              className={`rounded-xl border p-4 text-center transition ${
                                 connectionChallengeAllCorrect ? "border-[#D88D5F] bg-[#FFF5EC] ring-2 ring-[#D88D5F]/20" : "border-[#F1C7A6]/70 bg-[#FFF8F2] hover:-translate-y-0.5 hover:shadow-sm"
                               }`}
                             >
@@ -1325,81 +1318,6 @@ export function EventReadinessCoursePage({
                         </div>
                       )}
                       {connectionChallengeAllCorrect && (
-                        <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                          <h3 className="text-lg font-bold text-[#1D2A62]">Rehearsal Choice</h3>
-                          <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</p>
-                          <div className="mt-4 space-y-2">
-                            {[
-                              { value: "A", label: "The MC reads the final script again." },
-                              { value: "B", label: "The slides are checked separately one more time." },
-                              { value: "C", label: "The MC runs the complete participant-introduction sequence using the latest confirmed participant information, final script, final slides, and actual delivery order." }
-                            ].map(({ value, label }) => {
-                              const isSelected = rehearsalChoiceAnswer === value
-                              const isCorrectOption = value === "C"
-                              return (
-                                <button
-                                  key={value}
-                                  type="button"
-                                  disabled={rehearsalChoiceSubmitted}
-                                  aria-pressed={isSelected}
-                                  onClick={() => {
-                                    setRehearsalChoiceAnswer(value)
-                                    setRehearsalChoiceSubmitted(true)
-                                  }}
-                                  className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition ${
-                                    rehearsalChoiceSubmitted
-                                      ? rehearsalChoiceAllCorrect && isCorrectOption
-                                        ? "border-[#70A64B] bg-[#EEF7E8]"
-                                        : isSelected
-                                          ? "border-[#D66B5D] bg-[#FFF1EF]"
-                                          : "border-slate-200 bg-white"
-                                      : isSelected
-                                        ? "border-[#1D2A62] bg-[#EAF4FA] ring-1 ring-[#1D2A62]"
-                                        : "border-slate-200 bg-white hover:bg-slate-50"
-                                  }`}
-                                >
-                                  <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                                    rehearsalChoiceSubmitted && rehearsalChoiceAllCorrect && isCorrectOption
-                                      ? "bg-[#437118] text-white"
-                                      : rehearsalChoiceSubmitted && isSelected
-                                        ? "bg-[#B7473C] text-white"
-                                        : isSelected
-                                          ? "bg-[#1D2A62] text-white"
-                                          : "bg-[#EAF4FA] text-[#1D4B85]"
-                                  }`}>{value}</span>
-                                  <span className="text-slate-700">{label}</span>
-                                </button>
-                              )
-                            })}
-                          </div>
-                          {rehearsalChoiceSubmitted && (
-                            <div className={`mt-4 rounded-xl border p-4 ${rehearsalChoiceAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                              {rehearsalChoiceAllCorrect ? (
-                                <>
-                                  <p className="font-bold text-[#437118]">CORRECT.</p>
-                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Because the problem exists between components, it must be tested between components.</p>
-                                  <p className="mt-2 text-sm leading-relaxed text-slate-600">Running the actual participant-introduction sequence can reveal problems that separate checks may miss, such as:</p>
-                                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-600">
-                                    <li>the wrong slide appearing with the right name;</li>
-                                    <li>mismatched participant order;</li>
-                                    <li>timing problems;</li>
-                                    <li>different versions being used at the same time.</li>
-                                  </ul>
-                                </>
-                              ) : (
-                                <>
-                                  <p className="font-bold text-[#8B5E00]">Not quite.</p>
-                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Choose the rehearsal that tests the final script, final slides, latest participant information, and actual delivery order together.</p>
-                                  <Button type="button" variant="outline" onClick={handleRehearsalChoiceTryAgain} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                                    Try Again
-                                  </Button>
-                                </>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                      {rehearsalChoiceAllCorrect && (
                         <>
                           <div className="mt-5 overflow-x-auto rounded-2xl border border-[#87AECE]/35 bg-white">
                             <div className="min-w-[680px]">
