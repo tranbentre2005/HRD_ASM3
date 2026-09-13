@@ -1411,8 +1411,8 @@ export function EventReadinessCoursePage({
                       {connectionComplete && (
                         <>
                           <div className="mt-5">
-                            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">FROM SEPARATE CHECKS TO REAL READINESS</p>
-                            <h3 className="mt-2 text-xl font-bold text-[#1D2A62]">Component Check <span className="text-slate-500">vs.</span> Integrated Readiness Test</h3>
+                            <p className="text-center text-sm font-semibold tracking-wide text-[#437118]">From Separate Checks to Real Readiness</p>
+                            <h3 className="mt-2 text-center text-xl font-bold text-[#437118]">COMPONENT CHECK VS. INTEGRATED READINESS TEST</h3>
                             <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-center">
                               <div className="h-full rounded-2xl border border-slate-200 bg-white p-5">
                                 <div className="flex items-start gap-3">
