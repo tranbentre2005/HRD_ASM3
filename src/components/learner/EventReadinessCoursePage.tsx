@@ -1019,7 +1019,7 @@ export function EventReadinessCoursePage({
                       </div>
                       <h3 className="mt-3 text-sm font-semibold text-[#1D2A62]">Can you spot what is not ready? Click all details that do not match the confirmed participant information.</h3>
                       <div className="mt-4 grid gap-3 md:grid-cols-2">
-                        <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4">
+                        <div className="rounded-xl border border-[#87AECE]/55 bg-white p-4">
                           <h3 className="text-base font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
                           <div className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
                             <p><span className="font-bold text-[#1D2A62]">Name:</span> Nguyễn Minh Anh</p>
@@ -1027,7 +1027,7 @@ export function EventReadinessCoursePage({
                             <p><span className="font-bold text-[#1D2A62]">Role:</span> Probationary Member</p>
                           </div>
                         </div>
-                        <div className="rounded-xl border border-[#C9B9E6]/55 bg-[#F6F2FC] p-4">
+                        <div className="rounded-xl border border-[#87AECE]/55 bg-[#F6F2FC] p-4">
                           <h3 className="text-base font-bold text-[#1D2A62]">Participant introduction slide</h3>
                           <div className="mt-3 space-y-2">
                             {[
@@ -1109,7 +1109,7 @@ export function EventReadinessCoursePage({
                       </div>
                   {verificationChallengeAllCorrect && (
                     <div className="mt-5 pt-5">
-                      <h3 className="text-center text-base leading-relaxed text-[#437118]"><span className="font-bold">What should you use to verify the correction?</span></h3>
+                      <h3 className="text-center text-base leading-relaxed text-[#1D2A62]"><span className="font-bold">What should you use to verify the correction?</span></h3>
                       <div className="mt-4 space-y-2">
                         {[
                           { value: "A", label: "The slide, because it was completed first" },
