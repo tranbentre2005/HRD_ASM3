@@ -1389,7 +1389,7 @@ export function EventReadinessCoursePage({
                             <MagnifyingGlass weight="bold" className="h-5 w-5" />
                             Connection Challenge
                           </div>
-                          <p className="mt-4 text-center text-sm leading-relaxed text-slate-700">Every participant detail is correct. But is the sequence ready?</p>
+                          <h3 className="mt-3 text-sm font-semibold text-[#1D2A62]">Every participant detail is correct. But is the sequence ready? Click where the connection breaks.</h3>
                           <div className="mt-4 grid gap-3 md:grid-cols-3">
                             <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4 text-center">
                               <h3 className="text-sm font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
@@ -1425,7 +1425,7 @@ export function EventReadinessCoursePage({
                                   </li>
                                 ))}
                               </ul>
-                              <p className="mt-3 text-xs font-semibold italic text-[#1D2A62]">Click where the connection breaks.</p>
+
                             </div>
                           </div>
                           {connectionChallengeSubmitted && (
