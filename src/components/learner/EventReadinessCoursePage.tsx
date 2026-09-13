@@ -1315,11 +1315,8 @@ export function EventReadinessCoursePage({
                           <div className="mt-2 flex justify-center text-xl font-bold text-[#2F668B]">
                             <span className="animate-bounce">↓</span>
                           </div>
-                          <div className="mx-auto mt-2 w-fit max-w-full rounded-2xl border border-[#AFD06E]/45 bg-[#EEF7E8] p-5">
+                          <div className="mx-auto mt-2 w-full max-w-full rounded-2xl border border-[#AFD06E]/45 bg-[#EEF7E8] p-5">
                             <p className="text-center text-base italic leading-relaxed text-[#1D2A62]">Each file may be correct on its own. But participants experience the <span className="font-bold text-[#437118]">whole sequence</span> — the script, visuals, timing, information, and hand-offs working together.</p>
-                          </div>
-                        </>
-                      )}
                       {connectionComplete && (
                         <>
                           <div className="mt-5">
@@ -1380,6 +1377,9 @@ export function EventReadinessCoursePage({
                             </div>
                           </div>
                           <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Key difference:</span> A component check proves one part works. An integrated readiness test proves the connection works.</p>
+                        </>
+                      )}
+                          </div>
                         </>
                       )}
                   </div>
