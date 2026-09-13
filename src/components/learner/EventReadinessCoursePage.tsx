@@ -899,7 +899,8 @@ export function EventReadinessCoursePage({
                         IMPACT RULE
                       </div>
                       <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">Prioritise by potential impact, not by what is easiest to fix.</p>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">Ask yourself:</span> If this goes wrong live, who is affected and how seriously?</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Ask yourself: If this goes wrong live, who is affected and how seriously?</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600">In practice: When time is limited, focus first on issues that could most directly affect participants or event delivery.</p>
                     </div>
                   )}
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
