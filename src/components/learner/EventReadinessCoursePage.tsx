@@ -1155,8 +1155,8 @@ export function EventReadinessCoursePage({
                         {connectionSourceClicked && (
                           <>
                             <div className="grid grid-cols-2 gap-3 py-1 text-center text-xl font-bold text-[#2F668B]">
-                              <span className="animate-bounce">↓</span>
-                              <span className="animate-bounce">↓</span>
+                              <span className="relative left-6 animate-bounce">↓</span>
+                              <span className="relative -left-6 animate-bounce">↓</span>
                             </div>
                             <div className="grid gap-3 md:grid-cols-2">
                               <button
@@ -1188,8 +1188,8 @@ export function EventReadinessCoursePage({
                         {connectionBranchesClicked && (
                           <>
                             <div className="grid grid-cols-2 gap-3 py-1 text-center text-xl font-bold text-[#2F668B]">
-                              <span className="animate-bounce">↓</span>
-                              <span className="animate-bounce">↓</span>
+                              <span className="relative left-6 animate-bounce">↓</span>
+                              <span className="relative -left-6 animate-bounce">↓</span>
                             </div>
                             <button
                               type="button"
@@ -1256,8 +1256,8 @@ export function EventReadinessCoursePage({
                           <div className="mt-2 flex justify-center text-xl font-bold text-[#2F668B]">
                             <span className="animate-bounce">↓</span>
                           </div>
-                          <div className="mx-auto mt-2 w-fit max-w-full rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
-                            <p className="text-base italic leading-relaxed text-slate-600">Each file may be correct on its own. But participants experience the <span className="font-bold text-[#1D2A62]">whole sequence</span> — the script, visuals, timing, and hand-offs working together.</p>
+                          <div className="mx-auto mt-2 w-fit max-w-full rounded-2xl bg-[#2F6B45] p-5">
+                            <p className="text-center text-base italic leading-relaxed text-white">Each file may be correct on its own. But participants experience the <span className="font-bold text-white">whole sequence</span> — the script, visuals, timing, information, and hand-offs working together.</p>
                           </div>
                         </>
                       )}
