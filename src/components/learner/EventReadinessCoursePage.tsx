@@ -741,41 +741,43 @@ export function EventReadinessCoursePage({
                       <Target weight="fill" className="h-5 w-5" />
                       IMPACT
                     </div>
-                    <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">A. IMPACT - What Should a Project Leader Pay Attention To?</h3>
+                    <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Should a Project Leader Pay Attention To?</h3>
                   </div>
 
                   <p>As a Project Leader, you don’t need to check everything yourself. What matters is knowing which elements could directly affect participants, important stakeholders, or the delivery of the event.</p>
 
-                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                    <h3 className="text-lg font-bold text-[#1D2A62]">Participant-critical elements</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">Definition:</span> Participant-critical elements are parts of the event where an error could directly affect someone’s experience or disrupt an important part of delivery.</p>
-                  </div>
-
-                  <div className="rounded-2xl border border-[#AFD06E]/45 bg-[#EEF7E8] p-5">
-                    <h3 className="text-lg font-bold text-[#1D2A62]">Higher attention examples</h3>
-                    <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
-                      {[
-                        "Participant names, photos, and registration data",
-                        "Speaker information and arrival requirements",
-                        "Event timing and participant communication",
-                        "Check-in process and key transitions",
-                        "Critical AV and delivery hand-offs"
-                      ].map(item => <li key={item}>• {item}</li>)}
-                    </ul>
-                  </div>
-
-                  <div className="rounded-2xl border border-[#F3C979]/55 bg-[#FFF7E5] p-5">
-                    <h3 className="text-lg font-bold text-[#1D2A62]">Lower Immediate Priority</h3>
-                    <p className="mt-1 text-sm text-slate-600">Can be handled once critical paths are secured:</p>
-                    <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
-                      {[
-                        "Small formatting inconsistency",
-                        "Minor decorative typo on background banner",
-                        "Optional aesthetic improvement",
-                        "Non-critical layout details"
-                      ].map(item => <li key={item}>• {item}</li>)}
-                    </ul>
-                    <p className="mt-4 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#8B5E00]">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                    <div>
+                      <h3 className="text-lg font-bold text-[#1D2A62]">Participant-critical elements</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-600">Participant-critical elements are parts of the event where an error could directly affect someone’s experience or disrupt an important part of delivery.</p>
+                    </div>
+                    <div className="mt-4 grid gap-3 md:grid-cols-2">
+                      <div className="rounded-2xl border border-[#437118]/45 bg-gradient-to-br from-[#EEF7E8] via-[#F8FCF6] to-[#DFF0D8] p-5 shadow-sm ring-1 ring-[#AFD06E]/35">
+                        <h3 className="text-base font-extrabold text-[#386b24]">Higher attention examples</h3>
+                        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                          {[
+                            "Participant names, photos, and registration data",
+                            "Speaker information and arrival requirements",
+                            "Event timing and participant communication",
+                            "Check-in process and key transitions",
+                            "Critical AV and delivery hand-offs"
+                          ].map(item => <li key={item}>• {item}</li>)}
+                        </ul>
+                      </div>
+                      <div className="rounded-2xl border border-[#F3C979]/55 bg-[#FFF7E5] p-5">
+                        <h3 className="text-base font-extrabold text-[#8B5E00]">Lower Immediate Priority</h3>
+                        <p className="mt-1 text-sm text-slate-600">Can be handled once critical paths are secured:</p>
+                        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                          {[
+                            "Small formatting inconsistency",
+                            "Minor decorative typo on background banner",
+                            "Optional aesthetic improvement",
+                            "Non-critical layout details"
+                          ].map(item => <li key={item}>• {item}</li>)}
+                        </ul>
+                        <p className="mt-4 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#8B5E00]">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
