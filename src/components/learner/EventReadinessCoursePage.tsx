@@ -171,6 +171,7 @@ export function EventReadinessCoursePage({
   const [readinessSubmitted, setReadinessSubmitted] = useState(false)
   const [impactPriorityAnswers, setImpactPriorityAnswers] = useState<string[]>([])
   const [impactPrioritySubmitted, setImpactPrioritySubmitted] = useState(false)
+  const [selectedEvidenceQuestion, setSelectedEvidenceQuestion] = useState<string | null>(null)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -894,18 +895,25 @@ export function EventReadinessCoursePage({
                       <p className="mt-3 text-base leading-relaxed text-slate-700">“Done” is a status. <span className="font-bold text-[#1D2A62]">“Verified”</span> requires evidence.</p>
                       <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Before sign-off,</span> ask three questions:</p>
                       <ol className="mt-3 space-y-3">
-                        <li className="rounded-xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
-                          <p className="text-sm font-bold text-[#1D2A62]">1. What is the approved source of truth?</p>
-                          <p className="mt-1 text-sm leading-relaxed text-slate-600">Which source should be used to confirm this information?</p>
-                        </li>
-                        <li className="rounded-xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
-                          <p className="text-sm font-bold text-[#1D2A62]">2. Am I checking the latest approved version?</p>
-                          <p className="mt-1 text-sm leading-relaxed text-slate-600">Has anything changed since this asset was created?</p>
-                        </li>
-                        <li className="rounded-xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
-                          <p className="text-sm font-bold text-[#1D2A62]">3. Does the critical information match?</p>
-                          <p className="mt-1 text-sm leading-relaxed text-slate-600">Do names, photos, dates, roles, speaker details, and other participant-facing information match the approved source?</p>
-                        </li>
+                        {[
+                          { id: "source", number: "1.", question: "What is the approved source of truth?", answer: "Which source should be used to confirm this information?", tone: "border-[#B8D7EA]/70 bg-[#F0F7FC]" },
+                          { id: "version", number: "2.", question: "Am I checking the latest approved version?", answer: "Has anything changed since this asset was created?", tone: "border-[#C9B9E6]/70 bg-[#F6F2FC]" },
+                          { id: "match", number: "3.", question: "Does the critical information match?", answer: "Do names, photos, dates, roles, speaker details, and other participant-facing information match the approved source?", tone: "border-[#F1C7A6]/70 bg-[#FFF5EC]" }
+                        ].map(({ id, number, question, answer, tone }) => (
+                          <li key={id}>
+                            <button
+                              type="button"
+                              aria-pressed={selectedEvidenceQuestion === id}
+                              onClick={() => setSelectedEvidenceQuestion(previous => previous === id ? null : id)}
+                              className={`w-full rounded-xl border p-4 text-left transition ${
+                                tone
+                              } ${selectedEvidenceQuestion === id ? "ring-2 ring-[#1D2A62]/25" : "hover:-translate-y-0.5 hover:shadow-sm"}`}
+                            >
+                              <p className="text-sm font-bold text-[#1D2A62]">{number} {question}</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">{answer}</p>
+                            </button>
+                          </li>
+                        ))}
                       </ol>
                     </div>
                   )}
