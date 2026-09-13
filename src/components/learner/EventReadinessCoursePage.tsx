@@ -94,14 +94,14 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
   {
     title: "CHECK YOUR UNDERSTANDING",
     items: [
-      { id: "2.0-quick-check", title: "2.0 | Event Readiness Quick Check", section: "CHECK YOUR UNDERSTANDING" },
-      { id: "2.1-check-results", title: "2.1 | Your Readiness Check Results", section: "CHECK YOUR UNDERSTANDING" }
+      { id: "2.0-quick-check", title: "2.0 | Course Quick Check", section: "CHECK YOUR UNDERSTANDING" },
+      { id: "2.1-check-results", title: "2.1 | Key Takeaways", section: "CHECK YOUR UNDERSTANDING" }
     ]
   },
   {
     title: "APPLY TO YOUR EVENT",
     items: [
-      { id: "3.0-event-check", title: "3.0 | 3-Minute Event Readiness Check", section: "APPLY TO YOUR EVENT" }
+      { id: "3.0-event-check", title: "3.0 | 3-Minute Event Readiness Checklist", section: "APPLY TO YOUR EVENT" }
     ]
   },
   {
