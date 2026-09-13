@@ -1280,9 +1280,8 @@ export function EventReadinessCoursePage({
                             <div className={`mt-4 rounded-xl border p-4 ${connectionQuestionAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
                               {connectionQuestionAllCorrect ? (
                                 <>
-                                  <p className="font-bold text-[#437118]">Correct.</p>
-                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">The event does not happen as separate files and tasks.</p>
-                                  <p className="mt-2 text-sm leading-relaxed text-slate-600">A readiness test should reproduce the critical connection participants will actually experience.</p>
+                                  <p className="font-bold text-[#437118]">CORRECT.</p>
+                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">The event does not happen as separate files and tasks. A readiness test should reproduce the critical connection participants will actually experience.</p>
                                 </>
                               ) : (
                                 <>
