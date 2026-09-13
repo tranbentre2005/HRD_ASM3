@@ -1321,7 +1321,7 @@ export function EventReadinessCoursePage({
                                   </li>
                                 ))}
                               </ul>
-                              <p className="mt-3 text-xs font-semibold italic text-[#1D2A62]">Click Lê Hoàng Nam or Trần Gia Hân to return the sequence to the correct order.</p>
+                              <p className="mt-3 text-xs font-semibold italic text-[#1D2A62]">Click where the connection breaks.</p>
                             </div>
                           </div>
                           {connectionChallengeSubmitted && (
@@ -1332,7 +1332,7 @@ export function EventReadinessCoursePage({
                             </div>
                           )}
                           {connectionChallengeAllCorrect && (
-                            <div className="mt-5 border-t border-[#87AECE]/25 pt-5">
+                            <div className="mt-5 pt-5">
                               <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</p>
                               <div className="mt-4 space-y-2">
                                 {[
