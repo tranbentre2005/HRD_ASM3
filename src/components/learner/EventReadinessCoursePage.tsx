@@ -907,13 +907,13 @@ export function EventReadinessCoursePage({
                       <Target weight="fill" className="h-5 w-5" />
                       Mini Activity
                     </div>
-                    <h3 className="mt-3 text-sm font-semibold text-[#1D2A62]">You have 15 minutes before rehearsal. What would you check first?</h3>
+                    <h3 className="mt-3 text-sm font-semibold text-[#1D2A62]">You have 15 minutes before rehearsal. Which issue deserves the highest priority?</h3>
                     <div className="mt-3 grid gap-2">
                       {[
-                        { value: "A", label: "The background colour on the final slide" },
-                        { value: "B", label: "A participant’s name and photo have not been cross-checked" },
-                        { value: "C", label: "One internal planning file has inconsistent formatting" },
-                        { value: "D", label: "The team folder could be renamed more clearly" }
+                        { value: "A", label: "A speaker’s title differs between the latest confirmation email and the slide deck." },
+                        { value: "B", label: "A participant’s name and photo have not been cross-checked against the latest confirmed list." },
+                        { value: "C", label: "A small formatting inconsistency appears in an internal planning file." },
+                        { value: "D", label: "A minor typo appears on the backdrop." }
                       ].map(({ value, label }) => {
                         const isSelected = impactPriorityAnswer === value
                         const isCorrectOption = value === "B"
@@ -950,7 +950,7 @@ export function EventReadinessCoursePage({
                         )
                       })}
                     </div>
-                    <p className="mt-4 text-xs font-semibold italic text-[#1D2A62]">Ask yourself: “If this goes wrong live, who is affected?”</p>
+                    <p className="mt-4 text-xs font-semibold italic text-[#1D2A62]"><span className="font-bold">Ask yourself:</span><br />If this goes wrong live, who is affected?</p>
                     <div className="mt-4 flex justify-end gap-2">
                       {impactPrioritySubmitted && !impactPriorityAllCorrect && (
                         <Button type="button" variant="outline" onClick={handleImpactPriorityTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
@@ -963,10 +963,10 @@ export function EventReadinessCoursePage({
                     </div>
                     {impactPrioritySubmitted && (
                       <div className={`mt-4 rounded-xl border p-4 ${impactPriorityAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                        <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "EXACTLY." : "Not the best first priority."}</p>
-                        <p className="mt-1 text-sm leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "Not every unfinished detail creates the same level of risk." : "This issue still matters, but another update could directly affect participants and multiple connected event materials."}</p>
+                        <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Exactly." : "Not quite."}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "Not every unfinished detail creates the same level of risk." : "That issue may still need attention, but another option has a more direct impact on the participant experience."}</p>
                         {impactPriorityAllCorrect && (
-                          <p className="mt-2 text-sm leading-relaxed text-slate-600">A wrong participant name or photo directly affects someone’s live experience, so it deserves priority before lower-impact internal details.</p>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-600">A participant’s name and photo will be experienced directly during the event, so this issue deserves attention before lower-impact internal or decorative details.</p>
                         )}
                       </div>
                     )}
