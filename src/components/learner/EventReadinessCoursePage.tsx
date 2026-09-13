@@ -878,7 +878,7 @@ export function EventReadinessCoursePage({
                     <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
                       <div className="flex items-center gap-2 font-bold text-[#437118]">
                         <Lightbulb weight="fill" className="h-5 w-5" />
-                        Key Takeaway
+                        Key Takeaway - IMPACT RULE
                       </div>
                       <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">Prioritise by potential impact, not by what is easiest to fix.</p>
                       <p className="mt-2 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">In practice:</span> When time is limited, focus first on what could most directly affect participants or delivery.</p>
