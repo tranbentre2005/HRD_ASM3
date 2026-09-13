@@ -756,15 +756,14 @@ export function EventReadinessCoursePage({
 
               {activeLesson.id === "1.1-ready-framework" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                     <div className="flex items-center gap-2 font-bold text-[#437118]">
                       <Lightbulb weight="fill" className="h-5 w-5" />
-                      IMPACT
+                      A. IMPACT
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Should a Project Leader Pay Attention To?</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">As a Project Leader, you don’t need to check everything yourself. What matters is knowing which elements could directly affect participants, important stakeholders, or the delivery of the event.</p>
                   </div>
-
-                  <p>As a Project Leader, you don’t need to check everything yourself. What matters is knowing which elements could directly affect participants, important stakeholders, or the delivery of the event.</p>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                     <div>
