@@ -169,7 +169,7 @@ export function EventReadinessCoursePage({
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
   const [readinessSubmitted, setReadinessSubmitted] = useState(false)
-  const [impactPriorityAnswers, setImpactPriorityAnswers] = useState<string[]>([])
+  const [impactPriorityAnswer, setImpactPriorityAnswer] = useState("")
   const [impactPrioritySubmitted, setImpactPrioritySubmitted] = useState(false)
   const [selectedEvidenceQuestion, setSelectedEvidenceQuestion] = useState<string | null>(null)
   const [verificationMismatchAnswers, setVerificationMismatchAnswers] = useState<string[]>([])
@@ -184,7 +184,7 @@ export function EventReadinessCoursePage({
   const completedCount = completedLessonIds.length
   const readinessAllPlaced = READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id])
   const readinessAllCorrect = readinessSubmitted && readinessAllPlaced && READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id] === statement.category)
-  const impactPriorityAllCorrect = impactPrioritySubmitted && impactPriorityAnswers.length === 2 && ["B", "C"].every(answer => impactPriorityAnswers.includes(answer))
+  const impactPriorityAllCorrect = impactPrioritySubmitted && impactPriorityAnswer === "B"
   const verificationChallengeAllCorrect = verificationChallengeSubmitted && verificationMismatchAnswers.length === 2 && ["name", "photo"].every(answer => verificationMismatchAnswers.includes(answer))
   const verificationSourceAllCorrect = verificationSourceSubmitted && verificationSourceAnswer === "C"
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
@@ -219,21 +219,17 @@ export function EventReadinessCoursePage({
     if (lessonIndex === -1 || !isLessonUnlocked(lessonIndex)) return
     setActiveLessonId(lessonId)
   }
-  const handleImpactPriorityToggle = (value: string) => {
+  const handleImpactPrioritySelect = (value: string) => {
     setImpactPrioritySubmitted(false)
-    setImpactPriorityAnswers(previous => previous.includes(value)
-      ? previous.filter(answer => answer !== value)
-      : previous.length < 2
-        ? [...previous, value]
-        : previous)
+    setImpactPriorityAnswer(value)
   }
 
   const handleImpactPrioritySubmit = () => {
-    if (impactPriorityAnswers.length === 2) setImpactPrioritySubmitted(true)
+    if (impactPriorityAnswer) setImpactPrioritySubmitted(true)
   }
 
   const handleImpactPriorityTryAgain = () => {
-    setImpactPriorityAnswers([])
+    setImpactPriorityAnswer("")
     setImpactPrioritySubmitted(false)
   }
   const handleVerificationMismatchToggle = (value: string) => {
@@ -838,26 +834,24 @@ export function EventReadinessCoursePage({
                       <Target weight="fill" className="h-5 w-5" />
                       Mini Activity
                     </div>
-                    <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Would You Check First?</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">Scenario:</span> Final rehearsal starts in 30 minutes. Your team reports the following updates.</p>
-                    <p className="mt-3 text-xs font-semibold text-[#1D2A62]">Choose up to 2 answers, then submit.</p>
+                    <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">You have 15 minutes before rehearsal. What would you check first?</h3>
+                    <p className="mt-3 text-xs font-semibold text-[#1D2A62]">Select one answer, then submit.</p>
                     <div className="mt-3 grid gap-2">
                       {[
-                        { value: "A", title: "Backdrop", copy: "A small typo appears in a decorative sentence." },
-                        { value: "B", title: "Participant Slides", copy: "Slides were completed yesterday." },
-                        { value: "C", title: "Participant List", copy: "Two participant details were updated this morning." },
-                        { value: "D", title: "AV System", copy: "Tested and working." },
-                        { value: "E", title: "Refreshments", copy: "Quantity is slightly above the estimate." }
-                      ].map(({ value, title, copy }) => {
-                        const isSelected = impactPriorityAnswers.includes(value)
-                        const isCorrectOption = value === "B" || value === "C"
+                        { value: "A", label: "The background colour on the final slide" },
+                        { value: "B", label: "A participant’s name and photo have not been cross-checked" },
+                        { value: "C", label: "One internal planning file has inconsistent formatting" },
+                        { value: "D", label: "The team folder could be renamed more clearly" }
+                      ].map(({ value, label }) => {
+                        const isSelected = impactPriorityAnswer === value
+                        const isCorrectOption = value === "B"
                         return (
                           <button
                             key={value}
                             type="button"
                             disabled={impactPrioritySubmitted}
                             aria-pressed={isSelected}
-                            onClick={() => handleImpactPriorityToggle(value)}
+                            onClick={() => handleImpactPrioritySelect(value)}
                             className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-colors ${
                               impactPrioritySubmitted
                                 ? isCorrectOption
@@ -879,15 +873,11 @@ export function EventReadinessCoursePage({
                                     ? "bg-[#1D2A62] text-white"
                                     : "bg-[#EAF4FA] text-[#1D4B85]"
                             }`}>{value}</span>
-                            <span>
-                              <span className="block font-bold text-[#1D2A62]">{title}</span>
-                              <span className="mt-0.5 block text-xs leading-relaxed text-slate-600">{copy}</span>
-                            </span>
+                            <span className="text-sm leading-relaxed text-slate-700">{label}</span>
                           </button>
                         )
                       })}
                     </div>
-                    <p className="mt-3 text-xs font-semibold text-slate-500">{impactPriorityAnswers.length}/2 answers selected</p>
                     <p className="mt-4 text-xs font-semibold italic text-[#1D2A62]">Ask yourself: “If this goes wrong live, who is affected?”</p>
                     <div className="mt-4 flex justify-end gap-2">
                       {impactPrioritySubmitted && !impactPriorityAllCorrect && (
@@ -895,14 +885,17 @@ export function EventReadinessCoursePage({
                           Try Again
                         </Button>
                       )}
-                      <Button type="button" onClick={handleImpactPrioritySubmit} disabled={impactPriorityAnswers.length !== 2 || impactPrioritySubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                      <Button type="button" onClick={handleImpactPrioritySubmit} disabled={!impactPriorityAnswer || impactPrioritySubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
                         Submit
                       </Button>
                     </div>
                     {impactPrioritySubmitted && (
                       <div className={`mt-4 rounded-xl border p-4 ${impactPriorityAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                        <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Good priority." : "Not the best first priority."}</p>
-                        <p className="mt-1 text-xs leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "The participant list changed after the slides were completed. This could create incorrect participant-facing information across multiple event assets." : "This issue still matters, but another update could directly affect participants and multiple connected event materials."}</p>
+                        <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Exactly." : "Not the best first priority."}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "Not every unfinished detail creates the same level of risk." : "This issue still matters, but another update could directly affect participants and multiple connected event materials."}</p>
+                        {impactPriorityAllCorrect && (
+                          <p className="mt-2 text-sm leading-relaxed text-slate-600">A wrong participant name or photo directly affects someone’s live experience, so it deserves priority before lower-impact internal details.</p>
+                        )}
                       </div>
                     )}
                   </div>
