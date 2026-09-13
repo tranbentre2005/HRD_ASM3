@@ -716,7 +716,7 @@ export function EventReadinessCoursePage({
                           </div>
                           {readinessAllCorrect && (
                             <p className="mt-3 text-xs font-semibold text-[#1D2A62]">
-                              {isDoneCategory ? "Outcome: You have an output" : "Outcome: You have confidence it can work"}
+                              {isDoneCategory ? "Outcome: You have an output" : "Outcome: You have confidence that your completed output can work, has been verified against the correct, current source, and is safe to use in the live event."}
                             </p>
                           )}
                         </div>
