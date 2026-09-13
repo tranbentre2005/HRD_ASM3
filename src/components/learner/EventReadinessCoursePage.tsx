@@ -1128,8 +1128,7 @@ export function EventReadinessCoursePage({
                       </div>
                       <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">Does it work together?</h3>
                       <p className="mt-3 text-base leading-relaxed text-slate-600">A component can be correct on its own and still fail when the event comes together.</p>
-                      <p className="mt-3 text-base leading-relaxed text-slate-600">Once the critical information has been verified, the next question is:</p>
-                      <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">Do the connected elements still work together in the way participants will actually experience them?</p>
+                      <p className="mt-3 text-base leading-relaxed text-slate-600">Once the critical information has been verified, the next question is: <span className="font-semibold text-[#1D2A62]">Do the connected elements still work together in the way participants will actually experience them?</span></p>
 
                       <div className="mt-5 rounded-2xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
                         <p className="text-sm font-bold uppercase tracking-wide text-[#1D2A62]">Visual flow</p>
