@@ -762,7 +762,7 @@ export function EventReadinessCoursePage({
                       A. IMPACT
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Should a Project Leader Pay Attention To?</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600">As a Project Leader, you don’t need to check everything yourself. What matters is knowing which elements could directly affect participants, important stakeholders, or the delivery of the event.</p>
+                    <p className="mt-3 text-base leading-relaxed text-slate-600">As a Project Leader, you don’t need to check everything yourself. What matters is knowing which elements could directly affect participants, important stakeholders, or the delivery of the event.</p>
                   </div>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
@@ -890,8 +890,8 @@ export function EventReadinessCoursePage({
                         B. EVIDENCE
                       </div>
                       <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">How do I know it is correct?</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-700"><span className="font-bold text-[#1D2A62]">“Done” is a status.</span> “Verified” requires evidence.</p>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-600">A team member saying that a task is complete tells you the work has been finished. But for participant-critical information, completion alone does not prove that the information is accurate, current, and approved for use.</p>
+                      <p className="mt-3 text-base leading-relaxed text-slate-700"><span className="font-bold text-[#1D2A62]">“Done” is a status.</span> “Verified” requires evidence.</p>
+                      <p className="mt-3 text-base leading-relaxed text-slate-600">A team member saying that a task is complete tells you the work has been finished. But for participant-critical information, completion alone does not prove that the information is accurate, current, and approved for use.</p>
                       <p className="mt-4 text-sm font-bold text-[#1D2A62]">Before sign-off, ask three questions:</p>
                       <ol className="mt-3 space-y-3">
                         <li className="rounded-xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
