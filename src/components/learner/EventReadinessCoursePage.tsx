@@ -1224,7 +1224,7 @@ export function EventReadinessCoursePage({
                             <span className="animate-bounce">↓</span>
                           </div>
                           <div className="mx-auto mt-2 w-fit max-w-full rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
-                            <p className="mt-3 text-base italic leading-relaxed text-slate-600">Each file may appear correct when checked separately. But participants do not experience separate files. They experience the script, visuals, timing, information, and hand-offs working together in one live sequence.</p>
+                            <p className="text-base italic leading-relaxed text-slate-600">Each file may appear correct when checked separately. But participants do not experience separate files. They experience the script, visuals, timing, information, and hand-offs working together in one live sequence.</p>
                           </div>
                         </>
                       )}
