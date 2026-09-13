@@ -974,7 +974,7 @@ export function EventReadinessCoursePage({
                   )}
                   {impactPriorityAllCorrect && (
                     <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                      <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                      <div className="flex items-center gap-2 font-bold text-[#437118]">
                         <ShieldCheck weight="fill" className="h-5 w-5" />
                         B. EVIDENCE
                       </div>
@@ -1176,7 +1176,7 @@ export function EventReadinessCoursePage({
                   {evidenceVerificationComplete && (
                     <>
                       <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                      <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                      <div className="flex items-center gap-2 font-bold text-[#8B5E00]">
                         <ShieldCheck weight="fill" className="h-5 w-5" />
                         C. CONNECTION
                       </div>
