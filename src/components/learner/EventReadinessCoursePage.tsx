@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useMemo, useState } from "react"
 import { Course } from "@/data/types"
+import { EVENT_READINESS_DEFAULT_COMPLETED_IDS, EVENT_READINESS_PROGRESS_KEY, EVENT_READINESS_TOTAL_ITEMS } from "@/lib/eventReadinessProgress"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {
@@ -73,7 +74,6 @@ const READINESS_STATEMENTS: ReadinessStatement[] = [
 const CONNECTION_PARTICIPANT_ORDER = ["Nguyễn Minh Anh", "Trần Gia Hân", "Lê Hoàng Nam"]
 const INITIAL_CONNECTION_SLIDE_ORDER = ["Nguyễn Minh Anh", "Lê Hoàng Nam", "Trần Gia Hân"]
 
-const COURSE_PROGRESS_KEY = "rmit-finance-club:event-readiness-progress"
 
 const OUTLINE_SECTIONS: OutlineSection[] = [
   {
@@ -113,12 +113,11 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
 ]
 
 const OUTLINE_ITEMS = OUTLINE_SECTIONS.flatMap(section => section.items)
-const DEFAULT_COMPLETED_IDS = ["course-overview", "course-outcomes", "1.0-done-ready"]
 
 function getSavedCourseState(): SavedCourseState {
   const fallback: SavedCourseState = {
     activeLessonId: "1.0-done-ready",
-    completedLessonIds: DEFAULT_COMPLETED_IDS,
+    completedLessonIds: EVENT_READINESS_DEFAULT_COMPLETED_IDS,
     viewedLessonIds: [],
     quickCheckAnswer: "",
     openingQuestionAnswer: "",
@@ -129,7 +128,7 @@ function getSavedCourseState(): SavedCourseState {
   if (typeof window === "undefined") return fallback
 
   try {
-    const raw = window.localStorage.getItem(COURSE_PROGRESS_KEY)
+    const raw = window.localStorage.getItem(EVENT_READINESS_PROGRESS_KEY)
     if (!raw) return fallback
     const parsed = JSON.parse(raw) as Partial<SavedCourseState>
     const completedLessonIds = Array.isArray(parsed.completedLessonIds)
@@ -207,12 +206,10 @@ export function EventReadinessCoursePage({
   const connectionIntegratedTestAllCorrect = connectionIntegratedTestSubmitted && connectionIntegratedTestAnswer === "C"
   const connectionComplete = connectionCoreVisible && connectionChallengeAllCorrect && connectionIntegratedTestAllCorrect
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
-  const progress = completedCount === OUTLINE_ITEMS.length
-    ? 100
-    : Math.max(course.progress, Math.round((completedCount / OUTLINE_ITEMS.length) * 100))
+  const progress = Math.round((completedCount / EVENT_READINESS_TOTAL_ITEMS) * 100)
 
   useEffect(() => {
-    window.localStorage.setItem(COURSE_PROGRESS_KEY, JSON.stringify({
+    window.localStorage.setItem(EVENT_READINESS_PROGRESS_KEY, JSON.stringify({
       activeLessonId,
       completedLessonIds,
       viewedLessonIds,
@@ -222,6 +219,9 @@ export function EventReadinessCoursePage({
       feedbackText
     }))
   }, [activeLessonId, completedLessonIds, viewedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackRating, feedbackText])
+  useEffect(() => {
+    onProgressChange?.(progress)
+  }, [progress])
 
   useEffect(() => {
     setViewedLessonIds(previous => previous.includes(activeLesson.id) ? previous : [...previous, activeLesson.id])
@@ -279,12 +279,6 @@ export function EventReadinessCoursePage({
     setCompletedLessonIds(previous => previous.includes(lessonId) ? previous : [...previous, lessonId])
   }
 
-  const handleProgressUpdate = (nextCompletedIds: string[]) => {
-    const nextProgress = nextCompletedIds.length === OUTLINE_ITEMS.length
-      ? 100
-      : Math.max(course.progress, Math.round((nextCompletedIds.length / OUTLINE_ITEMS.length) * 100))
-    onProgressChange?.(nextProgress)
-  }
   const handleConnectionNodeClick = (node: string) => {
     if ((node === "mc-script" || node === "slides") && !connectionSourceClicked) return
     if (node === "sync-check" && !connectionBranchesClicked) return
@@ -313,10 +307,6 @@ export function EventReadinessCoursePage({
     if (activeLesson.id === "1.1-ready-framework" && !connectionComplete) return
 
     markComplete(activeLesson.id)
-    const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
-      ? completedLessonIds
-      : [...completedLessonIds, activeLesson.id]
-    handleProgressUpdate(nextCompletedIds)
 
     const nextLesson = OUTLINE_ITEMS[activeLessonIndex + 1]
     if (nextLesson) {

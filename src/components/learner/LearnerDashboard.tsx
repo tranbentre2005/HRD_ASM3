@@ -90,6 +90,8 @@ export function LearnerDashboard({
     return matchesSearch && matchesCategory
   })
   const heroCourse = inProgressCourses[0] || courses[0]
+  const eventReadinessCourse = courses.find(c => c.id === 'event-readiness' || c.id === 'course-1' || c.title.includes('Event Readiness')) || heroCourse
+  const eventReadinessProgress = eventReadinessCourse?.progress ?? 0
   const nextCourse = courses.find(c => c.id === 'core-07') || courses.find(c => c.category === heroCourse.category && c.id !== heroCourse.id) || courses[1]
   const avgProgress = courses.length > 0 ? Math.round(courses.reduce((acc, c) => acc + c.progress, 0) / courses.length) : 50
   return (
@@ -166,15 +168,14 @@ export function LearnerDashboard({
           <div className="relative z-10 space-y-2">
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
-                YOUR LEARNING PROGRESS
+                YOUR COURSE PROGRESS
               </h3>
               <span className="inline-flex items-center text-[10px] font-bold text-[#87AECE] bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
-                Core Pathway
+                Event Readiness
               </span>
             </div>
 
             <div className="flex items-center gap-3.5 my-auto py-1">
-              {/* Circular Gauge: 56% */}
               <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
                 <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
                   <circle
@@ -193,23 +194,24 @@ export function LearnerDashboard({
                     stroke="#87AECE"
                     strokeWidth="3"
                     strokeDasharray="94.25"
-                    strokeDashoffset={94.25 * (1 - 0.56)}
+                    strokeDashoffset={94.25 * (1 - eventReadinessProgress / 100)}
                     strokeLinecap="round"
                   />
                 </svg>
                 <span className="absolute text-base font-extrabold text-white leading-none select-none">
-                  56%
+                  {eventReadinessProgress}%
                 </span>
               </div>
 
               <div className="space-y-0.5">
                 <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
-                  5 of 9 courses completed
+                  {eventReadinessProgress}% course progress
                 </h4>
                 <p className="text-xs text-slate-200 font-medium">
-                  1 course in progress
+                  Based on completed learning steps
                 </p>
               </div>
+
             </div>
           </div>
 
@@ -250,10 +252,10 @@ export function LearnerDashboard({
           <div className="space-y-2.5 pt-2 relative z-10">
             <div className="flex items-center gap-3">
               <div className="flex-1 h-3 bg-black/30 rounded-full overflow-hidden">
-                <div className="h-full bg-[#AFD06E] rounded-full w-[40%]" />
+                <div className="h-full bg-[#AFD06E] rounded-full transition-all" style={{ width: `${eventReadinessProgress}%` }} />
               </div>
               <span className="text-sm font-extrabold text-white shrink-0">
-                40% complete
+                {eventReadinessProgress}% complete
               </span>
             </div>
             <button

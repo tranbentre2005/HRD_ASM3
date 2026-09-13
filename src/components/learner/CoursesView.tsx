@@ -203,6 +203,8 @@ export function CoursesView({
     return courses.find(c => c.status === "in-progress" && (c.id === "event-readiness" || c.id === "course-1" || c.title.includes("Event Readiness"))) ||
            courses.find(c => c.status === "in-progress")
   }, [courses])
+  const eventReadinessCourse = courses.find(c => c.id === "event-readiness" || c.id === "course-1" || c.title.includes("Event Readiness"))
+  const eventReadinessProgress = eventReadinessCourse?.progress ?? 0
 
   // Category theme styling helper: 20% deeper/richer backgrounds, borders, icon badges, and ambient auras
   const getCategoryTheme = (category: string, isInProgress: boolean) => {
@@ -547,15 +549,15 @@ export function CoursesView({
           <div className="space-y-2.5 relative z-10">
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#1D2A62] tracking-wider uppercase">
-                LEARNING PROGRESS
+                COURSE PROGRESS
               </h3>
               <span className="inline-flex items-center text-[10px] font-bold text-[#1D2A62] bg-[#87AECE]/20 px-2.5 py-0.5 rounded-full border border-[#87AECE]/35 shrink-0">
-                Core Pathway
+                Event Readiness
               </span>
             </div>
 
             <div className="flex items-center gap-3.5 my-auto py-1">
-              {/* Circular Gauge: 56% */}
+              {/* Circular Gauge: Event Readiness progress */}
               <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
                 <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
                   <circle
@@ -574,21 +576,21 @@ export function CoursesView({
                     stroke="#437118"
                     strokeWidth="3"
                     strokeDasharray="94.25"
-                    strokeDashoffset={94.25 * (1 - 0.56)}
+                    strokeDashoffset={94.25 * (1 - eventReadinessProgress / 100)}
                     strokeLinecap="round"
                   />
                 </svg>
                 <span className="absolute text-base font-extrabold text-[#1D2A62] leading-none select-none">
-                  56%
+                  {eventReadinessProgress}%
                 </span>
               </div>
 
               <div className="space-y-0.5">
                 <h4 className="text-sm sm:text-base font-bold text-[#1D2A62] leading-snug">
-                  5 of 9 courses completed
+                  {eventReadinessProgress}% course progress
                 </h4>
                 <p className="text-xs text-slate-600 font-medium">
-                  1 course in progress
+                  Based on completed learning steps
                 </p>
               </div>
             </div>
@@ -604,7 +606,7 @@ export function CoursesView({
                     CONTINUE LEARNING
                   </span>
                   <span className="px-2 py-0.5 rounded bg-white border border-[#87AECE]/35 text-[#1D2A62] text-[10px] font-bold shadow-2xs">
-                    06 · 40%
+                    06 · {eventReadinessProgress}%
                   </span>
                 </div>
 

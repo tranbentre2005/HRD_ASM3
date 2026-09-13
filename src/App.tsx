@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { UserRole, Course, CertificateItem, Announcement } from "@/data/types"
+import { EVENT_READINESS_TOTAL_ITEMS, getEventReadinessProgress } from "@/lib/eventReadinessProgress"
 import { 
   INITIAL_COURSES, 
   INITIAL_CERTIFICATES,
@@ -19,10 +20,25 @@ import { CourseOverviewModal } from "@/components/learner/CourseOverviewModal"
 import { EventReadinessCoursePage } from "@/components/learner/EventReadinessCoursePage"
 import { AccountView } from "@/components/learner/AccountView"
 
+const isEventReadinessCourse = (course: Course) => course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')
+
+const getInitialCourses = () => {
+  const eventProgress = getEventReadinessProgress()
+  return INITIAL_COURSES.map(course => isEventReadinessCourse(course)
+    ? {
+        ...course,
+        completedLessons: Math.round((eventProgress / 100) * EVENT_READINESS_TOTAL_ITEMS),
+        progress: eventProgress,
+        status: eventProgress === 100 ? 'completed' as const : 'in-progress' as const
+      }
+    : course
+  )
+}
+
 export function App() {
   const [currentRole, setCurrentRole] = useState<UserRole>('login')
   const [customUserName, setCustomUserName] = useState<string>('')
-  const [courses, setCourses] = useState<Course[]>(INITIAL_COURSES)
+  const [courses, setCourses] = useState<Course[]>(getInitialCourses)
   const [certificates] = useState<CertificateItem[]>(INITIAL_CERTIFICATES)
   const [announcements, setAnnouncements] = useState<Announcement[]>(() => INITIAL_ANNOUNCEMENTS)
   const [selectedAnnouncementId, setSelectedAnnouncementId] = useState<string | null>(null)
@@ -127,7 +143,7 @@ export function App() {
 
   // Handler: Route Event Readiness CTAs to the dedicated course page
   const handleSelectCourse = (course: Course) => {
-    const isEventReadiness = course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')
+    const isEventReadiness = isEventReadinessCourse(course)
     if (isEventReadiness) {
       navigateToEventReadiness()
       return
@@ -137,7 +153,7 @@ export function App() {
 
   const handleContinueCourse = (course: Course) => {
     setSelectedCourseOverview(null)
-    if (course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')) {
+    if (isEventReadinessCourse(course)) {
       navigateToEventReadiness()
       return
     }
@@ -182,10 +198,11 @@ export function App() {
     )
   }
   const handleEventReadinessProgress = (progress: number) => {
+    const completedLessons = Math.round((progress / 100) * EVENT_READINESS_TOTAL_ITEMS)
     setCourses(prevCourses =>
       prevCourses.map(course =>
-        course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')
-          ? { ...course, progress }
+        isEventReadinessCourse(course)
+          ? { ...course, completedLessons, progress, status: progress === 100 ? 'completed' : 'in-progress' }
           : course
       )
     )
@@ -198,7 +215,7 @@ export function App() {
     setIsCertModalOpen(true)
   }
 
-  const eventReadinessCourse = courses.find(course => course.id === 'event-readiness' || course.id === 'course-1' || course.title.includes('Event Readiness')) || courses[0]
+  const eventReadinessCourse = courses.find(isEventReadinessCourse) || courses[0]
   const activeCourse = courses.find(c => c.id === activeCourseId || (activeCourseId === 'course-1' && c.id === 'event-readiness'))
 
   // 1. Welcome / Login Gateway View

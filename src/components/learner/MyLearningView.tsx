@@ -85,7 +85,7 @@ export function MyLearningView({
     { num: "03", status: "completed" },
     { num: "04", status: "completed" },
     { num: "05", status: "completed" },
-    { num: "06", status: "in-progress", progress: "40%" },
+    { num: "06", status: "in-progress", progress: `${eventReadinessCourse?.progress ?? 0}%` },
     { num: "07", status: "locked" },
     { num: "08", status: "locked" },
     { num: "09", status: "locked" },
@@ -167,15 +167,15 @@ export function MyLearningView({
           <div className="relative z-10">
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
-                Learning Progress
+                Course Progress
               </h3>
               <span className="inline-flex items-center text-[10px] font-bold text-[#87AECE] bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
-                Core Pathway
+                Event Readiness
               </span>
             </div>
 
             <div className="flex items-center gap-4 pt-1">
-              {/* Circular Gauge: 56% */}
+              {/* Circular Gauge: Event Readiness progress */}
               <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
                 <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
                   <circle
@@ -194,21 +194,21 @@ export function MyLearningView({
                     stroke="#87AECE"
                     strokeWidth="3.5"
                     strokeDasharray="94.25"
-                    strokeDashoffset={94.25 * (1 - 0.56)}
+                    strokeDashoffset={94.25 * (1 - (eventReadinessCourse?.progress ?? 0) / 100)}
                     strokeLinecap="round"
                   />
                 </svg>
                 <span className="absolute text-base font-extrabold text-white leading-none select-none">
-                  56%
+                  {eventReadinessCourse?.progress ?? 0}%
                 </span>
               </div>
 
               <div className="space-y-0.5">
                 <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
-                  5 of 9 courses
+                  {eventReadinessCourse?.progress ?? 0}% course progress
                 </h4>
                 <p className="text-xs text-slate-200 font-medium">
-                  completed
+                  Based on completed learning steps
                 </p>
               </div>
             </div>
@@ -309,7 +309,7 @@ export function MyLearningView({
                   </span>
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF7E8] text-[#386b24] text-xs font-bold border border-[#AFD06E]/30 shrink-0">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#386b24] animate-pulse" />
-                    <span>In Progress · 40%</span>
+                    <span>In Progress · {eventReadinessCourse?.progress ?? 0}%</span>
                   </span>
                 </div>
 
@@ -346,9 +346,9 @@ export function MyLearningView({
               <div className="flex-1 space-y-1.5 max-w-xs">
                 <div className="flex items-center justify-between text-xs font-medium text-slate-500">
                   <div className="h-1.5 flex-1 bg-slate-100 rounded-full overflow-hidden mr-3">
-                    <div className="h-full bg-[#437118] rounded-full w-[40%]" />
+                    <div className="h-full bg-[#437118] rounded-full transition-all" style={{ width: `${eventReadinessCourse?.progress ?? 0}%` }} />
                   </div>
-                  <span className="font-bold text-[#437118]">40%</span>
+                  <span className="font-bold text-[#437118]">{eventReadinessCourse?.progress ?? 0}%</span>
                 </div>
               </div>
 
