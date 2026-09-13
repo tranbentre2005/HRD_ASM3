@@ -172,6 +172,10 @@ export function EventReadinessCoursePage({
   const [impactPriorityAnswers, setImpactPriorityAnswers] = useState<string[]>([])
   const [impactPrioritySubmitted, setImpactPrioritySubmitted] = useState(false)
   const [selectedEvidenceQuestion, setSelectedEvidenceQuestion] = useState<string | null>(null)
+  const [verificationMismatchAnswers, setVerificationMismatchAnswers] = useState<string[]>([])
+  const [verificationChallengeSubmitted, setVerificationChallengeSubmitted] = useState(false)
+  const [verificationSourceAnswer, setVerificationSourceAnswer] = useState("")
+  const [verificationSourceSubmitted, setVerificationSourceSubmitted] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -181,6 +185,9 @@ export function EventReadinessCoursePage({
   const readinessAllPlaced = READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id])
   const readinessAllCorrect = readinessSubmitted && readinessAllPlaced && READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id] === statement.category)
   const impactPriorityAllCorrect = impactPrioritySubmitted && impactPriorityAnswers.length === 2 && ["B", "C"].every(answer => impactPriorityAnswers.includes(answer))
+  const verificationChallengeAllCorrect = verificationChallengeSubmitted && verificationMismatchAnswers.length === 2 && ["name", "photo"].every(answer => verificationMismatchAnswers.includes(answer))
+  const verificationSourceAllCorrect = verificationSourceSubmitted && verificationSourceAnswer === "C"
+  const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
     : Math.max(course.progress, Math.round((completedCount / OUTLINE_ITEMS.length) * 100))
@@ -229,6 +236,32 @@ export function EventReadinessCoursePage({
     setImpactPriorityAnswers([])
     setImpactPrioritySubmitted(false)
   }
+  const handleVerificationMismatchToggle = (value: string) => {
+    setVerificationChallengeSubmitted(false)
+    setVerificationMismatchAnswers(previous => previous.includes(value)
+      ? previous.filter(answer => answer !== value)
+      : [...previous, value])
+  }
+
+  const handleVerificationChallengeSubmit = () => {
+    if (verificationMismatchAnswers.length > 0) setVerificationChallengeSubmitted(true)
+  }
+
+  const handleVerificationChallengeTryAgain = () => {
+    setVerificationMismatchAnswers([])
+    setVerificationChallengeSubmitted(false)
+    setVerificationSourceAnswer("")
+    setVerificationSourceSubmitted(false)
+  }
+
+  const handleVerificationSourceSubmit = () => {
+    if (verificationSourceAnswer) setVerificationSourceSubmitted(true)
+  }
+
+  const handleVerificationSourceTryAgain = () => {
+    setVerificationSourceAnswer("")
+    setVerificationSourceSubmitted(false)
+  }
 
   const markComplete = (lessonId: string) => {
     setCompletedLessonIds(previous => previous.includes(lessonId) ? previous : [...previous, lessonId])
@@ -243,7 +276,7 @@ export function EventReadinessCoursePage({
 
   const handlePrimaryAction = () => {
     if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
-    if (activeLesson.id === "1.1-ready-framework" && !impactPriorityAllCorrect) return
+    if (activeLesson.id === "1.1-ready-framework" && !evidenceVerificationComplete) return
 
     markComplete(activeLesson.id)
     const nextCompletedIds = completedLessonIds.includes(activeLesson.id)
@@ -917,6 +950,173 @@ export function EventReadinessCoursePage({
                       </ol>
                     </div>
                   )}
+                  {impactPriorityAllCorrect && (
+                    <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                        <MagnifyingGlass weight="bold" className="h-5 w-5" />
+                        Verification Challenge
+                      </div>
+                      <div className="mt-4 grid gap-3 md:grid-cols-2">
+                        <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4">
+                          <h3 className="text-base font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
+                          <div className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                            <p><span className="font-bold text-[#1D2A62]">Name:</span> Nguyễn Minh Anh</p>
+                            <p><span className="font-bold text-[#1D2A62]">Photo:</span> Photo A</p>
+                            <p><span className="font-bold text-[#1D2A62]">Role:</span> Probationary Member</p>
+                          </div>
+                        </div>
+                        <div className="rounded-xl border border-[#C9B9E6]/55 bg-[#F6F2FC] p-4">
+                          <h3 className="text-base font-bold text-[#1D2A62]">Participant introduction slide</h3>
+                          <p className="mt-2 text-xs font-semibold leading-relaxed text-[#1D2A62]">Click all details that do not match the confirmed participant information.</p>
+                          <div className="mt-3 space-y-2">
+                            {[
+                              { id: "name", label: "Name", value: "Nguyễn Anh Minh" },
+                              { id: "photo", label: "Photo", value: "Photo B" },
+                              { id: "role", label: "Role", value: "Probationary Member" }
+                            ].map(({ id, label, value }) => {
+                              const isSelected = verificationMismatchAnswers.includes(id)
+                              const isCorrectOption = id === "name" || id === "photo"
+                              return (
+                                <button
+                                  key={id}
+                                  type="button"
+                                  disabled={verificationChallengeSubmitted}
+                                  aria-pressed={isSelected}
+                                  onClick={() => handleVerificationMismatchToggle(id)}
+                                  className={`flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left text-sm transition ${
+                                    verificationChallengeSubmitted
+                                      ? isCorrectOption
+                                        ? "border-[#70A64B] bg-[#EEF7E8]"
+                                        : isSelected
+                                          ? "border-[#D66B5D] bg-[#FFF1EF]"
+                                          : "border-slate-200 bg-white"
+                                      : isSelected
+                                        ? "border-[#1D2A62] bg-white ring-1 ring-[#1D2A62]"
+                                        : "border-white/80 bg-white hover:border-[#87AECE] hover:shadow-sm"
+                                  }`}
+                                >
+                                  <span><span className="font-bold text-[#1D2A62]">{label}:</span> {value}</span>
+                                  {verificationChallengeSubmitted && (
+                                    isCorrectOption
+                                      ? <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-[#437118]" />
+                                      : isSelected
+                                        ? <XCircle weight="fill" className="h-4 w-4 shrink-0 text-[#B7473C]" />
+                                        : null
+                                  )}
+                                </button>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-4 flex justify-end gap-2">
+                        {verificationChallengeSubmitted && !verificationChallengeAllCorrect && (
+                          <Button type="button" variant="outline" onClick={handleVerificationChallengeTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                            Try Again
+                          </Button>
+                        )}
+                        <Button type="button" onClick={handleVerificationChallengeSubmit} disabled={verificationMismatchAnswers.length === 0 || verificationChallengeSubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                          Submit
+                        </Button>
+                      </div>
+                      {verificationChallengeSubmitted && (
+                        <div className={`mt-4 rounded-xl border p-4 ${verificationChallengeAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
+                          {verificationChallengeAllCorrect ? (
+                            <>
+                              <p className="font-bold text-[#437118]">Good catch.</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">The name and photo on the slide do not match the confirmed participant information.</p>
+                              <p className="mt-2 text-sm leading-relaxed text-slate-600">Because these details will be shown directly to participants, the mismatch needs to be resolved before the event is signed off as ready.</p>
+                            </>
+                          ) : (
+                            <>
+                              <p className="font-bold text-[#8B5E00]">Check the mismatched details.</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Select the name and photo on the slide. The role matches the confirmed participant information.</p>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {verificationChallengeAllCorrect && (
+                    <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                      <h3 className="text-lg font-bold text-[#1D2A62]">What should you use to verify the correction?</h3>
+                      <div className="mt-4 space-y-2">
+                        {[
+                          { value: "A", label: "The slide, because it was completed first" },
+                          { value: "B", label: "The MC’s memory" },
+                          { value: "C", label: "The latest confirmed participant list" },
+                          { value: "D", label: "The message saying “done”" }
+                        ].map(({ value, label }) => {
+                          const isSelected = verificationSourceAnswer === value
+                          const isCorrectOption = value === "C"
+                          return (
+                            <button
+                              key={value}
+                              type="button"
+                              disabled={verificationSourceSubmitted}
+                              aria-pressed={isSelected}
+                              onClick={() => {
+                                setVerificationSourceAnswer(value)
+                                setVerificationSourceSubmitted(false)
+                              }}
+                              className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition ${
+                                verificationSourceSubmitted
+                                  ? isCorrectOption
+                                    ? "border-[#70A64B] bg-[#EEF7E8]"
+                                    : isSelected
+                                      ? "border-[#D66B5D] bg-[#FFF1EF]"
+                                      : "border-slate-200 bg-white"
+                                  : isSelected
+                                    ? "border-[#1D2A62] bg-[#EAF4FA] ring-1 ring-[#1D2A62]"
+                                    : "border-slate-200 bg-white hover:bg-slate-50"
+                              }`}
+                            >
+                              <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${verificationSourceSubmitted && isCorrectOption ? "bg-[#437118] text-white" : isSelected ? "bg-[#1D2A62] text-white" : "bg-[#EAF4FA] text-[#1D4B85]"}`}>{value}</span>
+                              <span className="text-slate-700">{label}</span>
+                            </button>
+                          )
+                        })}
+                      </div>
+                      <div className="mt-4 flex justify-end gap-2">
+                        {verificationSourceSubmitted && !verificationSourceAllCorrect && (
+                          <Button type="button" variant="outline" onClick={handleVerificationSourceTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                            Try Again
+                          </Button>
+                        )}
+                        <Button type="button" onClick={handleVerificationSourceSubmit} disabled={!verificationSourceAnswer || verificationSourceSubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                          Submit
+                        </Button>
+                      </div>
+                      {verificationSourceSubmitted && (
+                        <div className={`mt-4 rounded-xl border p-4 ${verificationSourceAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
+                          {verificationSourceAllCorrect ? (
+                            <>
+                              <p className="font-bold text-[#437118]">Correct.</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">In this scenario, the latest confirmed participant list is the approved source of truth.</p>
+                              <p className="mt-2 text-sm leading-relaxed text-slate-600">The slide should therefore be corrected to match that source — not memory, an older file, or the fact that someone has already marked the task as done.</p>
+                              <p className="mt-2 text-sm leading-relaxed text-slate-600">For other event information, use the latest approved source for that specific item.</p>
+                              <p className="mt-3 text-sm font-bold text-[#1D2A62]">Correct answer: C</p>
+                            </>
+                          ) : (
+                            <>
+                              <p className="font-bold text-[#8B5E00]">Not quite.</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Use the latest confirmed participant list as the approved source of truth.</p>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {evidenceVerificationComplete && (
+                    <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                        <ShieldCheck weight="fill" className="h-5 w-5" />
+                        Key takeaway - Evidence Rule
+                      </div>
+                      <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">Don’t ask only: “Is it done?”</p>
+                      <p className="mt-2 text-base leading-relaxed text-slate-600">Ask: “What was it checked against?”</p>
+                    </div>
+                  )}
                 </div>
               )}
               {activeLesson.id === "1.2-ready-simulation" && (
@@ -1005,7 +1205,7 @@ export function EventReadinessCoursePage({
                   ) : (
                     <span />
                   )}
-                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !impactPriorityAllCorrect)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                  <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !evidenceVerificationComplete)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                     {primaryLabel}
                     <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Button>
