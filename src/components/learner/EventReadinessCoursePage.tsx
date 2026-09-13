@@ -950,7 +950,6 @@ export function EventReadinessCoursePage({
                         )
                       })}
                     </div>
-                    <p className="mt-4 text-xs font-semibold italic text-[#1D2A62]"><span className="font-bold">Ask yourself:</span><br />If this goes wrong live, who is affected?</p>
                     <div className="mt-4 flex justify-end gap-2">
                       {impactPrioritySubmitted && !impactPriorityAllCorrect && (
                         <Button type="button" variant="outline" onClick={handleImpactPriorityTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
