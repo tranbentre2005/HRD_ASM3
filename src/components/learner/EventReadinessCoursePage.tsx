@@ -615,7 +615,8 @@ export function EventReadinessCoursePage({
                           {openingQuestionAnswer === "yes" ? (
                             <>
                               <p className="font-bold text-[#A66C00]">NOT QUITE.</p>
-                              <p className="mt-1 text-xs leading-relaxed text-slate-600">A task can be complete but still contain outdated information, depend on another version, or fail when used together with other event elements.</p>
+                              <p className="mt-1 text-xs leading-relaxed text-slate-600">All three tasks may be complete, but they were completed or updated at different times. The information may no longer be aligned.</p>
+                              <p className="mt-2 text-xs leading-relaxed text-slate-600">Look again at when each item was completed or updated.</p>
                             </>
                           ) : (
                             <>
