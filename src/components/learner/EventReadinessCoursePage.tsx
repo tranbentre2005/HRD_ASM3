@@ -319,7 +319,10 @@ export function EventReadinessCoursePage({
     handleProgressUpdate(nextCompletedIds)
 
     const nextLesson = OUTLINE_ITEMS[activeLessonIndex + 1]
-    if (nextLesson) setActiveLessonId(nextLesson.id)
+    if (nextLesson) {
+      setActiveLessonId(nextLesson.id)
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
   }
   const handleReadinessPlacement = (statementId: string, category: ReadinessCategory) => {
     setReadinessPlacements(previous => ({ ...previous, [statementId]: category }))
