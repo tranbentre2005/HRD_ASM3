@@ -757,8 +757,8 @@ export function EventReadinessCoursePage({
               {activeLesson.id === "1.1-ready-framework" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                    <div className="flex items-center gap-2 font-bold text-[#437118]">
-                      <Lightbulb weight="fill" className="h-5 w-5" />
+                    <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                      <ShieldCheck weight="fill" className="h-5 w-5" />
                       A. IMPACT
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Should a Project Leader Pay Attention To?</h3>
