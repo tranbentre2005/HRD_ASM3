@@ -1011,6 +1011,7 @@ export function EventReadinessCoursePage({
                         <MagnifyingGlass weight="bold" className="h-5 w-5" />
                         Verification Challenge
                       </div>
+                      <h3 className="mt-3 text-sm font-semibold text-[#1D2A62]">Can you spot what is not ready? Click all details that do not match the confirmed participant information.</h3>
                       <div className="mt-4 grid gap-3 md:grid-cols-2">
                         <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4">
                           <h3 className="text-base font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
@@ -1022,7 +1023,6 @@ export function EventReadinessCoursePage({
                         </div>
                         <div className="rounded-xl border border-[#C9B9E6]/55 bg-[#F6F2FC] p-4">
                           <h3 className="text-base font-bold text-[#1D2A62]">Participant introduction slide</h3>
-                          <p className="mt-2 text-xs font-semibold leading-relaxed text-[#1D2A62]">Click all details that do not match the confirmed participant information.</p>
                           <div className="mt-3 space-y-2">
                             {[
                               { id: "name", label: "Name", value: "Nguyễn Anh Minh" },
