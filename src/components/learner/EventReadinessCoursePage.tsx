@@ -95,7 +95,7 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
     title: "CHECK YOUR UNDERSTANDING",
     items: [
       { id: "2.0-quick-check", title: "2.0 | Course Quick Check", section: "CHECK YOUR UNDERSTANDING" },
-      { id: "2.1-check-results", title: "2.1 | Key Takeaways", section: "CHECK YOUR UNDERSTANDING" }
+      { id: "2.1-check-results", title: "2.1 | Course Recap", section: "CHECK YOUR UNDERSTANDING" }
     ]
   },
   {
