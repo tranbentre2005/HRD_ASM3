@@ -1437,7 +1437,7 @@ export function EventReadinessCoursePage({
                           )}
                           {connectionChallengeAllCorrect && (
                             <div className="mt-4">
-                              <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</p>
+                              <h3 className="text-center text-base leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</h3>
                               <div className="mt-4 space-y-2">
                                 {[
                                   { value: "A", label: "The MC reads the final script again." },
