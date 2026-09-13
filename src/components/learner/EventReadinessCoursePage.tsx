@@ -1391,7 +1391,7 @@ export function EventReadinessCoursePage({
                           </div>
                           <h3 className="mt-3 text-sm font-semibold text-[#1D2A62]">Every participant detail is correct. But is the sequence ready? Click where the connection breaks.</h3>
                           <div className="mt-4 grid gap-3 md:grid-cols-3">
-                            <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4 text-center">
+                            <div className="rounded-xl border border-[#D8B457]/55 bg-[#FFFDF5] p-4 text-center">
                               <h3 className="text-sm font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
                               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
                                 <li>Nguyễn Minh Anh</li>
@@ -1399,7 +1399,7 @@ export function EventReadinessCoursePage({
                                 <li>Lê Hoàng Nam</li>
                               </ul>
                             </div>
-                            <div className="rounded-xl border border-[#AFD06E]/55 bg-[#F2FAED] p-4 text-center">
+                            <div className="rounded-xl border border-[#D8B457]/55 bg-[#FFFDF5] p-4 text-center">
                               <h3 className="text-sm font-bold text-[#1D2A62]">Final MC script</h3>
                               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
                                 <li>Nguyễn Minh Anh</li>
@@ -1408,7 +1408,7 @@ export function EventReadinessCoursePage({
                               </ul>
                             </div>
                             <div className={`rounded-xl border p-4 text-center transition ${
-                              connectionChallengeAllCorrect ? "border-[#D88D5F] bg-[#FFF5EC] ring-2 ring-[#D88D5F]/20" : "border-[#F1C7A6]/70 bg-[#FFF8F2]"
+                              connectionChallengeAllCorrect ? "border-[#D8B457] bg-[#FFF7E5] ring-2 ring-[#D8B457]/20" : "border-[#D8B457]/70 bg-[#FFFDF5]"
                             }`}>
                               <h3 className="text-sm font-bold text-[#1D2A62]">Final slide sequence</h3>
                               <ul className="mt-3 space-y-2">
