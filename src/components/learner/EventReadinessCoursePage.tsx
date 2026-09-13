@@ -1012,7 +1012,7 @@ export function EventReadinessCoursePage({
                     </div>
                   )}
                   {impactPriorityAllCorrect && (
-                    <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
+                    <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                       <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                         <MagnifyingGlass weight="bold" className="h-5 w-5" />
                         Verification Challenge
