@@ -797,19 +797,9 @@ export function EventReadinessCoursePage({
                     })}
                   </div>
 
-                  <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                    <div className="flex justify-end gap-2">
-                      {readinessSubmitted && !readinessAllCorrect && (
-                        <Button type="button" variant="outline" onClick={handleReadinessTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                          Try Again
-                        </Button>
-                      )}
-                      <Button type="button" onClick={handleReadinessSubmit} disabled={!readinessAllPlaced || readinessAllCorrect} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
-                        Submit
-                      </Button>
-                    </div>
+                  <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row sm:items-start sm:justify-between">
                     {readinessSubmitted && (
-                      <div className="mt-4 border-t border-slate-200 pt-4">
+                      <div className="min-w-0 flex-1">
                         {readinessAllCorrect ? (
                           <>
                             <p className="font-bold text-[#437118]">Great work.</p>
@@ -824,6 +814,16 @@ export function EventReadinessCoursePage({
                         )}
                       </div>
                     )}
+                    <div className="flex shrink-0 justify-end gap-2">
+                      {readinessSubmitted && !readinessAllCorrect && (
+                        <Button type="button" variant="outline" onClick={handleReadinessTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                          Try Again
+                        </Button>
+                      )}
+                      <Button type="button" onClick={handleReadinessSubmit} disabled={!readinessAllPlaced || readinessAllCorrect} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                        Submit
+                      </Button>
+                    </div>
                   </div>
 
 
