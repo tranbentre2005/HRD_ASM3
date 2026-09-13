@@ -855,13 +855,13 @@ export function EventReadinessCoursePage({
                       A. IMPACT
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Should a Project Leader Pay Attention To?</h3>
-                    <p className="mt-3 text-base leading-relaxed text-slate-600">As a Project Leader, you don’t need to check everything yourself. What matters is knowing which elements could directly affect participants, important stakeholders, or the delivery of the event.</p>
+                    <p className="mt-3 text-base leading-relaxed text-slate-600">As a Project Leader, you do not need to check every detail yourself. What matters is recognising which issues could most directly affect participants, important stakeholders, or event delivery.</p>
                   </div>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                     <div>
                       <h3 className="text-center text-lg font-bold uppercase text-[#1D2A62]">Participant-critical elements</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-600">Participant-critical elements are parts of the event where an error could directly affect someone’s experience or disrupt an important part of delivery.</p>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-600">Participant-critical elements are parts of the event where an error could directly affect participants, key stakeholders, or an important part of delivery.</p>
                     </div>
                     <div className="mt-4 grid gap-3 md:grid-cols-2">
                       <div className="rounded-2xl border border-[#437118]/45 bg-gradient-to-br from-[#EEF7E8] via-[#F8FCF6] to-[#DFF0D8] p-5 shadow-sm ring-1 ring-[#AFD06E]/35">
