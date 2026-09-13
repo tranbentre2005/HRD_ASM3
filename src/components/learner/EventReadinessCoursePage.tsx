@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from "react"
+import { Fragment, useEffect, useMemo, useRef, useState } from "react"
 import { Course } from "@/data/types"
 import { EVENT_READINESS_DEFAULT_COMPLETED_IDS, EVENT_READINESS_PROGRESS_KEY, EVENT_READINESS_TOTAL_ITEMS } from "@/lib/eventReadinessProgress"
 import { Button } from "@/components/ui/button"
@@ -163,6 +163,7 @@ export function EventReadinessCoursePage({
   onProgressChange
 }: EventReadinessCoursePageProps) {
   const initialState = useMemo(() => getSavedCourseState(), [])
+  const lessonCardRef = useRef<HTMLDivElement>(null)
   const [activeLessonId, setActiveLessonId] = useState(initialState.activeLessonId)
   const [completedLessonIds, setCompletedLessonIds] = useState(initialState.completedLessonIds)
   const [viewedLessonIds, setViewedLessonIds] = useState(initialState.viewedLessonIds)
@@ -311,7 +312,9 @@ export function EventReadinessCoursePage({
     const nextLesson = OUTLINE_ITEMS[activeLessonIndex + 1]
     if (nextLesson) {
       setActiveLessonId(nextLesson.id)
-      window.scrollTo({ top: 0, behavior: "smooth" })
+      window.requestAnimationFrame(() => {
+        lessonCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+      })
     }
   }
   const handleReadinessPlacement = (statementId: string, category: ReadinessCategory) => {
@@ -470,7 +473,7 @@ export function EventReadinessCoursePage({
         </aside>
 
         <main className="min-w-0 space-y-5">
-          <Card className="overflow-hidden border-slate-200/90 shadow-sm">
+          <Card ref={lessonCardRef} className="overflow-hidden border-slate-200/90 shadow-sm">
             <div className={`flex flex-col gap-4 border-b p-5 sm:flex-row sm:items-start sm:justify-between sm:p-7 ${
               isGettingStarted
                 ? "border-[#AFD06E]/30 bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31]"
