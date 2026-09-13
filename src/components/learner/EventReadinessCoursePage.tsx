@@ -1379,10 +1379,7 @@ export function EventReadinessCoursePage({
                               </div>
                             </div>
                           </div>
-                          <div className="mt-5 flex items-start gap-3 rounded-2xl bg-[#F0F7FC] p-5">
-                            <Lightbulb weight="fill" className="mt-0.5 h-5 w-5 shrink-0 text-[#D8B457]" />
-                            <p className="text-base leading-relaxed text-[#1D2A62]"><span className="font-bold">Key difference:</span> A component check proves one part works. An integrated readiness test proves the <span className="font-bold">connection</span> works.</p>
-                          </div>
+                          <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Key difference:</span> A component check proves one part works. An integrated readiness test proves the connection works.</p>
                         </>
                       )}
                   </div>
