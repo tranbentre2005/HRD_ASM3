@@ -1095,10 +1095,8 @@ export function EventReadinessCoursePage({
                           )}
                         </div>
                       )}
-                    </div>
-                  )}
                   {verificationChallengeAllCorrect && (
-                    <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                    <div className="mt-5 border-t border-[#87AECE]/35 pt-5">
                       <h3 className="text-lg font-bold text-[#1D2A62]">What should you use to verify the correction?</h3>
                       <div className="mt-4 space-y-2">
                         {[
@@ -1121,7 +1119,7 @@ export function EventReadinessCoursePage({
                               }}
                               className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition ${
                                 verificationSourceSubmitted
-                                  ? isCorrectOption
+                                  ? verificationSourceAllCorrect && isCorrectOption
                                     ? "border-[#70A64B] bg-[#EEF7E8]"
                                     : isSelected
                                       ? "border-[#D66B5D] bg-[#FFF1EF]"
@@ -1131,7 +1129,7 @@ export function EventReadinessCoursePage({
                                     : "border-slate-200 bg-white hover:bg-slate-50"
                               }`}
                             >
-                              <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${verificationSourceSubmitted && isCorrectOption ? "bg-[#437118] text-white" : isSelected ? "bg-[#1D2A62] text-white" : "bg-[#EAF4FA] text-[#1D4B85]"}`}>{value}</span>
+                              <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${verificationSourceSubmitted && verificationSourceAllCorrect && isCorrectOption ? "bg-[#437118] text-white" : isSelected ? "bg-[#1D2A62] text-white" : "bg-[#EAF4FA] text-[#1D4B85]"}`}>{value}</span>
                               <span className="text-slate-700">{label}</span>
                             </button>
                           )
@@ -1156,11 +1154,13 @@ export function EventReadinessCoursePage({
                           ) : (
                             <>
                               <p className="font-bold text-[#8B5E00]">Not quite.</p>
-                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Use the latest confirmed participant list as the approved source of truth.</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Review the information and choose the source that is confirmed and most current.</p>
                             </>
                           )}
                         </div>
                       )}
+                    </div>
+                  )}
                     </div>
                   )}
                   {evidenceVerificationComplete && (
