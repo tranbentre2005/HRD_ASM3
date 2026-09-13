@@ -1379,8 +1379,7 @@ export function EventReadinessCoursePage({
                                 }`}>
                                   {connectionIntegratedTestAllCorrect ? (
                                     <>
-                                      <p className="font-bold text-[#437118]">Correct.</p>
-                                      <p className="mt-1 text-sm font-semibold text-[#1D2A62]">Correct answer: C</p>
+                                      <p className="font-bold text-[#437118]">CORRECT.</p>
                                       <p className="mt-2 text-sm leading-relaxed text-slate-600">Because the problem exists between components, it must be tested between components.</p>
                                       <p className="mt-2 text-sm leading-relaxed text-slate-600">Running the actual participant-introduction sequence can reveal problems that separate checks may miss, such as:</p>
                                       <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-600">
@@ -1393,7 +1392,6 @@ export function EventReadinessCoursePage({
                                   ) : (
                                     <>
                                       <p className="font-bold text-[#8B5E00]">Not quite.</p>
-                                      <p className="mt-1 text-sm font-semibold text-[#1D2A62]">Correct answer: C</p>
                                       <p className="mt-2 text-sm leading-relaxed text-slate-600">Choose the rehearsal that tests the final script, final slides, latest participant information, and actual delivery order together.</p>
                                       <Button type="button" variant="outline" onClick={handleIntegratedTestTryAgain} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
                                         Try Again
@@ -1430,13 +1428,9 @@ export function EventReadinessCoursePage({
                             </div>
                           </div>
                           <div className="mt-5 rounded-2xl border border-[#AFD06E]/45 bg-[#EEF7E8] p-5">
-                            <p className="text-sm font-bold uppercase tracking-wide text-[#437118]">Connection Rule</p>
+                            <p className="text-sm font-bold uppercase tracking-wide text-[#437118]">Key Takeaway - CONNECTION RULE</p>
                             <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">Test the critical hand-offs participants experience, not only the tasks teams complete.</p>
-                          </div>
-                          <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                            <p className="text-sm font-bold uppercase tracking-wide text-[#1D2A62]">Before readiness sign-off</p>
-                            <p className="mt-3 text-base leading-relaxed text-slate-600">If the integrated test reveals a mismatch:</p>
-                            <p className="mt-2 text-base font-semibold leading-relaxed text-[#1D2A62]">Fix it → re-test the affected connection → then confirm readiness.</p>
+                            <p className="mt-2 text-sm leading-relaxed text-slate-600">If the integrated test reveals a mismatch: <span className="font-semibold text-[#1D2A62]">Fix it → re-test the affected connection → then confirm readiness.</span></p>
                           </div>
                         </>
                       )}
