@@ -852,7 +852,7 @@ export function EventReadinessCoursePage({
                             onClick={() => handleImpactPrioritySelect(value)}
                             className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-colors ${
                               impactPrioritySubmitted
-                                ? isCorrectOption
+                                ? impactPriorityAllCorrect && isCorrectOption
                                   ? "border-[#70A64B] bg-[#EEF7E8] ring-1 ring-[#70A64B]/40"
                                   : isSelected
                                     ? "border-[#D66B5D] bg-[#FFF1EF] ring-1 ring-[#D66B5D]/30"
@@ -863,7 +863,7 @@ export function EventReadinessCoursePage({
                             }`}
                           >
                             <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                              impactPrioritySubmitted && isCorrectOption
+                              impactPrioritySubmitted && impactPriorityAllCorrect && isCorrectOption
                                 ? "bg-[#437118] text-white"
                                 : impactPrioritySubmitted && isSelected
                                   ? "bg-[#B7473C] text-white"
