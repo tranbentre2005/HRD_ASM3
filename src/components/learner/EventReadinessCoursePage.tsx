@@ -182,6 +182,8 @@ export function EventReadinessCoursePage({
   const [connectionDiagramNodes, setConnectionDiagramNodes] = useState<string[]>([])
   const [connectionSlideOrder, setConnectionSlideOrder] = useState<string[]>(INITIAL_CONNECTION_SLIDE_ORDER)
   const [connectionChallengeSubmitted, setConnectionChallengeSubmitted] = useState(false)
+  const [connectionIntegratedTestAnswer, setConnectionIntegratedTestAnswer] = useState("")
+  const [connectionIntegratedTestSubmitted, setConnectionIntegratedTestSubmitted] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -201,7 +203,8 @@ export function EventReadinessCoursePage({
   const connectionLiveClicked = connectionDiagramNodes.includes("live")
   const connectionCoreVisible = connectionSourceClicked && connectionBranchesClicked && connectionSyncCheckClicked && connectionSequenceClicked && connectionLiveClicked
   const connectionChallengeAllCorrect = connectionChallengeSubmitted && connectionSlideOrder.every((participant, index) => participant === CONNECTION_PARTICIPANT_ORDER[index])
-  const connectionComplete = connectionCoreVisible && connectionChallengeAllCorrect
+  const connectionIntegratedTestAllCorrect = connectionIntegratedTestSubmitted && connectionIntegratedTestAnswer === "C"
+  const connectionComplete = connectionCoreVisible && connectionChallengeAllCorrect && connectionIntegratedTestAllCorrect
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
@@ -297,6 +300,10 @@ export function EventReadinessCoursePage({
     nextOrder.splice(targetIndex, 0, participant)
     setConnectionSlideOrder(nextOrder)
     setConnectionChallengeSubmitted(nextOrder.every((item, index) => item === CONNECTION_PARTICIPANT_ORDER[index]))
+  }
+  const handleIntegratedTestTryAgain = () => {
+    setConnectionIntegratedTestAnswer("")
+    setConnectionIntegratedTestSubmitted(false)
   }
 
 
@@ -1324,9 +1331,82 @@ export function EventReadinessCoursePage({
                               <p className="mt-2 text-sm leading-relaxed text-slate-600">A component check could miss this because neither file contains incorrect participant information. The problem only appears when the two components are used together.</p>
                             </div>
                           )}
+                          {connectionChallengeAllCorrect && (
+                            <div className="mt-5 border-t border-[#87AECE]/25 pt-5">
+                              <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</p>
+                              <div className="mt-4 space-y-2">
+                                {[
+                                  { value: "A", label: "The MC reads the final script again." },
+                                  { value: "B", label: "The slides are checked separately one more time." },
+                                  { value: "C", label: "The MC runs the complete participant-introduction sequence using the latest confirmed participant information, final script, final slides, and actual delivery order." }
+                                ].map(({ value, label }) => {
+                                  const isSelected = connectionIntegratedTestAnswer === value
+                                  const isCorrectOption = value === "C"
+                                  return (
+                                    <button
+                                      key={value}
+                                      type="button"
+                                      disabled={connectionIntegratedTestSubmitted}
+                                      onClick={() => {
+                                        setConnectionIntegratedTestAnswer(value)
+                                        setConnectionIntegratedTestSubmitted(true)
+                                      }}
+                                      className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition ${
+                                        connectionIntegratedTestSubmitted
+                                          ? connectionIntegratedTestAllCorrect && isCorrectOption
+                                            ? "border-[#70A64B] bg-[#EEF7E8]"
+                                            : isSelected
+                                              ? "border-[#D66B5D] bg-[#FFF1EF]"
+                                              : "border-slate-200 bg-white"
+                                          : "border-slate-200 bg-white hover:bg-slate-50"
+                                      }`}
+                                    >
+                                      <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                                        connectionIntegratedTestSubmitted && connectionIntegratedTestAllCorrect && isCorrectOption
+                                          ? "bg-[#437118] text-white"
+                                          : connectionIntegratedTestSubmitted && isSelected
+                                            ? "bg-[#B7473C] text-white"
+                                            : "bg-[#EAF4FA] text-[#1D4B85]"
+                                      }`}>{value}</span>
+                                      <span className="text-slate-700">{label}</span>
+                                    </button>
+                                  )
+                                })}
+                              </div>
+                              {connectionIntegratedTestSubmitted && (
+                                <div className={`mt-4 border-l-4 p-4 ${
+                                  connectionIntegratedTestAllCorrect ? "border-[#70A64B] bg-[#EEF7E8]" : "border-[#D8B457] bg-[#FFF8E8]"
+                                }`}>
+                                  {connectionIntegratedTestAllCorrect ? (
+                                    <>
+                                      <p className="font-bold text-[#437118]">Correct.</p>
+                                      <p className="mt-1 text-sm font-semibold text-[#1D2A62]">Correct answer: C</p>
+                                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Because the problem exists between components, it must be tested between components.</p>
+                                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Running the actual participant-introduction sequence can reveal problems that separate checks may miss, such as:</p>
+                                      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-600">
+                                        <li>the wrong slide appearing with the right name;</li>
+                                        <li>mismatched participant order;</li>
+                                        <li>timing problems;</li>
+                                        <li>different versions being used at the same time.</li>
+                                      </ul>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <p className="font-bold text-[#8B5E00]">Not quite.</p>
+                                      <p className="mt-1 text-sm font-semibold text-[#1D2A62]">Correct answer: C</p>
+                                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Choose the rehearsal that tests the final script, final slides, latest participant information, and actual delivery order together.</p>
+                                      <Button type="button" variant="outline" onClick={handleIntegratedTestTryAgain} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                                        Try Again
+                                      </Button>
+                                    </>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </div>
                       )}
-                      {connectionChallengeAllCorrect && (
+                      {connectionComplete && (
                         <>
                           <div className="mt-5 overflow-x-auto rounded-2xl border border-[#87AECE]/35 bg-white">
                             <div className="min-w-[680px]">
