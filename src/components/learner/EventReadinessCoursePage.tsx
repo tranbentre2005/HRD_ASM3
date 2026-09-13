@@ -885,7 +885,7 @@ export function EventReadinessCoursePage({
                             "Non-critical layout details"
                           ].map(item => <li key={item}>• {item}</li>)}
                         </ul>
-                        <p className="mt-3 text-sm italic text-slate-600">Can be handled once critical paths are secured.</p>
+                        <p className="mt-3 text-sm italic text-[#B7473C]">Can be handled once critical paths are secured.</p>
                       </div>
                     </div>
                     <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
