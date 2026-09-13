@@ -642,7 +642,7 @@ export function EventReadinessCoursePage({
                         Mindset Shift
                       </div>
                       <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">Understanding the difference</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-slate-600">Why completing individual tasks does not guarantee the overall event will succeed.</p>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-600">Why completed tasks do not automatically mean the event is ready for delivery.</p>
                     </div>
 
                     <div>
