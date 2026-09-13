@@ -980,13 +980,13 @@ export function EventReadinessCoursePage({
                       </div>
                       <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">How do I know it is correct?</h3>
                       <p className="mt-3 text-base leading-relaxed text-slate-600">A team member saying that a task is complete tells you the work has been finished. But for participant-critical information, completion alone does not prove that the information is accurate, current, and approved for use.</p>
-                      <p className="mt-3 text-base leading-relaxed text-slate-700">“Done” is a status. <span className="font-bold text-[#1D2A62]">“Verified”</span> requires evidence.</p>
-                      <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Before sign-off,</span> ask three questions:</p>
+                      <p className="mt-3 text-base leading-relaxed text-slate-700"><span className="font-bold text-[#1D2A62]">“Done” is a status. “Verified” requires evidence.</span></p>
+                      <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]">Before confirming readiness, ask three questions:</p>
                       <ol className="mt-3 space-y-3">
                         {[
-                          { id: "source", number: "1.", question: "What is the approved source of truth?", answer: "Which source should be used to confirm this information?", tone: "border-[#B8D7EA]/70 bg-[#F0F7FC]" },
-                          { id: "version", number: "2.", question: "Am I checking the latest approved version?", answer: "Has anything changed since this asset was created?", tone: "border-[#C9B9E6]/70 bg-[#F6F2FC]" },
-                          { id: "match", number: "3.", question: "Does the critical information match?", answer: "Do names, photos, dates, roles, speaker details, and other participant-facing information match the approved source?", tone: "border-[#F1C7A6]/70 bg-[#FFF5EC]" }
+                          { id: "source", number: "1.", question: "What is the latest reliable source?", answer: "Which source should be used to confirm this information?", tone: "border-[#B8D7EA]/70 bg-[#F0F7FC]" },
+                          { id: "version", number: "2.", question: "Am I checking the latest confirmed version?", answer: "Has anything changed since this asset was created?", tone: "border-[#C9B9E6]/70 bg-[#F6F2FC]" },
+                          { id: "match", number: "3.", question: "Does the critical information match?", answer: "Do names, photos, dates, roles, speaker details, and other participant-facing information match the latest reliable source?", tone: "border-[#F1C7A6]/70 bg-[#FFF5EC]" }
                         ].map(({ id, number, question, answer, tone }) => (
                           <li key={id}>
                             <button
