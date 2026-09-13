@@ -69,6 +69,8 @@ const READINESS_STATEMENTS: ReadinessStatement[] = [
   { id: "slide-deck-completed", text: "The slide deck has been completed.", category: "DONE" },
   { id: "event-sequence-checked", text: "The final event sequence has been checked for delivery.", category: "READY" }
 ]
+const CONNECTION_PARTICIPANT_ORDER = ["Nguyễn Minh Anh", "Trần Gia Hân", "Lê Hoàng Nam"]
+const INITIAL_CONNECTION_SLIDE_ORDER = ["Nguyễn Minh Anh", "Lê Hoàng Nam", "Trần Gia Hân"]
 
 const COURSE_PROGRESS_KEY = "rmit-finance-club:event-readiness-progress"
 
@@ -178,7 +180,7 @@ export function EventReadinessCoursePage({
   const [verificationSourceAnswer, setVerificationSourceAnswer] = useState("")
   const [verificationSourceSubmitted, setVerificationSourceSubmitted] = useState(false)
   const [connectionDiagramNodes, setConnectionDiagramNodes] = useState<string[]>([])
-  const [connectionChallengeAnswer, setConnectionChallengeAnswer] = useState("")
+  const [connectionSlideOrder, setConnectionSlideOrder] = useState<string[]>(INITIAL_CONNECTION_SLIDE_ORDER)
   const [connectionChallengeSubmitted, setConnectionChallengeSubmitted] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
@@ -198,7 +200,7 @@ export function EventReadinessCoursePage({
   const connectionSequenceClicked = connectionDiagramNodes.includes("sequence")
   const connectionLiveClicked = connectionDiagramNodes.includes("live")
   const connectionCoreVisible = connectionSourceClicked && connectionBranchesClicked && connectionSyncCheckClicked && connectionSequenceClicked && connectionLiveClicked
-  const connectionChallengeAllCorrect = connectionChallengeSubmitted && connectionChallengeAnswer === "slide-hand-off"
+  const connectionChallengeAllCorrect = connectionChallengeSubmitted && connectionSlideOrder.every((participant, index) => participant === CONNECTION_PARTICIPANT_ORDER[index])
   const connectionComplete = connectionCoreVisible && connectionChallengeAllCorrect
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = completedCount === OUTLINE_ITEMS.length
@@ -286,9 +288,15 @@ export function EventReadinessCoursePage({
     if (node === "live" && !connectionSequenceClicked) return
     setConnectionDiagramNodes(previous => previous.includes(node) ? previous : [...previous, node])
   }
-  const handleConnectionChallengeTryAgain = () => {
-    setConnectionChallengeAnswer("")
-    setConnectionChallengeSubmitted(false)
+  const handleConnectionSlideNameClick = (participant: string) => {
+    const currentIndex = connectionSlideOrder.indexOf(participant)
+    const targetIndex = CONNECTION_PARTICIPANT_ORDER.indexOf(participant)
+    if (currentIndex < 0 || targetIndex < 0 || currentIndex === targetIndex) return
+    const nextOrder = [...connectionSlideOrder]
+    nextOrder.splice(currentIndex, 1)
+    nextOrder.splice(targetIndex, 0, participant)
+    setConnectionSlideOrder(nextOrder)
+    setConnectionChallengeSubmitted(nextOrder.every((item, index) => item === CONNECTION_PARTICIPANT_ORDER[index]))
   }
 
 
@@ -1270,6 +1278,7 @@ export function EventReadinessCoursePage({
                             <MagnifyingGlass weight="bold" className="h-5 w-5" />
                             Connection Challenge
                           </div>
+                          <p className="mt-4 text-center text-sm leading-relaxed text-slate-700">Every participant detail is correct. But is the sequence ready?</p>
                           <div className="mt-4 grid gap-3 md:grid-cols-3">
                             <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4 text-center">
                               <h3 className="text-sm font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
@@ -1287,27 +1296,27 @@ export function EventReadinessCoursePage({
                                 <li>Lê Hoàng Nam</li>
                               </ul>
                             </div>
-                            <button
-                              type="button"
-                              aria-pressed={connectionChallengeAllCorrect}
-                              onClick={() => {
-                                setConnectionChallengeAnswer("slide-hand-off")
-                                setConnectionChallengeSubmitted(true)
-                              }}
-                              className={`rounded-xl border p-4 text-center transition ${
-                                connectionChallengeAllCorrect ? "border-[#D88D5F] bg-[#FFF5EC] ring-2 ring-[#D88D5F]/20" : "border-[#F1C7A6]/70 bg-[#FFF8F2] hover:-translate-y-0.5 hover:shadow-sm"
-                              }`}
-                            >
+                            <div className={`rounded-xl border p-4 text-center transition ${
+                              connectionChallengeAllCorrect ? "border-[#D88D5F] bg-[#FFF5EC] ring-2 ring-[#D88D5F]/20" : "border-[#F1C7A6]/70 bg-[#FFF8F2]"
+                            }`}>
                               <h3 className="text-sm font-bold text-[#1D2A62]">Final slide sequence</h3>
-                              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
-                                <li>Nguyễn Minh Anh</li>
-                                <li>Lê Hoàng Nam</li>
-                                <li>Trần Gia Hân</li>
+                              <ul className="mt-3 space-y-2">
+                                {connectionSlideOrder.map(participant => (
+                                  <li key={participant}>
+                                    <button
+                                      type="button"
+                                      disabled={connectionChallengeAllCorrect}
+                                      onClick={() => handleConnectionSlideNameClick(participant)}
+                                      className="w-full rounded-lg px-2 py-1 text-center text-sm leading-relaxed text-slate-600 transition hover:bg-white/70 hover:text-[#1D2A62] active:scale-[0.98] disabled:cursor-default disabled:hover:bg-transparent"
+                                    >
+                                      {participant}
+                                    </button>
+                                  </li>
+                                ))}
                               </ul>
-                              <p className="mt-3 text-xs font-semibold italic text-[#1D2A62]">Click where the connection breaks.</p>
-                            </button>
+                              <p className="mt-3 text-xs font-semibold italic text-[#1D2A62]">Click Lê Hoàng Nam or Trần Gia Hân to return the sequence to the correct order.</p>
+                            </div>
                           </div>
-                          <p className="mt-4 text-sm leading-relaxed text-slate-700">Every participant detail is correct. But is the sequence ready?</p>
                           {connectionChallengeSubmitted && (
                             <div className="mt-4 rounded-xl border border-[#AFD06E]/50 bg-white p-4">
                               <p className="font-bold text-[#437118]">GOOD CATCH.</p>
