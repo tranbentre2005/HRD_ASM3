@@ -856,9 +856,8 @@ export function EventReadinessCoursePage({
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Should a Project Leader Pay Attention To?</h3>
                     <p className="mt-3 text-base leading-relaxed text-slate-600">As a Project Leader, you do not need to check every detail yourself. What matters is recognising which issues could most directly affect participants, important stakeholders, or event delivery.</p>
-                  </div>
 
-                  <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                    <div className="mt-5">
                     <div>
                       <h3 className="text-center text-lg font-bold uppercase text-[#1D2A62]">Participant-critical elements</h3>
                       <p className="mt-3 text-sm leading-relaxed text-slate-600">Participant-critical elements are parts of the event where an error could directly affect participants, key stakeholders, or an important part of delivery.</p>
@@ -890,6 +889,7 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                     <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
+                    </div>
                   </div>
 
                   {impactPriorityAllCorrect && (
