@@ -13,6 +13,7 @@ import {
   Flag,
   Gear,
   Lightbulb,
+  LockSimple,
   MagnifyingGlass,
   Microphone,
   PlayCircle,
@@ -45,6 +46,7 @@ type OutlineSection = {
 type SavedCourseState = {
   activeLessonId: string
   completedLessonIds: string[]
+  viewedLessonIds: string[]
   quickCheckAnswer: string
   openingQuestionAnswer: string
   feedbackRating: string
@@ -113,6 +115,7 @@ function getSavedCourseState(): SavedCourseState {
   const fallback: SavedCourseState = {
     activeLessonId: "1.0-done-ready",
     completedLessonIds: DEFAULT_COMPLETED_IDS,
+    viewedLessonIds: [],
     quickCheckAnswer: "",
     openingQuestionAnswer: "",
     feedbackRating: "",
@@ -132,9 +135,14 @@ function getSavedCourseState(): SavedCourseState {
       ? parsed.activeLessonId || fallback.activeLessonId
       : fallback.activeLessonId
 
+    const viewedLessonIds = Array.isArray(parsed.viewedLessonIds)
+      ? parsed.viewedLessonIds.filter(id => OUTLINE_ITEMS.some(item => item.id === id))
+      : fallback.viewedLessonIds
+
     return {
       activeLessonId,
       completedLessonIds,
+      viewedLessonIds,
       quickCheckAnswer: typeof parsed.quickCheckAnswer === "string" ? parsed.quickCheckAnswer : "",
       openingQuestionAnswer: typeof parsed.openingQuestionAnswer === "string" ? parsed.openingQuestionAnswer : "",
       feedbackRating: typeof parsed.feedbackRating === "string" ? parsed.feedbackRating : "",
@@ -154,6 +162,7 @@ export function EventReadinessCoursePage({
   const initialState = useMemo(() => getSavedCourseState(), [])
   const [activeLessonId, setActiveLessonId] = useState(initialState.activeLessonId)
   const [completedLessonIds, setCompletedLessonIds] = useState(initialState.completedLessonIds)
+  const [viewedLessonIds, setViewedLessonIds] = useState(initialState.viewedLessonIds)
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
   const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
@@ -177,12 +186,29 @@ export function EventReadinessCoursePage({
     window.localStorage.setItem(COURSE_PROGRESS_KEY, JSON.stringify({
       activeLessonId,
       completedLessonIds,
+      viewedLessonIds,
       quickCheckAnswer,
       openingQuestionAnswer,
       feedbackRating,
       feedbackText
     }))
-  }, [activeLessonId, completedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackRating, feedbackText])
+  }, [activeLessonId, completedLessonIds, viewedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackRating, feedbackText])
+
+  useEffect(() => {
+    setViewedLessonIds(previous => previous.includes(activeLesson.id) ? previous : [...previous, activeLesson.id])
+  }, [activeLesson.id])
+
+  const isLessonUnlocked = (lessonIndex: number) => {
+    if (lessonIndex <= 0) return true
+    const previousLesson = OUTLINE_ITEMS[lessonIndex - 1]
+    return completedLessonIds.includes(previousLesson.id) || viewedLessonIds.includes(previousLesson.id)
+  }
+
+  const handleLessonSelect = (lessonId: string) => {
+    const lessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === lessonId)
+    if (lessonIndex === -1 || !isLessonUnlocked(lessonIndex)) return
+    setActiveLessonId(lessonId)
+  }
 
   const markComplete = (lessonId: string) => {
     setCompletedLessonIds(previous => previous.includes(lessonId) ? previous : [...previous, lessonId])
@@ -322,18 +348,29 @@ export function EventReadinessCoursePage({
                       {section.items.map(item => {
                         const itemCompleted = completedLessonIds.includes(item.id)
                         const itemActive = activeLesson.id === item.id
+                        const itemIndex = OUTLINE_ITEMS.findIndex(outlineItem => outlineItem.id === item.id)
+                        const itemUnlocked = isLessonUnlocked(itemIndex)
                         return (
                           <button
                             key={item.id}
                             type="button"
-                            onClick={() => setActiveLessonId(item.id)}
-                            className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-xs transition-colors cursor-pointer ${
+                            onClick={() => handleLessonSelect(item.id)}
+                            disabled={!itemUnlocked}
+                            aria-disabled={!itemUnlocked}
+                            title={!itemUnlocked ? "View the previous module first" : undefined}
+                            className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-xs transition-colors ${
+                              itemUnlocked ? "cursor-pointer" : "cursor-not-allowed opacity-60"
+                            } ${
                               itemActive
                                 ? "bg-[#EAF4FA] font-bold text-[#1D2A62] ring-1 ring-[#87AECE]/45"
-                                : "text-slate-600 hover:bg-slate-50"
+                                : itemUnlocked
+                                  ? "text-slate-600 hover:bg-slate-50"
+                                  : "text-slate-400"
                             }`}
                         >
-                          {itemCompleted ? (
+                          {!itemUnlocked ? (
+                            <LockSimple className="h-4 w-4 shrink-0 text-slate-400" />
+                          ) : itemCompleted ? (
                             <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-[#437118]" />
                           ) : item.id.includes("1.") ? (
                             <PlayCircle className="h-4 w-4 shrink-0 text-slate-400" />
