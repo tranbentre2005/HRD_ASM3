@@ -186,6 +186,7 @@ export function EventReadinessCoursePage({
   const readinessAllCorrect = readinessSubmitted && readinessAllPlaced && READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id] === statement.category)
   const impactPriorityAllCorrect = impactPrioritySubmitted && impactPriorityAnswer === "B"
   const verificationChallengeAllCorrect = verificationChallengeSubmitted && verificationMismatchAnswers.length === 2 && ["name", "photo"].every(answer => verificationMismatchAnswers.includes(answer))
+  const verificationChallengePartiallyCorrect = verificationChallengeSubmitted && verificationMismatchAnswers.length === 1 && ["name", "photo"].some(answer => verificationMismatchAnswers.includes(answer))
   const verificationSourceAllCorrect = verificationSourceSubmitted && verificationSourceAnswer === "C"
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = completedCount === OUTLINE_ITEMS.length
@@ -1014,6 +1015,11 @@ export function EventReadinessCoursePage({
                               <p className="font-bold text-[#437118]">GOOD CATCH.</p>
                               <p className="mt-1 text-sm leading-relaxed text-slate-600">The name and photo on the slide do not match the confirmed participant information.</p>
                               <p className="mt-2 text-sm leading-relaxed text-slate-600">Because these details will be shown directly to participants, the mismatch needs to be resolved before the event is signed off as ready.</p>
+                            </>
+                          ) : verificationChallengePartiallyCorrect ? (
+                            <>
+                              <p className="font-bold text-[#8B5E00]">Not enough.</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Select the name and photo on the slide. The role matches the confirmed participant information.</p>
                             </>
                           ) : (
                             <>
