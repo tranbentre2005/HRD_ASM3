@@ -13,6 +13,7 @@ import {
   Flag,
   Gear,
   Lightbulb,
+  ListNumbers,
   LockSimple,
   MagnifyingGlass,
   Microphone,
@@ -193,9 +194,10 @@ export function EventReadinessCoursePage({
   const verificationSourceAllCorrect = verificationSourceSubmitted && verificationSourceAnswer === "C"
   const connectionSourceClicked = connectionDiagramNodes.includes("source")
   const connectionBranchesClicked = connectionDiagramNodes.includes("mc-script") && connectionDiagramNodes.includes("slides")
+  const connectionSyncCheckClicked = connectionDiagramNodes.includes("sync-check")
   const connectionSequenceClicked = connectionDiagramNodes.includes("sequence")
   const connectionLiveClicked = connectionDiagramNodes.includes("live")
-  const connectionCoreVisible = connectionSourceClicked && connectionBranchesClicked && connectionSequenceClicked && connectionLiveClicked
+  const connectionCoreVisible = connectionSourceClicked && connectionBranchesClicked && connectionSyncCheckClicked && connectionSequenceClicked && connectionLiveClicked
   const connectionQuestionAllCorrect = connectionQuestionSubmitted && connectionQuestionAnswer === "C"
   const connectionComplete = connectionCoreVisible && connectionQuestionAllCorrect
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
@@ -277,10 +279,10 @@ export function EventReadinessCoursePage({
       : Math.max(course.progress, Math.round((nextCompletedIds.length / OUTLINE_ITEMS.length) * 100))
     onProgressChange?.(nextProgress)
   }
-
   const handleConnectionNodeClick = (node: string) => {
     if ((node === "mc-script" || node === "slides") && !connectionSourceClicked) return
-    if (node === "sequence" && !connectionBranchesClicked) return
+    if (node === "sync-check" && !connectionBranchesClicked) return
+    if (node === "sequence" && !connectionSyncCheckClicked) return
     if (node === "live" && !connectionSequenceClicked) return
     setConnectionDiagramNodes(previous => previous.includes(node) ? previous : [...previous, node])
   }
@@ -1142,10 +1144,11 @@ export function EventReadinessCoursePage({
                           type="button"
                           aria-pressed={connectionSourceClicked}
                           onClick={() => handleConnectionNodeClick("source")}
-                          className={`mx-auto flex w-full max-w-sm items-center justify-center rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                          className={`mx-auto flex w-full max-w-sm items-center justify-center gap-2 rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
                             connectionSourceClicked ? "border-[#2F668B] bg-[#EAF4FA] ring-2 ring-[#2F668B]/20" : "border-[#B8D7EA]/70 bg-[#F0F7FC] hover:-translate-y-0.5 hover:shadow-sm"
                           }`}
                         >
+                          <UsersThree weight="fill" className="h-5 w-5 text-[#2F668B]" />
                           Latest confirmed participant information
                         </button>
 
@@ -1160,20 +1163,22 @@ export function EventReadinessCoursePage({
                                 type="button"
                                 aria-pressed={connectionDiagramNodes.includes("mc-script")}
                                 onClick={() => handleConnectionNodeClick("mc-script")}
-                                className={`rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                                className={`flex items-center justify-center gap-2 rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
                                   connectionDiagramNodes.includes("mc-script") ? "border-[#70A64B] bg-[#EEF7E8] ring-2 ring-[#70A64B]/20" : "border-[#AFD06E]/70 bg-[#F2FAED] hover:-translate-y-0.5 hover:shadow-sm"
                                 }`}
                               >
+                                <Microphone weight="fill" className="h-5 w-5 text-[#437118]" />
                                 Final MC script
                               </button>
                               <button
                                 type="button"
                                 aria-pressed={connectionDiagramNodes.includes("slides")}
                                 onClick={() => handleConnectionNodeClick("slides")}
-                                className={`rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                                className={`flex items-center justify-center gap-2 rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
                                   connectionDiagramNodes.includes("slides") ? "border-[#D8B457] bg-[#FFF7E5] ring-2 ring-[#D8B457]/20" : "border-[#F3C979]/70 bg-[#FFF9ED] hover:-translate-y-0.5 hover:shadow-sm"
                                 }`}
                               >
+                                <Presentation weight="fill" className="h-5 w-5 text-[#8B5E00]" />
                                 Final slides
                               </button>
                             </div>
@@ -1188,12 +1193,39 @@ export function EventReadinessCoursePage({
                             </div>
                             <button
                               type="button"
+                              aria-pressed={connectionSyncCheckClicked}
+                              onClick={() => handleConnectionNodeClick("sync-check")}
+                              className={`mx-auto flex w-full max-w-sm flex-col items-center justify-center rounded-xl border p-3 text-center transition ${
+                                connectionSyncCheckClicked ? "border-[#2F668B] bg-[#EAF4FA] ring-2 ring-[#2F668B]/20" : "border-[#87AECE]/70 bg-[#F0F7FC] hover:-translate-y-0.5 hover:shadow-sm"
+                              }`}
+                            >
+                              <span className="flex items-center gap-2 text-sm font-bold text-[#1D2A62]">
+                                <Gear weight="fill" className="h-5 w-5 text-[#2F668B]" />
+                                SYNC CHECK
+                              </span>
+                              <span className="mt-2 grid w-full max-w-md grid-cols-2 gap-1.5 sm:grid-cols-4">
+                                {["Same person", "Same order", "Same version", "Right timing"].map(label => (
+                                  <span key={label} className="rounded-full bg-white/75 px-2 py-1 text-[10px] font-semibold text-[#2F668B]">{label}</span>
+                                ))}
+                              </span>
+                            </button>
+                          </>
+                        )}
+
+                        {connectionSyncCheckClicked && (
+                          <>
+                            <div className="flex justify-center py-1 text-xl font-bold text-[#2F668B]">
+                              <span className="animate-bounce">↓</span>
+                            </div>
+                            <button
+                              type="button"
                               aria-pressed={connectionSequenceClicked}
                               onClick={() => handleConnectionNodeClick("sequence")}
-                              className={`mx-auto flex w-full max-w-sm items-center justify-center rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                              className={`mx-auto flex w-full max-w-sm items-center justify-center gap-2 rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
                                 connectionSequenceClicked ? "border-[#9D83C7] bg-[#F6F2FC] ring-2 ring-[#9D83C7]/20" : "border-[#C9B9E6]/70 bg-[#F8F5FD] hover:-translate-y-0.5 hover:shadow-sm"
                               }`}
                             >
+                              <ListNumbers weight="fill" className="h-5 w-5 text-[#9D83C7]" />
                               Participant-introduction sequence
                             </button>
                           </>
@@ -1208,10 +1240,11 @@ export function EventReadinessCoursePage({
                               type="button"
                               aria-pressed={connectionLiveClicked}
                               onClick={() => handleConnectionNodeClick("live")}
-                              className={`mx-auto flex w-full max-w-sm items-center justify-center rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                              className={`mx-auto flex w-full max-w-sm items-center justify-center gap-2 rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
                                 connectionLiveClicked ? "border-[#D88D5F] bg-[#FFF5EC] ring-2 ring-[#D88D5F]/20" : "border-[#F1C7A6]/70 bg-[#FFF8F2] hover:-translate-y-0.5 hover:shadow-sm"
                               }`}
                             >
+                              <UsersThree weight="fill" className="h-5 w-5 text-[#D88D5F]" />
                               Live participant experience
                             </button>
                           </>
