@@ -176,6 +176,7 @@ export function EventReadinessCoursePage({
   const [verificationChallengeSubmitted, setVerificationChallengeSubmitted] = useState(false)
   const [verificationSourceAnswer, setVerificationSourceAnswer] = useState("")
   const [verificationSourceSubmitted, setVerificationSourceSubmitted] = useState(false)
+  const [connectionDiagramNodes, setConnectionDiagramNodes] = useState<string[]>([])
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -188,6 +189,11 @@ export function EventReadinessCoursePage({
   const verificationChallengeAllCorrect = verificationChallengeSubmitted && verificationMismatchAnswers.length === 2 && ["name", "photo"].every(answer => verificationMismatchAnswers.includes(answer))
   const verificationChallengePartiallyCorrect = verificationChallengeSubmitted && verificationMismatchAnswers.length === 1 && ["name", "photo"].some(answer => verificationMismatchAnswers.includes(answer))
   const verificationSourceAllCorrect = verificationSourceSubmitted && verificationSourceAnswer === "C"
+  const connectionSourceClicked = connectionDiagramNodes.includes("source")
+  const connectionBranchesClicked = connectionDiagramNodes.includes("mc-script") && connectionDiagramNodes.includes("slides")
+  const connectionSequenceClicked = connectionDiagramNodes.includes("sequence")
+  const connectionLiveClicked = connectionDiagramNodes.includes("live")
+  const connectionCoreVisible = connectionSourceClicked && connectionBranchesClicked && connectionSequenceClicked && connectionLiveClicked
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
@@ -266,6 +272,13 @@ export function EventReadinessCoursePage({
       ? 100
       : Math.max(course.progress, Math.round((nextCompletedIds.length / OUTLINE_ITEMS.length) * 100))
     onProgressChange?.(nextProgress)
+  }
+
+  const handleConnectionNodeClick = (node: string) => {
+    if ((node === "mc-script" || node === "slides") && !connectionSourceClicked) return
+    if (node === "sequence" && !connectionBranchesClicked) return
+    if (node === "live" && !connectionSequenceClicked) return
+    setConnectionDiagramNodes(previous => previous.includes(node) ? previous : [...previous, node])
   }
 
   const handlePrimaryAction = () => {
@@ -1117,6 +1130,96 @@ export function EventReadinessCoursePage({
                       <p className="mt-3 text-base leading-relaxed text-slate-600">A component can be correct on its own and still fail when the event comes together.</p>
                       <p className="mt-3 text-base leading-relaxed text-slate-600">Once the critical information has been verified, the next question is:</p>
                       <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">Do the connected elements still work together in the way participants will actually experience them?</p>
+
+                      <div className="mt-5 rounded-2xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
+                        <p className="text-sm font-bold uppercase tracking-wide text-[#1D2A62]">Visual flow</p>
+                        <div className="mt-4 space-y-2">
+                          <button
+                            type="button"
+                            aria-pressed={connectionSourceClicked}
+                            onClick={() => handleConnectionNodeClick("source")}
+                            className={`mx-auto flex w-full max-w-sm items-center justify-center rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                              connectionSourceClicked ? "border-[#2F668B] bg-[#EAF4FA] ring-2 ring-[#2F668B]/20" : "border-[#B8D7EA]/70 bg-[#F0F7FC] hover:-translate-y-0.5 hover:shadow-sm"
+                            }`}
+                          >
+                            Latest confirmed participant information
+                          </button>
+
+                          {connectionSourceClicked && (
+                            <>
+                              <div className="flex justify-center gap-24 py-1 text-xl font-bold text-[#2F668B]">
+                                <span>↙</span>
+                                <span>↘</span>
+                              </div>
+                              <div className="grid gap-3 md:grid-cols-2">
+                                <button
+                                  type="button"
+                                  aria-pressed={connectionDiagramNodes.includes("mc-script")}
+                                  onClick={() => handleConnectionNodeClick("mc-script")}
+                                  className={`rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                                    connectionDiagramNodes.includes("mc-script") ? "border-[#70A64B] bg-[#EEF7E8] ring-2 ring-[#70A64B]/20" : "border-[#AFD06E]/70 bg-[#F2FAED] hover:-translate-y-0.5 hover:shadow-sm"
+                                  }`}
+                                >
+                                  Final MC script
+                                </button>
+                                <button
+                                  type="button"
+                                  aria-pressed={connectionDiagramNodes.includes("slides")}
+                                  onClick={() => handleConnectionNodeClick("slides")}
+                                  className={`rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                                    connectionDiagramNodes.includes("slides") ? "border-[#D8B457] bg-[#FFF7E5] ring-2 ring-[#D8B457]/20" : "border-[#F3C979]/70 bg-[#FFF9ED] hover:-translate-y-0.5 hover:shadow-sm"
+                                  }`}
+                                >
+                                  Final slides
+                                </button>
+                              </div>
+                            </>
+                          )}
+
+                          {connectionBranchesClicked && (
+                            <>
+                              <div className="flex justify-center gap-24 py-1 text-xl font-bold text-[#2F668B]">
+                                <span>↘</span>
+                                <span>↙</span>
+                              </div>
+                              <button
+                                type="button"
+                                aria-pressed={connectionSequenceClicked}
+                                onClick={() => handleConnectionNodeClick("sequence")}
+                                className={`mx-auto flex w-full max-w-sm items-center justify-center rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                                  connectionSequenceClicked ? "border-[#9D83C7] bg-[#F6F2FC] ring-2 ring-[#9D83C7]/20" : "border-[#C9B9E6]/70 bg-[#F8F5FD] hover:-translate-y-0.5 hover:shadow-sm"
+                                }`}
+                              >
+                                Participant-introduction sequence
+                              </button>
+                            </>
+                          )}
+
+                          {connectionSequenceClicked && (
+                            <>
+                              <div className="flex justify-center py-1 text-xl font-bold text-[#2F668B]">↓</div>
+                              <button
+                                type="button"
+                                aria-pressed={connectionLiveClicked}
+                                onClick={() => handleConnectionNodeClick("live")}
+                                className={`mx-auto flex w-full max-w-sm items-center justify-center rounded-xl border p-3 text-center text-sm font-semibold text-[#1D2A62] transition ${
+                                  connectionLiveClicked ? "border-[#D88D5F] bg-[#FFF5EC] ring-2 ring-[#D88D5F]/20" : "border-[#F1C7A6]/70 bg-[#FFF8F2] hover:-translate-y-0.5 hover:shadow-sm"
+                                }`}
+                              >
+                                Live participant experience
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+
+                      {connectionCoreVisible && (
+                        <div className="mt-5 rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                          <p className="text-sm font-bold uppercase tracking-wide text-[#2F668B]">Core idea</p>
+                          <p className="mt-3 text-base font-bold leading-relaxed text-[#1D2A62]">Each file may appear correct when checked separately.</p>
+                          <p className="mt-2 text-base leading-relaxed text-slate-600">But participants do not experience separate files. They experience the script, visuals, timing, information, and hand-offs working together in one live sequence.</p>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
