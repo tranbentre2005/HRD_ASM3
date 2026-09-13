@@ -859,7 +859,7 @@ export function EventReadinessCoursePage({
 
                     <div className="mt-5">
                     <div>
-                      <h3 className="text-center text-lg font-bold uppercase text-[#1D2A62]">Participant-critical elements</h3>
+                      <h3 className="text-center text-lg font-bold uppercase text-[#437118]">Participant-critical elements</h3>
                       <p className="mt-3 text-sm leading-relaxed text-slate-600">Participant-critical elements are parts of the event where an error could directly affect participants, key stakeholders, or an important part of delivery.</p>
                     </div>
                     <div className="mt-4 grid gap-3 md:grid-cols-2">
