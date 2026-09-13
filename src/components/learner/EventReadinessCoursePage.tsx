@@ -834,8 +834,8 @@ export function EventReadinessCoursePage({
                       <Target weight="fill" className="h-5 w-5" />
                       Mini Activity
                     </div>
-                    <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">You have 15 minutes before rehearsal. What would you check first?</h3>
-                    <p className="mt-3 text-xs font-semibold text-[#1D2A62]">Select one answer, then submit.</p>
+                    <h3 className="mt-3 text-sm font-semibold text-[#1D2A62]">You have 15 minutes before rehearsal. What would you check first?</h3>
+                    <p className="mt-1 text-sm font-semibold text-[#1D2A62]">Select one answer, then submit.</p>
                     <div className="mt-3 grid gap-2">
                       {[
                         { value: "A", label: "The background colour on the final slide" },
