@@ -892,6 +892,16 @@ export function EventReadinessCoursePage({
                     <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
                   </div>
 
+                  {impactPriorityAllCorrect && (
+                    <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                        <Lightbulb weight="fill" className="h-5 w-5" />
+                        IMPACT RULE
+                      </div>
+                      <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">Prioritise by potential impact, not by what is easiest to fix.</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">In practice:</span> When time is limited, focus first on what could most directly affect participants or delivery.</p>
+                    </div>
+                  )}
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
                     <div className="flex items-center gap-2 font-bold text-[#437118]">
                       <Target weight="fill" className="h-5 w-5" />
@@ -962,16 +972,6 @@ export function EventReadinessCoursePage({
                     )}
                   </div>
 
-                  {impactPriorityAllCorrect && (
-                    <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
-                      <div className="flex items-center gap-2 font-bold text-[#437118]">
-                        <Lightbulb weight="fill" className="h-5 w-5" />
-                        Key Takeaway - IMPACT RULE
-                      </div>
-                      <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">Prioritise by potential impact, not by what is easiest to fix.</p>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#1D2A62]">In practice:</span> When time is limited, focus first on what could most directly affect participants or delivery.</p>
-                    </div>
-                  )}
                   {impactPriorityAllCorrect && (
                     <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                       <div className="flex items-center gap-2 font-bold text-[#437118]">
