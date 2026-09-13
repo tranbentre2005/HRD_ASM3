@@ -886,7 +886,7 @@ export function EventReadinessCoursePage({
                     </div>
                     {impactPrioritySubmitted && (
                       <div className={`mt-4 rounded-xl border p-4 ${impactPriorityAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                        <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Exactly." : "Not the best first priority."}</p>
+                        <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "EXACTLY." : "Not the best first priority."}</p>
                         <p className="mt-1 text-sm leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "Not every unfinished detail creates the same level of risk." : "This issue still matters, but another update could directly affect participants and multiple connected event materials."}</p>
                         {impactPriorityAllCorrect && (
                           <p className="mt-2 text-sm leading-relaxed text-slate-600">A wrong participant name or photo directly affects someone’s live experience, so it deserves priority before lower-impact internal details.</p>
@@ -1011,7 +1011,7 @@ export function EventReadinessCoursePage({
                         <div className={`mt-4 rounded-xl border p-4 ${verificationChallengeAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
                           {verificationChallengeAllCorrect ? (
                             <>
-                              <p className="font-bold text-[#437118]">Good catch.</p>
+                              <p className="font-bold text-[#437118]">GOOD CATCH.</p>
                               <p className="mt-1 text-sm leading-relaxed text-slate-600">The name and photo on the slide do not match the confirmed participant information.</p>
                               <p className="mt-2 text-sm leading-relaxed text-slate-600">Because these details will be shown directly to participants, the mismatch needs to be resolved before the event is signed off as ready.</p>
                             </>
@@ -1076,11 +1076,10 @@ export function EventReadinessCoursePage({
                         <div className={`mt-4 rounded-xl border p-4 ${verificationSourceAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
                           {verificationSourceAllCorrect ? (
                             <>
-                              <p className="font-bold text-[#437118]">Correct.</p>
+                              <p className="font-bold text-[#437118]">CORRECT.</p>
                               <p className="mt-1 text-sm leading-relaxed text-slate-600">In this scenario, the latest confirmed participant list is the approved source of truth.</p>
                               <p className="mt-2 text-sm leading-relaxed text-slate-600">The slide should therefore be corrected to match that source — not memory, an older file, or the fact that someone has already marked the task as done.</p>
                               <p className="mt-2 text-sm leading-relaxed text-slate-600">For other event information, use the latest approved source for that specific item.</p>
-                              <p className="mt-3 text-sm font-bold text-[#1D2A62]">Correct answer: C</p>
                             </>
                           ) : (
                             <>
