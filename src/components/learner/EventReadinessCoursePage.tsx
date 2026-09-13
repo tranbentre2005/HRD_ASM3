@@ -662,12 +662,11 @@ export function EventReadinessCoursePage({
                   <h3 className="mt-[15px] text-center text-lg font-bold uppercase text-[#386b24]">DONE VS READY</h3>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-4">
-                    <div className="flex items-center gap-2">
-                      <Target className="h-5 w-5 text-[#437118]" />
-                      <div>
-                        <p className="font-semibold text-[#1D2A62]">Drag each statement into the correct category.</p>
-                      </div>
+                    <div className="flex items-center gap-2 font-bold text-[#437118]">
+                      <Target className="h-5 w-5" />
+                      Mini Activity
                     </div>
+                    <p className="mt-2 font-semibold text-[#1D2A62]">Drag each statement into the correct category.</p>
                     <div className="mt-3 grid gap-2 sm:grid-cols-2">
                       {READINESS_STATEMENTS.filter(statement => !readinessPlacements[statement.id]).map(statement => (
                         <div
