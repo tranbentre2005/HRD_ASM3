@@ -1096,8 +1096,8 @@ export function EventReadinessCoursePage({
                         </div>
                       )}
                   {verificationChallengeAllCorrect && (
-                    <div className="mt-5 border-t border-[#87AECE]/35 pt-5">
-                      <h3 className="text-lg font-bold text-[#1D2A62]">What should you use to verify the correction?</h3>
+                    <div className="mt-5 pt-5">
+                      <h3 className="text-center text-base leading-relaxed text-[#437118]"><span className="font-bold">What should you use to verify the correction?</span></h3>
                       <div className="mt-4 space-y-2">
                         {[
                           { value: "A", label: "The slide, because it was completed first" },
