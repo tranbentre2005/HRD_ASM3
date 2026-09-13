@@ -1515,12 +1515,12 @@ export function EventReadinessCoursePage({
                             <p className="text-base leading-relaxed text-[#1D2A62]"><span className="font-bold">Key difference:</span> A component check proves one part works. An integrated readiness test proves the <span className="font-bold">connection</span> works.</p>
                           </div>
                           <div className="mt-5 rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
-                            <div className="flex items-center gap-2 font-bold text-[#437118]">
+                            <div className="flex items-center gap-2 font-bold text-[#8B5E00]">
                               <Lightbulb weight="fill" className="h-5 w-5" />
-                              Key Takeaway - CONNECTION RULE
+                              CONNECTION RULE
                             </div>
                             <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">Test the critical hand-offs participants experience, not only the tasks teams complete.</p>
-                            <p className="mt-2 text-sm leading-relaxed text-slate-600">If the integrated test reveals a mismatch: <span className="font-bold text-[#1D2A62]">Fix it → re-test the affected connection → then confirm readiness.</span></p>
+                            <p className="mt-2 text-sm leading-relaxed text-slate-600">If the integrated test reveals a mismatch: Fix it → re-test the affected connection → then confirm readiness.</p>
                           </div>
                         </>
                       )}
