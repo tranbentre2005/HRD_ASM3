@@ -777,7 +777,7 @@ export function EventReadinessCoursePage({
                         </ul>
                       </div>
                     </div>
-                    <p className="mt-4 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#8B5E00]">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
+                    <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
                   </div>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
