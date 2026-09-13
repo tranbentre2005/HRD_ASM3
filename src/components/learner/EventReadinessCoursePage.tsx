@@ -738,7 +738,7 @@ export function EventReadinessCoursePage({
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   <div className="rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
                     <div className="flex items-center gap-2 font-bold text-[#437118]">
-                      <Target weight="fill" className="h-5 w-5" />
+                      <Lightbulb weight="fill" className="h-5 w-5" />
                       IMPACT
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">What Should a Project Leader Pay Attention To?</h3>
@@ -748,7 +748,7 @@ export function EventReadinessCoursePage({
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                     <div>
-                      <h3 className="text-lg font-bold text-[#1D2A62]">Participant-critical elements</h3>
+                      <h3 className="text-center text-lg font-bold uppercase text-[#1D2A62]">Participant-critical elements</h3>
                       <p className="mt-3 text-sm leading-relaxed text-slate-600">Participant-critical elements are parts of the event where an error could directly affect someone’s experience or disrupt an important part of delivery.</p>
                     </div>
                     <div className="mt-4 grid gap-3 md:grid-cols-2">
@@ -775,9 +775,9 @@ export function EventReadinessCoursePage({
                             "Non-critical layout details"
                           ].map(item => <li key={item}>• {item}</li>)}
                         </ul>
-                        <p className="mt-4 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#8B5E00]">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
                       </div>
                     </div>
+                    <p className="mt-4 text-sm leading-relaxed text-slate-600"><span className="font-bold text-[#8B5E00]">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
                   </div>
 
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
