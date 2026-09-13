@@ -1107,6 +1107,18 @@ export function EventReadinessCoursePage({
                       <p className="mt-2 text-sm leading-relaxed text-slate-600">Don’t ask only: “Is it done?”</p>
                     </div>
                   )}
+                  {evidenceVerificationComplete && (
+                    <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                      <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                        <ShieldCheck weight="fill" className="h-5 w-5" />
+                        C. CONNECTION
+                      </div>
+                      <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">Does it work together?</h3>
+                      <p className="mt-3 text-base leading-relaxed text-slate-600">A component can be correct on its own and still fail when the event comes together.</p>
+                      <p className="mt-3 text-base leading-relaxed text-slate-600">Once the critical information has been verified, the next question is:</p>
+                      <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">Do the connected elements still work together in the way participants will actually experience them?</p>
+                    </div>
+                  )}
                 </div>
               )}
               {activeLesson.id === "1.2-ready-simulation" && (
