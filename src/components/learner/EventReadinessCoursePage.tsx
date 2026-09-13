@@ -1320,6 +1320,72 @@ export function EventReadinessCoursePage({
                           </div>
                         </>
                       )}
+                      {connectionComplete && (
+                        <>
+                          <div className="mt-5">
+                            <p className="text-center text-sm font-semibold tracking-wide text-[#437118]">From Separate Checks to Real Readiness</p>
+                            <h3 className="mt-2 text-center text-xl font-bold text-[#437118]">COMPONENT CHECK VS. INTEGRATED READINESS TEST</h3>
+                            <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-center">
+                              <div className="h-full rounded-2xl border border-slate-200 bg-white p-5">
+                                <div className="flex items-start gap-3">
+                                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F0F7FC] text-[#6F7591]">
+                                    <FileText weight="fill" className="h-6 w-6" />
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">COMPONENT CHECK</p>
+                                    <p className="mt-1 text-lg font-bold leading-snug text-[#1D2A62]">MC reads the final script alone</p>
+                                  </div>
+                                </div>
+                                <div className="mt-6 rounded-xl bg-slate-50 p-4">
+                                  <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">THIS CONFIRMS</p>
+                                  <p className="mt-2 flex items-start gap-2 text-base font-semibold leading-relaxed text-[#1D2A62]">
+                                    <Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#437118]" />
+                                    <span>The script can be read.</span>
+                                  </p>
+                                </div>
+                                <p className="mt-5 font-bold text-[#1D2A62]">But it does not confirm:</p>
+                                <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-600">
+                                  <li className="flex items-start gap-2"><XCircle weight="regular" className="mt-1 h-4 w-4 shrink-0 text-slate-400" /><span>The correct slide appears at the right moment.</span></li>
+                                  <li className="flex items-start gap-2"><XCircle weight="regular" className="mt-1 h-4 w-4 shrink-0 text-slate-400" /><span>Participant information stays aligned.</span></li>
+                                  <li className="flex items-start gap-2"><XCircle weight="regular" className="mt-1 h-4 w-4 shrink-0 text-slate-400" /><span>All materials use the same version.</span></li>
+                                  <li className="flex items-start gap-2"><XCircle weight="regular" className="mt-1 h-4 w-4 shrink-0 text-slate-400" /><span>The live hand-off actually works.</span></li>
+                                </ul>
+                              </div>
+                              <div className="flex h-10 w-10 items-center justify-center self-center justify-self-center rounded-full border border-slate-200 bg-white text-slate-500 lg:h-12 lg:w-12">
+                                <ArrowRight weight="bold" className="h-4 w-4 rotate-90 lg:rotate-0" />
+                              </div>
+                              <div className="h-full rounded-2xl border-2 border-[#4B8AE8] bg-white p-5">
+                                <div className="flex items-start gap-3">
+                                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F0F7FC] text-[#4B8AE8]">
+                                    <LinkSimple weight="bold" className="h-6 w-6" />
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-semibold uppercase tracking-wide text-[#4B8AE8]">INTEGRATED READINESS TEST</p>
+                                    <p className="mt-1 text-lg font-bold leading-snug text-[#1D2A62]">Run the actual introduction sequence</p>
+                                  </div>
+                                </div>
+                                <div className="mt-6 grid grid-cols-2 gap-2 text-center text-sm text-slate-600">
+                                  {["Latest list", "Final script", "Final slides", "Actual order"].map(item => (
+                                    <div key={item} className="rounded-lg bg-slate-50 px-3 py-2">{item}</div>
+                                  ))}
+                                </div>
+                                <p className="mt-5 font-bold text-[#1D2A62]">This checks whether:</p>
+                                <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-600">
+                                  <li className="flex items-start gap-2"><Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#4B8AE8]" /><span>The right information and visual appear together.</span></li>
+                                  <li className="flex items-start gap-2"><Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#4B8AE8]" /><span>The sequence and timing stay aligned.</span></li>
+                                  <li className="flex items-start gap-2"><Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#4B8AE8]" /><span>All components use the same final version.</span></li>
+                                  <li className="flex items-start gap-2"><Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#4B8AE8]" /><span>The participant-facing flow works as intended.</span></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-5 flex items-start gap-3 rounded-2xl bg-[#F0F7FC] p-5">
+                            <Lightbulb weight="fill" className="mt-0.5 h-5 w-5 shrink-0 text-[#D8B457]" />
+                            <p className="text-base leading-relaxed text-[#1D2A62]"><span className="font-bold">Key difference:</span> A component check proves one part works. An integrated readiness test proves the <span className="font-bold">connection</span> works.</p>
+                          </div>
+                        </>
+                      )}
+                  </div>
                       {connectionCoreVisible && (
                         <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                           <div className="flex items-center gap-2 font-bold text-[#2F668B]">
@@ -1451,82 +1517,18 @@ export function EventReadinessCoursePage({
                               )}
                             </div>
                           )}
-                      {connectionComplete && (
-                        <>
-                          <div className="mt-5">
-                            <p className="text-center text-sm font-semibold tracking-wide text-[#437118]">From Separate Checks to Real Readiness</p>
-                            <h3 className="mt-2 text-center text-xl font-bold text-[#437118]">COMPONENT CHECK VS. INTEGRATED READINESS TEST</h3>
-                            <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-center">
-                              <div className="h-full rounded-2xl border border-slate-200 bg-white p-5">
-                                <div className="flex items-start gap-3">
-                                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F0F7FC] text-[#6F7591]">
-                                    <FileText weight="fill" className="h-6 w-6" />
-                                  </div>
-                                  <div>
-                                    <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">COMPONENT CHECK</p>
-                                    <p className="mt-1 text-lg font-bold leading-snug text-[#1D2A62]">MC reads the final script alone</p>
-                                  </div>
-                                </div>
-                                <div className="mt-6 rounded-xl bg-slate-50 p-4">
-                                  <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">THIS CONFIRMS</p>
-                                  <p className="mt-2 flex items-start gap-2 text-base font-semibold leading-relaxed text-[#1D2A62]">
-                                    <Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#437118]" />
-                                    <span>The script can be read.</span>
-                                  </p>
-                                </div>
-                                <p className="mt-5 font-bold text-[#1D2A62]">But it does not confirm:</p>
-                                <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-600">
-                                  <li className="flex items-start gap-2"><XCircle weight="regular" className="mt-1 h-4 w-4 shrink-0 text-slate-400" /><span>The correct slide appears at the right moment.</span></li>
-                                  <li className="flex items-start gap-2"><XCircle weight="regular" className="mt-1 h-4 w-4 shrink-0 text-slate-400" /><span>Participant information stays aligned.</span></li>
-                                  <li className="flex items-start gap-2"><XCircle weight="regular" className="mt-1 h-4 w-4 shrink-0 text-slate-400" /><span>All materials use the same version.</span></li>
-                                  <li className="flex items-start gap-2"><XCircle weight="regular" className="mt-1 h-4 w-4 shrink-0 text-slate-400" /><span>The live hand-off actually works.</span></li>
-                                </ul>
-                              </div>
-                              <div className="flex h-10 w-10 items-center justify-center self-center justify-self-center rounded-full border border-slate-200 bg-white text-slate-500 lg:h-12 lg:w-12">
-                                <ArrowRight weight="bold" className="h-4 w-4 rotate-90 lg:rotate-0" />
-                              </div>
-                              <div className="h-full rounded-2xl border-2 border-[#4B8AE8] bg-white p-5">
-                                <div className="flex items-start gap-3">
-                                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F0F7FC] text-[#4B8AE8]">
-                                    <LinkSimple weight="bold" className="h-6 w-6" />
-                                  </div>
-                                  <div>
-                                    <p className="text-sm font-semibold uppercase tracking-wide text-[#4B8AE8]">INTEGRATED READINESS TEST</p>
-                                    <p className="mt-1 text-lg font-bold leading-snug text-[#1D2A62]">Run the actual introduction sequence</p>
-                                  </div>
-                                </div>
-                                <div className="mt-6 grid grid-cols-2 gap-2 text-center text-sm text-slate-600">
-                                  {["Latest list", "Final script", "Final slides", "Actual order"].map(item => (
-                                    <div key={item} className="rounded-lg bg-slate-50 px-3 py-2">{item}</div>
-                                  ))}
-                                </div>
-                                <p className="mt-5 font-bold text-[#1D2A62]">This checks whether:</p>
-                                <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-600">
-                                  <li className="flex items-start gap-2"><Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#4B8AE8]" /><span>The right information and visual appear together.</span></li>
-                                  <li className="flex items-start gap-2"><Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#4B8AE8]" /><span>The sequence and timing stay aligned.</span></li>
-                                  <li className="flex items-start gap-2"><Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#4B8AE8]" /><span>All components use the same final version.</span></li>
-                                  <li className="flex items-start gap-2"><Check weight="bold" className="mt-1 h-4 w-4 shrink-0 text-[#4B8AE8]" /><span>The participant-facing flow works as intended.</span></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="mt-5 flex items-start gap-3 rounded-2xl bg-[#F0F7FC] p-5">
-                            <Lightbulb weight="fill" className="mt-0.5 h-5 w-5 shrink-0 text-[#D8B457]" />
-                            <p className="text-base leading-relaxed text-[#1D2A62]"><span className="font-bold">Key difference:</span> A component check proves one part works. An integrated readiness test proves the <span className="font-bold">connection</span> works.</p>
-                          </div>
-                          <div className="mt-5 rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
-                            <div className="flex items-center gap-2 font-bold text-[#8B5E00]">
-                              <Lightbulb weight="fill" className="h-5 w-5" />
-                              CONNECTION RULE
-                            </div>
-                            <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">Test the critical hand-offs participants experience, not only the tasks teams complete.</p>
-                            <p className="mt-2 text-sm leading-relaxed text-slate-600">If the integrated test reveals a mismatch: Fix it → re-test the affected connection → then confirm readiness.</p>
-                          </div>
-                        </>
-                      )}
                         </div>
                       )}
-                  </div>
+                      {connectionComplete && (
+                        <div className="mt-5 rounded-2xl bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5">
+                          <div className="flex items-center gap-2 font-bold text-[#8B5E00]">
+                            <Lightbulb weight="fill" className="h-5 w-5" />
+                            CONNECTION RULE
+                          </div>
+                          <p className="mt-3 text-lg font-bold leading-relaxed text-[#1D2A62]">Test the critical hand-offs participants experience, not only the tasks teams complete.</p>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-600">If the integrated test reveals a mismatch: Fix it → re-test the affected connection → then confirm readiness.</p>
+                        </div>
+                      )}
                   </>
                   )}
                 </div>
