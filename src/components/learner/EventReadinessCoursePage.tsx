@@ -1384,7 +1384,7 @@ export function EventReadinessCoursePage({
                       )}
                   </div>
                       {connectionCoreVisible && (
-                        <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                        <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-[#FFF9ED] p-5">
                           <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                             <MagnifyingGlass weight="bold" className="h-5 w-5" />
                             Connection Challenge
