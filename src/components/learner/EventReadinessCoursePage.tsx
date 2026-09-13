@@ -892,7 +892,7 @@ export function EventReadinessCoursePage({
                       <h3 className="mt-3 text-lg font-bold text-[#1D2A62]">How do I know it is correct?</h3>
                       <p className="mt-3 text-base leading-relaxed text-slate-600">A team member saying that a task is complete tells you the work has been finished. But for participant-critical information, completion alone does not prove that the information is accurate, current, and approved for use.</p>
                       <p className="mt-3 text-base leading-relaxed text-slate-700">“Done” is a status. <span className="font-bold text-[#1D2A62]">“Verified”</span> requires evidence.</p>
-                      <p className="mt-4 text-sm font-bold text-[#1D2A62]">Before sign-off, ask three questions:</p>
+                      <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Before sign-off,</span> ask three questions:</p>
                       <ol className="mt-3 space-y-3">
                         <li className="rounded-xl border border-[#87AECE]/30 bg-[#F8FCF6] p-4">
                           <p className="text-sm font-bold text-[#1D2A62]">1. What is the approved source of truth?</p>
