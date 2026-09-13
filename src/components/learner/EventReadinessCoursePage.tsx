@@ -951,12 +951,21 @@ export function EventReadinessCoursePage({
                         )
                       })}
                     </div>
-                    <div className={`mt-4 rounded-xl border p-4 ${
+                    <div className={`mt-4 flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-start sm:justify-between ${
                       impactPrioritySubmitted
                         ? impactPriorityAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"
                         : "border-slate-200 bg-white"
                     }`}>
-                      <div className="flex justify-end gap-2">
+                      {impactPrioritySubmitted && (
+                        <div className="min-w-0 flex-1">
+                          <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Exactly." : "Not quite."}</p>
+                          <p className="mt-1 text-sm leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "Not every unfinished detail creates the same level of risk." : "That issue may still need attention, but another option has a more direct impact on the participant experience."}</p>
+                          {impactPriorityAllCorrect && (
+                            <p className="mt-2 text-sm leading-relaxed text-slate-600">A participant’s name and photo will be experienced directly during the event, so this issue deserves attention before lower-impact internal or decorative details.</p>
+                          )}
+                        </div>
+                      )}
+                      <div className="flex shrink-0 justify-end gap-2">
                         {impactPrioritySubmitted && !impactPriorityAllCorrect && (
                           <Button type="button" variant="outline" onClick={handleImpactPriorityTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
                             Try Again
@@ -966,15 +975,6 @@ export function EventReadinessCoursePage({
                           Submit
                         </Button>
                       </div>
-                      {impactPrioritySubmitted && (
-                        <div className="mt-4">
-                          <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Exactly." : "Not quite."}</p>
-                          <p className="mt-1 text-sm leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "Not every unfinished detail creates the same level of risk." : "That issue may still need attention, but another option has a more direct impact on the participant experience."}</p>
-                          {impactPriorityAllCorrect && (
-                            <p className="mt-2 text-sm leading-relaxed text-slate-600">A participant’s name and photo will be experienced directly during the event, so this issue deserves attention before lower-impact internal or decorative details.</p>
-                          )}
-                        </div>
-                      )}
                     </div>
                   </div>
 
@@ -1070,23 +1070,13 @@ export function EventReadinessCoursePage({
                           </div>
                         </div>
                       </div>
-                      <div className={`mt-4 rounded-xl border p-4 ${
+                      <div className={`mt-4 flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-start sm:justify-between ${
                         verificationChallengeSubmitted
                           ? verificationChallengeAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"
                           : "border-slate-200 bg-white"
                       }`}>
-                        <div className="flex justify-end gap-2">
-                          {verificationChallengeSubmitted && !verificationChallengeAllCorrect && (
-                            <Button type="button" variant="outline" onClick={handleVerificationChallengeTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                              Try Again
-                            </Button>
-                          )}
-                          <Button type="button" onClick={handleVerificationChallengeSubmit} disabled={verificationMismatchAnswers.length === 0 || verificationChallengeSubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
-                            Submit
-                          </Button>
-                        </div>
                         {verificationChallengeSubmitted && (
-                          <div className="mt-4">
+                          <div className="min-w-0 flex-1">
                             {verificationChallengeAllCorrect ? (
                               <>
                                 <p className="font-bold text-[#437118]">GOOD CATCH.</p>
@@ -1106,6 +1096,16 @@ export function EventReadinessCoursePage({
                             )}
                           </div>
                         )}
+                        <div className="flex shrink-0 justify-end gap-2">
+                          {verificationChallengeSubmitted && !verificationChallengeAllCorrect && (
+                            <Button type="button" variant="outline" onClick={handleVerificationChallengeTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                              Try Again
+                            </Button>
+                          )}
+                          <Button type="button" onClick={handleVerificationChallengeSubmit} disabled={verificationMismatchAnswers.length === 0 || verificationChallengeSubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                            Submit
+                          </Button>
+                        </div>
                       </div>
                   {verificationChallengeAllCorrect && (
                     <div className="mt-5 pt-5">
@@ -1148,15 +1148,8 @@ export function EventReadinessCoursePage({
                         })}
                       </div>
                       {verificationSourceSubmitted && (
-                        <div className={`mt-4 rounded-xl border p-4 ${verificationSourceAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                          {verificationSourceSubmitted && !verificationSourceAllCorrect && (
-                            <div className="flex justify-end">
-                              <Button type="button" variant="outline" onClick={handleVerificationSourceTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                                Try Again
-                              </Button>
-                            </div>
-                          )}
-                          <div className={verificationSourceSubmitted && !verificationSourceAllCorrect ? "mt-4" : ""}>
+                        <div className={`mt-4 flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-start sm:justify-between ${verificationSourceAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
+                          <div className="min-w-0 flex-1">
                             {verificationSourceAllCorrect ? (
                               <>
                                 <p className="font-bold text-[#437118]">CORRECT.</p>
@@ -1171,6 +1164,13 @@ export function EventReadinessCoursePage({
                               </>
                             )}
                           </div>
+                          {verificationSourceSubmitted && !verificationSourceAllCorrect && (
+                            <div className="flex shrink-0 justify-end">
+                              <Button type="button" variant="outline" onClick={handleVerificationSourceTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                                Try Again
+                              </Button>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -1419,27 +1419,35 @@ export function EventReadinessCoursePage({
                                 <div className={`mt-4 border-l-4 p-4 ${
                                   connectionIntegratedTestAllCorrect ? "border-[#70A64B] bg-[#EEF7E8]" : "border-[#D8B457] bg-[#FFF8E8]"
                                 }`}>
-                                  {connectionIntegratedTestAllCorrect ? (
-                                    <>
-                                      <p className="font-bold text-[#437118]">CORRECT.</p>
-                                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Because the problem exists between components, it must be tested between components.</p>
-                                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Running the actual participant-introduction sequence can reveal problems that separate checks may miss, such as:</p>
-                                      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-600">
-                                        <li>the wrong slide appearing with the right name;</li>
-                                        <li>mismatched participant order;</li>
-                                        <li>timing problems;</li>
-                                        <li>different versions being used at the same time.</li>
-                                      </ul>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <p className="font-bold text-[#8B5E00]">Not quite.</p>
-                                      <p className="mt-2 text-sm leading-relaxed text-slate-600">Choose the rehearsal that tests the final script, final slides, latest participant information, and actual delivery order together.</p>
-                                      <Button type="button" variant="outline" onClick={handleIntegratedTestTryAgain} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                                        Try Again
-                                      </Button>
-                                    </>
-                                  )}
+                                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                                    <div className="min-w-0 flex-1">
+                                      {connectionIntegratedTestAllCorrect ? (
+                                        <>
+                                          <p className="font-bold text-[#437118]">CORRECT.</p>
+                                          <p className="mt-2 text-sm leading-relaxed text-slate-600">Because the problem exists between components, it must be tested between components.</p>
+                                          <p className="mt-2 text-sm leading-relaxed text-slate-600">Running the actual participant-introduction sequence can reveal problems that separate checks may miss, such as:</p>
+                                          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-600">
+                                            <li>the wrong slide appearing with the right name;</li>
+                                            <li>mismatched participant order;</li>
+                                            <li>timing problems;</li>
+                                            <li>different versions being used at the same time.</li>
+                                          </ul>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <p className="font-bold text-[#8B5E00]">Not quite.</p>
+                                          <p className="mt-2 text-sm leading-relaxed text-slate-600">Choose the rehearsal that tests the final script, final slides, latest participant information, and actual delivery order together.</p>
+                                        </>
+                                      )}
+                                    </div>
+                                    {!connectionIntegratedTestAllCorrect && (
+                                      <div className="flex shrink-0 justify-end">
+                                        <Button type="button" variant="outline" onClick={handleIntegratedTestTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                                          Try Again
+                                        </Button>
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
                               )}
                             </div>
