@@ -863,9 +863,9 @@ export function EventReadinessCoursePage({
                       <p className="mt-3 text-sm leading-relaxed text-slate-600">Participant-critical elements are parts of the event where an error could directly affect participants, key stakeholders, or an important part of delivery.</p>
                     </div>
                     <div className="mt-4 grid gap-3 md:grid-cols-2">
-                      <div className="rounded-2xl border border-[#437118]/45 bg-gradient-to-br from-[#EEF7E8] via-[#F8FCF6] to-[#DFF0D8] p-5 shadow-sm ring-1 ring-[#AFD06E]/35">
-                        <h3 className="text-base font-extrabold text-[#386b24]">Higher attention examples</h3>
-                        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                      <div className="flex h-full flex-col rounded-2xl border border-[#437118]/45 bg-gradient-to-br from-[#EEF7E8] via-[#F8FCF6] to-[#DFF0D8] p-5 shadow-sm ring-1 ring-[#AFD06E]/35">
+                        <h3 className="text-center text-base font-extrabold text-[#386b24]">Higher Attention Examples</h3>
+                        <ul className="mt-3 flex-1 space-y-2 text-sm leading-relaxed text-slate-600">
                           {[
                             "Participant names, photos, and registration data",
                             "Speaker information and arrival requirements",
@@ -875,10 +875,9 @@ export function EventReadinessCoursePage({
                           ].map(item => <li key={item}>• {item}</li>)}
                         </ul>
                       </div>
-                      <div className="rounded-2xl border border-[#F3C979]/55 bg-[#FFF7E5] p-5">
-                        <h3 className="text-base font-extrabold text-[#8B5E00]">Lower Immediate Priority</h3>
-                        <p className="mt-1 text-sm text-slate-600">Can be handled once critical paths are secured:</p>
-                        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                      <div className="flex h-full flex-col rounded-2xl border border-[#F3C979]/55 bg-[#FFF7E5] p-5">
+                        <h3 className="text-center text-base font-extrabold text-[#8B5E00]">Lower Immediate Priority</h3>
+                        <ul className="mt-3 flex-1 space-y-2 text-sm leading-relaxed text-slate-600">
                           {[
                             "Small formatting inconsistency",
                             "Minor decorative typo on background banner",
@@ -886,6 +885,7 @@ export function EventReadinessCoursePage({
                             "Non-critical layout details"
                           ].map(item => <li key={item}>• {item}</li>)}
                         </ul>
+                        <p className="mt-3 text-sm italic text-slate-600">Can be handled once critical paths are secured.</p>
                       </div>
                     </div>
                     <p className="mt-4 text-sm italic leading-relaxed text-[#1D2A62]"><span className="font-bold">Important:</span> Lower priority does not mean ‘unimportant’. It means another issue deserves attention first when time or resources are limited.</p>
