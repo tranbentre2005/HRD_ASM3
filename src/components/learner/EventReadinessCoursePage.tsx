@@ -524,7 +524,7 @@ export function EventReadinessCoursePage({
 
               {activeLesson.id === "course-outcomes" && (
                 <div className="space-y-4 text-sm leading-relaxed text-slate-700">
-                  <p>By the end of Event Readiness, you will be able to:</p>
+                  <p>By the end of this course, you will be able to:</p>
                   <ul className="space-y-3">
                     {[
                       { text: "Recognise which event elements require the most attention before delivery based on their potential impact on participants and event flow.", colorClass: "text-[#437118]" },
