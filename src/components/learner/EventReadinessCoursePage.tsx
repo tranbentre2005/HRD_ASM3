@@ -1317,7 +1317,7 @@ export function EventReadinessCoursePage({
                           </div>
                           <div className="mx-auto mt-2 w-full max-w-full rounded-2xl border border-[#AFD06E]/45 bg-[#EEF7E8] p-5">
                             <p className="text-center text-base italic leading-relaxed text-[#1D2A62]">Each file may be correct on its own. But participants experience the <span className="font-bold text-[#437118]">whole sequence</span> — the script, visuals, timing, information, and hand-offs working together.</p>
-                      {connectionComplete && (
+                      {connectionCoreVisible && (
                         <>
                           <div className="mt-5">
                             <p className="text-center text-sm font-semibold tracking-wide text-[#437118]">From Separate Checks to Real Readiness</p>
