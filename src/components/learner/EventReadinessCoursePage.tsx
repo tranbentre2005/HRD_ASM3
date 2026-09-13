@@ -1139,7 +1139,8 @@ export function EventReadinessCoursePage({
                     </div>
                   )}
                   {evidenceVerificationComplete && (
-                    <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                    <>
+                      <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                       <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                         <ShieldCheck weight="fill" className="h-5 w-5" />
                         C. CONNECTION
@@ -1269,6 +1270,7 @@ export function EventReadinessCoursePage({
                           </div>
                         </>
                       )}
+                  </div>
                       {connectionCoreVisible && (
                         <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                           <div className="flex items-center gap-2 font-bold text-[#2F668B]">
@@ -1431,7 +1433,7 @@ export function EventReadinessCoursePage({
                           </div>
                         </>
                       )}
-                    </div>
+                  </>
                   )}
                 </div>
               )}
