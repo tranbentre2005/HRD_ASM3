@@ -178,8 +178,10 @@ export function EventReadinessCoursePage({
   const [verificationSourceAnswer, setVerificationSourceAnswer] = useState("")
   const [verificationSourceSubmitted, setVerificationSourceSubmitted] = useState(false)
   const [connectionDiagramNodes, setConnectionDiagramNodes] = useState<string[]>([])
-  const [connectionQuestionAnswer, setConnectionQuestionAnswer] = useState("")
-  const [connectionQuestionSubmitted, setConnectionQuestionSubmitted] = useState(false)
+  const [connectionChallengeAnswer, setConnectionChallengeAnswer] = useState("")
+  const [connectionChallengeSubmitted, setConnectionChallengeSubmitted] = useState(false)
+  const [rehearsalChoiceAnswer, setRehearsalChoiceAnswer] = useState("")
+  const [rehearsalChoiceSubmitted, setRehearsalChoiceSubmitted] = useState(false)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackText, setFeedbackText] = useState(initialState.feedbackText)
 
@@ -198,8 +200,9 @@ export function EventReadinessCoursePage({
   const connectionSequenceClicked = connectionDiagramNodes.includes("sequence")
   const connectionLiveClicked = connectionDiagramNodes.includes("live")
   const connectionCoreVisible = connectionSourceClicked && connectionBranchesClicked && connectionSyncCheckClicked && connectionSequenceClicked && connectionLiveClicked
-  const connectionQuestionAllCorrect = connectionQuestionSubmitted && connectionQuestionAnswer === "C"
-  const connectionComplete = connectionCoreVisible && connectionQuestionAllCorrect
+  const connectionChallengeAllCorrect = connectionChallengeSubmitted && connectionChallengeAnswer === "slide-hand-off"
+  const rehearsalChoiceAllCorrect = rehearsalChoiceSubmitted && rehearsalChoiceAnswer === "C"
+  const connectionComplete = connectionCoreVisible && connectionChallengeAllCorrect && rehearsalChoiceAllCorrect
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = completedCount === OUTLINE_ITEMS.length
     ? 100
@@ -286,9 +289,14 @@ export function EventReadinessCoursePage({
     if (node === "live" && !connectionSequenceClicked) return
     setConnectionDiagramNodes(previous => previous.includes(node) ? previous : [...previous, node])
   }
-  const handleConnectionQuestionTryAgain = () => {
-    setConnectionQuestionAnswer("")
-    setConnectionQuestionSubmitted(false)
+  const handleConnectionChallengeTryAgain = () => {
+    setConnectionChallengeAnswer("")
+    setConnectionChallengeSubmitted(false)
+  }
+
+  const handleRehearsalChoiceTryAgain = () => {
+    setRehearsalChoiceAnswer("")
+    setRehearsalChoiceSubmitted(false)
   }
 
   const handlePrimaryAction = () => {
@@ -1263,28 +1271,82 @@ export function EventReadinessCoursePage({
                       )}
                       {connectionCoreVisible && (
                         <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                          <h3 className="text-lg font-bold text-[#1D2A62]">Which rehearsal gives stronger evidence that the participant-introduction sequence is ready?</h3>
+                          <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                            <MagnifyingGlass weight="bold" className="h-5 w-5" />
+                            Connection Challenge
+                          </div>
+                          <div className="mt-4 grid gap-3 md:grid-cols-3">
+                            <div className="rounded-xl border border-[#B8D7EA]/55 bg-[#F0F7FC] p-4">
+                              <h3 className="text-sm font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
+                              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                                <li>Nguyễn Minh Anh</li>
+                                <li>Trần Gia Hân</li>
+                                <li>Lê Hoàng Nam</li>
+                              </ul>
+                            </div>
+                            <div className="rounded-xl border border-[#AFD06E]/55 bg-[#F2FAED] p-4">
+                              <h3 className="text-sm font-bold text-[#1D2A62]">Final MC script</h3>
+                              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                                <li>Nguyễn Minh Anh</li>
+                                <li>Trần Gia Hân</li>
+                                <li>Lê Hoàng Nam</li>
+                              </ul>
+                            </div>
+                            <button
+                              type="button"
+                              aria-pressed={connectionChallengeAllCorrect}
+                              onClick={() => {
+                                setConnectionChallengeAnswer("slide-hand-off")
+                                setConnectionChallengeSubmitted(true)
+                              }}
+                              className={`rounded-xl border p-4 text-left transition ${
+                                connectionChallengeAllCorrect ? "border-[#D88D5F] bg-[#FFF5EC] ring-2 ring-[#D88D5F]/20" : "border-[#F1C7A6]/70 bg-[#FFF8F2] hover:-translate-y-0.5 hover:shadow-sm"
+                              }`}
+                            >
+                              <h3 className="text-sm font-bold text-[#1D2A62]">Final slide sequence</h3>
+                              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">
+                                <li>Nguyễn Minh Anh</li>
+                                <li>Lê Hoàng Nam</li>
+                                <li>Trần Gia Hân</li>
+                              </ul>
+                              <p className="mt-3 text-xs font-semibold italic text-[#1D2A62]">Click where the connection breaks.</p>
+                            </button>
+                          </div>
+                          <p className="mt-4 text-sm leading-relaxed text-slate-700">Every participant detail is correct. But is the sequence ready?</p>
+                          {connectionChallengeSubmitted && (
+                            <div className="mt-4 rounded-xl border border-[#AFD06E]/50 bg-white p-4">
+                              <p className="font-bold text-[#437118]">GOOD CATCH.</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Every participant detail is correct, but the MC script and slide sequence are not aligned.</p>
+                              <p className="mt-2 text-sm leading-relaxed text-slate-600">A component check could miss this because neither file contains incorrect participant information. The problem only appears when the two components are used together.</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      {connectionChallengeAllCorrect && (
+                        <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                          <h3 className="text-lg font-bold text-[#1D2A62]">Rehearsal Choice</h3>
+                          <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</p>
                           <div className="mt-4 space-y-2">
                             {[
-                              { value: "A", label: "The MC reads the final script alone." },
-                              { value: "B", label: "Marketing checks the slides again." },
-                              { value: "C", label: "The MC runs the participant-introduction sequence using the final script, final slides, and latest participant information." }
+                              { value: "A", label: "The MC reads the final script again." },
+                              { value: "B", label: "The slides are checked separately one more time." },
+                              { value: "C", label: "The MC runs the complete participant-introduction sequence using the latest confirmed participant information, final script, final slides, and actual delivery order." }
                             ].map(({ value, label }) => {
-                              const isSelected = connectionQuestionAnswer === value
+                              const isSelected = rehearsalChoiceAnswer === value
                               const isCorrectOption = value === "C"
                               return (
                                 <button
                                   key={value}
                                   type="button"
-                                  disabled={connectionQuestionSubmitted}
+                                  disabled={rehearsalChoiceSubmitted}
                                   aria-pressed={isSelected}
                                   onClick={() => {
-                                    setConnectionQuestionAnswer(value)
-                                    setConnectionQuestionSubmitted(true)
+                                    setRehearsalChoiceAnswer(value)
+                                    setRehearsalChoiceSubmitted(true)
                                   }}
                                   className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition ${
-                                    connectionQuestionSubmitted
-                                      ? connectionQuestionAllCorrect && isCorrectOption
+                                    rehearsalChoiceSubmitted
+                                      ? rehearsalChoiceAllCorrect && isCorrectOption
                                         ? "border-[#70A64B] bg-[#EEF7E8]"
                                         : isSelected
                                           ? "border-[#D66B5D] bg-[#FFF1EF]"
@@ -1295,9 +1357,9 @@ export function EventReadinessCoursePage({
                                   }`}
                                 >
                                   <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                                    connectionQuestionSubmitted && connectionQuestionAllCorrect && isCorrectOption
+                                    rehearsalChoiceSubmitted && rehearsalChoiceAllCorrect && isCorrectOption
                                       ? "bg-[#437118] text-white"
-                                      : connectionQuestionSubmitted && isSelected
+                                      : rehearsalChoiceSubmitted && isSelected
                                         ? "bg-[#B7473C] text-white"
                                         : isSelected
                                           ? "bg-[#1D2A62] text-white"
@@ -1308,18 +1370,25 @@ export function EventReadinessCoursePage({
                               )
                             })}
                           </div>
-                          {connectionQuestionSubmitted && (
-                            <div className={`mt-4 rounded-xl border p-4 ${connectionQuestionAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                              {connectionQuestionAllCorrect ? (
+                          {rehearsalChoiceSubmitted && (
+                            <div className={`mt-4 rounded-xl border p-4 ${rehearsalChoiceAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
+                              {rehearsalChoiceAllCorrect ? (
                                 <>
                                   <p className="font-bold text-[#437118]">CORRECT.</p>
-                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">The event does not happen as separate files and tasks. A readiness test should reproduce the critical connection participants will actually experience.</p>
+                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Because the problem exists between components, it must be tested between components.</p>
+                                  <p className="mt-2 text-sm leading-relaxed text-slate-600">Running the actual participant-introduction sequence can reveal problems that separate checks may miss, such as:</p>
+                                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-600">
+                                    <li>the wrong slide appearing with the right name;</li>
+                                    <li>mismatched participant order;</li>
+                                    <li>timing problems;</li>
+                                    <li>different versions being used at the same time.</li>
+                                  </ul>
                                 </>
                               ) : (
                                 <>
                                   <p className="font-bold text-[#8B5E00]">Not quite.</p>
-                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Choose the rehearsal that uses the final script, final slides, and latest participant information together.</p>
-                                  <Button type="button" variant="outline" onClick={handleConnectionQuestionTryAgain} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Choose the rehearsal that tests the final script, final slides, latest participant information, and actual delivery order together.</p>
+                                  <Button type="button" variant="outline" onClick={handleRehearsalChoiceTryAgain} className="mt-3 cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
                                     Try Again
                                   </Button>
                                 </>
@@ -1327,6 +1396,40 @@ export function EventReadinessCoursePage({
                             </div>
                           )}
                         </div>
+                      )}
+                      {rehearsalChoiceAllCorrect && (
+                        <>
+                          <div className="mt-5 overflow-x-auto rounded-2xl border border-[#87AECE]/35 bg-white">
+                            <div className="min-w-[680px]">
+                              <h3 className="border-b border-[#87AECE]/25 px-4 py-3 text-lg font-bold text-[#1D2A62]">Component Check vs. Integrated Readiness Test</h3>
+                              <div className="grid grid-cols-2 border-b border-[#87AECE]/25 bg-[#F0F7FC] text-sm font-bold text-[#1D2A62]">
+                                <div className="p-3">Component Check</div>
+                                <div className="border-l border-[#87AECE]/25 p-3">Integrated Readiness Test</div>
+                              </div>
+                              {[
+                                ["MC reads the final script alone.", "Run the full participant-introduction sequence using the latest information, final script, final slides, and actual delivery order."],
+                                ["Confirms that the script can be read.", "Confirms that the connected elements work together."],
+                                ["Does not confirm that the correct slide appears at the correct moment.", "Tests whether the correct information and visual appear together."],
+                                ["Does not confirm that all materials use the same version.", "Reveals version or sequence mismatches."],
+                                ["Does not test the real participant-facing flow.", "Reproduces the critical experience participants will actually see."]
+                              ].map(([componentCheck, integratedTest]) => (
+                                <div key={componentCheck} className="grid grid-cols-2 border-b border-[#87AECE]/20 text-sm leading-relaxed text-slate-600 last:border-b-0">
+                                  <div className="p-3">{componentCheck}</div>
+                                  <div className="border-l border-[#87AECE]/25 p-3">{integratedTest}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="mt-5 rounded-2xl border border-[#AFD06E]/45 bg-[#EEF7E8] p-5">
+                            <p className="text-sm font-bold uppercase tracking-wide text-[#437118]">Connection Rule</p>
+                            <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">Test the critical hand-offs participants experience, not only the tasks teams complete.</p>
+                          </div>
+                          <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                            <p className="text-sm font-bold uppercase tracking-wide text-[#1D2A62]">Before readiness sign-off</p>
+                            <p className="mt-3 text-base leading-relaxed text-slate-600">If the integrated test reveals a mismatch:</p>
+                            <p className="mt-2 text-base font-semibold leading-relaxed text-[#1D2A62]">Fix it → re-test the affected connection → then confirm readiness.</p>
+                          </div>
+                        </>
                       )}
                     </div>
                   )}
