@@ -951,25 +951,31 @@ export function EventReadinessCoursePage({
                         )
                       })}
                     </div>
-                    <div className="mt-4 flex justify-end gap-2">
-                      {impactPrioritySubmitted && !impactPriorityAllCorrect && (
-                        <Button type="button" variant="outline" onClick={handleImpactPriorityTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                          Try Again
-                        </Button>
-                      )}
-                      <Button type="button" onClick={handleImpactPrioritySubmit} disabled={!impactPriorityAnswer || impactPrioritySubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
-                        Submit
-                      </Button>
-                    </div>
-                    {impactPrioritySubmitted && (
-                      <div className={`mt-4 rounded-xl border p-4 ${impactPriorityAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                        <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Exactly." : "Not quite."}</p>
-                        <p className="mt-1 text-sm leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "Not every unfinished detail creates the same level of risk." : "That issue may still need attention, but another option has a more direct impact on the participant experience."}</p>
-                        {impactPriorityAllCorrect && (
-                          <p className="mt-2 text-sm leading-relaxed text-slate-600">A participant’s name and photo will be experienced directly during the event, so this issue deserves attention before lower-impact internal or decorative details.</p>
+                    <div className={`mt-4 rounded-xl border p-4 ${
+                      impactPrioritySubmitted
+                        ? impactPriorityAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"
+                        : "border-slate-200 bg-white"
+                    }`}>
+                      <div className="flex justify-end gap-2">
+                        {impactPrioritySubmitted && !impactPriorityAllCorrect && (
+                          <Button type="button" variant="outline" onClick={handleImpactPriorityTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                            Try Again
+                          </Button>
                         )}
+                        <Button type="button" onClick={handleImpactPrioritySubmit} disabled={!impactPriorityAnswer || impactPrioritySubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                          Submit
+                        </Button>
                       </div>
-                    )}
+                      {impactPrioritySubmitted && (
+                        <div className="mt-4">
+                          <p className={`font-bold ${impactPriorityAllCorrect ? "text-[#437118]" : "text-[#8B5E00]"}`}>{impactPriorityAllCorrect ? "Exactly." : "Not quite."}</p>
+                          <p className="mt-1 text-sm leading-relaxed text-slate-600">{impactPriorityAllCorrect ? "Not every unfinished detail creates the same level of risk." : "That issue may still need attention, but another option has a more direct impact on the participant experience."}</p>
+                          {impactPriorityAllCorrect && (
+                            <p className="mt-2 text-sm leading-relaxed text-slate-600">A participant’s name and photo will be experienced directly during the event, so this issue deserves attention before lower-impact internal or decorative details.</p>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {impactPriorityAllCorrect && (
@@ -1064,37 +1070,43 @@ export function EventReadinessCoursePage({
                           </div>
                         </div>
                       </div>
-                      <div className="mt-4 flex justify-end gap-2">
-                        {verificationChallengeSubmitted && !verificationChallengeAllCorrect && (
-                          <Button type="button" variant="outline" onClick={handleVerificationChallengeTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                            Try Again
-                          </Button>
-                        )}
-                        <Button type="button" onClick={handleVerificationChallengeSubmit} disabled={verificationMismatchAnswers.length === 0 || verificationChallengeSubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
-                          Submit
-                        </Button>
-                      </div>
-                      {verificationChallengeSubmitted && (
-                        <div className={`mt-4 rounded-xl border p-4 ${verificationChallengeAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                          {verificationChallengeAllCorrect ? (
-                            <>
-                              <p className="font-bold text-[#437118]">GOOD CATCH.</p>
-                              <p className="mt-1 text-sm leading-relaxed text-slate-600">The name and photo on the slide do not match the confirmed participant information.</p>
-                              <p className="mt-2 text-sm leading-relaxed text-slate-600">Because these details will be shown directly to participants, the mismatch needs to be resolved before the event is signed off as ready.</p>
-                            </>
-                          ) : verificationChallengePartiallyCorrect ? (
-                            <>
-                              <p className="font-bold text-[#8B5E00]">Not enough.</p>
-                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Select the name and photo on the slide. The role matches the confirmed participant information.</p>
-                            </>
-                          ) : (
-                            <>
-                              <p className="font-bold text-[#8B5E00]">Check the mismatched details.</p>
-                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Select the name and photo on the slide. The role matches the confirmed participant information.</p>
-                            </>
+                      <div className={`mt-4 rounded-xl border p-4 ${
+                        verificationChallengeSubmitted
+                          ? verificationChallengeAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"
+                          : "border-slate-200 bg-white"
+                      }`}>
+                        <div className="flex justify-end gap-2">
+                          {verificationChallengeSubmitted && !verificationChallengeAllCorrect && (
+                            <Button type="button" variant="outline" onClick={handleVerificationChallengeTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                              Try Again
+                            </Button>
                           )}
+                          <Button type="button" onClick={handleVerificationChallengeSubmit} disabled={verificationMismatchAnswers.length === 0 || verificationChallengeSubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
+                            Submit
+                          </Button>
                         </div>
-                      )}
+                        {verificationChallengeSubmitted && (
+                          <div className="mt-4">
+                            {verificationChallengeAllCorrect ? (
+                              <>
+                                <p className="font-bold text-[#437118]">GOOD CATCH.</p>
+                                <p className="mt-1 text-sm leading-relaxed text-slate-600">The name and photo on the slide do not match the confirmed participant information.</p>
+                                <p className="mt-2 text-sm leading-relaxed text-slate-600">Because these details will be shown directly to participants, the mismatch needs to be resolved before the event is signed off as ready.</p>
+                              </>
+                            ) : verificationChallengePartiallyCorrect ? (
+                              <>
+                                <p className="font-bold text-[#8B5E00]">Not enough.</p>
+                                <p className="mt-1 text-sm leading-relaxed text-slate-600">Select the name and photo on the slide. The role matches the confirmed participant information.</p>
+                              </>
+                            ) : (
+                              <>
+                                <p className="font-bold text-[#8B5E00]">Check the mismatched details.</p>
+                                <p className="mt-1 text-sm leading-relaxed text-slate-600">Select the name and photo on the slide. The role matches the confirmed participant information.</p>
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </div>
                   {verificationChallengeAllCorrect && (
                     <div className="mt-5 pt-5">
                       <h3 className="text-center text-base leading-relaxed text-[#437118]"><span className="font-bold">What should you use to verify the correction?</span></h3>
@@ -1135,28 +1147,30 @@ export function EventReadinessCoursePage({
                           )
                         })}
                       </div>
-                      {verificationSourceSubmitted && !verificationSourceAllCorrect && (
-                        <div className="mt-4 flex justify-end">
-                          <Button type="button" variant="outline" onClick={handleVerificationSourceTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
-                            Try Again
-                          </Button>
-                        </div>
-                      )}
                       {verificationSourceSubmitted && (
                         <div className={`mt-4 rounded-xl border p-4 ${verificationSourceAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
-                          {verificationSourceAllCorrect ? (
-                            <>
-                              <p className="font-bold text-[#437118]">CORRECT.</p>
-                              <p className="mt-1 text-sm leading-relaxed text-slate-600">In this scenario, the latest confirmed participant list is the approved source of truth.</p>
-                              <p className="mt-2 text-sm leading-relaxed text-slate-600">The slide should therefore be corrected to match that source — not memory, an older file, or the fact that someone has already marked the task as done.</p>
-                              <p className="mt-2 text-sm leading-relaxed text-slate-600">For other event information, use the latest approved source for that specific item.</p>
-                            </>
-                          ) : (
-                            <>
-                              <p className="font-bold text-[#8B5E00]">Not quite.</p>
-                              <p className="mt-1 text-sm leading-relaxed text-slate-600">Review the information and choose the source that is confirmed and most current.</p>
-                            </>
+                          {verificationSourceSubmitted && !verificationSourceAllCorrect && (
+                            <div className="flex justify-end">
+                              <Button type="button" variant="outline" onClick={handleVerificationSourceTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
+                                Try Again
+                              </Button>
+                            </div>
                           )}
+                          <div className={verificationSourceSubmitted && !verificationSourceAllCorrect ? "mt-4" : ""}>
+                            {verificationSourceAllCorrect ? (
+                              <>
+                                <p className="font-bold text-[#437118]">CORRECT.</p>
+                                <p className="mt-2 text-sm leading-relaxed text-slate-600">In this scenario, the latest confirmed participant list is the approved source of truth.</p>
+                                <p className="mt-2 text-sm leading-relaxed text-slate-600">The slide should therefore be corrected to match that source — not memory, an older file, or the fact that someone has already marked the task as done.</p>
+                                <p className="mt-2 text-sm leading-relaxed text-slate-600">For other event information, use the latest approved source for that specific item.</p>
+                              </>
+                            ) : (
+                              <>
+                                <p className="font-bold text-[#8B5E00]">Not quite.</p>
+                                <p className="mt-2 text-sm leading-relaxed text-slate-600">Review the information and choose the source that is confirmed and most current.</p>
+                              </>
+                            )}
+                          </div>
                         </div>
                       )}
                     </div>
