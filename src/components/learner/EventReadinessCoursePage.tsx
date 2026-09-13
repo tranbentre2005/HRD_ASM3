@@ -1451,8 +1451,6 @@ export function EventReadinessCoursePage({
                               )}
                             </div>
                           )}
-                        </div>
-                      )}
                       {connectionComplete && (
                         <>
                           <div className="mt-5">
@@ -1525,6 +1523,8 @@ export function EventReadinessCoursePage({
                             <p className="mt-2 text-sm leading-relaxed text-slate-600">If the integrated test reveals a mismatch: <span className="font-bold text-[#1D2A62]">Fix it → re-test the affected connection → then confirm readiness.</span></p>
                           </div>
                         </>
+                      )}
+                        </div>
                       )}
                   </div>
                   </>
