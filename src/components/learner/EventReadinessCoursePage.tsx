@@ -250,9 +250,6 @@ export function EventReadinessCoursePage({
     setVerificationSourceSubmitted(false)
   }
 
-  const handleVerificationSourceSubmit = () => {
-    if (verificationSourceAnswer) setVerificationSourceSubmitted(true)
-  }
 
   const handleVerificationSourceTryAgain = () => {
     setVerificationSourceAnswer("")
@@ -1048,7 +1045,7 @@ export function EventReadinessCoursePage({
                               aria-pressed={isSelected}
                               onClick={() => {
                                 setVerificationSourceAnswer(value)
-                                setVerificationSourceSubmitted(false)
+                                setVerificationSourceSubmitted(true)
                               }}
                               className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition ${
                                 verificationSourceSubmitted
@@ -1068,16 +1065,13 @@ export function EventReadinessCoursePage({
                           )
                         })}
                       </div>
-                      <div className="mt-4 flex justify-end gap-2">
-                        {verificationSourceSubmitted && !verificationSourceAllCorrect && (
+                      {verificationSourceSubmitted && !verificationSourceAllCorrect && (
+                        <div className="mt-4 flex justify-end">
                           <Button type="button" variant="outline" onClick={handleVerificationSourceTryAgain} className="cursor-pointer border-[#D8B457] bg-white/70 text-[#8B5E00] hover:bg-white">
                             Try Again
                           </Button>
-                        )}
-                        <Button type="button" onClick={handleVerificationSourceSubmit} disabled={!verificationSourceAnswer || verificationSourceSubmitted} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:min-w-28">
-                          Submit
-                        </Button>
-                      </div>
+                        </div>
+                      )}
                       {verificationSourceSubmitted && (
                         <div className={`mt-4 rounded-xl border p-4 ${verificationSourceAllCorrect ? "border-[#AFD06E]/50 bg-white" : "border-[#F3C979]/60 bg-white"}`}>
                           {verificationSourceAllCorrect ? (
