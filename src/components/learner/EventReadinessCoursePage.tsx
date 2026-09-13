@@ -1384,7 +1384,7 @@ export function EventReadinessCoursePage({
                       )}
                   </div>
                       {connectionCoreVisible && (
-                        <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-[#FFF9ED] p-5">
+                        <div className="mt-5 rounded-2xl border border-[#87AECE]/35 bg-[#EAF4FA] p-5">
                           <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                             <MagnifyingGlass weight="bold" className="h-5 w-5" />
                             Connection Challenge
@@ -1437,7 +1437,7 @@ export function EventReadinessCoursePage({
                           )}
                           {connectionChallengeAllCorrect && (
                             <div className="mt-4">
-                              <h3 className="text-center text-base leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</h3>
+                              <h3 className="text-center text-base font-bold leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</h3>
                               <div className="mt-4 space-y-2">
                                 {[
                                   { value: "A", label: "The MC reads the final script again." },
