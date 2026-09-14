@@ -127,30 +127,29 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
     ]
   },
   {
-    title: "LEARN & PRACTISE",
+    title: "LEARN",
     items: [
-      { id: "1.0-done-ready", title: "1.0 | What Does “Event Ready” Actually Mean?", section: "LEARN & PRACTISE" },
-      { id: "1.1-ready-framework", title: "1.1 | The Event Ready Framework", section: "LEARN & PRACTISE" },
-      { id: "1.2-ready-simulation", title: "1.2 | Event Ready Simulation", section: "LEARN & PRACTISE" }
+      { id: "1.0-done-ready", title: "1.0 | What Does “Event Ready” Actually Mean?", section: "LEARN" },
+      { id: "1.1-ready-framework", title: "1.1 | The Event Ready Framework", section: "LEARN" }
     ]
   },
   {
-    title: "CHECK YOUR UNDERSTANDING",
+    title: "PRACTISE",
     items: [
-      { id: "2.0-quick-check", title: "2.0 | Course Quick Check", section: "CHECK YOUR UNDERSTANDING" },
-      { id: "2.1-check-results", title: "2.1 | Course Recap", section: "CHECK YOUR UNDERSTANDING" }
+      { id: "1.2-ready-simulation", title: "2.0 | Event Ready Simulation", section: "PRACTISE" }
     ]
   },
   {
-    title: "APPLY TO YOUR EVENT",
+    title: "CHECK & APPLY",
     items: [
-      { id: "3.0-event-check", title: "3.0 | 3-Minute Event Readiness Checklist", section: "APPLY TO YOUR EVENT" }
+      { id: "2.0-quick-check", title: "3.0 | Check Your Readiness", section: "CHECK & APPLY" },
+      { id: "3.0-event-check", title: "3.1 | 3-Minute Event Readiness Checklist", section: "CHECK & APPLY" }
     ]
   },
   {
-    title: "REFLECTION & FEEDBACK",
+    title: "FEEDBACK",
     items: [
-      { id: "4.0-course-feedback", title: "4.0 | Course Feedback", section: "REFLECTION & FEEDBACK" }
+      { id: "4.0-course-feedback", title: "4.0 | Course Feedback", section: "FEEDBACK" }
     ]
   }
 ]
@@ -400,8 +399,9 @@ export function EventReadinessCoursePage({
 
   const isCompleted = completedLessonIds.includes(activeLesson.id)
   const isGettingStarted = activeLesson.section === "GETTING STARTED"
-  const isLearnAndPractise = activeLesson.section === "LEARN & PRACTISE"
-  const isDarkHeader = isGettingStarted || isLearnAndPractise
+  const isLearn = activeLesson.section === "LEARN"
+  const isPractise = activeLesson.section === "PRACTISE"
+  const isDarkHeader = isGettingStarted || isLearn || isPractise
   const primaryLabel = "Next"
 
   return (
@@ -532,7 +532,7 @@ export function EventReadinessCoursePage({
             <div className={`flex flex-col gap-4 border-b p-5 sm:flex-row sm:items-start sm:justify-between sm:p-7 ${
               isGettingStarted
                 ? "border-[#AFD06E]/30 bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31]"
-                : isLearnAndPractise
+                : isLearn || isPractise
                   ? "border-[#87AECE]/35 bg-gradient-to-br from-[#132552] via-[#1D4B85] to-[#2F6FA3]"
                   : "border-slate-100 bg-[#F8FCF6]"
             }`}>
@@ -1750,15 +1750,6 @@ export function EventReadinessCoursePage({
                 </div>
               )}
 
-              {activeLesson.id === "2.1-check-results" && (
-                <div className="space-y-5">
-                  <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
-                    <div className="flex items-center gap-2 font-bold text-[#1D2A62]"><CheckCircle weight="fill" className="h-5 w-5 text-[#437118]" />Readiness result</div>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-700">A ready event makes the participant journey observable, verifiable, and testable before delivery.</p>
-                  </div>
-                  <p className="text-sm leading-relaxed text-slate-700">Use this result to revisit any part of your event plan where completion has not yet translated into participant confidence.</p>
-                </div>
-              )}
 
               {activeLesson.id === "3.0-event-check" && (
                 <div className="space-y-4 text-sm leading-relaxed text-slate-700">

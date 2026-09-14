@@ -1,5 +1,5 @@
 export const EVENT_READINESS_PROGRESS_KEY = "rmit-finance-club:event-readiness-progress"
-export const EVENT_READINESS_TOTAL_ITEMS = 9
+export const EVENT_READINESS_TOTAL_ITEMS = 8
 export const EVENT_READINESS_DEFAULT_COMPLETED_IDS = ["course-overview", "course-outcomes", "1.0-done-ready"]
 
 export function getEventReadinessProgress(): number {
