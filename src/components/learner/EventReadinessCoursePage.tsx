@@ -1546,7 +1546,7 @@ export function EventReadinessCoursePage({
                         </Button>
                       </div>
                     </div>
-                    <img src="/final-rehearsal.png?v=2" alt="Project team preparing for the final rehearsal" className="w-full rounded-xl border border-[#87AECE]/35 object-cover" />
+                    <img src="/final-rehearsal.png?v=3" alt="Project team preparing for the final rehearsal" className="w-full rounded-xl object-cover" />
                   </div>
                   </div>
                 </div>
