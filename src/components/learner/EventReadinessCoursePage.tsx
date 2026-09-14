@@ -1539,11 +1539,11 @@ export function EventReadinessCoursePage({
                     <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">So, are they actually ready to work together?</p>
                   </div>
                   <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
-                    <p className="font-bold text-[#437118]">Your mission</p>
-                    <p className="mt-2 text-base leading-relaxed text-slate-600">Apply the Impact–Evidence–Connection rules to identify what needs attention, verify the right information, and decide whether the sequence is ready for the upcoming event.</p>
+                    <p className="font-bold uppercase text-[#437118]">YOUR MISSION</p>
+                    <p className="mt-2 text-base leading-relaxed text-slate-600">Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
                     <div className="mt-4 flex justify-end">
                       <Button type="button" onClick={() => lessonCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                        Start Simulation
+                        Are you ready? Start Simulation
                         <ArrowRight className="ml-1.5 h-4 w-4" />
                       </Button>
                     </div>
