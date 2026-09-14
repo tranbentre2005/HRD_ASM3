@@ -79,17 +79,21 @@ export function LearnerDashboard({
     { id: 'Culture & Onboarding', label: 'Culture & Onboarding' }
   ]
 
-  const progressCategories = ['Core Pathway', 'Leadership Skills', 'Functional Essentials', 'Personal Development'].map(category => {
-    const categoryCourses = courses.filter(course => course.category === category)
-    const completedCount = categoryCourses.filter(course => course.status === 'completed').length
-    const totalCount = categoryCourses.length
-    return {
-      category,
-      completedCount,
-      totalCount,
-      percentage: totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0
-    }
-  })
+  const progressCategories = ['Core Pathway', 'Leadership Skills', 'Functional Essentials', 'Personal Development']
+    .map(category => {
+      const categoryCourses = courses.filter(course => course.category === category)
+      const completedCount = categoryCourses.filter(course => course.status === 'completed').length
+      const totalCount = categoryCourses.length
+      const hasLearningActivity = categoryCourses.some(course => course.status === 'completed' || course.status === 'in-progress')
+      return {
+        category,
+        completedCount,
+        totalCount,
+        percentage: totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0,
+        hasLearningActivity
+      }
+    })
+    .filter(category => category.hasLearningActivity)
   const filteredCourses = courses.filter(course => {
     const query = searchQuery.toLowerCase()
     const matchesSearch = course.title.toLowerCase().includes(query) ||
@@ -280,11 +284,6 @@ export function LearnerDashboard({
             </div>
           </div>
 
-          <div className="pt-3 relative z-10 border-t border-white/15 mt-2">
-            <span className="text-xs text-slate-300 font-medium select-none">
-              Available soon
-            </span>
-          </div>
         </div>
       </div>
       {/* About Learning Hub & Interactive Learning Pathway Section - Styled like Hero Banner (without concentric circles) */}

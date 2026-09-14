@@ -34,6 +34,21 @@ export function MyLearningView({
   const [showAllCompleted, setShowAllCompleted] = useState(false)
   const eventReadinessCourse = courses.find(course => course.id === "event-readiness" || course.id === "course-1" || course.title.includes("Event Readiness")) || courses[0]
   const eventReadinessCompleted = eventReadinessCourse?.status === "completed"
+  const progressCategories = ['Core Pathway', 'Leadership Skills', 'Functional Essentials', 'Personal Development']
+    .map(category => {
+      const categoryCourses = courses.filter(course => course.category === category)
+      const completedCount = categoryCourses.filter(course => course.status === 'completed').length
+      const totalCount = categoryCourses.length
+      const hasLearningActivity = categoryCourses.some(course => course.status === 'completed' || course.status === 'in-progress')
+      return {
+        category,
+        completedCount,
+        totalCount,
+        percentage: totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0,
+        hasLearningActivity
+      }
+    })
+    .filter(category => category.hasLearningActivity)
   const completionDates: Record<string, string> = {
     "core-pl-role": "Completed on 12 Sep 2026",
     "event-fundamentals-strategic-direction": "Completed on 14 Sep 2026",
@@ -137,58 +152,28 @@ export function MyLearningView({
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
         {/* Card 1: Learning Progress (Deep Navy Gradient matching Home) */}
-        <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden space-y-2">
-          {/* Ambient light layers */}
+        <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="relative z-10">
-            <div className="h-7 flex items-center justify-between gap-2">
-              <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
-                Course Progress
-              </h3>
-              <span className="inline-flex items-center text-[10px] font-bold text-[#87AECE] bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
-                Event Readiness
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4 pt-1">
-              {/* Circular Gauge: Event Readiness progress */}
-              <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
-                <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="15"
-                    fill="none"
-                    stroke="rgba(255, 255, 255, 0.2)"
-                    strokeWidth="3.5"
-                  />
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="15"
-                    fill="none"
-                    stroke="#87AECE"
-                    strokeWidth="3.5"
-                    strokeDasharray="94.25"
-                    strokeDashoffset={94.25 * (1 - (eventReadinessCourse?.progress ?? 0) / 100)}
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <span className="absolute text-base font-extrabold text-white leading-none select-none">
-                  {eventReadinessCourse?.progress ?? 0}%
-                </span>
-              </div>
-
-              <div className="space-y-0.5">
-                <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
-                  {eventReadinessCourse?.progress ?? 0}% course progress
-                </h4>
-                <p className="text-xs text-slate-200 font-medium">
-                  Based on completed learning steps
-                </p>
-              </div>
+          <div className="relative z-10 space-y-3">
+            <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
+              YOUR LEARNING PROGRESS
+            </h3>
+            <div className="space-y-2.5">
+              {progressCategories.map(({ category, completedCount, totalCount, percentage }) => (
+                <div key={category} className="space-y-1">
+                  <div className="flex items-center justify-between gap-2 text-[11px]">
+                    <span className="font-semibold text-white">{category}</span>
+                    <span className="shrink-0 font-bold text-[#AFD06E]">
+                      {completedCount} / {totalCount} · {percentage}%
+                    </span>
+                  </div>
+                  <div className="h-1.5 w-full rounded-full bg-black/30 overflow-hidden">
+                    <div className="h-full rounded-full bg-[#AFD06E] transition-all" style={{ width: `${percentage}%` }} />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
