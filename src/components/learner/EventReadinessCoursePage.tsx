@@ -1532,7 +1532,7 @@ export function EventReadinessCoursePage({
               )}
               {activeLesson.id === "1.2-ready-simulation" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <div className="rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-[#EEF7E8] via-white to-[#F0F7FC] p-5">
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                     <div className="grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
                     <div>
                       <h3 className="bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-lg font-bold text-transparent">THE FINAL REHEARSAL</h3>
