@@ -1586,6 +1586,12 @@ export function EventReadinessCoursePage({
                   {simulationStarted ? (
                     simulationScene === -1 ? (
                       <div key="simulation-opening" className="animate-scene-reveal space-y-5" aria-live="polite">
+                        <div className="flex justify-start">
+                          <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer px-0 text-xs text-[#2F668B] hover:bg-transparent hover:text-[#1D2A62]">
+                            <ArrowLeft className="mr-1.5 h-4 w-4" />
+                            Back to Simulation Overview
+                          </Button>
+                        </div>
                         <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                           <div className="space-y-4">
                             <div>
@@ -1651,12 +1657,6 @@ export function EventReadinessCoursePage({
                                 B. Not yet. I need evidence that the critical pieces will work together.
                               </Button>
                             </div>
-                            <div className="mt-4 flex justify-end">
-                              <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
-                                <ArrowLeft className="mr-1.5 h-4 w-4" />
-                                Back
-                              </Button>
-                            </div>
                           </div>
                         ) : openingDecision === "A" ? (
                           <div key="opening-a-feedback" className="animate-scene-reveal rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
@@ -1666,30 +1666,18 @@ export function EventReadinessCoursePage({
                               <p className="font-bold text-[#8B5E00]">But completion only tells you that each task was finished.</p>
                             </div>
                             <p className="mt-4 text-base font-semibold leading-relaxed text-[#1D2A62]">Before you sign off, what should you check?</p>
-                            <div className="mt-4 flex flex-wrap justify-end gap-2">
-                              <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
-                                <ArrowLeft className="mr-1.5 h-4 w-4" />
-                                Back
-                              </Button>
                               <Button type="button" onClick={() => setOpeningDecision(null)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                                 Take another look
                               </Button>
-                            </div>
                           </div>
                         ) : (
                           <div key="opening-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
                             <p className="text-lg font-bold text-[#437118]">Good call.</p>
                             <p className="mt-3 text-base leading-relaxed text-slate-700">A completed set of tasks still needs to be checked for Impact, Evidence and Connection before it can be signed off as Ready.</p>
-                            <div className="mt-4 flex flex-wrap justify-end gap-2">
-                              <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
-                                <ArrowLeft className="mr-1.5 h-4 w-4" />
-                                Back
-                              </Button>
                               <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                                 Next scene
                                 <ArrowRight className="ml-1.5 h-4 w-4" />
                               </Button>
-                            </div>
                           </div>
                         )}
                       </div>
