@@ -1803,8 +1803,8 @@ export function EventReadinessCoursePage({
                     <p className="mt-2 text-sm leading-relaxed text-slate-600">You’ve practised making event-readiness decisions using Impact, Evidence and Connection. Take a moment to reflect on how ready you feel to use these checks in a real event.</p>
                   </div>
                   <div className="space-y-6">
-                    <fieldset className="space-y-4 rounded-2xl border border-[#87AECE]/50 bg-[#F0F7FC] p-5">
-                      <legend className="text-base font-bold leading-relaxed text-[#1D2A62]">1. How confident are you that you can decide whether a participant-critical event element is Ready, rather than simply Done?</legend>
+                    <div className="space-y-4 rounded-2xl border border-[#87AECE]/50 bg-[#F0F7FC] p-5">
+                      <p className="text-base font-bold leading-relaxed text-[#1D2A62]">1. How confident are you that you can decide whether a participant-critical event element is Ready, rather than simply Done?</p>
                       <div role="radiogroup" aria-label="Confidence in deciding whether an element is Ready" className="space-y-2">
                         {["I can do this confidently.", "I think I can do this.", "I’m not sure yet.", "I would need more guidance."].map(option => (
                           <button key={option} type="button" role="radio" aria-checked={feedbackConfidence === option} onClick={() => setFeedbackConfidence(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackConfidence === option ? "border-[#2F668B] bg-white text-[#1D2A62] ring-1 ring-[#2F668B]" : "border-[#87AECE]/40 bg-white/80 text-slate-700 hover:bg-white"}`}>
@@ -1813,10 +1813,10 @@ export function EventReadinessCoursePage({
                           </button>
                         ))}
                       </div>
-                    </fieldset>
+                    </div>
 
-                    <fieldset className="space-y-4 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
-                      <legend className="text-base font-bold leading-relaxed text-[#1D2A62]">2. How useful would the Impact–Evidence–Connection checks be during real event preparation?</legend>
+                    <div className="space-y-4 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                      <p className="text-base font-bold leading-relaxed text-[#1D2A62]">2. How useful would the Impact–Evidence–Connection checks be during real event preparation?</p>
                       <div role="radiogroup" aria-label="Usefulness of Impact Evidence Connection checks" className="space-y-2">
                         {["Very useful", "Useful", "Somewhat useful", "Not useful yet"].map(option => (
                           <button key={option} type="button" role="radio" aria-checked={feedbackUsefulness === option} onClick={() => setFeedbackUsefulness(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackUsefulness === option ? "border-[#437118] bg-white text-[#1D2A62] ring-1 ring-[#437118]" : "border-[#AFD06E]/50 bg-white/80 text-slate-700 hover:bg-white"}`}>
@@ -1825,10 +1825,10 @@ export function EventReadinessCoursePage({
                           </button>
                         ))}
                       </div>
-                    </fieldset>
+                    </div>
 
-                    <fieldset className="space-y-4 rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
-                      <legend className="text-base font-bold leading-relaxed text-[#1D2A62]">3. Which resource are you most likely to use at your next event?</legend>
+                    <div className="space-y-4 rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
+                      <p className="text-base font-bold leading-relaxed text-[#1D2A62]">3. Which resource are you most likely to use at your next event?</p>
                       <div role="radiogroup" aria-label="Resource most likely to use at next event" className="space-y-2">
                         {["Impact–Evidence–Connection questions", "3-Minute Event Readiness Check", "Both", "I’m not sure yet"].map(option => (
                           <button key={option} type="button" role="radio" aria-checked={feedbackTransfer === option} onClick={() => setFeedbackTransfer(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackTransfer === option ? "border-[#8B5E00] bg-white text-[#1D2A62] ring-1 ring-[#8B5E00]" : "border-[#D8B457]/60 bg-white/80 text-slate-700 hover:bg-white"}`}>
@@ -1837,10 +1837,10 @@ export function EventReadinessCoursePage({
                           </button>
                         ))}
                       </div>
-                    </fieldset>
+                    </div>
 
-                    <div className="space-y-3 rounded-2xl border border-[#B9A4E8]/60 bg-[#F6F2FF] p-5">
-                      <label htmlFor="feedback-open-response" className="text-base font-bold leading-relaxed text-[#1D2A62]">4. What is one thing that would make this training more useful for a real Finance Club event?</label>
+                    <div className="space-y-5 rounded-2xl border border-[#B9A4E8]/60 bg-[#F6F2FF] p-5">
+                      <label htmlFor="feedback-open-response" className="block text-base font-bold leading-relaxed text-[#1D2A62]">4. What is one thing that would make this training more useful for a real Finance Club event?</label>
                       <textarea id="feedback-open-response" value={feedbackOpenResponse} onChange={event => setFeedbackOpenResponse(event.target.value)} className="min-h-28 w-full rounded-xl border border-[#B9A4E8]/60 bg-white p-3 text-sm font-normal text-slate-700 outline-none transition focus:border-[#6B4C9A] focus:ring-2 focus:ring-[#B9A4E8]/30" placeholder="Enter your response here..." />
                     </div>
                   </div>
