@@ -57,6 +57,7 @@ type SavedCourseState = {
   feedbackUsefulness: string
   feedbackTransfer: string
   feedbackOpenResponse: string
+  feedbackRating: number
 }
 type ReadinessCategory = "DONE" | "READY"
 
@@ -169,7 +170,8 @@ function getSavedCourseState(): SavedCourseState {
     feedbackConfidence: "",
     feedbackUsefulness: "",
     feedbackTransfer: "",
-    feedbackOpenResponse: ""
+    feedbackOpenResponse: "",
+    feedbackRating: 0
   }
 
   if (typeof window === "undefined") return fallback
@@ -198,7 +200,8 @@ function getSavedCourseState(): SavedCourseState {
       feedbackConfidence: typeof parsed.feedbackConfidence === "string" ? parsed.feedbackConfidence : "",
       feedbackUsefulness: typeof parsed.feedbackUsefulness === "string" ? parsed.feedbackUsefulness : "",
       feedbackTransfer: typeof parsed.feedbackTransfer === "string" ? parsed.feedbackTransfer : "",
-      feedbackOpenResponse: typeof parsed.feedbackOpenResponse === "string" ? parsed.feedbackOpenResponse : ""
+      feedbackOpenResponse: typeof parsed.feedbackOpenResponse === "string" ? parsed.feedbackOpenResponse : "",
+      feedbackRating: typeof parsed.feedbackRating === "number" && Number.isInteger(parsed.feedbackRating) && parsed.feedbackRating >= 1 && parsed.feedbackRating <= 5 ? parsed.feedbackRating : 0
     }
   } catch {
     return fallback
@@ -243,6 +246,7 @@ export function EventReadinessCoursePage({
   const [feedbackUsefulness, setFeedbackUsefulness] = useState(initialState.feedbackUsefulness)
   const [feedbackTransfer, setFeedbackTransfer] = useState(initialState.feedbackTransfer)
   const [feedbackOpenResponse, setFeedbackOpenResponse] = useState(initialState.feedbackOpenResponse)
+  const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
@@ -278,9 +282,10 @@ export function EventReadinessCoursePage({
       feedbackConfidence,
       feedbackUsefulness,
       feedbackTransfer,
-      feedbackOpenResponse
+      feedbackOpenResponse,
+      feedbackRating
     }))
-  }, [activeLessonId, completedLessonIds, viewedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackConfidence, feedbackUsefulness, feedbackTransfer, feedbackOpenResponse])
+  }, [activeLessonId, completedLessonIds, viewedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackConfidence, feedbackUsefulness, feedbackTransfer, feedbackOpenResponse, feedbackRating])
   useEffect(() => {
     onProgressChange?.(progress)
   }, [progress])
@@ -1863,14 +1868,26 @@ export function EventReadinessCoursePage({
                         ))}
                       </div>
                     </div>
-
-                    <div className="space-y-5 rounded-2xl border border-[#B9A4E8]/60 bg-[#F6F2FF] p-5">
-                      <label htmlFor="feedback-open-response" className="block text-base font-bold leading-relaxed text-[#1D2A62]">4. What is one thing that would make this training more useful for a real Finance Club event?</label>
-                      <textarea id="feedback-open-response" value={feedbackOpenResponse} onChange={event => setFeedbackOpenResponse(event.target.value)} className="min-h-28 w-full rounded-xl border border-[#B9A4E8]/60 bg-white p-3 text-sm font-normal text-slate-700 outline-none transition focus:border-[#6B4C9A] focus:ring-2 focus:ring-[#B9A4E8]/30" placeholder="Enter your response here..." />
-                    </div>
                     <div className="rounded-2xl border border-[#E7A27A]/60 bg-[#FFF4EA] p-5 text-center">
                       <p className="text-base font-bold text-[#1D2A62]">How would you rate your overall learning experience?</p>
-                      <p className="mt-3 text-2xl tracking-[0.45em] text-[#B45F3C]" aria-label="Five-star rating">☆ ☆ ☆ ☆ ☆</p>
+                      <div className="mt-3 flex justify-center gap-1" role="radiogroup" aria-label="Overall learning experience rating">
+                        {Array.from({ length: 5 }, (_, index) => {
+                          const rating = index + 1
+                          return (
+                            <button
+                              key={rating}
+                              type="button"
+                              role="radio"
+                              aria-checked={feedbackRating === rating}
+                              aria-label={`${rating} out of 5 stars`}
+                              onClick={() => setFeedbackRating(rating)}
+                              className="cursor-pointer rounded-md px-1 text-3xl leading-none text-[#B45F3C] transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#B45F3C]/40"
+                            >
+                              {rating <= feedbackRating ? "★" : "☆"}
+                            </button>
+                          )
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>
