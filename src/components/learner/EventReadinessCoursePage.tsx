@@ -1436,7 +1436,7 @@ export function EventReadinessCoursePage({
                             </div>
                           )}
                           {connectionChallengeAllCorrect && (
-                            <div className="mt-4 rounded-xl bg-white p-4">
+                            <div className="mt-4 rounded-xl bg-[#EAF4FA] p-4">
                               <h3 className="text-center text-base font-bold leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</h3>
                               <div className="mt-4 space-y-2">
                                 {[
@@ -1479,7 +1479,7 @@ export function EventReadinessCoursePage({
                               </div>
                               {connectionIntegratedTestSubmitted && (
                                 <div className={`mt-4 border-l-4 p-4 ${
-                                  connectionIntegratedTestAllCorrect ? "border-[#70A64B] bg-[#EEF7E8]" : "border-[#D8B457] bg-[#FFF8E8]"
+                                  connectionIntegratedTestAllCorrect ? "border-[#70A64B] bg-white" : "border-[#D8B457] bg-[#FFF8E8]"
                                 }`}>
                                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                                     <div className="min-w-0 flex-1">
