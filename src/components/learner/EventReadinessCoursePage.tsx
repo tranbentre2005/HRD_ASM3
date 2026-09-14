@@ -209,7 +209,7 @@ export function EventReadinessCoursePage({
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
   const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
   const [simulationStarted, setSimulationStarted] = useState(false)
-  const [simulationScene, setSimulationScene] = useState(0)
+  const [simulationScene, setSimulationScene] = useState(-1)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
@@ -231,7 +231,7 @@ export function EventReadinessCoursePage({
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
-  const activeSimulationScene = SIMULATION_SCENES[simulationScene]
+  const activeSimulationScene = SIMULATION_SCENES[Math.max(simulationScene, 0)]
   const simulationComplete = simulationStarted && simulationScene === SIMULATION_SCENES.length - 1
   const completedCount = completedLessonIds.length
   const readinessAllPlaced = READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id])
@@ -1576,48 +1576,74 @@ export function EventReadinessCoursePage({
               {activeLesson.id === "1.2-ready-simulation" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   {simulationStarted ? (
-                    <div key={activeSimulationScene.id} className="animate-scene-reveal space-y-5" aria-live="polite">
-                      <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                        <div className="flex flex-wrap items-center justify-between gap-3">
-                          <div className="flex items-center gap-2 font-bold text-[#2F668B]">
-                            <PlayCircle weight="fill" className="h-5 w-5" />
-                            SIMULATION IN PROGRESS
-                          </div>
-                          <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-wide text-[#2F668B] ring-1 ring-[#87AECE]/40">{activeSimulationScene.label}</span>
-                        </div>
-                        <h3 className="mt-3 text-xl font-bold text-[#1D2A62]">{activeSimulationScene.title}</h3>
-                        <p className="mt-3 text-base leading-relaxed text-slate-600">{activeSimulationScene.description}</p>
-                      </div>
-                      <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                        <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">{activeSimulationScene.prompt}</p>
-                        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                          {activeSimulationScene.items.map(([title, detail]) => (
-                            <div key={title} className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
-                              <p className="font-bold text-[#1D2A62]">{title}</p>
-                              <p className="mt-1 text-xs leading-relaxed text-slate-600">{detail}</p>
+                    simulationScene === -1 ? (
+                      <div key="simulation-opening" className="animate-scene-reveal space-y-5" aria-live="polite">
+                        <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                          <div className="grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+                            <div>
+                              <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                                <PlayCircle weight="fill" className="h-5 w-5" />
+                                SIMULATION OPENING SCENE
+                              </div>
+                              <h3 className="mt-3 bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-lg font-bold text-transparent">THE FINAL REHEARSAL</h3>
+                              <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done.</p>
+                              <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But are they actually ready to work together?</p>
+                              <p className="mt-5 text-base leading-relaxed text-slate-600">Your mission is use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
+                              <div className="mt-4 flex justify-end">
+                                <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                                  Next scene
+                                  <ArrowRight className="ml-1.5 h-4 w-4" />
+                                </Button>
+                              </div>
                             </div>
-                          ))}
-                        </div>
-                        <div className="mt-5 flex items-center justify-between gap-3">
-                          {simulationScene > 0 ? (
-                            <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
-                              <ArrowLeft className="mr-1.5 h-4 w-4" />
-                              Previous scene
-                            </Button>
-                          ) : (
-                            <span />
-                          )}
-                          {simulationScene < SIMULATION_SCENES.length - 1 ? (
-                            <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                              Next scene
-                              <ArrowRight className="ml-1.5 h-4 w-4" />
-                            </Button>
-                          ) : (
-                            <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
-                          )}
+                            <img src="/final-rehearsal.png?v=3" alt="Project team preparing for the final rehearsal" className="w-full rounded-xl object-cover" />
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ) : (
+                      <div key={activeSimulationScene.id} className="animate-scene-reveal space-y-5" aria-live="polite">
+                        <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                              <PlayCircle weight="fill" className="h-5 w-5" />
+                              SIMULATION IN PROGRESS
+                            </div>
+                            <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-wide text-[#2F668B] ring-1 ring-[#87AECE]/40">{activeSimulationScene.label}</span>
+                          </div>
+                          <h3 className="mt-3 text-xl font-bold text-[#1D2A62]">{activeSimulationScene.title}</h3>
+                          <p className="mt-3 text-base leading-relaxed text-slate-600">{activeSimulationScene.description}</p>
+                        </div>
+                        <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                          <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">{activeSimulationScene.prompt}</p>
+                          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                            {activeSimulationScene.items.map(([title, detail]) => (
+                              <div key={title} className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
+                                <p className="font-bold text-[#1D2A62]">{title}</p>
+                                <p className="mt-1 text-xs leading-relaxed text-slate-600">{detail}</p>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-5 flex items-center justify-between gap-3">
+                            {simulationScene >= 0 ? (
+                              <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
+                                <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                Previous scene
+                              </Button>
+                            ) : (
+                              <span />
+                            )}
+                            {simulationScene < SIMULATION_SCENES.length - 1 ? (
+                              <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                                Next scene
+                                <ArrowRight className="ml-1.5 h-4 w-4" />
+                              </Button>
+                            ) : (
+                              <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )
                   ) : (
                     <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                       <div className="grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
