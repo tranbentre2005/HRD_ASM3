@@ -1532,10 +1532,9 @@ export function EventReadinessCoursePage({
               )}
               {activeLesson.id === "1.2-ready-simulation" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                    <h3 className="text-lg font-bold text-[#1D2A62]">The Final Rehearsal</h3>
-                    <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting.</p>
-                    <p className="mt-3 text-base leading-relaxed text-slate-600">Your team says everything is Done. But the participant list, MC script, and slides were completed or updated at different times.</p>
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-[#EEF7E8] via-white to-[#F0F7FC] p-5">
+                    <h3 className="text-lg font-bold text-[#1D2A62]">THE FINAL REHEARSAL</h3>
+                    <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done. But the participant list, MC script, and slides were completed or updated at different times.</p>
                     <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">So, are they actually ready to work together?</p>
                   </div>
                   <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
@@ -1543,7 +1542,7 @@ export function EventReadinessCoursePage({
                     <p className="mt-2 text-base leading-relaxed text-slate-600">Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
                     <div className="mt-4 flex justify-end">
                       <Button type="button" onClick={() => lessonCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                        Are you ready? Start Simulation
+                        Start Simulation
                         <ArrowRight className="ml-1.5 h-4 w-4" />
                       </Button>
                     </div>
