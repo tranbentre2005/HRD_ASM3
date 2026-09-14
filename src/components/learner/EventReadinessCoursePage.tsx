@@ -1865,7 +1865,7 @@ export function EventReadinessCoursePage({
                     )}
                     {activeLesson.id === "4.0-course-feedback" ? (
                       <Button type="button" onClick={handleFeedbackSubmit} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
-                        Submit feedback
+                        SUBMIT
                       </Button>
                     ) : (
                       (activeLesson.id !== "1.2-ready-simulation" || simulationComplete) && (
