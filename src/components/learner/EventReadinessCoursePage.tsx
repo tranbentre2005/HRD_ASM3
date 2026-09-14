@@ -841,16 +841,13 @@ export function EventReadinessCoursePage({
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F8FCF6] p-5">
                     <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">
-                      Event readiness is not about checking everything yourself. It is about knowing:
+                      Event readiness is not about checking everything yourself. It is about knowing where to focus your attention. In the next section, you’ll explore three practical checks in more detail:
                     </p>
                     <div className="mt-4 space-y-2 text-sm leading-relaxed text-slate-600">
                       <p><span className="font-extrabold text-[#2F668B]">IMPACT</span> — What matters most?</p>
                       <p><span className="font-extrabold text-[#437118]">EVIDENCE</span> — What proves it is correct?</p>
                       <p><span className="font-extrabold text-[#8B5E00]">CONNECTION</span> — What needs to work together?</p>
                     </div>
-                    <p className="mt-4 text-sm leading-relaxed text-slate-600">
-                      Use these three checks to focus your attention before final rehearsal or delivery.
-                    </p>
                   </div>
                   <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                     <div className="flex items-center gap-2 font-bold text-[#2F668B]">
