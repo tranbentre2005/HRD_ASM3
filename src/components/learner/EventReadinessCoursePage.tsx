@@ -1111,7 +1111,7 @@ export function EventReadinessCoursePage({
                         </div>
                       </div>
                   {verificationChallengeAllCorrect && (
-                    <div className="mt-5 pt-5">
+                    <div>
                       <h3 className="text-center text-base leading-relaxed text-[#1D2A62]"><span className="font-bold">What should you use to verify the correction?</span></h3>
                       <div className="mt-4 space-y-2">
                         {[
