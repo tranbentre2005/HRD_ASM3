@@ -1538,8 +1538,7 @@ export function EventReadinessCoursePage({
                     <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">So, are they actually ready to work together?</p>
                   </div>
                   <div className="px-1">
-                    <p className="font-bold uppercase text-[#437118]">YOUR MISSION</p>
-                    <p className="mt-2 text-base leading-relaxed text-slate-600">Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
+                    <p className="text-base leading-relaxed text-slate-600"><span className="font-bold text-[#437118]">YOUR MISSION:</span> Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
                     <div className="mt-4 flex justify-end">
                       <Button type="button" onClick={() => lessonCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                         Start Simulation
