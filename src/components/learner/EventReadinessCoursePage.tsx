@@ -1623,15 +1623,21 @@ export function EventReadinessCoursePage({
                               </div>
                             ))}
                           </div>
-                          <div className="mt-5 flex items-center justify-between gap-3">
-                            {simulationScene >= 0 ? (
-                              <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
+                          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                            <div className="flex flex-wrap items-center gap-2">
+                              {simulationScene >= 0 ? (
+                                <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
+                                  <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                  Previous scene
+                                </Button>
+                              ) : (
+                                <span />
+                              )}
+                              <Button type="button" variant="ghost" onClick={() => setSimulationScene(-1)} className="cursor-pointer text-xs text-[#2F668B] hover:bg-[#F0F7FC] hover:text-[#1D2A62]">
                                 <ArrowLeft className="mr-1.5 h-4 w-4" />
-                                Previous scene
+                                Back to THE FINAL REHEARSAL
                               </Button>
-                            ) : (
-                              <span />
-                            )}
+                            </div>
                             {simulationScene < SIMULATION_SCENES.length - 1 ? (
                               <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                                 Next scene
