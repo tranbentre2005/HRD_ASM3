@@ -1537,7 +1537,7 @@ export function EventReadinessCoursePage({
                     <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done. But the participant list, MC script, and slides were completed or updated at different times.</p>
                     <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">So, are they actually ready to work together?</p>
                   </div>
-                  <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
+                  <div className="px-1">
                     <p className="font-bold uppercase text-[#437118]">YOUR MISSION</p>
                     <p className="mt-2 text-base leading-relaxed text-slate-600">Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
                     <div className="mt-4 flex justify-end">
