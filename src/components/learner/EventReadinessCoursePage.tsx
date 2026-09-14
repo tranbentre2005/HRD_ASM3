@@ -57,6 +57,8 @@ type SavedCourseState = {
 }
 type ReadinessCategory = "DONE" | "READY"
 
+type OpeningDecision = "A" | "B"
+
 type ReadinessStatement = {
   id: string
   text: string
@@ -210,6 +212,7 @@ export function EventReadinessCoursePage({
   const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
   const [simulationStarted, setSimulationStarted] = useState(false)
   const [simulationScene, setSimulationScene] = useState(-1)
+  const [openingDecision, setOpeningDecision] = useState<OpeningDecision | null>(null)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
@@ -281,6 +284,11 @@ export function EventReadinessCoursePage({
     const lessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === lessonId)
     if (lessonIndex === -1 || !isLessonUnlocked(lessonIndex)) return
     setActiveLessonId(lessonId)
+  }
+  const handleSimulationBackToRehearsal = () => {
+    setSimulationStarted(false)
+    setSimulationScene(-1)
+    setOpeningDecision(null)
   }
   const handleImpactPrioritySelect = (value: string) => {
     setImpactPrioritySubmitted(false)
@@ -1579,30 +1587,128 @@ export function EventReadinessCoursePage({
                     simulationScene === -1 ? (
                       <div key="simulation-opening" className="animate-scene-reveal space-y-5" aria-live="polite">
                         <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                          <div className="grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+                          <div className="grid gap-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
                             <div>
                               <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                                 <PlayCircle weight="fill" className="h-5 w-5" />
                                 OPENING SCENE
                               </div>
                               <h3 className="mt-3 bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-lg font-bold text-transparent">THE FINAL REHEARSAL</h3>
-                              <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done.</p>
-                              <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But are they actually ready to work together?</p>
-                              <p className="mt-5 text-base leading-relaxed text-slate-600">Your mission is use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
-                              <div className="mt-4 flex flex-wrap justify-end gap-2">
-                                <Button type="button" variant="ghost" onClick={() => { setSimulationStarted(false); setSimulationScene(-1) }} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
-                                  <ArrowLeft className="mr-1.5 h-4 w-4" />
-                                  Back
-                                </Button>
-                                <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                                  Next scene
-                                  <ArrowRight className="ml-1.5 h-4 w-4" />
-                                </Button>
+                              <p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#2F668B]">Event preparation room</p>
+                              <p className="mt-2 text-base font-semibold leading-relaxed text-[#1D2A62]">In the final rehearsal</p>
+                              <p className="mt-2 text-base leading-relaxed text-slate-600">Your team says the participant-introduction sequence is ready.</p>
+                              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate-600">
+                                {[
+                                  "The MC script is complete.",
+                                  "The participant slides are complete.",
+                                  "The participant list has been updated.",
+                                  "Each owner has marked their task Done."
+                                ].map(item => (
+                                  <li key={item} className="flex items-start gap-2">
+                                    <CheckCircle weight="fill" className="mt-0.5 h-4 w-4 shrink-0 text-[#437118]" />
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <img src="/final-rehearsal.png?v=3" alt="Event preparation room with the project team rehearsing" className="w-full rounded-xl object-cover" />
+                              <div className="mt-3 rounded-xl border border-[#87AECE]/35 bg-white p-3">
+                                <p className="text-[11px] font-bold uppercase tracking-wider text-[#2F668B]">You · Project Leader</p>
+                                <p className="mt-1 text-xs leading-relaxed text-slate-600">First-person perspective — no avatar shown.</p>
                               </div>
                             </div>
-                            <img src="/final-rehearsal.png?v=3" alt="Project team preparing for the final rehearsal" className="w-full rounded-xl object-cover" />
+                          </div>
+                          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                            <div className="rounded-xl border border-[#87AECE]/35 bg-white p-4">
+                              <Presentation className="h-5 w-5 text-[#2F668B]" />
+                              <p className="mt-2 font-bold text-[#1D2A62]">Vy</p>
+                              <p className="text-xs font-semibold text-slate-600">Content Lead</p>
+                              <p className="mt-1 text-xs leading-relaxed text-slate-500">Stands beside the laptop / slides</p>
+                            </div>
+                            <div className="rounded-xl border border-[#87AECE]/35 bg-white p-4">
+                              <Microphone className="h-5 w-5 text-[#2F668B]" />
+                              <p className="mt-2 font-bold text-[#1D2A62]">An</p>
+                              <p className="text-xs font-semibold text-slate-600">MC</p>
+                              <p className="mt-1 text-xs leading-relaxed text-slate-500">Holds the MC script</p>
+                            </div>
+                            <div className="rounded-xl border border-[#87AECE]/35 bg-white p-4">
+                              <FileText className="h-5 w-5 text-[#2F668B]" />
+                              <p className="mt-2 font-bold text-[#1D2A62]">Mai</p>
+                              <p className="text-xs font-semibold text-slate-600">Registration Lead</p>
+                              <p className="mt-1 text-xs leading-relaxed text-slate-500">Holds the participant list / tablet</p>
+                            </div>
                           </div>
                         </div>
+                        <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                          <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">Character dialogue</p>
+                          <div className="mt-4 grid gap-3 md:grid-cols-3">
+                            <div className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
+                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">Vy — Content Lead</p>
+                              <p className="mt-2 text-sm italic leading-relaxed text-slate-600">“Slides are done. I finished them yesterday.”</p>
+                            </div>
+                            <div className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
+                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">An — MC</p>
+                              <p className="mt-2 text-sm italic leading-relaxed text-slate-600">“My final script is ready too. I rehearsed it yesterday.”</p>
+                            </div>
+                            <div className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
+                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">Mai — Registration Lead</p>
+                              <p className="mt-2 text-sm italic leading-relaxed text-slate-600">“The participant list was updated this morning.”</p>
+                            </div>
+                          </div>
+                        </div>
+                        {openingDecision === null ? (
+                          <div key="opening-decision" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">As Project Leader, would you sign it off as Ready?</p>
+                            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                              <Button type="button" variant="outline" onClick={() => setOpeningDecision("A")} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
+                                A. Yes. Everything has been completed.
+                              </Button>
+                              <Button type="button" variant="outline" onClick={() => setOpeningDecision("B")} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
+                                B. Not yet. I need evidence that the critical pieces will work together.
+                              </Button>
+                            </div>
+                            <div className="mt-4 flex justify-end">
+                              <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
+                                <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                Back
+                              </Button>
+                            </div>
+                          </div>
+                        ) : openingDecision === "A" ? (
+                          <div key="opening-a-feedback" className="animate-scene-reveal rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
+                            <p className="text-sm font-bold text-[#8B5E00]">Vy — Content Lead</p>
+                            <p className="mt-2 text-base italic leading-relaxed text-slate-700">“Great, I’ll mark the sequence Ready.”</p>
+                            <div className="mt-4 rounded-xl border border-[#D8B457]/60 bg-white/80 p-4">
+                              <p className="font-bold text-[#8B5E00]">But completion only tells you that each task was finished.</p>
+                            </div>
+                            <p className="mt-4 text-base font-semibold leading-relaxed text-[#1D2A62]">Before you sign off, what should you check?</p>
+                            <div className="mt-4 flex flex-wrap justify-end gap-2">
+                              <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
+                                <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                Back
+                              </Button>
+                              <Button type="button" onClick={() => setOpeningDecision(null)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                                Take another look
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div key="opening-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                            <p className="text-lg font-bold text-[#437118]">Good call.</p>
+                            <p className="mt-3 text-base leading-relaxed text-slate-700">A completed set of tasks still needs to be checked for Impact, Evidence and Connection before it can be signed off as Ready.</p>
+                            <div className="mt-4 flex flex-wrap justify-end gap-2">
+                              <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
+                                <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                Back
+                              </Button>
+                              <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                                Next scene
+                                <ArrowRight className="ml-1.5 h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div key={activeSimulationScene.id} className="animate-scene-reveal space-y-5" aria-live="polite">
