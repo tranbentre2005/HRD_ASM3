@@ -152,7 +152,7 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
   {
     title: "FEEDBACK",
     items: [
-      { id: "4.0-course-feedback", title: "4.0 | Course Feedback", section: "FEEDBACK" }
+      { id: "4.0-course-feedback", title: "4.0 | Reflection & Feedback", section: "FEEDBACK" }
     ]
   }
 ]
@@ -1804,9 +1804,8 @@ export function EventReadinessCoursePage({
                 ) : (
                   <div className="space-y-8">
                   <div>
-                    <h3 className="text-xl font-bold text-[#1D2A62]">Help us improve Event Readiness</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-600">Your feedback will help make this micro-training more useful for future Project Leaders.</p>
-                    <p className="mt-3 text-xs font-bold tracking-wider text-[#2F668B]">About 30 seconds</p>
+                    <h3 className="text-xl font-bold text-[#1D2A62]">Before You Go</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-600">You’ve practised making event-readiness decisions using Impact, Evidence and Connection. Take a moment to reflect on how ready you feel to use these checks in a real event.</p>
                   </div>
 
                   <fieldset className="space-y-3">
