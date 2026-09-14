@@ -401,7 +401,9 @@ export function EventReadinessCoursePage({
   const isGettingStarted = activeLesson.section === "GETTING STARTED"
   const isLearn = activeLesson.section === "LEARN"
   const isPractise = activeLesson.section === "PRACTISE"
-  const isDarkHeader = isGettingStarted || isLearn || isPractise
+  const isCheckAndApply = activeLesson.section === "CHECK & APPLY"
+  const isFeedback = activeLesson.section === "FEEDBACK"
+  const isDarkHeader = isGettingStarted || isLearn || isPractise || isCheckAndApply || isFeedback
   const primaryLabel = "Next"
 
   return (
@@ -530,9 +532,9 @@ export function EventReadinessCoursePage({
         <main className="min-w-0 space-y-5">
           <Card ref={lessonCardRef} className="overflow-hidden border-slate-200/90 shadow-sm">
             <div className={`flex flex-col gap-4 border-b p-5 sm:flex-row sm:items-start sm:justify-between sm:p-7 ${
-              isGettingStarted
+              isGettingStarted || isPractise || isFeedback
                 ? "border-[#AFD06E]/30 bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31]"
-                : isLearn || isPractise
+                : isLearn || isCheckAndApply
                   ? "border-[#87AECE]/35 bg-gradient-to-br from-[#132552] via-[#1D4B85] to-[#2F6FA3]"
                   : "border-slate-100 bg-[#F8FCF6]"
             }`}>
