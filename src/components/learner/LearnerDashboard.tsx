@@ -175,28 +175,55 @@ export function LearnerDashboard({
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="relative z-10 space-y-3">
-            <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
-              YOUR LEARNING PROGRESS
-            </h3>
-            <div className="space-y-2.5">
+          <div className="relative z-10 space-y-4">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
+                YOUR LEARNING PROGRESS
+              </h3>
+              <div className="flex flex-wrap justify-end gap-1">
+                {progressCategories.map(({ category }) => (
+                  <span key={category} className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-[10px] font-bold text-[#87AECE]">
+                    {category}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-4">
               {progressCategories.map(({ category, completedCount, totalCount, percentage }) => (
-                <div key={category} className="space-y-1">
-                  <div className="flex items-center justify-between gap-2 text-[11px]">
-                    <span className="font-semibold text-white">{category}</span>
-                    <span className="shrink-0 font-bold text-[#AFD06E]">
-                      {completedCount} / {totalCount} · {percentage}%
+                <div key={category} className="flex items-center gap-3">
+                  <div className="relative h-16 w-16 shrink-0" aria-label={`${category} progress: ${percentage}%`}>
+                    <svg className="h-16 w-16 -rotate-90" viewBox="0 0 36 36" aria-hidden="true">
+                      <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="3" />
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="15"
+                        fill="none"
+                        stroke="#AFD06E"
+                        strokeWidth="3"
+                        strokeDasharray="94.25"
+                        strokeDashoffset={94.25 * (1 - percentage / 100)}
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <span className="absolute inset-0 flex items-center justify-center text-sm font-extrabold text-white">
+                      {percentage}%
                     </span>
                   </div>
-                  <div className="h-1.5 w-full rounded-full bg-black/30 overflow-hidden">
-                    <div className="h-full rounded-full bg-[#AFD06E] transition-all" style={{ width: `${percentage}%` }} />
+                  <div className="min-w-0 space-y-1">
+                    <p className="text-sm font-bold leading-snug text-white">
+                      {completedCount} of {totalCount} courses completed
+                    </p>
+                    <p className="text-[11px] leading-relaxed text-slate-200">
+                      Keep going! Every course brings you closer to confident event leadership.
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="pt-3 relative z-10">
+          <div className="pt-1 relative z-10">
             <button
               type="button"
               onClick={() => onNavigateMyLearning ? onNavigateMyLearning() : (onNavigateCourses ? onNavigateCourses("all") : setActiveTab('catalog'))}
