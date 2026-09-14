@@ -245,6 +245,7 @@ export function EventReadinessCoursePage({
   const [feedbackPracticality, setFeedbackPracticality] = useState(initialState.feedbackPracticality)
   const [feedbackTransfer, setFeedbackTransfer] = useState(initialState.feedbackTransfer)
   const [feedbackOpenResponse, setFeedbackOpenResponse] = useState(initialState.feedbackOpenResponse)
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
@@ -286,6 +287,11 @@ export function EventReadinessCoursePage({
   useEffect(() => {
     onProgressChange?.(progress)
   }, [progress])
+  useEffect(() => {
+    if (!feedbackSubmitted) return
+    const redirectTimer = window.setTimeout(() => onNavigateCourses(), 15000)
+    return () => window.clearTimeout(redirectTimer)
+  }, [feedbackSubmitted, onNavigateCourses])
 
   useEffect(() => {
     setViewedLessonIds(previous => previous.includes(activeLesson.id) ? previous : [...previous, activeLesson.id])
@@ -385,6 +391,10 @@ export function EventReadinessCoursePage({
         lessonCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
       })
     }
+  }
+  const handleFeedbackSubmit = () => {
+    markComplete(activeLesson.id)
+    setFeedbackSubmitted(true)
   }
   const handleReadinessPlacement = (statementId: string, category: ReadinessCategory) => {
     setReadinessPlacements(previous => ({ ...previous, [statementId]: category }))
@@ -1785,7 +1795,14 @@ export function EventReadinessCoursePage({
               )}
 
               {activeLesson.id === "4.0-course-feedback" && (
-                <div className="space-y-8">
+                feedbackSubmitted ? (
+                  <div className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5" aria-live="polite">
+                    <h3 className="text-xl font-bold text-[#437118]">Thank you for your feedback.</h3>
+                    <p className="mt-3 text-base font-semibold text-[#1D2A62]">You’ve completed Event Readiness.course</p>
+                    <p className="mt-2 text-sm text-slate-600">Returning to Courses in 15 seconds.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-8">
                   <div>
                     <h3 className="text-xl font-bold text-[#1D2A62]">Help us improve Event Readiness</h3>
                     <p className="mt-2 text-sm leading-relaxed text-slate-600">Your feedback will help make this micro-training more useful for future Project Leaders.</p>
@@ -1858,26 +1875,35 @@ export function EventReadinessCoursePage({
                     <textarea id="feedback-open-response" value={feedbackOpenResponse} onChange={event => setFeedbackOpenResponse(event.target.value)} className="mt-2 min-h-28 w-full rounded-xl border border-slate-200 p-3 text-sm font-normal text-slate-700 outline-none transition focus:border-[#87AECE] focus:ring-2 focus:ring-[#87AECE]/20" placeholder="Optional" />
                   </div>
                 </div>
+                )
               )}
 
-              <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex w-full items-center justify-between gap-3">
-                  {activeLessonIndex > 0 ? (
-                    <Button type="button" variant="outline" onClick={handlePrevious} className="flex-1 cursor-pointer sm:flex-none">
-                      <ArrowLeft className="mr-1.5 h-4 w-4" />
-                      Previous
-                    </Button>
-                  ) : (
-                    <span />
-                  )}
-                  {(activeLesson.id !== "1.2-ready-simulation" || simulationComplete) && (
-                    <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !connectionComplete)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
-                      {primaryLabel}
-                      <ArrowRight className="ml-1.5 h-4 w-4" />
-                    </Button>
-                  )}
+              {!(activeLesson.id === "4.0-course-feedback" && feedbackSubmitted) && (
+                <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex w-full items-center justify-between gap-3">
+                    {activeLessonIndex > 0 ? (
+                      <Button type="button" variant="outline" onClick={handlePrevious} className="flex-1 cursor-pointer sm:flex-none">
+                        <ArrowLeft className="mr-1.5 h-4 w-4" />
+                        Previous
+                      </Button>
+                    ) : (
+                      <span />
+                    )}
+                    {activeLesson.id === "4.0-course-feedback" ? (
+                      <Button type="button" onClick={handleFeedbackSubmit} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                        Submit feedback
+                      </Button>
+                    ) : (
+                      (activeLesson.id !== "1.2-ready-simulation" || simulationComplete) && (
+                        <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !connectionComplete)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                          {primaryLabel}
+                          <ArrowRight className="ml-1.5 h-4 w-4" />
+                        </Button>
+                      )
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </Card>
 
