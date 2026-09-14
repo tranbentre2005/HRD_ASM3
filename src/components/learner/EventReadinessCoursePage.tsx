@@ -1632,14 +1632,18 @@ export function EventReadinessCoursePage({
                             </div>
                           </div>
                         ) : (
-                          <div key="opening-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
-                            <p className="text-lg font-bold text-[#437118]">Good call.</p>
-                            <p className="mt-3 text-base leading-relaxed text-slate-700">A completed set of tasks still needs to be checked for Impact, Evidence and Connection before it can be signed off as Ready.</p>
+                          <>
+                            <div key="opening-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                              <p className="text-lg font-bold text-[#437118]">Good call.</p>
+                              <p className="mt-3 text-base leading-relaxed text-slate-700">Before signing off, you need to check what matters most, what evidence confirms it, and whether the pieces work together.</p>
+                            </div>
+                            <div className="flex justify-end">
                               <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                                Next scene
+                                Let’s check the sequence
                                 <ArrowRight className="ml-1.5 h-4 w-4" />
                               </Button>
-                          </div>
+                            </div>
+                          </>
                         )}
                       </div>
                     ) : (
