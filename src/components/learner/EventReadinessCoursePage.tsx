@@ -150,9 +150,9 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
     ]
   },
   {
-    title: "FEEDBACK",
+    title: "WRAP UP",
     items: [
-      { id: "4.0-course-feedback", title: "4.0 | Reflection & Feedback", section: "FEEDBACK" }
+      { id: "4.0-course-feedback", title: "4.0 | Reflection & Feedback", section: "WRAP UP" }
     ]
   }
 ]
@@ -427,7 +427,7 @@ export function EventReadinessCoursePage({
   const isLearn = activeLesson.section === "LEARN"
   const isPractise = activeLesson.section === "PRACTISE"
   const isCheckAndApply = activeLesson.section === "CHECK & APPLY"
-  const isFeedback = activeLesson.section === "FEEDBACK"
+  const isFeedback = activeLesson.section === "WRAP UP"
   const isDarkHeader = isGettingStarted || isLearn || isPractise || isCheckAndApply || isFeedback
   const primaryLabel = "Next"
 
