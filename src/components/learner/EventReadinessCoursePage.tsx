@@ -1439,7 +1439,7 @@ export function EventReadinessCoursePage({
                             </div>
                           )}
                           {connectionChallengeAllCorrect && (
-                            <div className="mt-4">
+                            <div className="mt-4 rounded-xl bg-white p-4">
                               <h3 className="text-center text-base font-bold leading-relaxed text-[#1D2A62]">What would give you the strongest evidence that this connection has been fixed?</h3>
                               <div className="mt-4 space-y-2">
                                 {[
