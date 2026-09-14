@@ -1592,7 +1592,7 @@ export function EventReadinessCoursePage({
                               <div className="mt-4 flex flex-wrap justify-end gap-2">
                                 <Button type="button" variant="ghost" onClick={() => { setSimulationStarted(false); setSimulationScene(-1) }} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
                                   <ArrowLeft className="mr-1.5 h-4 w-4" />
-                                  Back to THE FINAL REHEARSAL
+                                  Back
                                 </Button>
                                 <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                                   Next scene
@@ -1637,10 +1637,6 @@ export function EventReadinessCoursePage({
                               ) : (
                                 <span />
                               )}
-                              <Button type="button" variant="ghost" onClick={() => { setSimulationStarted(false); setSimulationScene(-1) }} className="cursor-pointer text-xs text-[#2F668B] hover:bg-[#F0F7FC] hover:text-[#1D2A62]">
-                                <ArrowLeft className="mr-1.5 h-4 w-4" />
-                                Back to THE FINAL REHEARSAL
-                              </Button>
                             </div>
                             {simulationScene < SIMULATION_SCENES.length - 1 ? (
                               <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
