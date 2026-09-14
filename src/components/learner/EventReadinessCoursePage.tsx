@@ -1536,12 +1536,11 @@ export function EventReadinessCoursePage({
                     <div className="grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
                       <div>
                         <h3 className="text-lg font-bold text-[#1D2A62]">THE FINAL REHEARSAL</h3>
-                        <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done. But the participant list, MC script, and slides were completed or updated at different times.</p>
-                        <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">So, are they actually ready to work together?</p>
+                        <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done.</p>
+                        <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But are they actually ready to work together?</p>
                       </div>
                       <img src="/final-rehearsal.png" alt="Project team preparing for the final rehearsal" className="w-full rounded-xl border border-[#87AECE]/35 object-cover" />
                     </div>
-                  </div>
                   <div className="px-1">
                     <p className="text-base leading-relaxed text-slate-600"><span className="font-bold text-[#437118]">YOUR MISSION:</span> Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
                     <div className="mt-4 flex justify-end">
@@ -1550,6 +1549,7 @@ export function EventReadinessCoursePage({
                         <ArrowRight className="ml-1.5 h-4 w-4" />
                       </Button>
                     </div>
+                  </div>
                   </div>
                 </div>
               )}
