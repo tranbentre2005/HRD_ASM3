@@ -1587,32 +1587,15 @@ export function EventReadinessCoursePage({
                     simulationScene === -1 ? (
                       <div key="simulation-opening" className="animate-scene-reveal space-y-5" aria-live="polite">
                         <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                          <div className="grid gap-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
+                          <div className="space-y-4">
                             <div>
                               <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                                 <PlayCircle weight="fill" className="h-5 w-5" />
                                 OPENING SCENE
                               </div>
-                              <h3 className="mt-3 bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-lg font-bold text-transparent">THE FINAL REHEARSAL</h3>
-                              <p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#2F668B]">Event preparation room</p>
-                              <p className="mt-2 text-base font-semibold leading-relaxed text-[#1D2A62]">In the final rehearsal</p>
-                              <p className="mt-2 text-base leading-relaxed text-slate-600">Your team says the participant-introduction sequence is ready.</p>
-                              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate-600">
-                                {[
-                                  "The MC script is complete.",
-                                  "The participant slides are complete.",
-                                  "The participant list has been updated.",
-                                  "Each owner has marked their task Done."
-                                ].map(item => (
-                                  <li key={item} className="flex items-start gap-2">
-                                    <CheckCircle weight="fill" className="mt-0.5 h-4 w-4 shrink-0 text-[#437118]" />
-                                    <span>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
+                              <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">In the event final rehearsal, your team says the participant-introduction sequence is ready.</p>
                             </div>
                             <div>
-                              <img src="/final-rehearsal.png?v=3" alt="Event preparation room with the project team rehearsing" className="w-full rounded-xl object-cover" />
                               <div className="mt-3 rounded-xl border border-[#87AECE]/35 bg-white p-3">
                                 <p className="text-[11px] font-bold uppercase tracking-wider text-[#2F668B]">You · Project Leader</p>
                                 <p className="mt-1 text-xs leading-relaxed text-slate-600">First-person perspective — no avatar shown.</p>
