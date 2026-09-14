@@ -215,6 +215,7 @@ export function EventReadinessCoursePage({
   const [simulationStarted, setSimulationStarted] = useState(false)
   const [simulationScene, setSimulationScene] = useState(-1)
   const [openingDecision, setOpeningDecision] = useState<OpeningDecision | null>(null)
+  const [openingDecisionConfirmed, setOpeningDecisionConfirmed] = useState(false)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
@@ -290,6 +291,7 @@ export function EventReadinessCoursePage({
   const handleSimulationBackToRehearsal = () => {
     setSimulationStarted(false)
     setSimulationScene(-1)
+    setOpeningDecisionConfirmed(false)
     setOpeningDecision(null)
   }
   const handleImpactPrioritySelect = (value: string) => {
@@ -1601,7 +1603,9 @@ export function EventReadinessCoursePage({
                           </div>
                           <p className="mt-4 text-base font-semibold leading-relaxed text-[#1D2A62]">In the event final rehearsal, your team says the participant-introduction sequence is ready.</p>
                         </div>
-                        {openingDecision === "A" ? (
+                        {openingDecision === "A" && openingDecisionConfirmed ? (
+                          <img src="/final-rehearsal-not-quite.webp?v=1" alt="The sequence is not quite ready because individual task completion does not confirm correct, current, connected information" className="block w-full rounded-2xl object-cover" />
+                        ) : openingDecision === "A" ? (
                           <img src="/final-rehearsal-signoff.webp?v=1" alt="The team has completed its individual tasks while questioning whether the participant-introduction sequence is ready to sign off" className="block w-full rounded-2xl object-cover" />
                         ) : (
                           <img src="/final-rehearsal-opening.webp?v=3" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="block w-full rounded-2xl object-cover" />
@@ -1618,17 +1622,26 @@ export function EventReadinessCoursePage({
                               </Button>
                             </div>
                           </div>
+                        ) : openingDecision === "A" && openingDecisionConfirmed ? (
+                          <div key="opening-a-confirmed" className="animate-scene-reveal rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
+                            <div className="flex justify-end">
+                              <Button type="button" variant="outline" onClick={() => { setOpeningDecisionConfirmed(false); setOpeningDecision(null) }} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">
+                                Review the decision
+                              </Button>
+                            </div>
+                          </div>
                         ) : openingDecision === "A" ? (
                           <div key="opening-a-feedback" className="animate-scene-reveal rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
-                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">Are you sure?</p>
-                            <div className="mt-4 flex flex-wrap gap-3">
-                              <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                                Yes, sign it off
-                                <ArrowRight className="ml-1.5 h-4 w-4" />
-                              </Button>
-                              <Button type="button" variant="outline" onClick={() => setOpeningDecision(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">
-                                Take another look
-                              </Button>
+                            <div className="flex flex-wrap items-center justify-between gap-3">
+                              <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">Are you sure?</p>
+                              <div className="flex flex-wrap justify-end gap-3">
+                                <Button type="button" onClick={() => setOpeningDecisionConfirmed(true)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                                  Yes, sign it off
+                                </Button>
+                                <Button type="button" variant="outline" onClick={() => setOpeningDecision(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">
+                                  Take another look
+                                </Button>
+                              </div>
                             </div>
                           </div>
                         ) : (
