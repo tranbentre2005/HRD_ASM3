@@ -125,8 +125,8 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
   {
     title: "GETTING STARTED",
     items: [
-      { id: "course-overview", title: "Course Overview", section: "GETTING STARTED" },
-      { id: "course-outcomes", title: "Course Learning Outcomes", section: "GETTING STARTED" }
+      { id: "course-overview", title: "0.0 | Course Overview", section: "GETTING STARTED" },
+      { id: "course-outcomes", title: "0.1 | Course Learning Outcomes", section: "GETTING STARTED" }
     ]
   },
   {
