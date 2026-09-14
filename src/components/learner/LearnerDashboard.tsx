@@ -81,6 +81,8 @@ export function LearnerDashboard({
 
   const inProgressCourses = courses.filter(c => c.status === 'in-progress')
   const completedCourses = courses.filter(c => c.status === 'completed')
+  const corePathwayCourseCount = courses.filter(c => c.category === 'Core Pathway').length
+  const completedCorePathwayCourseCount = completedCourses.filter(c => c.category === 'Core Pathway').length
 
   const filteredCourses = courses.filter(course => {
     const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -168,7 +170,7 @@ export function LearnerDashboard({
           <div className="relative z-10 space-y-2">
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
-                YOUR COURSE PROGRESS
+                YOUR LEARNING PROGRESS
               </h3>
               <span className="inline-flex items-center text-[10px] font-bold text-[#87AECE] bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
                 Event Readiness
@@ -209,6 +211,9 @@ export function LearnerDashboard({
                 </h4>
                 <p className="text-xs text-slate-200 font-medium">
                   Based on completed learning steps
+                </p>
+                <p className="text-xs text-[#AFD06E] font-semibold">
+                  {completedCorePathwayCourseCount} of {corePathwayCourseCount} Core Pathway courses completed
                 </p>
               </div>
 
