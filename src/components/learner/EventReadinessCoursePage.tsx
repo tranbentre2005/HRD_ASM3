@@ -1602,32 +1602,15 @@ export function EventReadinessCoursePage({
                           <p className="mt-4 text-base font-semibold leading-relaxed text-[#1D2A62]">In the event final rehearsal, your team says the participant-introduction sequence is ready.</p>
                         </div>
                         <img src="/final-rehearsal-opening.webp?v=3" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="block w-full rounded-2xl object-cover" />
-                        <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                          <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">Team updates</p>
-                          <div className="mt-4 divide-y divide-[#87AECE]/25">
-                            <div className="py-3 first:pt-0 last:pb-0">
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">Vy — Content Lead</p>
-                              <p className="mt-1 text-sm italic leading-relaxed text-slate-700">“Slides are done. I finished them yesterday.”</p>
-                            </div>
-                            <div className="py-3 first:pt-0 last:pb-0">
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">An — MC</p>
-                              <p className="mt-1 text-sm italic leading-relaxed text-slate-700">“My final script is ready too. Can I rehearsed now?”</p>
-                            </div>
-                            <div className="py-3 first:pt-0 last:pb-0">
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">Mai — Registration Lead</p>
-                              <p className="mt-1 text-sm italic leading-relaxed text-slate-700">“The participant list was updated this morning.”</p>
-                            </div>
-                          </div>
-                        </div>
                         {openingDecision === null ? (
                           <div key="opening-decision" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">As Project Leader, would you sign it off as Ready?</p>
+                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">As the Project Leader, would you sign off the participant-introduction sequence as Ready?</p>
                             <div className="mt-4 grid gap-3 sm:grid-cols-2">
                               <Button type="button" variant="outline" onClick={() => setOpeningDecision("A")} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
-                                A. Yes. Everything has been completed.
+                                A. Yes. Everyone has finished their part.
                               </Button>
                               <Button type="button" variant="outline" onClick={() => setOpeningDecision("B")} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
-                                B. Not yet. I need evidence that the critical pieces will work together.
+                                B. Not yet.
                               </Button>
                             </div>
                           </div>
