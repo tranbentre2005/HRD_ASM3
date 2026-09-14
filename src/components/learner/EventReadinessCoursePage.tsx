@@ -1601,7 +1601,11 @@ export function EventReadinessCoursePage({
                           </div>
                           <p className="mt-4 text-base font-semibold leading-relaxed text-[#1D2A62]">In the event final rehearsal, your team says the participant-introduction sequence is ready.</p>
                         </div>
-                        <img src="/final-rehearsal-opening.webp?v=3" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="block w-full rounded-2xl object-cover" />
+                        {openingDecision === "A" ? (
+                          <img src="/final-rehearsal-signoff.webp?v=1" alt="The team has completed its individual tasks while questioning whether the participant-introduction sequence is ready to sign off" className="block w-full rounded-2xl object-cover" />
+                        ) : (
+                          <img src="/final-rehearsal-opening.webp?v=3" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="block w-full rounded-2xl object-cover" />
+                        )}
                         {openingDecision === null ? (
                           <div key="opening-decision" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                             <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">As the Project Leader, would you sign off the participant-introduction sequence as Ready?</p>
@@ -1616,15 +1620,16 @@ export function EventReadinessCoursePage({
                           </div>
                         ) : openingDecision === "A" ? (
                           <div key="opening-a-feedback" className="animate-scene-reveal rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
-                            <p className="text-sm font-bold text-[#8B5E00]">Vy — Content Lead</p>
-                            <p className="mt-2 text-base italic leading-relaxed text-slate-700">“Great, I’ll mark the sequence Ready.”</p>
-                            <div className="mt-4 rounded-xl border border-[#D8B457]/60 bg-white/80 p-4">
-                              <p className="font-bold text-[#8B5E00]">But completion only tells you that each task was finished.</p>
-                            </div>
-                            <p className="mt-4 text-base font-semibold leading-relaxed text-[#1D2A62]">Before you sign off, what should you check?</p>
-                              <Button type="button" onClick={() => setOpeningDecision(null)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">Are you sure?</p>
+                            <div className="mt-4 flex flex-wrap gap-3">
+                              <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                                Yes, sign it off
+                                <ArrowRight className="ml-1.5 h-4 w-4" />
+                              </Button>
+                              <Button type="button" variant="outline" onClick={() => setOpeningDecision(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">
                                 Take another look
                               </Button>
+                            </div>
                           </div>
                         ) : (
                           <div key="opening-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
