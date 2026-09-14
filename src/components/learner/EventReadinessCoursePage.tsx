@@ -1532,11 +1532,22 @@ export function EventReadinessCoursePage({
               )}
               {activeLesson.id === "1.2-ready-simulation" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
-                  <div className="flex items-start gap-3 rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
-                    <Flag weight="fill" className="mt-0.5 h-5 w-5 shrink-0 text-[#437118]" />
-                    <div><p className="font-bold text-[#1D2A62]">Simulation brief</p><p className="mt-1 text-xs text-slate-600">Walk through registration, arrival, participation, and follow-up as if you were a first-time participant.</p></div>
+                  <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                    <h3 className="text-lg font-bold text-[#1D2A62]">The Final Rehearsal</h3>
+                    <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting.</p>
+                    <p className="mt-3 text-base leading-relaxed text-slate-600">Your team says everything is Done. But the participant list, MC script, and slides were completed or updated at different times.</p>
+                    <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">So, are they actually ready to work together?</p>
                   </div>
-                  <p>Note one moment that feels unclear, one detail that needs verification, and one handoff that must be tested with another team member.</p>
+                  <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-5">
+                    <p className="font-bold text-[#437118]">Your mission</p>
+                    <p className="mt-2 text-base leading-relaxed text-slate-600">Apply the Impact–Evidence–Connection rules to identify what needs attention, verify the right information, and decide whether the sequence is ready for the upcoming event.</p>
+                    <div className="mt-4 flex justify-end">
+                      <Button type="button" onClick={() => lessonCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                        Start Simulation
+                        <ArrowRight className="ml-1.5 h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               )}
 
