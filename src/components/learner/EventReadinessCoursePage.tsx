@@ -1843,6 +1843,10 @@ export function EventReadinessCoursePage({
                       <label htmlFor="feedback-open-response" className="block text-base font-bold leading-relaxed text-[#1D2A62]">4. What is one thing that would make this training more useful for a real Finance Club event?</label>
                       <textarea id="feedback-open-response" value={feedbackOpenResponse} onChange={event => setFeedbackOpenResponse(event.target.value)} className="min-h-28 w-full rounded-xl border border-[#B9A4E8]/60 bg-white p-3 text-sm font-normal text-slate-700 outline-none transition focus:border-[#6B4C9A] focus:ring-2 focus:ring-[#B9A4E8]/30" placeholder="Enter your response here..." />
                     </div>
+                    <div className="rounded-2xl border border-[#E7A27A]/60 bg-[#FFF4EA] p-5 text-center">
+                      <p className="text-base font-bold text-[#1D2A62]">How would you rate your overall learning experience?</p>
+                      <p className="mt-3 text-2xl tracking-[0.45em] text-[#B45F3C]" aria-label="Five-star rating">☆ ☆ ☆ ☆ ☆</p>
+                    </div>
                   </div>
                 </div>
                 )
