@@ -52,9 +52,8 @@ type SavedCourseState = {
   viewedLessonIds: string[]
   quickCheckAnswer: string
   openingQuestionAnswer: string
-  feedbackRelevance: string
   feedbackConfidence: string
-  feedbackPracticality: string
+  feedbackUsefulness: string
   feedbackTransfer: string
   feedbackOpenResponse: string
 }
@@ -166,9 +165,8 @@ function getSavedCourseState(): SavedCourseState {
     viewedLessonIds: [],
     quickCheckAnswer: "",
     openingQuestionAnswer: "",
-    feedbackRelevance: "",
     feedbackConfidence: "",
-    feedbackPracticality: "",
+    feedbackUsefulness: "",
     feedbackTransfer: "",
     feedbackOpenResponse: ""
   }
@@ -196,9 +194,8 @@ function getSavedCourseState(): SavedCourseState {
       viewedLessonIds,
       quickCheckAnswer: typeof parsed.quickCheckAnswer === "string" ? parsed.quickCheckAnswer : "",
       openingQuestionAnswer: typeof parsed.openingQuestionAnswer === "string" ? parsed.openingQuestionAnswer : "",
-      feedbackRelevance: typeof parsed.feedbackRelevance === "string" ? parsed.feedbackRelevance : "",
       feedbackConfidence: typeof parsed.feedbackConfidence === "string" ? parsed.feedbackConfidence : "",
-      feedbackPracticality: typeof parsed.feedbackPracticality === "string" ? parsed.feedbackPracticality : "",
+      feedbackUsefulness: typeof parsed.feedbackUsefulness === "string" ? parsed.feedbackUsefulness : "",
       feedbackTransfer: typeof parsed.feedbackTransfer === "string" ? parsed.feedbackTransfer : "",
       feedbackOpenResponse: typeof parsed.feedbackOpenResponse === "string" ? parsed.feedbackOpenResponse : ""
     }
@@ -240,9 +237,8 @@ export function EventReadinessCoursePage({
   const [connectionChallengeSubmitted, setConnectionChallengeSubmitted] = useState(false)
   const [connectionIntegratedTestAnswer, setConnectionIntegratedTestAnswer] = useState("")
   const [connectionIntegratedTestSubmitted, setConnectionIntegratedTestSubmitted] = useState(false)
-  const [feedbackRelevance, setFeedbackRelevance] = useState(initialState.feedbackRelevance)
   const [feedbackConfidence, setFeedbackConfidence] = useState(initialState.feedbackConfidence)
-  const [feedbackPracticality, setFeedbackPracticality] = useState(initialState.feedbackPracticality)
+  const [feedbackUsefulness, setFeedbackUsefulness] = useState(initialState.feedbackUsefulness)
   const [feedbackTransfer, setFeedbackTransfer] = useState(initialState.feedbackTransfer)
   const [feedbackOpenResponse, setFeedbackOpenResponse] = useState(initialState.feedbackOpenResponse)
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
@@ -277,13 +273,12 @@ export function EventReadinessCoursePage({
       viewedLessonIds,
       quickCheckAnswer,
       openingQuestionAnswer,
-      feedbackRelevance,
       feedbackConfidence,
-      feedbackPracticality,
+      feedbackUsefulness,
       feedbackTransfer,
       feedbackOpenResponse
     }))
-  }, [activeLessonId, completedLessonIds, viewedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackRelevance, feedbackConfidence, feedbackPracticality, feedbackTransfer, feedbackOpenResponse])
+  }, [activeLessonId, completedLessonIds, viewedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackConfidence, feedbackUsefulness, feedbackTransfer, feedbackOpenResponse])
   useEffect(() => {
     onProgressChange?.(progress)
   }, [progress])
@@ -1807,71 +1802,47 @@ export function EventReadinessCoursePage({
                     <h3 className="text-xl font-bold text-[#1D2A62]">Before You Go</h3>
                     <p className="mt-2 text-sm leading-relaxed text-slate-600">You’ve practised making event-readiness decisions using Impact, Evidence and Connection. Take a moment to reflect on how ready you feel to use these checks in a real event.</p>
                   </div>
+                  <div className="space-y-6">
+                    <fieldset className="space-y-4 rounded-2xl border border-[#87AECE]/50 bg-[#F0F7FC] p-5">
+                      <legend className="text-base font-bold leading-relaxed text-[#1D2A62]">1. How confident are you that you can decide whether a participant-critical event element is Ready, rather than simply Done?</legend>
+                      <div role="radiogroup" aria-label="Confidence in deciding whether an element is Ready" className="space-y-2">
+                        {["I can do this confidently.", "I think I can do this.", "I’m not sure yet.", "I would need more guidance."].map(option => (
+                          <button key={option} type="button" role="radio" aria-checked={feedbackConfidence === option} onClick={() => setFeedbackConfidence(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackConfidence === option ? "border-[#2F668B] bg-white text-[#1D2A62] ring-1 ring-[#2F668B]" : "border-[#87AECE]/40 bg-white/80 text-slate-700 hover:bg-white"}`}>
+                            <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${feedbackConfidence === option ? "border-[#2F668B] bg-[#2F668B] text-white" : "border-[#87AECE]/70"}`}>{feedbackConfidence === option ? <Check className="h-3.5 w-3.5" /> : ""}</span>
+                            <span>{option}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </fieldset>
 
-                  <fieldset className="space-y-3">
-                    <legend className="text-base font-bold text-[#1D2A62]">Question 1 — Relevance</legend>
-                    <p className="text-sm font-semibold text-slate-700">Scale 1–5:</p>
-                    <p className="text-sm leading-relaxed text-slate-700">The scenarios felt relevant to situations I could face as a Project Leader.</p>
-                    <div role="radiogroup" aria-label="Question 1 relevance scale" className="flex flex-wrap gap-2">
-                      {["1", "2", "3", "4", "5"].map(value => (
-                        <button key={value} type="button" role="radio" aria-checked={feedbackRelevance === value} onClick={() => setFeedbackRelevance(value)} className={`flex h-10 w-10 items-center justify-center rounded-lg border text-sm font-bold transition-colors cursor-pointer ${feedbackRelevance === value ? "border-[#437118] bg-[#EEF7E8] text-[#1D2A62] ring-1 ring-[#437118]" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{value}</button>
-                      ))}
-                    </div>
-                    <div className="flex justify-between text-xs text-slate-500">
-                      <span>Strongly disagree</span>
-                      <span>Strongly agree</span>
-                    </div>
-                  </fieldset>
+                    <fieldset className="space-y-4 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                      <legend className="text-base font-bold leading-relaxed text-[#1D2A62]">2. How useful would the Impact–Evidence–Connection checks be during real event preparation?</legend>
+                      <div role="radiogroup" aria-label="Usefulness of Impact Evidence Connection checks" className="space-y-2">
+                        {["Very useful", "Useful", "Somewhat useful", "Not useful yet"].map(option => (
+                          <button key={option} type="button" role="radio" aria-checked={feedbackUsefulness === option} onClick={() => setFeedbackUsefulness(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackUsefulness === option ? "border-[#437118] bg-white text-[#1D2A62] ring-1 ring-[#437118]" : "border-[#AFD06E]/50 bg-white/80 text-slate-700 hover:bg-white"}`}>
+                            <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${feedbackUsefulness === option ? "border-[#437118] bg-[#437118] text-white" : "border-[#AFD06E]"}`}>{feedbackUsefulness === option ? <Check className="h-3.5 w-3.5" /> : ""}</span>
+                            <span>{option}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </fieldset>
 
-                  <fieldset className="space-y-3">
-                    <legend className="text-base font-bold text-[#1D2A62]">Question 2 — Confidence</legend>
-                    <p className="text-sm font-semibold text-slate-700">Scale 1–5:</p>
-                    <p className="text-sm leading-relaxed text-slate-700">I feel more confident deciding whether an event element is truly Ready, rather than simply Done.</p>
-                    <p className="text-xs leading-relaxed text-slate-500">This is perceived confidence, not a claim that behaviour changed.</p>
-                    <div role="radiogroup" aria-label="Question 2 confidence scale" className="flex flex-wrap gap-2">
-                      {["1", "2", "3", "4", "5"].map(value => (
-                        <button key={value} type="button" role="radio" aria-checked={feedbackConfidence === value} onClick={() => setFeedbackConfidence(value)} className={`flex h-10 w-10 items-center justify-center rounded-lg border text-sm font-bold transition-colors cursor-pointer ${feedbackConfidence === value ? "border-[#437118] bg-[#EEF7E8] text-[#1D2A62] ring-1 ring-[#437118]" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{value}</button>
-                      ))}
-                    </div>
-                    <div className="flex justify-between text-xs text-slate-500">
-                      <span>Strongly disagree</span>
-                      <span>Strongly agree</span>
-                    </div>
-                  </fieldset>
+                    <fieldset className="space-y-4 rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
+                      <legend className="text-base font-bold leading-relaxed text-[#1D2A62]">3. Which resource are you most likely to use at your next event?</legend>
+                      <div role="radiogroup" aria-label="Resource most likely to use at next event" className="space-y-2">
+                        {["Impact–Evidence–Connection questions", "3-Minute Event Readiness Check", "Both", "I’m not sure yet"].map(option => (
+                          <button key={option} type="button" role="radio" aria-checked={feedbackTransfer === option} onClick={() => setFeedbackTransfer(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackTransfer === option ? "border-[#8B5E00] bg-white text-[#1D2A62] ring-1 ring-[#8B5E00]" : "border-[#D8B457]/60 bg-white/80 text-slate-700 hover:bg-white"}`}>
+                            <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${feedbackTransfer === option ? "border-[#8B5E00] bg-[#8B5E00] text-white" : "border-[#D8B457]"}`}>{feedbackTransfer === option ? <Check className="h-3.5 w-3.5" /> : ""}</span>
+                            <span>{option}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </fieldset>
 
-                  <fieldset className="space-y-3">
-                    <legend className="text-base font-bold text-[#1D2A62]">Question 3 — Practicality</legend>
-                    <p className="text-sm font-semibold text-slate-700">Scale 1–5:</p>
-                    <p className="text-sm leading-relaxed text-slate-700">The Impact–Evidence–Connection checks are practical enough to use during real event preparation.</p>
-                    <div role="radiogroup" aria-label="Question 3 practicality scale" className="flex flex-wrap gap-2">
-                      {["1", "2", "3", "4", "5"].map(value => (
-                        <button key={value} type="button" role="radio" aria-checked={feedbackPracticality === value} onClick={() => setFeedbackPracticality(value)} className={`flex h-10 w-10 items-center justify-center rounded-lg border text-sm font-bold transition-colors cursor-pointer ${feedbackPracticality === value ? "border-[#437118] bg-[#EEF7E8] text-[#1D2A62] ring-1 ring-[#437118]" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{value}</button>
-                      ))}
+                    <div className="space-y-3 rounded-2xl border border-[#B9A4E8]/60 bg-[#F6F2FF] p-5">
+                      <label htmlFor="feedback-open-response" className="text-base font-bold leading-relaxed text-[#1D2A62]">4. What is one thing that would make this training more useful for a real Finance Club event?</label>
+                      <textarea id="feedback-open-response" value={feedbackOpenResponse} onChange={event => setFeedbackOpenResponse(event.target.value)} className="min-h-28 w-full rounded-xl border border-[#B9A4E8]/60 bg-white p-3 text-sm font-normal text-slate-700 outline-none transition focus:border-[#6B4C9A] focus:ring-2 focus:ring-[#B9A4E8]/30" placeholder="Enter your response here..." />
                     </div>
-                    <div className="flex justify-between text-xs text-slate-500">
-                      <span>Strongly disagree</span>
-                      <span>Strongly agree</span>
-                    </div>
-                  </fieldset>
-
-                  <fieldset className="space-y-3">
-                    <legend className="text-base font-bold text-[#1D2A62]">Question 4 — Transfer intention</legend>
-                    <p className="text-sm leading-relaxed text-slate-700">Which resource are you most likely to use in your next event?</p>
-                    <div role="radiogroup" aria-label="Question 4 transfer intention" className="space-y-2">
-                      {["Impact–Evidence–Connection questions", "3-Minute Event Readiness Check", "Both", "Not sure yet"].map(option => (
-                        <button key={option} type="button" role="radio" aria-checked={feedbackTransfer === option} onClick={() => setFeedbackTransfer(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackTransfer === option ? "border-[#437118] bg-[#EEF7E8] text-[#1D2A62] ring-1 ring-[#437118]" : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"}`}>
-                          <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${feedbackTransfer === option ? "border-[#437118] bg-[#437118] text-white" : "border-slate-300"}`}>{feedbackTransfer === option ? <Check className="h-3.5 w-3.5" /> : ""}</span>
-                          <span>{option}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <div>
-                    <label htmlFor="feedback-open-response" className="text-base font-bold text-[#1D2A62]">Question 5 — One open response</label>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-700">What is one thing that would make this training more useful for a real Finance Club event?</p>
-                    <p className="mt-2 text-xs text-slate-500">Optional</p>
-                    <textarea id="feedback-open-response" value={feedbackOpenResponse} onChange={event => setFeedbackOpenResponse(event.target.value)} className="mt-2 min-h-28 w-full rounded-xl border border-slate-200 p-3 text-sm font-normal text-slate-700 outline-none transition focus:border-[#87AECE] focus:ring-2 focus:ring-[#87AECE]/20" placeholder="Optional" />
                   </div>
                 </div>
                 )
