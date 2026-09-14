@@ -59,6 +59,8 @@ type ReadinessCategory = "DONE" | "READY"
 
 type OpeningDecision = "A" | "B"
 
+type OpeningCharacter = "Vy" | "An" | "Mai"
+
 type ReadinessStatement = {
   id: string
   text: string
@@ -114,6 +116,12 @@ const SIMULATION_SCENES = [
     ]
   }
 ] as const
+
+const OPENING_CHARACTER_DETAILS: Record<OpeningCharacter, { role: string; dialogue: string }> = {
+  Vy: { role: "Content Lead", dialogue: "“Slides are done. I finished them yesterday.”" },
+  An: { role: "MC", dialogue: "“My final script is ready too. Can I rehearsed now?”" },
+  Mai: { role: "Registration Lead", dialogue: "“The participant list was updated this morning.”" }
+}
 
 
 const OUTLINE_SECTIONS: OutlineSection[] = [
@@ -213,6 +221,7 @@ export function EventReadinessCoursePage({
   const [simulationStarted, setSimulationStarted] = useState(false)
   const [simulationScene, setSimulationScene] = useState(-1)
   const [openingDecision, setOpeningDecision] = useState<OpeningDecision | null>(null)
+  const [selectedOpeningCharacter, setSelectedOpeningCharacter] = useState<OpeningCharacter | null>(null)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
@@ -289,6 +298,7 @@ export function EventReadinessCoursePage({
     setSimulationStarted(false)
     setSimulationScene(-1)
     setOpeningDecision(null)
+    setSelectedOpeningCharacter(null)
   }
   const handleImpactPrioritySelect = (value: string) => {
     setImpactPrioritySubmitted(false)
@@ -1594,56 +1604,26 @@ export function EventReadinessCoursePage({
                         </div>
                         <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                           <div className="space-y-4">
-                            <div>
-                              <div className="flex items-center gap-2 font-bold text-[#2F668B]">
-                                <PlayCircle weight="fill" className="h-5 w-5" />
-                                OPENING SCENE
+                            <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                              <PlayCircle weight="fill" className="h-5 w-5" />
+                              OPENING SCENE
+                            </div>
+                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">In the event final rehearsal, your team says the participant-introduction sequence is ready.</p>
+                            <div className="overflow-hidden rounded-xl border border-[#87AECE]/35 bg-white">
+                              <div className="relative aspect-[16/9]">
+                                <img src="/final-rehearsal-opening.webp?v=2" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="absolute inset-0 h-full w-full object-cover" />
+                                <button type="button" aria-label="Inspect Vy's update" aria-pressed={selectedOpeningCharacter === "Vy"} onClick={() => setSelectedOpeningCharacter("Vy")} className={`absolute left-[4%] top-[20%] h-[68%] w-[28%] rounded-2xl border-2 border-transparent transition-all hover:border-white/80 focus-visible:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${selectedOpeningCharacter === "Vy" ? "border-[#AFD06E] bg-[#AFD06E]/10 ring-2 ring-[#AFD06E]" : ""}`} />
+                                <button type="button" aria-label="Inspect An's update" aria-pressed={selectedOpeningCharacter === "An"} onClick={() => setSelectedOpeningCharacter("An")} className={`absolute left-[31%] top-[12%] h-[74%] w-[36%] rounded-2xl border-2 border-transparent transition-all hover:border-white/80 focus-visible:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${selectedOpeningCharacter === "An" ? "border-[#AFD06E] bg-[#AFD06E]/10 ring-2 ring-[#AFD06E]" : ""}`} />
+                                <button type="button" aria-label="Inspect Mai's update" aria-pressed={selectedOpeningCharacter === "Mai"} onClick={() => setSelectedOpeningCharacter("Mai")} className={`absolute right-[4%] top-[20%] h-[68%] w-[28%] rounded-2xl border-2 border-transparent transition-all hover:border-white/80 focus-visible:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] ${selectedOpeningCharacter === "Mai" ? "border-[#AFD06E] bg-[#AFD06E]/10 ring-2 ring-[#AFD06E]" : ""}`} />
                               </div>
-                              <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">In the event final rehearsal, your team says the participant-introduction sequence is ready.</p>
+                              <p className="border-t border-[#87AECE]/25 px-4 py-3 text-xs text-slate-500">Select Vy, An, or Mai in the image to inspect their update.</p>
                             </div>
-                            <div>
-                              <div className="mt-3 rounded-xl border border-[#87AECE]/35 bg-white p-3">
-                                <p className="text-[11px] font-bold uppercase tracking-wider text-[#2F668B]">You · Project Leader</p>
-                                <p className="mt-1 text-xs leading-relaxed text-slate-600">First-person perspective — no avatar shown.</p>
+                            {selectedOpeningCharacter && (
+                              <div className="animate-scene-reveal rounded-xl border border-[#87AECE]/35 bg-white p-4" aria-live="polite">
+                                <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">{selectedOpeningCharacter} — {OPENING_CHARACTER_DETAILS[selectedOpeningCharacter].role}</p>
+                                <p className="mt-2 text-sm italic leading-relaxed text-slate-700">{OPENING_CHARACTER_DETAILS[selectedOpeningCharacter].dialogue}</p>
                               </div>
-                            </div>
-                          </div>
-                          <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                            <div className="rounded-xl border border-[#87AECE]/35 bg-white p-4">
-                              <Presentation className="h-5 w-5 text-[#2F668B]" />
-                              <p className="mt-2 font-bold text-[#1D2A62]">Vy</p>
-                              <p className="text-xs font-semibold text-slate-600">Content Lead</p>
-                              <p className="mt-1 text-xs leading-relaxed text-slate-500">Stands beside the laptop / slides</p>
-                            </div>
-                            <div className="rounded-xl border border-[#87AECE]/35 bg-white p-4">
-                              <Microphone className="h-5 w-5 text-[#2F668B]" />
-                              <p className="mt-2 font-bold text-[#1D2A62]">An</p>
-                              <p className="text-xs font-semibold text-slate-600">MC</p>
-                              <p className="mt-1 text-xs leading-relaxed text-slate-500">Holds the MC script</p>
-                            </div>
-                            <div className="rounded-xl border border-[#87AECE]/35 bg-white p-4">
-                              <FileText className="h-5 w-5 text-[#2F668B]" />
-                              <p className="mt-2 font-bold text-[#1D2A62]">Mai</p>
-                              <p className="text-xs font-semibold text-slate-600">Registration Lead</p>
-                              <p className="mt-1 text-xs leading-relaxed text-slate-500">Holds the participant list / tablet</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                          <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">Character dialogue</p>
-                          <div className="mt-4 grid gap-3 md:grid-cols-3">
-                            <div className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">Vy — Content Lead</p>
-                              <p className="mt-2 text-sm italic leading-relaxed text-slate-600">“Slides are done. I finished them yesterday.”</p>
-                            </div>
-                            <div className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">An — MC</p>
-                              <p className="mt-2 text-sm italic leading-relaxed text-slate-600">“My final script is ready too. I rehearsed it yesterday.”</p>
-                            </div>
-                            <div className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#2F668B]">Mai — Registration Lead</p>
-                              <p className="mt-2 text-sm italic leading-relaxed text-slate-600">“The participant list was updated this morning.”</p>
-                            </div>
+                            )}
                           </div>
                         </div>
                         {openingDecision === null ? (
