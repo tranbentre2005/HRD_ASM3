@@ -32,60 +32,38 @@ export function MyLearningView({
   onNavigateCourses,
 }: MyLearningViewProps) {
   const [showAllCompleted, setShowAllCompleted] = useState(false)
-  const inProgressCourses = courses.filter((c) => c.status === "in-progress")
-  const eventReadinessCourse = courses.find(
-    (c) => c.id === "event-readiness" || c.id === "course-1" || c.title.includes("Event Readiness")
-  ) || inProgressCourses[0] || courses[0]
-
-  // All 5 Completed courses in Core Pathway for display in Completed Learning section
-  const allCompletedList = [
-    {
-      id: "core-pl-role",
-      code: "01 · CORE PATHWAY",
-      title: "Stepping into the Project Leader Role",
-      duration: "5 min · Foundation",
-      completedDate: "Completed on 12 Sep 2026"
-    },
-    {
-      id: "event-fundamentals-strategic-direction",
-      code: "02 · CORE PATHWAY",
-      title: "Event Fundamentals & Strategic Direction",
-      duration: "6 min · Foundation",
-      completedDate: "Completed on 14 Sep 2026"
-    },
-    {
-      id: "event-planning-coordination",
-      code: "03 · CORE PATHWAY",
-      title: "Event Planning & Coordination",
-      duration: "8 min · Core",
-      completedDate: "Completed on 16 Sep 2026"
-    },
-    {
-      id: "leading-event-team",
-      code: "04 · CORE PATHWAY",
-      title: "Leading the Event Team",
-      duration: "8 min · Leadership",
-      completedDate: "Completed on 18 Sep 2026"
-    },
-    {
-      id: "cross-functional-collaboration",
-      code: "05 · CORE PATHWAY",
-      title: "Cross-Functional Collaboration",
-      duration: "7 min · Collaboration",
-      completedDate: "Completed on 20 Sep 2026"
+  const eventReadinessCourse = courses.find(course => course.id === "event-readiness" || course.id === "course-1" || course.title.includes("Event Readiness")) || courses[0]
+  const eventReadinessCompleted = eventReadinessCourse?.status === "completed"
+  const completionDates: Record<string, string> = {
+    "core-pl-role": "Completed on 12 Sep 2026",
+    "event-fundamentals-strategic-direction": "Completed on 14 Sep 2026",
+    "event-planning-coordination": "Completed on 16 Sep 2026",
+    "leading-event-team": "Completed on 18 Sep 2026",
+    "cross-functional-collaboration": "Completed on 20 Sep 2026"
+  }
+  const completedCorePathwayCourses = courses.filter(course => course.category === "Core Pathway" && course.status === "completed")
+  const allCompletedList = completedCorePathwayCourses.map(course => {
+    const number = course.code.match(/^\d{2}/)?.[0]
+    const durationSuffix = course.courseType && !course.duration.includes(course.courseType) ? ` · ${course.courseType}` : ""
+    return {
+      id: course.id,
+      code: `${number ? `${number} · ` : ""}CORE PATHWAY`,
+      title: course.title,
+      duration: `${course.duration}${durationSuffix}`,
+      completedDate: completionDates[course.id] || "Completed"
     }
-  ]
+  })
 
   const displayedCompleted = showAllCompleted ? allCompletedList : allCompletedList.slice(0, 3)
 
-  // 9 Stepper nodes for Core Pathway
+  // Core Pathway steps stay synchronized with the Event Readiness course state.
   const pathwaySteps = [
     { num: "01", status: "completed" },
     { num: "02", status: "completed" },
     { num: "03", status: "completed" },
     { num: "04", status: "completed" },
     { num: "05", status: "completed" },
-    { num: "06", status: "in-progress", progress: `${eventReadinessCourse?.progress ?? 0}%` },
+    { num: "06", status: eventReadinessCompleted ? "completed" : "in-progress", progress: `${eventReadinessCourse?.progress ?? 0}%` },
     { num: "07", status: "locked" },
     { num: "08", status: "locked" },
     { num: "09", status: "locked" },
@@ -224,11 +202,11 @@ export function MyLearningView({
           <div className="relative z-10">
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#AFD06E] tracking-wider uppercase">
-                In Progress
+                {eventReadinessCompleted ? "Completed" : "In Progress"}
               </h3>
               <span className="inline-flex items-center gap-1.5 bg-white text-slate-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-2xs shrink-0">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#386b24]" />
-                In Progress
+                {eventReadinessCompleted ? <CheckCircle weight="fill" className="h-3 w-3 text-[#386b24]" /> : <span className="h-1.5 w-1.5 rounded-full bg-[#386b24]" />}
+                {eventReadinessCompleted ? "Completed" : "In Progress"}
               </span>
             </div>
 
@@ -308,8 +286,8 @@ export function MyLearningView({
                     06 · CORE PATHWAY
                   </span>
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF7E8] text-[#386b24] text-xs font-bold border border-[#AFD06E]/30 shrink-0">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#386b24] animate-pulse" />
-                    <span>In Progress · {eventReadinessCourse?.progress ?? 0}%</span>
+                    {eventReadinessCompleted ? <CheckCircle weight="fill" className="h-3.5 w-3.5" /> : <span className="h-1.5 w-1.5 rounded-full bg-[#386b24] animate-pulse" />}
+                    <span>{eventReadinessCompleted ? "Completed · 100%" : `In Progress · ${eventReadinessCourse?.progress ?? 0}%`}</span>
                   </span>
                 </div>
 
@@ -331,16 +309,16 @@ export function MyLearningView({
                   </div>
                   <div className="flex items-center gap-2">
                     <FileText className="h-3.5 w-3.5 text-slate-400 shrink-0" />
-                    <span>Current lesson: 1.3 Test the Flow</span>
+                    <span>{eventReadinessCompleted ? "Course completed" : "Current lesson: 1.3 Test the Flow"}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <ChartBar className="h-3.5 w-3.5 text-slate-400 shrink-0" />
-                    <span>~ 2 min to next milestone</span>
+                    <span>{eventReadinessCompleted ? "Available to review" : "~ 2 min to next milestone"}</span>
                   </div>
                 </div>
+
               </div>
             </div>
-
             {/* Bottom Row: Progress bar & CTA Button */}
             <div className="pt-4 mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex-1 space-y-1.5 max-w-xs">
@@ -358,7 +336,7 @@ export function MyLearningView({
                   onClick={() => onSelectCourse(eventReadinessCourse)}
                   className="h-9 px-5 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.98] whitespace-nowrap"
                 >
-                  <span>Continue Learning</span>
+                  <span>{eventReadinessCompleted ? "View Course" : "Continue Learning"}</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
@@ -377,7 +355,7 @@ export function MyLearningView({
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-3">
                 <h3 className="text-sm font-bold text-[#1D2A62] leading-snug">
-                  Complete Course 06 to unlock Course 07
+                  {eventReadinessCompleted ? "Course 06 completed" : "Complete Course 06 to unlock Course 07"}
                 </h3>
                   <button
                     type="button"
@@ -393,7 +371,7 @@ export function MyLearningView({
                   </button>
                 </div>
                 <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-                  Finish the current course to continue your journey.
+                  {eventReadinessCompleted ? "Event Readiness is complete and available to review." : "Finish the current course to continue your journey."}
                 </p>
               </div>
             </div>
@@ -481,7 +459,7 @@ export function MyLearningView({
             onClick={() => setShowAllCompleted(!showAllCompleted)}
             className="text-xs font-semibold text-[#1D2A62] hover:text-[#437118] flex items-center gap-1 cursor-pointer transition-colors"
           >
-            <span>{showAllCompleted ? "Show Less" : "View All (5)"}</span>
+            <span>{showAllCompleted ? "Show Less" : `View All (${allCompletedList.length})`}</span>
             <ArrowRight className={`h-3 w-3 transition-transform ${showAllCompleted ? "-rotate-90" : ""}`} />
           </button>
         </div>
@@ -516,7 +494,18 @@ export function MyLearningView({
               {/* Footer: Completion date & Right Arrow */}
               <div className="pt-3 mt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-500">
                 <span>{course.completedDate}</span>
-                <CaretRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#1D2A62] group-hover:translate-x-0.5 transition-all" />
+                {course.id === "event-readiness" ? (
+                  <button
+                    type="button"
+                    onClick={() => eventReadinessCourse && onSelectCourse(eventReadinessCourse)}
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#1D2A62] hover:text-[#437118] cursor-pointer"
+                  >
+                    <span>View Course</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
+                ) : (
+                  <CaretRight className="h-3.5 w-3.5 text-slate-400" />
+                )}
               </div>
             </div>
           ))}

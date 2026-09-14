@@ -79,23 +79,28 @@ export function LearnerDashboard({
     { id: 'Culture & Onboarding', label: 'Culture & Onboarding' }
   ]
 
-  const inProgressCourses = courses.filter(c => c.status === 'in-progress')
-  const completedCourses = courses.filter(c => c.status === 'completed')
-  const corePathwayCourseCount = courses.filter(c => c.category === 'Core Pathway').length
-  const completedCorePathwayCourseCount = completedCourses.filter(c => c.category === 'Core Pathway').length
-
+  const progressCategories = ['Core Pathway', 'Leadership Skills', 'Functional Essentials', 'Personal Development'].map(category => {
+    const categoryCourses = courses.filter(course => course.category === category)
+    const completedCount = categoryCourses.filter(course => course.status === 'completed').length
+    const totalCount = categoryCourses.length
+    return {
+      category,
+      completedCount,
+      totalCount,
+      percentage: totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0
+    }
+  })
   const filteredCourses = courses.filter(course => {
-    const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          course.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          course.description.toLowerCase().includes(searchQuery.toLowerCase())
+    const query = searchQuery.toLowerCase()
+    const matchesSearch = course.title.toLowerCase().includes(query) ||
+      course.code.toLowerCase().includes(query) ||
+      course.description.toLowerCase().includes(query)
     const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory
     return matchesSearch && matchesCategory
   })
-  const heroCourse = inProgressCourses[0] || courses[0]
-  const eventReadinessCourse = courses.find(c => c.id === 'event-readiness' || c.id === 'course-1' || c.title.includes('Event Readiness')) || heroCourse
+  const eventReadinessCourse = courses.find(c => c.id === 'event-readiness' || c.id === 'course-1' || c.title.includes('Event Readiness')) || courses[0]
   const eventReadinessProgress = eventReadinessCourse?.progress ?? 0
-  const nextCourse = courses.find(c => c.id === 'core-07') || courses.find(c => c.category === heroCourse.category && c.id !== heroCourse.id) || courses[1]
-  const avgProgress = courses.length > 0 ? Math.round(courses.reduce((acc, c) => acc + c.progress, 0) / courses.length) : 50
+  const eventReadinessCompleted = eventReadinessCourse?.status === 'completed'
   return (
     <div className="space-y-5 pb-6 font-sans">
       {/* Learner Hero Banner with Dynamic Background & Aligned Proportions */}
@@ -163,64 +168,31 @@ export function LearnerDashboard({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
         {/* Card 1: PROGRESS SNAPSHOT */}
         <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
-          {/* Ambient light layers */}
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#87AECE]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
-          <div className="relative z-10 space-y-2">
-            <div className="h-7 flex items-center justify-between gap-2">
-              <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
-                YOUR LEARNING PROGRESS
-              </h3>
-              <span className="inline-flex items-center text-[10px] font-bold text-[#87AECE] bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 shrink-0">
-                Event Readiness
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3.5 my-auto py-1">
-              <div className="relative h-[68px] w-[68px] flex items-center justify-center shrink-0">
-                <svg className="h-[68px] w-[68px] -rotate-90" viewBox="0 0 36 36">
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="15"
-                    fill="none"
-                    stroke="rgba(255, 255, 255, 0.2)"
-                    strokeWidth="3"
-                  />
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="15"
-                    fill="none"
-                    stroke="#87AECE"
-                    strokeWidth="3"
-                    strokeDasharray="94.25"
-                    strokeDashoffset={94.25 * (1 - eventReadinessProgress / 100)}
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <span className="absolute text-base font-extrabold text-white leading-none select-none">
-                  {eventReadinessProgress}%
-                </span>
-              </div>
-
-              <div className="space-y-0.5">
-                <h4 className="text-sm sm:text-base font-bold text-white leading-snug">
-                  {eventReadinessProgress}% course progress
-                </h4>
-                <p className="text-xs text-slate-200 font-medium">
-                  Based on completed learning steps
-                </p>
-                <p className="text-xs text-[#AFD06E] font-semibold">
-                  {completedCorePathwayCourseCount} of {corePathwayCourseCount} Core Pathway courses completed
-                </p>
-              </div>
-
+          <div className="relative z-10 space-y-3">
+            <h3 className="text-xs font-bold text-[#87AECE] tracking-wider uppercase">
+              YOUR LEARNING PROGRESS
+            </h3>
+            <div className="space-y-2.5">
+              {progressCategories.map(({ category, completedCount, totalCount, percentage }) => (
+                <div key={category} className="space-y-1">
+                  <div className="flex items-center justify-between gap-2 text-[11px]">
+                    <span className="font-semibold text-white">{category}</span>
+                    <span className="shrink-0 font-bold text-[#AFD06E]">
+                      {completedCount} / {totalCount} · {percentage}%
+                    </span>
+                  </div>
+                  <div className="h-1.5 w-full rounded-full bg-black/30 overflow-hidden">
+                    <div className="h-full rounded-full bg-[#AFD06E] transition-all" style={{ width: `${percentage}%` }} />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="pt-2 relative z-10">
+          <div className="pt-3 relative z-10">
             <button
               type="button"
               onClick={() => onNavigateMyLearning ? onNavigateMyLearning() : (onNavigateCourses ? onNavigateCourses("all") : setActiveTab('catalog'))}
@@ -232,26 +204,24 @@ export function LearnerDashboard({
           </div>
         </div>
 
-        {/* Card 2: CURRENT COURSE (Gradient Forest Green matching "Leading an event soon") */}
+        {/* Card 2: CURRENT COURSE (Always Event Readiness) */}
         <div className="rounded-2xl bg-gradient-to-br from-[#274818] via-[#386b24] to-[#4d8f31] border border-[#AFD06E]/25 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
-          {/* Ambient light layers */}
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />
           <div className="absolute -bottom-8 left-1/4 w-32 h-32 rounded-full bg-radial from-[#AFD06E]/15 via-transparent to-transparent pointer-events-none blur-xl" />
 
           <div className="relative z-10">
-            {/* Aligned Top Title Row: Title on Left, 'In Progress' Badge on Top Right */}
             <div className="h-7 flex items-center justify-between gap-2">
               <h3 className="text-xs font-bold text-[#AFD06E] tracking-wider uppercase">
                 CURRENT COURSE
               </h3>
               <span className="inline-flex items-center gap-1.5 bg-white text-slate-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-2xs shrink-0">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#386b24]" />
-                In Progress
+                {eventReadinessCompleted ? <CheckCircle weight="fill" className="h-3 w-3 text-[#386b24]" /> : <span className="h-1.5 w-1.5 rounded-full bg-[#386b24]" />}
+                {eventReadinessCompleted ? "Completed" : "In Progress"}
               </span>
             </div>
 
             <h4 className="text-base font-bold text-white leading-snug mt-2">
-              {heroCourse.title}
+              {eventReadinessCourse?.title || "Event Readiness | From “Done” to Participant-Ready"}
             </h4>
           </div>
           <div className="space-y-2.5 pt-2 relative z-10">
@@ -265,14 +235,15 @@ export function LearnerDashboard({
             </div>
             <button
               type="button"
-              onClick={() => onSelectCourse(heroCourse)}
+              onClick={() => eventReadinessCourse && onSelectCourse(eventReadinessCourse)}
               className="w-full py-2 px-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#386b24] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer active:scale-[0.98]"
             >
-              <span>Continue Course</span>
+              <span>{eventReadinessCompleted ? "View Course" : "Continue Course"}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
+
 
         {/* Card 3: NEXT UP (Deep Navy Gradient style matching Card 2) */}
         <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left relative overflow-hidden">

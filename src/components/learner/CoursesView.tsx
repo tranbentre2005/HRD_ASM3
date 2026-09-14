@@ -292,6 +292,7 @@ export function CoursesView({
     const isEventReadiness = course.id === "event-readiness" || course.id === "course-1" || course.title.includes("Event Readiness")
     const isInProgress = course.status === "in-progress"
     const isCompleted = course.status === "completed"
+    const isReviewableCompleted = isEventReadiness && isCompleted
     const isComingSoon = course.status === "coming-soon"
     const isNotStarted = !isComingSoon && !isInProgress && !isCompleted
 
@@ -317,7 +318,7 @@ export function CoursesView({
       <div
         key={course.id}
         className={`group rounded-2xl border ${theme.border} ${theme.bg} transition-all duration-300 flex flex-col justify-between h-full text-left relative overflow-hidden p-5 shadow-2xs ${
-          isInProgress ? "hover:shadow-md hover:-translate-y-1 cursor-pointer" : "cursor-default select-none"
+          isInProgress || isReviewableCompleted ? "hover:shadow-md hover:-translate-y-1 cursor-pointer" : "cursor-default select-none"
         }`}
       >
         {/* Subtle Ambient Radial Bloom in top-right corner that illuminates on hover */}
@@ -387,8 +388,8 @@ export function CoursesView({
             <span>{displayDuration}</span>
           </div>
 
-          {/* Progress row only for an In Progress course */}
-          {isInProgress && (
+          {/* Progress row for the active or reviewable Event Readiness course */}
+          {(isInProgress || isReviewableCompleted) && (
             <div className="space-y-1">
               <div className="flex items-center justify-between text-[11px] text-slate-600">
                 <span className="font-medium">Progress</span>
@@ -405,13 +406,13 @@ export function CoursesView({
 
           {/* CTA or availability message at the bottom */}
           <div className="pt-0.5">
-            {isInProgress ? (
+            {isInProgress || isReviewableCompleted ? (
               <button
                 type="button"
                 onClick={() => onSelectCourse(course)}
                 className="w-full h-9 px-4 rounded-xl bg-[#1D2A62] hover:bg-[#16204a] text-white font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2A62]"
               >
-                <span>Continue Course</span>
+                <span>{isCompleted ? "View Course" : "Continue Course"}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             ) : isCompleted ? (
