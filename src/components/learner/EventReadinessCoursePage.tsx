@@ -1583,13 +1583,17 @@ export function EventReadinessCoursePage({
                             <div>
                               <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                                 <PlayCircle weight="fill" className="h-5 w-5" />
-                                SIMULATION OPENING SCENE
+                                OPENING SCENE
                               </div>
                               <h3 className="mt-3 bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-lg font-bold text-transparent">THE FINAL REHEARSAL</h3>
                               <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done.</p>
                               <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But are they actually ready to work together?</p>
                               <p className="mt-5 text-base leading-relaxed text-slate-600">Your mission is use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
-                              <div className="mt-4 flex justify-end">
+                              <div className="mt-4 flex flex-wrap justify-end gap-2">
+                                <Button type="button" variant="ghost" onClick={() => { setSimulationStarted(false); setSimulationScene(-1) }} className="cursor-pointer text-xs text-[#2F668B] hover:bg-white hover:text-[#1D2A62]">
+                                  <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                  Back to THE FINAL REHEARSAL
+                                </Button>
                                 <Button type="button" onClick={() => setSimulationScene(0)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                                   Next scene
                                   <ArrowRight className="ml-1.5 h-4 w-4" />
@@ -1633,7 +1637,7 @@ export function EventReadinessCoursePage({
                               ) : (
                                 <span />
                               )}
-                              <Button type="button" variant="ghost" onClick={() => setSimulationScene(-1)} className="cursor-pointer text-xs text-[#2F668B] hover:bg-[#F0F7FC] hover:text-[#1D2A62]">
+                              <Button type="button" variant="ghost" onClick={() => { setSimulationStarted(false); setSimulationScene(-1) }} className="cursor-pointer text-xs text-[#2F668B] hover:bg-[#F0F7FC] hover:text-[#1D2A62]">
                                 <ArrowLeft className="mr-1.5 h-4 w-4" />
                                 Back to THE FINAL REHEARSAL
                               </Button>
@@ -1659,7 +1663,7 @@ export function EventReadinessCoursePage({
                           <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But are they actually ready to work together?</p>
                           <p className="mt-5 text-base leading-relaxed text-slate-600">Your mission is use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
                           <div className="mt-4 flex justify-end">
-                            <Button type="button" onClick={() => setSimulationStarted(true)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                            <Button type="button" onClick={() => { setSimulationScene(-1); setSimulationStarted(true) }} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                               Start Simulation
                               <ArrowRight className="ml-1.5 h-4 w-4" />
                             </Button>
