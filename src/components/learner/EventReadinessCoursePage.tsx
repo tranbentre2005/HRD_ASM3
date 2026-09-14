@@ -74,6 +74,45 @@ const READINESS_STATEMENTS: ReadinessStatement[] = [
 const CONNECTION_PARTICIPANT_ORDER = ["Nguyễn Minh Anh", "Trần Gia Hân", "Lê Hoàng Nam"]
 const INITIAL_CONNECTION_SLIDE_ORDER = ["Nguyễn Minh Anh", "Lê Hoàng Nam", "Trần Gia Hân"]
 
+const SIMULATION_SCENES = [
+  {
+    id: "materials",
+    label: "SCENE 1 OF 3",
+    title: "Check the connected materials",
+    description: "Start by checking the materials participants will experience together, not just whether each file exists.",
+    prompt: "The participant list, MC script, and slides must tell the same story.",
+    items: [
+      ["Participant list", "Latest confirmed information"],
+      ["MC script", "Final delivery wording"],
+      ["Slides", "Final participant sequence"]
+    ]
+  },
+  {
+    id: "handoffs",
+    label: "SCENE 2 OF 3",
+    title: "Follow the team hand-offs",
+    description: "Trace what happens when the event moves from one owner to the next, including the moments participants cannot see.",
+    prompt: "A ready event depends on clear ownership, timing, and working hand-offs.",
+    items: [
+      ["Opening", "MC welcomes participants"],
+      ["Handover", "Project Leader cues the next owner"],
+      ["Close", "Final action is clear"]
+    ]
+  },
+  {
+    id: "decision",
+    label: "SCENE 3 OF 3",
+    title: "Make the readiness decision",
+    description: "Use the evidence from the rehearsal to decide whether the full participant-facing sequence is ready to deliver.",
+    prompt: "Done means the work exists. Ready means the connected experience has been verified and tested.",
+    items: [
+      ["Evidence", "Details are verified"],
+      ["Connection", "Assets work together"],
+      ["Decision", "Ready for participants"]
+    ]
+  }
+] as const
+
 
 const OUTLINE_SECTIONS: OutlineSection[] = [
   {
@@ -170,6 +209,7 @@ export function EventReadinessCoursePage({
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
   const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
   const [simulationStarted, setSimulationStarted] = useState(false)
+  const [simulationScene, setSimulationScene] = useState(0)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
   const [isPathwayHovered, setIsPathwayHovered] = useState(false)
   const [readinessPlacements, setReadinessPlacements] = useState<Record<string, ReadinessCategory>>({})
@@ -191,6 +231,8 @@ export function EventReadinessCoursePage({
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
+  const activeSimulationScene = SIMULATION_SCENES[simulationScene]
+  const simulationComplete = simulationStarted && simulationScene === SIMULATION_SCENES.length - 1
   const completedCount = completedLessonIds.length
   const readinessAllPlaced = READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id])
   const readinessAllCorrect = readinessSubmitted && readinessAllPlaced && READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id] === statement.category)
@@ -1534,30 +1576,46 @@ export function EventReadinessCoursePage({
               {activeLesson.id === "1.2-ready-simulation" && (
                 <div className="space-y-5 text-sm leading-relaxed text-slate-700">
                   {simulationStarted ? (
-                    <div className="animate-scene-reveal space-y-5" aria-live="polite">
+                    <div key={activeSimulationScene.id} className="animate-scene-reveal space-y-5" aria-live="polite">
                       <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                        <div className="flex items-center gap-2 font-bold text-[#2F668B]">
-                          <PlayCircle weight="fill" className="h-5 w-5" />
-                          SIMULATION IN PROGRESS
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                          <div className="flex items-center gap-2 font-bold text-[#2F668B]">
+                            <PlayCircle weight="fill" className="h-5 w-5" />
+                            SIMULATION IN PROGRESS
+                          </div>
+                          <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-wide text-[#2F668B] ring-1 ring-[#87AECE]/40">{activeSimulationScene.label}</span>
                         </div>
-                        <h3 className="mt-3 text-xl font-bold text-[#1D2A62]">The Final Rehearsal</h3>
-                        <p className="mt-3 text-base leading-relaxed text-slate-600">Review the participant list, MC script, and slides together before making the final readiness decision.</p>
+                        <h3 className="mt-3 text-xl font-bold text-[#1D2A62]">{activeSimulationScene.title}</h3>
+                        <p className="mt-3 text-base leading-relaxed text-slate-600">{activeSimulationScene.description}</p>
                       </div>
                       <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                        <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">Start with the connected event materials:</p>
+                        <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">{activeSimulationScene.prompt}</p>
                         <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                          {[
-                            ["Participant list", "Latest confirmed information"],
-                            ["MC script", "Final delivery wording"],
-                            ["Slides", "Final participant sequence"]
-                          ].map(([title, detail]) => (
+                          {activeSimulationScene.items.map(([title, detail]) => (
                             <div key={title} className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
                               <p className="font-bold text-[#1D2A62]">{title}</p>
                               <p className="mt-1 text-xs leading-relaxed text-slate-600">{detail}</p>
                             </div>
                           ))}
                         </div>
-                        <p className="mt-5 text-base leading-relaxed text-slate-600">Use the Event Ready Framework to decide what needs attention, what is supported by evidence, and whether the full sequence is ready to work together.</p>
+                        <div className="mt-5 flex items-center justify-between gap-3">
+                          {simulationScene > 0 ? (
+                            <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
+                              <ArrowLeft className="mr-1.5 h-4 w-4" />
+                              Previous scene
+                            </Button>
+                          ) : (
+                            <span />
+                          )}
+                          {simulationScene < SIMULATION_SCENES.length - 1 ? (
+                            <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                              Next scene
+                              <ArrowRight className="ml-1.5 h-4 w-4" />
+                            </Button>
+                          ) : (
+                            <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ) : (
@@ -1658,7 +1716,7 @@ export function EventReadinessCoursePage({
                   ) : (
                     <span />
                   )}
-                  {activeLesson.id !== "1.2-ready-simulation" && (
+                  {(activeLesson.id !== "1.2-ready-simulation" || simulationComplete) && (
                     <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !connectionComplete)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                       {primaryLabel}
                       <ArrowRight className="ml-1.5 h-4 w-4" />
