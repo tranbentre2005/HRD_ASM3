@@ -260,6 +260,15 @@ export function App() {
             course={eventReadinessCourse}
             onNavigateHome={handleGoHome}
             onNavigateCourses={() => handleNavigateToCourses('Core Pathway')}
+            onNavigateMyLearning={() => {
+              setActiveCourseId(null)
+              setSelectedAnnouncementId(null)
+              setCurrentPage('my-learning')
+              setLearnerTab('my-courses')
+              setIsEventReadinessRoute(false)
+              window.history.pushState({}, '', '/')
+              window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+            }}
             onProgressChange={handleEventReadinessProgress}
           />
         ) : activeCourse ? (

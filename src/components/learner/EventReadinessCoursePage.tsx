@@ -32,6 +32,7 @@ interface EventReadinessCoursePageProps {
   course: Course
   onNavigateHome: () => void
   onNavigateCourses: () => void
+  onNavigateMyLearning: () => void
   onProgressChange?: (progress: number) => void
 }
 
@@ -208,6 +209,7 @@ export function EventReadinessCoursePage({
   course,
   onNavigateHome,
   onNavigateCourses,
+  onNavigateMyLearning,
   onProgressChange
 }: EventReadinessCoursePageProps) {
   const initialState = useMemo(() => getSavedCourseState(), [])
@@ -284,9 +286,9 @@ export function EventReadinessCoursePage({
   }, [progress])
   useEffect(() => {
     if (!feedbackSubmitted) return
-    const redirectTimer = window.setTimeout(() => onNavigateCourses(), 15000)
+    const redirectTimer = window.setTimeout(() => onNavigateMyLearning(), 15000)
     return () => window.clearTimeout(redirectTimer)
-  }, [feedbackSubmitted, onNavigateCourses])
+  }, [feedbackSubmitted, onNavigateMyLearning])
 
   useEffect(() => {
     setViewedLessonIds(previous => previous.includes(activeLesson.id) ? previous : [...previous, activeLesson.id])
@@ -1792,9 +1794,32 @@ export function EventReadinessCoursePage({
               {activeLesson.id === "4.0-course-feedback" && (
                 feedbackSubmitted ? (
                   <div className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5" aria-live="polite">
-                    <h3 className="text-xl font-bold text-[#437118]">Thank you for your feedback.</h3>
-                    <p className="mt-3 text-base font-semibold text-[#1D2A62]">You’ve completed Event Readiness.course</p>
-                    <p className="mt-2 text-sm text-slate-600">Returning to Courses in 15 seconds.</p>
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#437118] shadow-sm ring-1 ring-[#AFD06E]/50">
+                        <CheckCircle weight="fill" className="h-7 w-7" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-[#437118]">Thank you for your feedback.</h3>
+                        <p className="mt-2 text-base font-semibold text-[#1D2A62]">You’ve completed Event Readiness course</p>
+                      </div>
+                    </div>
+                    <div className="mt-6 rounded-2xl border border-[#AFD06E]/40 bg-white/80 p-5">
+                      <h4 className="text-base font-bold text-[#1D2A62]">Before Your Next Rehearsal</h4>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-700">Keep the 3-Minute Event Readiness Checklist handy when you need to make a final readiness decision.</p>
+                      <p className="mt-4 text-sm font-semibold leading-relaxed text-[#1D2A62]">Use the same three questions whenever you need to make a readiness decision:</p>
+                      <div className="mt-4 space-y-2 text-sm leading-relaxed text-slate-700">
+                        <p><span className="font-bold text-[#437118]">IMPACT</span> — What matters most?</p>
+                        <p><span className="font-bold text-[#437118]">EVIDENCE</span> — What proves it is correct?</p>
+                        <p><span className="font-bold text-[#437118]">CONNECTION</span> — Does it work together?</p>
+                      </div>
+                    </div>
+                    <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <p className="text-xs text-slate-500">Returning automatically in 15 seconds.</p>
+                      <Button type="button" onClick={onNavigateMyLearning} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                        Return to My Learning
+                        <ArrowRight className="ml-1.5 h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   <div className="space-y-8">
