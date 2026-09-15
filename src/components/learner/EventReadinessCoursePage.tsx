@@ -344,6 +344,7 @@ export function EventReadinessCoursePage({
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
   const [checklistFields, setChecklistFields] = useState<Record<string, string>>({})
   const [checklistChecks, setChecklistChecks] = useState<Record<string, boolean>>({})
+  const [checklistOpen, setChecklistOpen] = useState(false)
   const [assessmentSubmitted, setAssessmentSubmitted] = useState(initialState.assessmentSubmitted)
   const [assessmentReviewOpen, setAssessmentReviewOpen] = useState(false)
 
@@ -638,6 +639,12 @@ export function EventReadinessCoursePage({
   const handleReadinessPlacement = (statementId: string, category: ReadinessCategory) => {
     setReadinessPlacements(previous => ({ ...previous, [statementId]: category }))
     setReadinessSubmitted(false)
+  }
+  const handleChecklistOpen = () => {
+    setChecklistOpen(true)
+    window.requestAnimationFrame(() => {
+      document.getElementById("event-readiness-checklist-form")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    })
   }
 
   const handleReadinessDrop = (event: React.DragEvent<HTMLDivElement>, category: ReadinessCategory) => {
@@ -2248,8 +2255,8 @@ export function EventReadinessCoursePage({
                     </div>
                   </div>
                   </div>
-                  <div id="event-readiness-checklist" className="space-y-5 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
-                    <h4 className="text-center text-lg font-extrabold text-[#1D2A62]">Your Tools</h4>
+                  <div id="event-readiness-checklist" className="space-y-5 rounded-2xl border border-[#AFD06E]/50 bg-gradient-to-br from-[#EEF7E8] via-white to-[#F0F7FC] p-5">
+                    <h4 className="text-center text-lg font-extrabold uppercase text-[#1D2A62]">YOUR TOOLS</h4>
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC] p-4">
                         <div className="flex items-start gap-3">
@@ -2261,8 +2268,8 @@ export function EventReadinessCoursePage({
                             <p className="mt-1 text-sm leading-relaxed text-slate-600">Your take-away tool for final rehearsal and sign-off.</p>
                           </div>
                         </div>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          <a href="#event-readiness-checklist-form" className="inline-flex h-10 items-center justify-center rounded-lg border border-[#2F668B] bg-white px-4 py-2 text-sm font-medium text-[#2F668B] shadow-sm transition-colors hover:bg-[#F0F7FC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F668B] focus-visible:ring-offset-2">Open Checklist</a>
+                        <div className="mt-4 flex flex-wrap justify-center gap-2">
+                          <button type="button" onClick={handleChecklistOpen} aria-expanded={checklistOpen} className="inline-flex h-10 items-center justify-center rounded-lg border border-[#2F668B] bg-white px-4 py-2 text-sm font-medium text-[#2F668B] shadow-sm transition-colors hover:bg-[#F0F7FC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F668B] focus-visible:ring-offset-2">Open Checklist</button>
                           <Button type="button" onClick={handleChecklistDownloadPdf} disabled={!checklistHasContent} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] disabled:cursor-not-allowed disabled:opacity-50">Download PDF</Button>
                         </div>
                       </div>
@@ -2276,7 +2283,7 @@ export function EventReadinessCoursePage({
                             <p className="mt-1 text-sm leading-relaxed text-slate-600">Event Planning Checklist · Risk Management · Task Allocation Board</p>
                           </div>
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-4 flex justify-center">
                           <a href="https://rmiteduau-my.sharepoint.com/:f:/g/personal/s4063545_rmit_edu_vn/IgDxRh5pupKaRL_0n7tpIJmwAd17HHL2UKdpAGAvvEenSkg?e=Y4ZQ76" target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-[#386B24] px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-[#274818] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#386B24] focus-visible:ring-offset-2">
                             Open Event Toolkit
                             <ArrowRight className="h-4 w-4" />
@@ -2284,6 +2291,8 @@ export function EventReadinessCoursePage({
                         </div>
                       </div>
                     </div>
+                    {checklistOpen && (
+                      <>
                     <div id="event-readiness-checklist-form" className="border-t border-[#AFD06E]/50 pt-5">
                       <p className="text-sm font-semibold text-[#1D2A62]">Complete the checklist below.</p>
                     </div>
@@ -2418,6 +2427,8 @@ export function EventReadinessCoursePage({
                         </label>
                       </div>
                     </div>
+                      </>
+                    )}
                   </div>
                 </div>
               )}
