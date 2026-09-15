@@ -2106,18 +2106,28 @@ export function EventReadinessCoursePage({
 
 
               {activeLesson.id === "3.0-event-check" && (
-                <div className="space-y-4 text-sm leading-relaxed text-slate-700">
-                  <p>Run this three-minute check immediately before your final briefing:</p>
-                  {[
-                    "Can a participant find the right time, location, and next step?",
-                    "Have the critical details been checked against the latest reliable source?",
-                    "Can the team explain what happens when the expected flow changes?"
-                  ].map(checkItem => (
-                    <div key={checkItem} className="flex items-start gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
-                      <CheckCircle weight="fill" className="mt-0.5 h-4 w-4 shrink-0 text-[#437118]" />
-                      <span>{checkItem}</span>
+                <div className="space-y-7 text-sm leading-relaxed text-slate-700">
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-extrabold text-[#1D2A62]">What should you take away?</h3>
+                    <p>Event readiness is not about checking more things. It is about making better readiness decisions before the event goes live.</p>
+                  </div>
+                  <div className="space-y-4">
+                    <h4 className="text-lg font-extrabold text-[#1D2A62]">Three shifts to take into your next event</h4>
+                    <div className="grid gap-4 md:grid-cols-3">
+                      <div className="rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                        <p className="text-base font-extrabold text-[#437118]">From Done → to Ready</p>
+                        <p className="mt-3">Don’t stop at completion. Look for evidence that the live outcome can be trusted.</p>
+                      </div>
+                      <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC] p-5">
+                        <p className="text-base font-extrabold text-[#2F668B]">From checking parts → to testing the experience</p>
+                        <p className="mt-3">Test how critical elements work together, not only whether each one works alone.</p>
+                      </div>
+                      <div className="rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
+                        <p className="text-base font-extrabold text-[#A66C00]">From finding problems → to resolving them early</p>
+                        <p className="mt-3">Use rehearsal to find, fix and re-test issues before they reach participants.</p>
+                      </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               )}
 
