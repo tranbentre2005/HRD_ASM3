@@ -2150,16 +2150,16 @@ export function EventReadinessCoursePage({
                       <p className="mt-4 text-sm font-semibold leading-relaxed text-[#1D2A62]">Use these three questions whenever you need to make a readiness decision:</p>
                       <div className="mt-4 grid gap-3 sm:grid-cols-3">
                         <div className="rounded-2xl border border-[#AFD06E]/35 bg-[#EEF7E8] p-4">
-                          <p className="font-bold text-[#437118]">IMPACT — What matters most?</p>
-                          <p className="mt-2 text-xs leading-relaxed text-slate-600">Tells you where to focus.</p>
+                          <p className="font-bold text-[#437118]">IMPACT: What matters most?</p>
+                          <p className="mt-2 text-xs italic leading-relaxed text-slate-600">Tells you where to focus.</p>
                         </div>
                         <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
-                          <p className="font-bold text-[#2F668B]">EVIDENCE — What proves it is correct?</p>
-                          <p className="mt-2 text-xs leading-relaxed text-slate-600">Tells you what to trust.</p>
+                          <p className="font-bold text-[#2F668B]">EVIDENCE: What proves it is correct?</p>
+                          <p className="mt-2 text-xs italic leading-relaxed text-slate-600">Tells you what to trust.</p>
                         </div>
                         <div className="rounded-2xl border border-[#F3C979]/45 bg-[#FFF7E5] p-4">
-                          <p className="font-bold text-[#A66C00]">CONNECTION — Does it work together?</p>
-                          <p className="mt-2 text-xs leading-relaxed text-slate-600">Tells you whether the sequence will work in practice.</p>
+                          <p className="font-bold text-[#A66C00]">CONNECTION: Does it work together?</p>
+                          <p className="mt-2 text-xs italic leading-relaxed text-slate-600">Tells you whether the sequence will work in practice.</p>
                         </div>
                       </div>
                     </div>
