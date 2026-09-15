@@ -2228,21 +2228,21 @@ export function EventReadinessCoursePage({
                         <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/80 text-[#437118] ring-1 ring-black/5">
                           <CheckCircle weight="fill" className="h-5 w-5" />
                         </div>
-                        <p className="text-base font-extrabold text-[#437118]">From Done → to Ready</p>
+                        <p className="text-base font-extrabold text-[#437118]">From Done → Ready</p>
                         <p className="mt-3">Don’t stop at completion. Look for evidence that the live outcome can be trusted.</p>
                       </div>
                       <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC] p-5">
                         <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/80 text-[#2F668B] ring-1 ring-black/5">
                           <LinkSimple weight="bold" className="h-5 w-5" />
                         </div>
-                        <p className="text-base font-extrabold text-[#2F668B]">From checking parts → to testing the experience</p>
+                        <p className="text-base font-extrabold text-[#2F668B]">From checking parts → testing the experience</p>
                         <p className="mt-3">Test how critical elements work together, not only whether each one works alone.</p>
                       </div>
                       <div className="rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
                         <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/80 text-[#A66C00] ring-1 ring-black/5">
                           <ShieldCheck weight="fill" className="h-5 w-5" />
                         </div>
-                        <p className="text-base font-extrabold text-[#A66C00]">From finding problems → to resolving them early</p>
+                        <p className="text-base font-extrabold text-[#A66C00]">From finding problems → resolving them early</p>
                         <p className="mt-3">Use rehearsal to find, fix and re-test issues before they reach participants.</p>
                       </div>
                     </div>
