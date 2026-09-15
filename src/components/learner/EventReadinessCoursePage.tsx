@@ -2112,7 +2112,7 @@ export function EventReadinessCoursePage({
                     <p>Event readiness is not about checking more things. It is about making better readiness decisions before the event goes live.</p>
                   </div>
                   <div className="space-y-4">
-                    <h4 className="text-lg font-extrabold text-[#1D2A62]">Three shifts to take into your next event</h4>
+                    <h4 className="text-center text-lg font-extrabold uppercase text-[#1D2A62]">Three shifts to take into your next event</h4>
                     <div className="grid gap-4 md:grid-cols-3">
                       <div className="rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
                         <p className="text-base font-extrabold text-[#437118]">From Done → to Ready</p>
