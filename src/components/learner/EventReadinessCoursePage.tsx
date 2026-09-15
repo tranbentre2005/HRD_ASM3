@@ -1928,8 +1928,7 @@ export function EventReadinessCoursePage({
                   ) : (
                     <div className="space-y-7">
                       <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC] p-5">
-                        <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#2F668B]">RESULT: {assessmentScore} / 5</p>
-                        <h3 className="mt-3 text-3xl font-extrabold text-[#1D2A62]">YOUR RESULT</h3>
+                        <h3 className="text-3xl font-extrabold text-[#1D2A62]">YOUR RESULT</h3>
                         {assessmentScore === 5 ? (
                           <>
                             <p className="mt-5 text-xl font-extrabold text-[#437118]">5 / 5</p>
