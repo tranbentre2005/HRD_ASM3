@@ -1899,7 +1899,7 @@ export function EventReadinessCoursePage({
                           const correctOption = question.options.find(option => option.id === question.correctOption)
                           const isCorrect = assessmentAnswers[index] === question.correctOption
                           return (
-                            <div key={question.prompt} className="rounded-2xl border border-slate-200 bg-white p-5">
+                            <div key={question.prompt} className={`rounded-2xl border p-5 ${index % 2 === 0 ? "border-[#87AECE]/45 bg-[#F0F7FC]" : "border-[#AFD06E]/50 bg-[#EEF7E8]"}`}>
                               <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#437118]">Question {index + 1}</p>
                               <h4 className="mt-2 text-base font-bold leading-relaxed text-[#1D2A62]">{question.prompt}</h4>
                               <p className="mt-4 text-sm font-semibold text-slate-700">Your answer:</p>
