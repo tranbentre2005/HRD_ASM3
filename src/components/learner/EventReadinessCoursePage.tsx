@@ -392,7 +392,7 @@ export function EventReadinessCoursePage({
   }, [progress])
   useEffect(() => {
     if (!feedbackSubmitted) return
-    const redirectTimer = window.setTimeout(() => onNavigateMyLearning(), 15000)
+    const redirectTimer = window.setTimeout(() => onNavigateMyLearning(), 30000)
     return () => window.clearTimeout(redirectTimer)
   }, [feedbackSubmitted, onNavigateMyLearning])
 
@@ -2154,7 +2154,7 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                     <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-                      <p className="text-xs text-slate-500">Returning automatically in 15 seconds.</p>
+                      <p className="text-xs text-slate-500">Returning automatically in 30 seconds.</p>
                       <Button type="button" onClick={onNavigateMyLearning} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                         Return to My Learning
                         <ArrowRight className="ml-1.5 h-4 w-4" />
