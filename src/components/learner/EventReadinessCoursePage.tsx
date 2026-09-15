@@ -638,6 +638,9 @@ export function EventReadinessCoursePage({
   const handleFeedbackSubmit = () => {
     markComplete(activeLesson.id)
     setFeedbackSubmitted(true)
+    window.requestAnimationFrame(() => {
+      document.getElementById("feedback-results")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    })
   }
   const handleReadinessPlacement = (statementId: string, category: ReadinessCategory) => {
     setReadinessPlacements(previous => ({ ...previous, [statementId]: category }))
@@ -2438,7 +2441,7 @@ export function EventReadinessCoursePage({
 
               {activeLesson.id === "4.0-course-feedback" && (
                 feedbackSubmitted ? (
-                  <div className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5" aria-live="polite">
+                  <div id="feedback-results" className="scroll-mt-6 animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5" aria-live="polite">
                     <div className="flex items-start gap-4">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#437118] shadow-sm ring-1 ring-[#AFD06E]/50">
                         <CheckCircle weight="fill" className="h-7 w-7" />
