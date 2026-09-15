@@ -537,11 +537,10 @@ export function EventReadinessCoursePage({
       readyCallNotReady: call === "notReady" ? checked : false
     }))
   }
-  const handleChecklistDownload = () => {
+  const getChecklistText = () => {
     const mark = (check: string) => checklistChecks[check] ? "☒" : "☐"
-    const checklistText = [
+    return [
       "EVENT READINESS CHECKLIST",
-      "Use before final rehearsal or before signing off a participant-facing sequence.",
       `Event / Sequence: ${checklistFields.eventSequence || ""}`,
       `Project Leader: ${checklistFields.projectLeader || ""}`,
       `Date: ${checklistFields.date || ""}`,
@@ -579,13 +578,62 @@ export function EventReadinessCoursePage({
       `Next action: ${checklistFields.finalNextAction || ""}`,
       `Re-check by: ${checklistFields.recheckBy || ""}`
     ].join("\n")
-    const blob = new Blob([checklistText], { type: "text/plain;charset=utf-8" })
-    const url = URL.createObjectURL(blob)
+  }
+  const downloadFile = (content: BlobPart, type: string, filename: string) => {
+    const url = URL.createObjectURL(new Blob([content], { type }))
     const link = document.createElement("a")
     link.href = url
-    link.download = "event-readiness-checklist.txt"
+    link.download = filename
+    document.body.appendChild(link)
     link.click()
+    link.remove()
     window.setTimeout(() => URL.revokeObjectURL(url), 0)
+  }
+  const handleChecklistDownloadWord = () => {
+    const escapedText = getChecklistText().replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character] || character)
+    const wordDocument = `<html xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="utf-8"></head><body><pre style="font-family:Arial,sans-serif;white-space:pre-wrap">${escapedText}</pre></body></html>`
+    downloadFile(wordDocument, "application/msword;charset=utf-8", "event-readiness-checklist.doc")
+  }
+  const handleChecklistDownloadPdf = () => {
+    const pdfText = getChecklistText().replace(/☒/g, "[x]").replace(/☐/g, "[ ]").replace(/→/g, "->")
+    const lines = pdfText.split("\n")
+    const linesPerPage = 48
+    const pageCount = Math.max(1, Math.ceil(lines.length / linesPerPage))
+    const objects: string[] = []
+    objects[1] = `<< /Type /Catalog /Pages 2 0 R >>`
+    objects[3] = `<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>`
+    const pageReferences: string[] = []
+    for (let pageIndex = 0; pageIndex < pageCount; pageIndex += 1) {
+      const pageNumber = 4 + pageIndex * 2
+      const contentNumber = pageNumber + 1
+      const pageLines = lines.slice(pageIndex * linesPerPage, (pageIndex + 1) * linesPerPage)
+      const stream = [
+        "BT",
+        "/F1 10 Tf",
+        "50 760 Td",
+        "13 TL",
+        ...pageLines.map(line => `(${line.replace(/([\\()])/g, "\\$1")}) Tj\nT*`),
+        "ET"
+      ].join("\n")
+      objects[pageNumber] = `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents ${contentNumber} 0 R >>`
+      objects[contentNumber] = `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`
+      pageReferences.push(`${pageNumber} 0 R`)
+    }
+    objects[2] = `<< /Type /Pages /Kids [${pageReferences.join(" ")}] /Count ${pageCount} >>`
+    let pdf = "%PDF-1.4\n"
+    const offsets: number[] = [0]
+    for (let index = 1; index < objects.length; index += 1) {
+      if (!objects[index]) continue
+      offsets[index] = pdf.length
+      pdf += `${index} 0 obj\n${objects[index]}\nendobj\n`
+    }
+    const xrefOffset = pdf.length
+    pdf += `xref\n0 ${objects.length}\n0000000000 65535 f \n`
+    for (let index = 1; index < objects.length; index += 1) {
+      pdf += `${String(offsets[index] || 0).padStart(10, "0")} 00000 n \n`
+    }
+    pdf += `trailer\n<< /Size ${objects.length} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`
+    downloadFile(pdf, "application/pdf", "event-readiness-checklist.pdf")
   }
   const handleFeedbackSubmit = () => {
     markComplete(activeLesson.id)
@@ -2193,16 +2241,9 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                   </div>
-                  <div className="space-y-5 rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <h4 className="text-lg font-extrabold text-[#1D2A62]">EVENT READINESS CHECKLIST</h4>
-                        <p className="mt-2 text-sm leading-relaxed text-slate-600">Use before final rehearsal or before signing off a participant-facing sequence.</p>
-                      </div>
-                      <Button type="button" variant="outline" onClick={handleChecklistDownload} className="shrink-0 cursor-pointer bg-white">
-                        <FileText className="mr-1.5 h-4 w-4" />
-                        Download Checklist
-                      </Button>
+                  <div className="space-y-5 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                    <div>
+                      <h4 className="text-center text-lg font-extrabold text-[#1D2A62]">EVENT READINESS CHECKLIST</h4>
                     </div>
 
                     <div className="grid gap-3 sm:grid-cols-3">
@@ -2219,15 +2260,15 @@ export function EventReadinessCoursePage({
                     </div>
 
                     <div className="space-y-4">
-                      <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-4">
-                        <h5 className="font-extrabold text-[#437118]">1. IMPACT</h5>
+                      <div className="rounded-2xl border border-[#87AECE]/40 bg-white p-4">
+                        <h5 className="font-extrabold text-[#2F668B]">1. IMPACT</h5>
                         <label className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-slate-700">
-                          <input type="checkbox" checked={Boolean(checklistChecks.impact)} onChange={event => updateChecklistCheck("impact", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#437118]" />
+                          <input type="checkbox" checked={Boolean(checklistChecks.impact)} onChange={event => updateChecklistCheck("impact", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#2F668B]" />
                           <span>We have identified all elements most likely to affect participants or live delivery if they fail.</span>
                         </label>
                         <label className="mt-3 block text-xs font-bold text-[#1D2A62]">
                           <span>Critical element(s):</span>
-                          <input type="text" value={checklistFields.criticalElements || ""} onChange={event => updateChecklistField("criticalElements", event.target.value)} className="mt-1.5 w-full rounded-lg border border-[#AFD06E]/50 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#437118] focus:ring-2 focus:ring-[#AFD06E]/30" />
+                          <input type="text" value={checklistFields.criticalElements || ""} onChange={event => updateChecklistField("criticalElements", event.target.value)} className="mt-1.5 w-full rounded-lg border border-[#87AECE]/50 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#2F668B] focus:ring-2 focus:ring-[#87AECE]/30" />
                         </label>
                       </div>
 
@@ -2336,6 +2377,16 @@ export function EventReadinessCoursePage({
                         </label>
                       </div>
                     </div>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-3 pt-1">
+                    <Button type="button" variant="outline" onClick={handleChecklistDownloadWord} className="cursor-pointer bg-white">
+                      <FileText className="mr-1.5 h-4 w-4" />
+                      Download Word (.doc)
+                    </Button>
+                    <Button type="button" onClick={handleChecklistDownloadPdf} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                      <FileText className="mr-1.5 h-4 w-4" />
+                      Download PDF
+                    </Button>
                   </div>
                 </div>
               )}
