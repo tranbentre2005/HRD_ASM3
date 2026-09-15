@@ -1846,8 +1846,8 @@ export function EventReadinessCoursePage({
                     </div>
 
                     <div className="space-y-4 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
-                      <p className="text-base font-bold leading-relaxed text-[#1D2A62]">2. How useful would the Impact–Evidence–Connection checks be during real event preparation?</p>
-                      <div role="radiogroup" aria-label="Usefulness of Impact Evidence Connection checks" className="space-y-2">
+                      <p className="text-base font-bold leading-relaxed text-[#1D2A62]">2. How useful would the Event Ready Framework be during real event preparation?</p>
+                      <div role="radiogroup" aria-label="Usefulness of Event Ready Framework" className="space-y-2">
                         {["Very useful", "Useful", "Somewhat useful", "Not useful yet"].map(option => (
                           <button key={option} type="button" role="radio" aria-checked={feedbackUsefulness === option} onClick={() => setFeedbackUsefulness(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackUsefulness === option ? "border-[#437118] bg-white text-[#1D2A62] ring-1 ring-[#437118]" : "border-[#AFD06E]/50 bg-white/80 text-slate-700 hover:bg-white"}`}>
                             <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${feedbackUsefulness === option ? "border-[#437118] bg-[#437118] text-white" : "border-[#AFD06E]"}`}>{feedbackUsefulness === option ? <Check className="h-3.5 w-3.5" /> : ""}</span>
@@ -1860,13 +1860,17 @@ export function EventReadinessCoursePage({
                     <div className="space-y-4 rounded-2xl border border-[#D8B457]/60 bg-[#FFF9E9] p-5">
                       <p className="text-base font-bold leading-relaxed text-[#1D2A62]">3. Which resource are you most likely to use at your next event?</p>
                       <div role="radiogroup" aria-label="Resource most likely to use at next event" className="space-y-2">
-                        {["Impact–Evidence–Connection questions", "3-Minute Event Readiness Check", "Both", "I’m not sure yet"].map(option => (
+                        {["Impact–Evidence–Connection rules", "3-Minute Event Readiness Checklist", "Both", "I’m not sure yet"].map(option => (
                           <button key={option} type="button" role="radio" aria-checked={feedbackTransfer === option} onClick={() => setFeedbackTransfer(option)} className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${feedbackTransfer === option ? "border-[#8B5E00] bg-white text-[#1D2A62] ring-1 ring-[#8B5E00]" : "border-[#D8B457]/60 bg-white/80 text-slate-700 hover:bg-white"}`}>
                             <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${feedbackTransfer === option ? "border-[#8B5E00] bg-[#8B5E00] text-white" : "border-[#D8B457]"}`}>{feedbackTransfer === option ? <Check className="h-3.5 w-3.5" /> : ""}</span>
                             <span>{option}</span>
                           </button>
                         ))}
                       </div>
+                    </div>
+                    <div className="space-y-5 rounded-2xl border border-[#B9A4E8]/60 bg-[#F6F2FF] p-5">
+                      <label htmlFor="feedback-open-response" className="block text-base font-bold leading-relaxed text-[#1D2A62]">What is one thing that would make this training more useful for a real Finance Club event?</label>
+                      <textarea id="feedback-open-response" value={feedbackOpenResponse} onChange={event => setFeedbackOpenResponse(event.target.value)} className="min-h-28 w-full rounded-xl border border-[#B9A4E8]/60 bg-white p-3 text-sm font-normal text-slate-700 outline-none transition focus:border-[#6B4C9A] focus:ring-2 focus:ring-[#B9A4E8]/30" placeholder="Enter your response here..." />
                     </div>
                     <div className="rounded-2xl border border-[#E7A27A]/60 bg-[#FFF4EA] p-5 text-center">
                       <p className="text-base font-bold text-[#1D2A62]">How would you rate your overall learning experience?</p>
