@@ -342,6 +342,8 @@ export function EventReadinessCoursePage({
   const [feedbackOpenResponse, setFeedbackOpenResponse] = useState(initialState.feedbackOpenResponse)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
+  const [checklistFields, setChecklistFields] = useState<Record<string, string>>({})
+  const [checklistChecks, setChecklistChecks] = useState<Record<string, boolean>>({})
   const [assessmentSubmitted, setAssessmentSubmitted] = useState(initialState.assessmentSubmitted)
   const [assessmentReviewOpen, setAssessmentReviewOpen] = useState(false)
 
@@ -521,6 +523,69 @@ export function EventReadinessCoursePage({
         lessonCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
       })
     }
+  }
+  const updateChecklistField = (field: string, value: string) => {
+    setChecklistFields(previous => ({ ...previous, [field]: value }))
+  }
+  const updateChecklistCheck = (check: string, checked: boolean) => {
+    setChecklistChecks(previous => ({ ...previous, [check]: checked }))
+  }
+  const handleReadyCallChange = (call: "ready" | "notReady", checked: boolean) => {
+    setChecklistChecks(previous => ({
+      ...previous,
+      readyCallReady: call === "ready" ? checked : false,
+      readyCallNotReady: call === "notReady" ? checked : false
+    }))
+  }
+  const handleChecklistDownload = () => {
+    const mark = (check: string) => checklistChecks[check] ? "☒" : "☐"
+    const checklistText = [
+      "EVENT READINESS CHECKLIST",
+      "Use before final rehearsal or before signing off a participant-facing sequence.",
+      `Event / Sequence: ${checklistFields.eventSequence || ""}`,
+      `Project Leader: ${checklistFields.projectLeader || ""}`,
+      `Date: ${checklistFields.date || ""}`,
+      "",
+      "1. IMPACT",
+      `${mark("impact")} We have identified all elements most likely to affect participants or live delivery if they fail.`,
+      `Critical element(s): ${checklistFields.criticalElements || ""}`,
+      "",
+      "2. EVIDENCE",
+      `${mark("evidenceCurrent")} Critical information has been checked against the current, reliable source.`,
+      `${mark("evidenceVersion")} The team is working from the final/current version of critical materials.`,
+      `Evidence/source checked: ${checklistFields.evidenceSource || ""}`,
+      "",
+      "3. OWNERSHIP",
+      `${mark("ownership")} Every unresolved critical issue has a clear owner and next action.`,
+      `Owner: ${checklistFields.owner || ""}`,
+      `Next action: ${checklistFields.nextAction || ""}`,
+      "",
+      "4. CONNECTION",
+      `${mark("connectionEndToEnd")} Critical handoffs have been tested end-to-end using final materials.`,
+      `${mark("connectionSetup")} Where relevant, the sequence has been tested in the actual event setup or conditions.`,
+      `What was tested: ${checklistFields.whatWasTested || ""}`,
+      "",
+      "5. SUPPORT",
+      `${mark("support")} No high-impact issue remains unresolved without a clear decision or escalation.`,
+      `If support is needed: ${checklistFields.supportNeeded || ""}`,
+      `Escalate to: ${checklistFields.escalateTo || ""}`,
+      `Decision needed: ${checklistFields.decisionNeeded || ""}`,
+      "",
+      "FINAL READY CALL",
+      `${mark("readyCallReady")} READY: The critical elements are verified, owned and tested well enough to proceed.`,
+      `${mark("readyCallNotReady")} NOT READY YET: A critical issue still needs action before sign-off.`,
+      `Issue: ${checklistFields.issue || ""}`,
+      `Owner: ${checklistFields.finalOwner || ""}`,
+      `Next action: ${checklistFields.finalNextAction || ""}`,
+      `Re-check by: ${checklistFields.recheckBy || ""}`
+    ].join("\n")
+    const blob = new Blob([checklistText], { type: "text/plain;charset=utf-8" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.download = "event-readiness-checklist.txt"
+    link.click()
+    window.setTimeout(() => URL.revokeObjectURL(url), 0)
   }
   const handleFeedbackSubmit = () => {
     markComplete(activeLesson.id)
@@ -2125,6 +2190,150 @@ export function EventReadinessCoursePage({
                       <div className="rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
                         <p className="text-base font-extrabold text-[#A66C00]">From finding problems → to resolving them early</p>
                         <p className="mt-3">Use rehearsal to find, fix and re-test issues before they reach participants.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-5 rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <h4 className="text-lg font-extrabold text-[#1D2A62]">EVENT READINESS CHECKLIST</h4>
+                        <p className="mt-2 text-sm leading-relaxed text-slate-600">Use before final rehearsal or before signing off a participant-facing sequence.</p>
+                      </div>
+                      <Button type="button" variant="outline" onClick={handleChecklistDownload} className="shrink-0 cursor-pointer bg-white">
+                        <FileText className="mr-1.5 h-4 w-4" />
+                        Download Checklist
+                      </Button>
+                    </div>
+
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      {[
+                        ["eventSequence", "Event / Sequence:", "Enter event or sequence"],
+                        ["projectLeader", "Project Leader:", "Enter project leader"],
+                        ["date", "Date:", ""]
+                      ].map(([field, label, placeholder]) => (
+                        <label key={field} className="space-y-1.5 text-xs font-bold text-[#1D2A62]">
+                          <span>{label}</span>
+                          <input type={field === "date" ? "date" : "text"} value={checklistFields[field] || ""} onChange={event => updateChecklistField(field, event.target.value)} placeholder={placeholder} className="w-full rounded-lg border border-[#87AECE]/50 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#2F668B] focus:ring-2 focus:ring-[#87AECE]/30" />
+                        </label>
+                      ))}
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="rounded-2xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-4">
+                        <h5 className="font-extrabold text-[#437118]">1. IMPACT</h5>
+                        <label className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-slate-700">
+                          <input type="checkbox" checked={Boolean(checklistChecks.impact)} onChange={event => updateChecklistCheck("impact", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#437118]" />
+                          <span>We have identified all elements most likely to affect participants or live delivery if they fail.</span>
+                        </label>
+                        <label className="mt-3 block text-xs font-bold text-[#1D2A62]">
+                          <span>Critical element(s):</span>
+                          <input type="text" value={checklistFields.criticalElements || ""} onChange={event => updateChecklistField("criticalElements", event.target.value)} className="mt-1.5 w-full rounded-lg border border-[#AFD06E]/50 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#437118] focus:ring-2 focus:ring-[#AFD06E]/30" />
+                        </label>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#87AECE]/40 bg-[#F0F7FC] p-4">
+                        <h5 className="font-extrabold text-[#2F668B]">2. EVIDENCE</h5>
+                        <div className="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
+                          <label className="flex items-start gap-2">
+                            <input type="checkbox" checked={Boolean(checklistChecks.evidenceCurrent)} onChange={event => updateChecklistCheck("evidenceCurrent", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#2F668B]" />
+                            <span>Critical information has been checked against the current, reliable source.</span>
+                          </label>
+                          <label className="flex items-start gap-2">
+                            <input type="checkbox" checked={Boolean(checklistChecks.evidenceVersion)} onChange={event => updateChecklistCheck("evidenceVersion", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#2F668B]" />
+                            <span>The team is working from the final/current version of critical materials.</span>
+                          </label>
+                        </div>
+                        <label className="mt-3 block text-xs font-bold text-[#1D2A62]">
+                          <span>Evidence/source checked:</span>
+                          <input type="text" value={checklistFields.evidenceSource || ""} onChange={event => updateChecklistField("evidenceSource", event.target.value)} className="mt-1.5 w-full rounded-lg border border-[#87AECE]/50 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#2F668B] focus:ring-2 focus:ring-[#87AECE]/30" />
+                        </label>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#B9A4E8]/60 bg-[#F6F2FF] p-4">
+                        <h5 className="font-extrabold text-[#6B4C9A]">3. OWNERSHIP</h5>
+                        <label className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-slate-700">
+                          <input type="checkbox" checked={Boolean(checklistChecks.ownership)} onChange={event => updateChecklistCheck("ownership", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#6B4C9A]" />
+                          <span>Every unresolved critical issue has a clear owner and next action.</span>
+                        </label>
+                        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                          <label className="block text-xs font-bold text-[#1D2A62]">
+                            <span>Owner:</span>
+                            <input type="text" value={checklistFields.owner || ""} onChange={event => updateChecklistField("owner", event.target.value)} className="mt-1.5 w-full rounded-lg border border-[#B9A4E8]/60 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#6B4C9A] focus:ring-2 focus:ring-[#B9A4E8]/30" />
+                          </label>
+                          <label className="block text-xs font-bold text-[#1D2A62]">
+                            <span>Next action:</span>
+                            <input type="text" value={checklistFields.nextAction || ""} onChange={event => updateChecklistField("nextAction", event.target.value)} className="mt-1.5 w-full rounded-lg border border-[#B9A4E8]/60 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#6B4C9A] focus:ring-2 focus:ring-[#B9A4E8]/30" />
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-4">
+                        <h5 className="font-extrabold text-[#A66C00]">4. CONNECTION</h5>
+                        <div className="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
+                          <label className="flex items-start gap-2">
+                            <input type="checkbox" checked={Boolean(checklistChecks.connectionEndToEnd)} onChange={event => updateChecklistCheck("connectionEndToEnd", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#A66C00]" />
+                            <span>Critical handoffs have been tested end-to-end using final materials.</span>
+                          </label>
+                          <label className="flex items-start gap-2">
+                            <input type="checkbox" checked={Boolean(checklistChecks.connectionSetup)} onChange={event => updateChecklistCheck("connectionSetup", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#A66C00]" />
+                            <span>Where relevant, the sequence has been tested in the actual event setup or conditions.</span>
+                          </label>
+                        </div>
+                        <label className="mt-3 block text-xs font-bold text-[#1D2A62]">
+                          <span>What was tested:</span>
+                          <textarea value={checklistFields.whatWasTested || ""} onChange={event => updateChecklistField("whatWasTested", event.target.value)} className="mt-1.5 min-h-20 w-full rounded-lg border border-[#F3C979]/60 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#A66C00] focus:ring-2 focus:ring-[#F3C979]/30" />
+                        </label>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#E7A27A]/60 bg-[#FFF4EA] p-4">
+                        <h5 className="font-extrabold text-[#B45F3C]">5. SUPPORT</h5>
+                        <label className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-slate-700">
+                          <input type="checkbox" checked={Boolean(checklistChecks.support)} onChange={event => updateChecklistCheck("support", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#B45F3C]" />
+                          <span>No high-impact issue remains unresolved without a clear decision or escalation.</span>
+                        </label>
+                        <p className="mt-3 text-xs font-bold text-[#1D2A62]">If support is needed:</p>
+                        <div className="mt-2 grid gap-3 sm:grid-cols-2">
+                          <label className="block text-xs font-bold text-[#1D2A62]">
+                            <span>Escalate to:</span>
+                            <input type="text" value={checklistFields.escalateTo || ""} onChange={event => updateChecklistField("escalateTo", event.target.value)} className="mt-1.5 w-full rounded-lg border border-[#E7A27A]/60 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#B45F3C] focus:ring-2 focus:ring-[#E7A27A]/30" />
+                          </label>
+                          <label className="block text-xs font-bold text-[#1D2A62]">
+                            <span>Decision needed:</span>
+                            <input type="text" value={checklistFields.decisionNeeded || ""} onChange={event => updateChecklistField("decisionNeeded", event.target.value)} className="mt-1.5 w-full rounded-lg border border-[#E7A27A]/60 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#B45F3C] focus:ring-2 focus:ring-[#E7A27A]/30" />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#1D2A62]/25 bg-white p-4">
+                      <h5 className="font-extrabold text-[#1D2A62]">FINAL READY CALL</h5>
+                      <div className="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
+                        <label className="flex items-start gap-2">
+                          <input type="checkbox" checked={Boolean(checklistChecks.readyCallReady)} onChange={event => handleReadyCallChange("ready", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#437118]" />
+                          <span><strong>READY:</strong> The critical elements are verified, owned and tested well enough to proceed.</span>
+                        </label>
+                        <label className="flex items-start gap-2">
+                          <input type="checkbox" checked={Boolean(checklistChecks.readyCallNotReady)} onChange={event => handleReadyCallChange("notReady", event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#B45F3C]" />
+                          <span><strong>NOT READY YET:</strong> A critical issue still needs action before sign-off.</span>
+                        </label>
+                      </div>
+                      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                        <label className="block text-xs font-bold text-[#1D2A62]">
+                          <span>Issue:</span>
+                          <input type="text" value={checklistFields.issue || ""} onChange={event => updateChecklistField("issue", event.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#1D2A62] focus:ring-2 focus:ring-[#87AECE]/30" />
+                        </label>
+                        <label className="block text-xs font-bold text-[#1D2A62]">
+                          <span>Owner:</span>
+                          <input type="text" value={checklistFields.finalOwner || ""} onChange={event => updateChecklistField("finalOwner", event.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#1D2A62] focus:ring-2 focus:ring-[#87AECE]/30" />
+                        </label>
+                        <label className="block text-xs font-bold text-[#1D2A62]">
+                          <span>Next action:</span>
+                          <input type="text" value={checklistFields.finalNextAction || ""} onChange={event => updateChecklistField("finalNextAction", event.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#1D2A62] focus:ring-2 focus:ring-[#87AECE]/30" />
+                        </label>
+                        <label className="block text-xs font-bold text-[#1D2A62]">
+                          <span>Re-check by:</span>
+                          <input type="text" value={checklistFields.recheckBy || ""} onChange={event => updateChecklistField("recheckBy", event.target.value)} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-normal text-slate-700 outline-none focus:border-[#1D2A62] focus:ring-2 focus:ring-[#87AECE]/30" />
+                        </label>
                       </div>
                     </div>
                   </div>
