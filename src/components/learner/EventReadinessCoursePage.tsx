@@ -1758,6 +1758,10 @@ export function EventReadinessCoursePage({
 
               {activeLesson.id === "2.0-quick-check" && (
                 <div className="space-y-5">
+                  <div className="space-y-4 text-sm leading-relaxed text-slate-700">
+                    <p>You’ve learned the Event Ready Framework and applied it during a final rehearsal. Now see whether you can use the same thinking in different event situations.</p>
+                    <p>For each question, choose the best answer. You’ll receive your result and assessment feedback after completing all five.</p>
+                  </div>
                   <p className="text-sm leading-relaxed text-slate-700">Which check best demonstrates that an event is ready for participants?</p>
                   <div className="space-y-2">
                     {[
