@@ -2076,9 +2076,11 @@ export function EventReadinessCoursePage({
                     </div>
                     <div className="space-y-5">
                       {READINESS_ASSESSMENT.map((question, index) => (
-                        <fieldset key={question.prompt} className="relative rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                          <span aria-hidden="true" className="pointer-events-none absolute right-4 top-4 rounded-full bg-white px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#437118] ring-1 ring-[#AFD06E]/60">QUESTION {index + 1} OF {READINESS_ASSESSMENT.length}</span>
-                          <legend className="block w-full pr-28 text-base font-bold leading-relaxed text-[#1D2A62]">{question.prompt}</legend>
+                        <div key={question.prompt} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                          <div className="flex items-start justify-between gap-3">
+                            <p className="min-w-0 flex-1 text-base font-bold leading-relaxed text-[#1D2A62]">{question.prompt}</p>
+                            <span aria-hidden="true" className="shrink-0 rounded-full bg-white px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#437118] ring-1 ring-[#AFD06E]/60">QUESTION {index + 1} OF {READINESS_ASSESSMENT.length}</span>
+                          </div>
                           <div className="mt-4 space-y-2">
                             {question.options.map(option => {
                               const selected = assessmentAnswers[index] === option.id
@@ -2095,7 +2097,7 @@ export function EventReadinessCoursePage({
                               )
                             })}
                           </div>
-                        </fieldset>
+                        </div>
                       ))}
                     </div>
                   </div>
