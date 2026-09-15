@@ -51,17 +51,107 @@ type SavedCourseState = {
   activeLessonId: string
   completedLessonIds: string[]
   viewedLessonIds: string[]
-  quickCheckAnswer: string
   openingQuestionAnswer: string
   feedbackConfidence: string
   feedbackUsefulness: string
   feedbackTransfer: string
   feedbackOpenResponse: string
   feedbackRating: number
+  assessmentAnswers: string[]
+  assessmentSubmitted: boolean
 }
 type ReadinessCategory = "DONE" | "READY"
 
 type OpeningDecision = "A" | "B"
+type AssessmentConcept = "DONE vs READY" | "IMPACT" | "EVIDENCE" | "CONNECTION" | "READINESS JUDGEMENT"
+
+type AssessmentQuestion = {
+  prompt: string
+  concept: AssessmentConcept
+  correctOption: string
+  options: { id: string; text: string }[]
+}
+
+const READINESS_ASSESSMENT: AssessmentQuestion[] = [
+  {
+    prompt: "A task is marked Done. What does that tell you?",
+    concept: "DONE vs READY",
+    correctOption: "B",
+    options: [
+      { id: "A", text: "It has been fully verified." },
+      { id: "B", text: "It has been completed or reported complete." },
+      { id: "C", text: "It is automatically event-ready." },
+      { id: "D", text: "The Project Leader no longer needs visibility." }
+    ]
+  },
+  {
+    prompt: "Twenty minutes before rehearsal, which issue should the Project Leader investigate first?",
+    concept: "IMPACT",
+    correctOption: "B",
+    options: [
+      { id: "A", text: "One team member has not updated their internal task status in the tracker." },
+      { id: "B", text: "The guest speaker’s title differs between the final confirmation email and the presentation slide." },
+      { id: "C", text: "The registration desk still needs an extra stationery box." },
+      { id: "D", text: "One backstage timing note has inconsistent formatting." }
+    ]
+  },
+  {
+    prompt: "A speaker’s title changed this morning. What provides the strongest evidence that the presentation slide is Ready?",
+    concept: "EVIDENCE",
+    correctOption: "B",
+    options: [
+      { id: "A", text: "Ask another team member if the title looks correct." },
+      { id: "B", text: "Compare the slide with the latest confirmed speaker information." },
+      { id: "C", text: "Check yesterday’s proposal." },
+      { id: "D", text: "Use the version that was already rehearsed." }
+    ]
+  },
+  {
+    prompt: "Which rehearsal gives you the strongest evidence that the check-in process is Ready?",
+    concept: "CONNECTION",
+    correctOption: "C",
+    options: [
+      { id: "A", text: "Review the attendee list one more time." },
+      { id: "B", text: "Brief the registration team separately." },
+      { id: "C", text: "Run a mock check-in using the current attendee list, team roles and actual participant flow together." },
+      { id: "D", text: "Ask each team member whether they feel ready." }
+    ]
+  },
+  {
+    prompt: "Critical information has been verified, and each individual component works correctly. What should the Project Leader do before sign off a participant-facing sequence as Ready?",
+    concept: "READINESS JUDGEMENT",
+    correctOption: "C",
+    options: [
+      { id: "A", text: "Sign it off because every component is correct." },
+      { id: "B", text: "Ask each owner whether their task is Done." },
+      { id: "C", text: "Test the critical components together in the way participants will experience them." },
+      { id: "D", text: "Wait until event day to confirm whether the sequence works." }
+    ]
+  }
+]
+
+const READINESS_CONCEPT_FEEDBACK: Record<AssessmentConcept, { prompt: string; explanation: string }> = {
+  "DONE vs READY": {
+    prompt: "Does completion prove readiness?",
+    explanation: "“Done” describes task status. It does not automatically prove that critical information is correct, current or working with connected parts."
+  },
+  IMPACT: {
+    prompt: "What matters most if it goes wrong live?",
+    explanation: "Prioritise according to likely participant or delivery impact — not simply according to what is unfinished."
+  },
+  EVIDENCE: {
+    prompt: "What proves this is correct and current?",
+    explanation: "Readiness should be supported by the most current and appropriate confirmed source, not memory or an older version."
+  },
+  CONNECTION: {
+    prompt: "Does it work together in practice?",
+    explanation: "Correct components still need to be tested together when the participant experience depends on their handoff."
+  },
+  "READINESS JUDGEMENT": {
+    prompt: "What evidence is still missing before sign-off?",
+    explanation: "A sequence is not Ready simply because all its parts are correct individually. Where delivery depends on a handoff, the Project Leader needs evidence that those parts also work together under event conditions."
+  }
+}
 
 
 type ReadinessStatement = {
@@ -165,13 +255,14 @@ function getSavedCourseState(): SavedCourseState {
     activeLessonId: "1.0-done-ready",
     completedLessonIds: EVENT_READINESS_DEFAULT_COMPLETED_IDS,
     viewedLessonIds: [],
-    quickCheckAnswer: "",
+    assessmentAnswers: Array.from({ length: READINESS_ASSESSMENT.length }, () => ""),
     openingQuestionAnswer: "",
     feedbackConfidence: "",
     feedbackUsefulness: "",
     feedbackTransfer: "",
     feedbackOpenResponse: "",
-    feedbackRating: 0
+    feedbackRating: 0,
+    assessmentSubmitted: false
   }
 
   if (typeof window === "undefined") return fallback
@@ -195,13 +286,16 @@ function getSavedCourseState(): SavedCourseState {
       activeLessonId,
       completedLessonIds,
       viewedLessonIds,
-      quickCheckAnswer: typeof parsed.quickCheckAnswer === "string" ? parsed.quickCheckAnswer : "",
+      assessmentAnswers: Array.isArray(parsed.assessmentAnswers)
+        ? READINESS_ASSESSMENT.map((_, index) => typeof parsed.assessmentAnswers?.[index] === "string" ? parsed.assessmentAnswers[index] : "")
+        : fallback.assessmentAnswers,
       openingQuestionAnswer: typeof parsed.openingQuestionAnswer === "string" ? parsed.openingQuestionAnswer : "",
       feedbackConfidence: typeof parsed.feedbackConfidence === "string" ? parsed.feedbackConfidence : "",
       feedbackUsefulness: typeof parsed.feedbackUsefulness === "string" ? parsed.feedbackUsefulness : "",
       feedbackTransfer: typeof parsed.feedbackTransfer === "string" ? parsed.feedbackTransfer : "",
       feedbackOpenResponse: typeof parsed.feedbackOpenResponse === "string" ? parsed.feedbackOpenResponse : "",
-      feedbackRating: typeof parsed.feedbackRating === "number" && Number.isInteger(parsed.feedbackRating) && parsed.feedbackRating >= 1 && parsed.feedbackRating <= 5 ? parsed.feedbackRating : 0
+      feedbackRating: typeof parsed.feedbackRating === "number" && Number.isInteger(parsed.feedbackRating) && parsed.feedbackRating >= 1 && parsed.feedbackRating <= 5 ? parsed.feedbackRating : 0,
+      assessmentSubmitted: parsed.assessmentSubmitted === true && Array.isArray(parsed.assessmentAnswers) && READINESS_ASSESSMENT.every((_, index) => typeof parsed.assessmentAnswers?.[index] === "string" && parsed.assessmentAnswers[index])
     }
   } catch {
     return fallback
@@ -220,7 +314,7 @@ export function EventReadinessCoursePage({
   const [activeLessonId, setActiveLessonId] = useState(initialState.activeLessonId)
   const [completedLessonIds, setCompletedLessonIds] = useState(initialState.completedLessonIds)
   const [viewedLessonIds, setViewedLessonIds] = useState(initialState.viewedLessonIds)
-  const [quickCheckAnswer, setQuickCheckAnswer] = useState(initialState.quickCheckAnswer)
+  const [assessmentAnswers, setAssessmentAnswers] = useState(initialState.assessmentAnswers)
   const [openingQuestionAnswer, setOpeningQuestionAnswer] = useState(initialState.openingQuestionAnswer)
   const [simulationStarted, setSimulationStarted] = useState(false)
   const [simulationScene, setSimulationScene] = useState(-1)
@@ -248,6 +342,8 @@ export function EventReadinessCoursePage({
   const [feedbackOpenResponse, setFeedbackOpenResponse] = useState(initialState.feedbackOpenResponse)
   const [feedbackRating, setFeedbackRating] = useState(initialState.feedbackRating)
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
+  const [assessmentSubmitted, setAssessmentSubmitted] = useState(initialState.assessmentSubmitted)
+  const [assessmentReviewOpen, setAssessmentReviewOpen] = useState(false)
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
@@ -271,13 +367,18 @@ export function EventReadinessCoursePage({
   const connectionComplete = connectionCoreVisible && connectionChallengeAllCorrect && connectionIntegratedTestAllCorrect
   const evidenceVerificationComplete = verificationChallengeAllCorrect && verificationSourceAllCorrect
   const progress = Math.round((completedCount / EVENT_READINESS_TOTAL_ITEMS) * 100)
+  const assessmentScore = READINESS_ASSESSMENT.reduce((score, question, index) => score + (assessmentAnswers[index] === question.correctOption ? 1 : 0), 0)
+  const assessmentAllAnswered = assessmentAnswers.length === READINESS_ASSESSMENT.length && assessmentAnswers.every(Boolean)
+  const assessmentMissedQuestions = READINESS_ASSESSMENT.filter((question, index) => assessmentAnswers[index] !== question.correctOption)
+  const assessmentMissedConcepts = Array.from(new Set(assessmentMissedQuestions.map(question => question.concept)))
 
   useEffect(() => {
     window.localStorage.setItem(EVENT_READINESS_PROGRESS_KEY, JSON.stringify({
       activeLessonId,
       completedLessonIds,
       viewedLessonIds,
-      quickCheckAnswer,
+      assessmentAnswers,
+      assessmentSubmitted,
       openingQuestionAnswer,
       feedbackConfidence,
       feedbackUsefulness,
@@ -285,7 +386,7 @@ export function EventReadinessCoursePage({
       feedbackOpenResponse,
       feedbackRating
     }))
-  }, [activeLessonId, completedLessonIds, viewedLessonIds, quickCheckAnswer, openingQuestionAnswer, feedbackConfidence, feedbackUsefulness, feedbackTransfer, feedbackOpenResponse, feedbackRating])
+  }, [activeLessonId, completedLessonIds, viewedLessonIds, assessmentAnswers, assessmentSubmitted, openingQuestionAnswer, feedbackConfidence, feedbackUsefulness, feedbackTransfer, feedbackOpenResponse, feedbackRating])
   useEffect(() => {
     onProgressChange?.(progress)
   }, [progress])
@@ -380,8 +481,30 @@ export function EventReadinessCoursePage({
   }
 
 
+  const handleAssessmentAnswer = (questionIndex: number, answerId: string) => {
+    if (assessmentSubmitted) return
+    setAssessmentAnswers(previous => previous.map((answer, index) => index === questionIndex ? answerId : answer))
+  }
+  const handleAssessmentSubmit = () => {
+    if (assessmentSubmitted || !assessmentAllAnswered) return
+    markComplete("2.0-quick-check")
+    setAssessmentSubmitted(true)
+    setAssessmentReviewOpen(false)
+  }
+  const navigateToLesson = (lessonId: string) => {
+    setAssessmentReviewOpen(false)
+    setActiveLessonId(lessonId)
+    window.requestAnimationFrame(() => {
+      lessonCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+    })
+  }
+  const handleAssessmentReview = () => {
+    setAssessmentReviewOpen(true)
+  }
+  const handleAssessmentBackToResult = () => {
+    setAssessmentReviewOpen(false)
+  }
   const handlePrimaryAction = () => {
-    if (activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) return
     if (activeLesson.id === "1.1-ready-framework" && !connectionComplete) return
 
     markComplete(activeLesson.id)
@@ -1757,30 +1880,225 @@ export function EventReadinessCoursePage({
               )}
 
               {activeLesson.id === "2.0-quick-check" && (
-                <div className="space-y-5">
-                  <div className="space-y-4 text-sm leading-relaxed text-slate-700">
-                    <p>You’ve learned the Event Ready Framework and applied it during a final rehearsal. Now see whether you can use the same thinking in different event situations.</p>
-                    <p>For each question, choose the best answer. You’ll receive your result and assessment feedback after completing all five.</p>
+                assessmentSubmitted ? (
+                  assessmentReviewOpen ? (
+                    <div className="space-y-6">
+                      <div>
+                        <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#437118]">REVIEW MY ANSWERS</p>
+                        <h3 className="mt-2 text-2xl font-extrabold text-[#1D2A62]">Assessment feedback</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-slate-600">Your submitted answers and the correct answer are shown below.</p>
+                      </div>
+                      <div className="space-y-4">
+                        {READINESS_ASSESSMENT.map((question, index) => {
+                          const selectedOption = question.options.find(option => option.id === assessmentAnswers[index])
+                          const correctOption = question.options.find(option => option.id === question.correctOption)
+                          const isCorrect = assessmentAnswers[index] === question.correctOption
+                          return (
+                            <div key={question.prompt} className="rounded-2xl border border-slate-200 bg-white p-5">
+                              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#437118]">Question {index + 1}</p>
+                              <h4 className="mt-2 text-base font-bold leading-relaxed text-[#1D2A62]">{question.prompt}</h4>
+                              <p className="mt-4 text-sm font-semibold text-slate-700">Your answer:</p>
+                              <p className={`mt-1 text-sm leading-relaxed ${isCorrect ? "text-[#437118]" : "text-[#B44F3C]"}`}>
+                                {selectedOption ? `${selectedOption.id}. ${selectedOption.text}` : "No answer"} {isCorrect ? "✓" : "✕"}
+                              </p>
+                              {!isCorrect && correctOption && (
+                                <>
+                                  <p className="mt-4 text-sm font-semibold text-slate-700">Best answer:</p>
+                                  <p className="mt-1 text-sm leading-relaxed text-[#437118]">{correctOption.id}. {correctOption.text} ✓</p>
+                                </>
+                              )}
+                              <p className="mt-4 text-sm font-semibold text-slate-700">Why?</p>
+                              <p className="mt-1 text-sm leading-relaxed text-slate-600">{READINESS_CONCEPT_FEEDBACK[question.concept].explanation}</p>
+                              <p className="mt-4 text-xs font-extrabold uppercase tracking-[0.14em] text-[#1D2A62]">
+                                {question.concept}{question.concept === "DONE vs READY" ? " — DONE ≠ automatically READY" : ` — ${READINESS_CONCEPT_FEEDBACK[question.concept].prompt}`}
+                              </p>
+                            </div>
+                          )
+                        })}
+                      </div>
+                      <Button type="button" variant="outline" onClick={handleAssessmentBackToResult} className="cursor-pointer">
+                        Back to Results
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="space-y-7">
+                      <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC] p-5">
+                        <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#2F668B]">RESULT: {assessmentScore} / 5</p>
+                        <h3 className="mt-3 text-3xl font-extrabold text-[#1D2A62]">YOUR RESULT</h3>
+                        {assessmentScore === 5 ? (
+                          <>
+                            <p className="mt-5 text-xl font-extrabold text-[#437118]">5 / 5</p>
+                            <p className="mt-1 text-lg font-bold text-[#1D2A62]">READY TO APPLY</p>
+                            <p className="mt-3 text-sm leading-relaxed text-slate-700">Great work.</p>
+                            <p className="mt-2 text-sm leading-relaxed text-slate-700">You demonstrated a strong understanding of the Event Ready approach and applied it correctly across different event situations.</p>
+                          </>
+                        ) : assessmentScore === 4 ? (
+                          <>
+                            <p className="mt-5 text-xl font-extrabold text-[#A66C00]">4 / 5</p>
+                            <p className="mt-1 text-lg font-bold text-[#1D2A62]">ALMOST READY</p>
+                            <p className="mt-3 text-sm leading-relaxed text-slate-700">You understand the overall Event Ready approach and applied most of the readiness checks correctly.</p>
+                          </>
+                        ) : assessmentScore === 3 ? (
+                          <>
+                            <p className="mt-5 text-xl font-extrabold text-[#A66C00]">3 / 5</p>
+                            <p className="mt-1 text-lg font-bold text-[#1D2A62]">BUILDING READINESS</p>
+                            <p className="mt-3 text-sm leading-relaxed text-slate-700">You’ve understood the core idea, but some readiness decisions still need practice.</p>
+                          </>
+                        ) : (
+                          <>
+                            <p className="mt-5 text-xl font-extrabold text-[#B44F3C]">{assessmentScore} / 5</p>
+                            <p className="mt-1 text-lg font-bold text-[#1D2A62]">REVIEW BEFORE APPLYING</p>
+                            <p className="mt-3 text-sm leading-relaxed text-slate-700">You’re beginning to recognise the Event Ready approach, but some important readiness checks are not yet consistent.</p>
+                          </>
+                        )}
+                      </div>
+
+                      <div className="space-y-3">
+                        <h4 className="text-lg font-extrabold text-[#1D2A62]">Your assessment</h4>
+                        {assessmentScore === 5 ? (
+                          <>
+                            <p className="text-sm leading-relaxed text-slate-700">You can distinguish Done from Ready, prioritise issues by Impact, identify appropriate Evidence, and recognise when critical Connections need to be tested together.</p>
+                            <p className="text-sm leading-relaxed text-slate-700">You are ready to take this thinking into real event preparation.</p>
+                          </>
+                        ) : assessmentScore === 4 ? (
+                          <p className="text-sm leading-relaxed text-slate-700">You can make sound readiness decisions in most situations. One area would benefit from another quick review before you apply the framework independently.</p>
+                        ) : assessmentScore === 3 ? (
+                          <>
+                            <p className="text-sm leading-relaxed text-slate-700">You can recognise some signs of readiness, but you may still rely on task completion or individual checks when stronger evidence is needed.</p>
+                            <p className="text-sm leading-relaxed text-slate-700">Before using the framework independently, review the areas below.</p>
+                          </>
+                        ) : (
+                          <p className="text-sm leading-relaxed text-slate-700">Before using the framework to make a live readiness decision, revisit the key difference between finishing a task and having enough evidence to call it Ready.</p>
+                        )}
+                      </div>
+
+                      {assessmentScore === 5 && (
+                        <div className="space-y-3 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                          <h4 className="text-lg font-extrabold text-[#1D2A62]">Your Ready Check</h4>
+                          {READINESS_ASSESSMENT.map(question => (
+                            <div key={question.concept} className="flex items-center justify-between gap-3 text-sm font-semibold text-slate-700">
+                              <span>{question.concept}</span>
+                              <span className="text-[#437118]">✓ Strong</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {assessmentScore === 4 && (
+                        <div className="space-y-3 rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
+                          <h4 className="text-lg font-extrabold text-[#1D2A62]">Breakdown</h4>
+                          {READINESS_ASSESSMENT.map((question, index) => {
+                            const isCorrect = assessmentAnswers[index] === question.correctOption
+                            return (
+                              <div key={question.concept} className="flex items-center justify-between gap-3 text-sm font-semibold text-slate-700">
+                                <span>{question.concept}</span>
+                                <span className={isCorrect ? "text-[#437118]" : "text-[#A66C00]"}>{isCorrect ? "✓" : "↻ Review"}</span>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
+
+                      {assessmentScore === 4 && assessmentMissedConcepts[0] && (
+                        <div className="rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
+                          <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#A66C00]">Review next: {assessmentMissedConcepts[0]}</p>
+                          <p className="mt-3 text-base font-bold text-[#1D2A62]">{READINESS_CONCEPT_FEEDBACK[assessmentMissedConcepts[0]].prompt}</p>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-700">{READINESS_CONCEPT_FEEDBACK[assessmentMissedConcepts[0]].explanation}</p>
+                        </div>
+                      )}
+
+                      {assessmentScore === 3 && (
+                        <div className="space-y-3">
+                          {assessmentMissedConcepts.map(concept => (
+                            <div key={concept} className="rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
+                              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#A66C00]">Review: {concept}</p>
+                              <p className="mt-3 text-base font-bold text-[#1D2A62]">{READINESS_CONCEPT_FEEDBACK[concept].prompt}</p>
+                              <p className="mt-2 text-sm leading-relaxed text-slate-700">{READINESS_CONCEPT_FEEDBACK[concept].explanation}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {assessmentScore <= 2 && (
+                        <div className="space-y-3">
+                          <h4 className="text-lg font-extrabold text-[#1D2A62]">Start with the areas you missed</h4>
+                          {assessmentMissedConcepts.map(concept => (
+                            <div key={concept} className="rounded-2xl border border-[#E7A27A]/60 bg-[#FFF4EA] p-5">
+                              <p className="text-base font-extrabold text-[#1D2A62]">{concept}</p>
+                              <p className="mt-2 text-sm font-semibold text-slate-700">{READINESS_CONCEPT_FEEDBACK[concept].prompt}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {assessmentScore === 5 && (
+                        <div className="space-y-3 rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                          <h4 className="text-lg font-extrabold text-[#1D2A62]">Keep these three questions with you</h4>
+                          <p className="text-sm font-bold text-[#437118]">IMPACT</p>
+                          <p className="text-sm text-slate-700">What matters most?</p>
+                          <p className="text-sm font-bold text-[#437118]">EVIDENCE</p>
+                          <p className="text-sm text-slate-700">What proves it?</p>
+                          <p className="text-sm font-bold text-[#437118]">CONNECTION</p>
+                          <p className="text-sm text-slate-700">Does it work together?</p>
+                        </div>
+                      )}
+
+                      <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center">
+                        {(assessmentScore >= 4) ? (
+                          <Button type="button" onClick={() => navigateToLesson("3.0-event-check")} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                            Continue to the 3-Minute Readiness Check
+                            <ArrowRight className="ml-1.5 h-4 w-4" />
+                          </Button>
+                        ) : (
+                          <Button type="button" onClick={() => navigateToLesson("1.1-ready-framework")} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                            {assessmentScore === 3 ? "Review the Event Ready Framework" : "Review the Event Ready Framework"}
+                            <ArrowRight className="ml-1.5 h-4 w-4" />
+                          </Button>
+                        )}
+                        <Button type="button" variant="outline" onClick={handleAssessmentReview} className="cursor-pointer">
+                          Review My Answers
+                        </Button>
+                        {assessmentScore <= 3 && (
+                          <button type="button" disabled className="cursor-not-allowed text-sm font-semibold text-slate-400">
+                            Retake Assessment
+                          </button>
+                        )}
+                      </div>
+                      {assessmentScore <= 3 && <p className="text-xs text-slate-500">This assessment can only be completed once.</p>}
+                    </div>
+                  )
+                ) : (
+                  <div className="space-y-5">
+                    <div className="space-y-4 text-sm leading-relaxed text-slate-700">
+                      <p>You’ve learned the Event Ready Framework and applied it during a final rehearsal. Now see whether you can use the same thinking in different event situations.</p>
+                      <p>For each question, choose the best answer. You’ll receive your result and assessment feedback after completing all five.</p>
+                    </div>
+                    <div className="space-y-5">
+                      {READINESS_ASSESSMENT.map((question, index) => (
+                        <fieldset key={question.prompt} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                          <legend className="px-1 text-xs font-extrabold uppercase tracking-[0.16em] text-[#437118]">QUESTION {index + 1} OF {READINESS_ASSESSMENT.length}</legend>
+                          <p className="mt-3 text-base font-bold leading-relaxed text-[#1D2A62]">{question.prompt}</p>
+                          <div className="mt-4 space-y-2">
+                            {question.options.map(option => {
+                              const selected = assessmentAnswers[index] === option.id
+                              return (
+                                <button
+                                  key={option.id}
+                                  type="button"
+                                  onClick={() => handleAssessmentAnswer(index, option.id)}
+                                  className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${selected ? "border-[#437118] bg-[#EEF7E8] text-[#1D2A62] ring-1 ring-[#437118]" : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"}`}
+                                >
+                                  <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${selected ? "border-[#437118] bg-[#437118] text-white" : "border-slate-300"}`}>{selected ? <Check className="h-3.5 w-3.5" /> : option.id}</span>
+                                  <span>{option.text}</span>
+                                </button>
+                              )
+                            })}
+                          </div>
+                        </fieldset>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-sm leading-relaxed text-slate-700">Which check best demonstrates that an event is ready for participants?</p>
-                  <div className="space-y-2">
-                    {[
-                      ["finished", "The team has completed every internal task."],
-                      ["verified-tested", "Critical details are verified and the connected participant flow has been tested."],
-                      ["approved", "The event has received final approval from the project leader."]
-                    ].map(([value, label]) => (
-                      <button
-                        key={value}
-                        type="button"
-                        onClick={() => setQuickCheckAnswer(value)}
-                        className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left text-sm transition-colors cursor-pointer ${quickCheckAnswer === value ? "border-[#437118] bg-[#EEF7E8] text-[#1D2A62] ring-1 ring-[#437118]" : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"}`}
-                      >
-                        <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${quickCheckAnswer === value ? "border-[#437118] bg-[#437118] text-white" : "border-slate-300"}`}>{quickCheckAnswer === value ? <Check className="h-3.5 w-3.5" /> : ""}</span>
-                        <span>{label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                )
               )}
 
 
@@ -1902,7 +2220,7 @@ export function EventReadinessCoursePage({
                 )
               )}
 
-              {!(activeLesson.id === "4.0-course-feedback" && feedbackSubmitted) && (
+              {!(activeLesson.id === "4.0-course-feedback" && feedbackSubmitted) && !(activeLesson.id === "2.0-quick-check" && assessmentSubmitted) && (
                 <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex w-full items-center justify-between gap-3">
                     {activeLessonIndex > 0 ? (
@@ -1917,9 +2235,14 @@ export function EventReadinessCoursePage({
                       <Button type="button" onClick={handleFeedbackSubmit} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                         SUBMIT
                       </Button>
+                    ) : activeLesson.id === "2.0-quick-check" ? (
+                      <Button type="button" onClick={handleAssessmentSubmit} disabled={!assessmentAllAnswered} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                        Submit
+                        <ArrowRight className="ml-1.5 h-4 w-4" />
+                      </Button>
                     ) : (
                       (activeLesson.id !== "1.2-ready-simulation" || simulationComplete) && (
-                        <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "2.0-quick-check" && !quickCheckAnswer) || (activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !connectionComplete)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
+                        <Button type="button" onClick={handlePrimaryAction} disabled={(activeLesson.id === "1.0-done-ready" && !readinessAllCorrect) || (activeLesson.id === "1.1-ready-framework" && !connectionComplete)} className="flex-1 cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] sm:flex-none">
                           {primaryLabel}
                           <ArrowRight className="ml-1.5 h-4 w-4" />
                         </Button>
