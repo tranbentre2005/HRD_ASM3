@@ -579,6 +579,7 @@ export function EventReadinessCoursePage({
       `Re-check by: ${checklistFields.recheckBy || ""}`
     ].join("\n")
   }
+  const checklistHasContent = Object.values(checklistFields).some(value => value.trim().length > 0) || Object.values(checklistChecks).some(Boolean)
   const downloadFile = (content: BlobPart, type: string, filename: string) => {
     const url = URL.createObjectURL(new Blob([content], { type }))
     const link = document.createElement("a")
@@ -588,11 +589,6 @@ export function EventReadinessCoursePage({
     link.click()
     link.remove()
     window.setTimeout(() => URL.revokeObjectURL(url), 0)
-  }
-  const handleChecklistDownloadWord = () => {
-    const escapedText = getChecklistText().replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character] || character)
-    const wordDocument = `<html xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="utf-8"></head><body><pre style="font-family:Arial,sans-serif;white-space:pre-wrap">${escapedText}</pre></body></html>`
-    downloadFile(wordDocument, "application/msword;charset=utf-8", "event-readiness-checklist.doc")
   }
   const handleChecklistDownloadPdf = () => {
     const pdfText = getChecklistText().replace(/☒/g, "[x]").replace(/☐/g, "[ ]").replace(/→/g, "->")
@@ -2378,14 +2374,10 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-wrap justify-center gap-3 pt-1">
-                    <Button type="button" variant="outline" onClick={handleChecklistDownloadWord} className="cursor-pointer bg-white">
+                  <div className="flex justify-center pt-1">
+                    <Button type="button" onClick={handleChecklistDownloadPdf} disabled={!checklistHasContent} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] disabled:cursor-not-allowed disabled:opacity-50">
                       <FileText className="mr-1.5 h-4 w-4" />
-                      Download Word (.doc)
-                    </Button>
-                    <Button type="button" onClick={handleChecklistDownloadPdf} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                      <FileText className="mr-1.5 h-4 w-4" />
-                      Download PDF
+                      Download Filled Checklist (PDF)
                     </Button>
                   </div>
                 </div>
