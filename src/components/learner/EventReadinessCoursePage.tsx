@@ -2144,13 +2144,23 @@ export function EventReadinessCoursePage({
                       </div>
                     </div>
                     <div className="mt-6 rounded-2xl border border-[#AFD06E]/40 bg-white/80 p-5">
-                      <h4 className="text-base font-bold text-[#1D2A62]">Before Your Next Rehearsal</h4>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-700">Keep the 3-Minute Event Readiness Checklist handy when you need to make a final readiness decision.</p>
-                      <p className="mt-4 text-sm font-semibold leading-relaxed text-[#1D2A62]">Use the same three questions whenever you need to make a readiness decision:</p>
-                      <div className="mt-4 space-y-2 text-sm leading-relaxed text-slate-700">
-                        <p><span className="font-bold text-[#437118]">IMPACT</span> — What matters most?</p>
-                        <p><span className="font-bold text-[#437118]">EVIDENCE</span> — What proves it is correct?</p>
-                        <p><span className="font-bold text-[#437118]">CONNECTION</span> — Does it work together?</p>
+                      <h4 className="text-base font-bold text-[#1D2A62]">Before Your Future Event</h4>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-700">Keep the Event Readiness Checklist handy when you need to review a critical sequence or make a final readiness decision.</p>
+                      <p className="mt-4 text-sm leading-relaxed text-slate-700">Remember that Event Readiness comes down to making better decisions before the event goes live, requiring you to prioritise by Impact, verify with Evidence, and test the Connection.</p>
+                      <p className="mt-4 text-sm font-semibold leading-relaxed text-[#1D2A62]">Use these three questions whenever you need to make a readiness decision:</p>
+                      <div className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700">
+                        <div>
+                          <p><span className="font-bold text-[#437118]">IMPACT</span> — What matters most?</p>
+                          <p className="ml-5 text-xs text-slate-600">Tells you where to focus.</p>
+                        </div>
+                        <div>
+                          <p><span className="font-bold text-[#437118]">EVIDENCE</span> — What proves it is correct?</p>
+                          <p className="ml-5 text-xs text-slate-600">Tells you what to trust.</p>
+                        </div>
+                        <div>
+                          <p><span className="font-bold text-[#437118]">CONNECTION</span> — Does it work together?</p>
+                          <p className="ml-5 text-xs text-slate-600">Tells you whether the sequence will work in practice.</p>
+                        </div>
                       </div>
                     </div>
                     <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
