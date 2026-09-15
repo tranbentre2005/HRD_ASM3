@@ -504,6 +504,11 @@ export function EventReadinessCoursePage({
   const handleAssessmentBackToResult = () => {
     setAssessmentReviewOpen(false)
   }
+  const handleAssessmentRetake = () => {
+    setAssessmentAnswers(Array.from({ length: READINESS_ASSESSMENT.length }, () => ""))
+    setAssessmentSubmitted(false)
+    setAssessmentReviewOpen(false)
+  }
   const handlePrimaryAction = () => {
     if (activeLesson.id === "1.1-ready-framework" && !connectionComplete) return
 
@@ -2058,14 +2063,11 @@ export function EventReadinessCoursePage({
                         <Button type="button" variant="outline" onClick={handleAssessmentReview} className="cursor-pointer">
                           Review My Answers
                         </Button>
-                        {assessmentScore <= 3 && (
-                          <button type="button" disabled className="cursor-not-allowed text-sm font-semibold text-slate-400">
-                            Retake Assessment
-                          </button>
-                        )}
-                      </div>
-                      {assessmentScore <= 3 && <p className="text-xs text-slate-500">This assessment can only be completed once.</p>}
+                        <button type="button" onClick={handleAssessmentRetake} className="cursor-pointer text-sm font-semibold text-[#2F668B] underline-offset-2 hover:underline">
+                          Retake Assessment
+                        </button>
                     </div>
+                      </div>
                   )
                 ) : (
                   <div className="space-y-5">
