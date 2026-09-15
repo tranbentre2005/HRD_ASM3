@@ -493,6 +493,9 @@ export function EventReadinessCoursePage({
     markComplete("2.0-quick-check")
     setAssessmentSubmitted(true)
     setAssessmentReviewOpen(false)
+    window.requestAnimationFrame(() => {
+      document.getElementById("assessment-results")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    })
   }
   const navigateToLesson = (lessonId: string) => {
     setAssessmentReviewOpen(false)
@@ -2042,7 +2045,7 @@ export function EventReadinessCoursePage({
                       </Button>
                     </div>
                   ) : (
-                    <div className="space-y-7">
+                    <div id="assessment-results" className="scroll-mt-6 space-y-7">
                       <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC] p-5">
                         <h3 className="text-3xl font-extrabold text-[#1D2A62]">YOUR RESULT</h3>
                         {assessmentScore === 5 ? (
