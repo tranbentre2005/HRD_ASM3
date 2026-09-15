@@ -2248,11 +2248,45 @@ export function EventReadinessCoursePage({
                     </div>
                   </div>
                   </div>
-                  <div className="space-y-5 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
-                    <div>
-                      <h4 className="text-center text-lg font-extrabold text-[#1D2A62]">EVENT READINESS CHECKLIST</h4>
+                  <div id="event-readiness-checklist" className="space-y-5 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                    <h4 className="text-center text-lg font-extrabold text-[#1D2A62]">Your Tools</h4>
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="rounded-2xl border border-[#87AECE]/45 bg-[#F0F7FC] p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#2F668B] ring-1 ring-[#87AECE]/40">
+                            <FileText className="h-5 w-5" />
+                          </div>
+                          <div>
+                            <h5 className="font-extrabold text-[#1D2A62]">Event Readiness Checklist</h5>
+                            <p className="mt-1 text-sm leading-relaxed text-slate-600">Your take-away tool for final rehearsal and sign-off.</p>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          <a href="#event-readiness-checklist-form" className="inline-flex h-10 items-center justify-center rounded-lg border border-[#2F668B] bg-white px-4 py-2 text-sm font-medium text-[#2F668B] shadow-sm transition-colors hover:bg-[#F0F7FC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F668B] focus-visible:ring-offset-2">Open Checklist</a>
+                          <Button type="button" onClick={handleChecklistDownloadPdf} disabled={!checklistHasContent} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] disabled:cursor-not-allowed disabled:opacity-50">Download PDF</Button>
+                        </div>
+                      </div>
+                      <div className="rounded-2xl border border-[#AFD06E]/45 bg-white p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EEF7E8] text-[#437118] ring-1 ring-[#AFD06E]/40">
+                            <BookOpen className="h-5 w-5" />
+                          </div>
+                          <div>
+                            <h5 className="font-extrabold text-[#1D2A62]">Supporting Event Tools</h5>
+                            <p className="mt-1 text-sm leading-relaxed text-slate-600">Event Planning Checklist · Risk Management · Task Allocation Board</p>
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <a href="https://rmiteduau-my.sharepoint.com/:f:/g/personal/s4063545_rmit_edu_vn/IgDxRh5pupKaRL_0n7tpIJmwAd17HHL2UKdpAGAvvEenSkg?e=Y4ZQ76" target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-[#386B24] px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-[#274818] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#386B24] focus-visible:ring-offset-2">
+                            Open Event Toolkit
+                            <ArrowRight className="h-4 w-4" />
+                          </a>
+                        </div>
+                      </div>
                     </div>
-
+                    <div id="event-readiness-checklist-form" className="border-t border-[#AFD06E]/50 pt-5">
+                      <p className="text-sm font-semibold text-[#1D2A62]">Complete the checklist below.</p>
+                    </div>
                     <div className="grid gap-3 sm:grid-cols-3">
                       {[
                         ["eventSequence", "Event / Sequence:", "Enter event or sequence"],
@@ -2384,21 +2418,6 @@ export function EventReadinessCoursePage({
                         </label>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-3 pt-1">
-                    <Button type="button" onClick={handleChecklistDownloadPdf} disabled={!checklistHasContent} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a] disabled:cursor-not-allowed disabled:opacity-50">
-                      <FileText className="mr-1.5 h-4 w-4" />
-                      Download Filled Checklist (PDF)
-                    </Button>
-                    <a
-                      href="https://rmiteduau-my.sharepoint.com/:f:/g/personal/s4063545_rmit_edu_vn/IgDxRh5pupKaRL_0n7tpIJmwAd17HHL2UKdpAGAvvEenSkg?e=Y4ZQ76"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-[#386B24] px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-[#274818] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#386B24] focus-visible:ring-offset-2"
-                    >
-                      Event Toolkit
-                      <ArrowRight className="h-4 w-4" />
-                    </a>
                   </div>
                 </div>
               )}
