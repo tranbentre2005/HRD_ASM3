@@ -237,7 +237,7 @@ const OUTLINE_SECTIONS: OutlineSection[] = [
     title: "CHECK & APPLY",
     items: [
       { id: "2.0-quick-check", title: "3.0 | Check Your Readiness", section: "CHECK & APPLY" },
-      { id: "3.0-event-check", title: "3.1 | 3-Minute Event Readiness Checklist", section: "CHECK & APPLY" }
+      { id: "3.0-event-check", title: "3.1 | Key Takeaways & Supporting Tools", section: "CHECK & APPLY" }
     ]
   },
   {
