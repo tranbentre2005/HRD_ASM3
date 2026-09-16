@@ -1889,13 +1889,13 @@ export function EventReadinessCoursePage({
                         )}
                         {openingDecision === null ? (
                           <div key="opening-decision" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">As the Project Leader, would you sign off the participant-introduction sequence as Ready?</p>
+                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">As the Project Leader, would you sign off this sequence as ready for live delivery based on what you know so far?</p>
                             <div className="mt-4 grid gap-3 sm:grid-cols-2">
                               <Button type="button" variant="outline" onClick={() => setOpeningDecision("A")} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
-                                A. Yes. Everyone has finished their part.
+                                A. Yes. Each owner has completed their part.
                               </Button>
                               <Button type="button" variant="outline" onClick={() => setOpeningDecision("B")} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
-                                B. Not yet.
+                                B. Not yet. I need to see the critical elements work together in rehearsal.
                               </Button>
                             </div>
                           </div>
