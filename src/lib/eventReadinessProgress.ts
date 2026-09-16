@@ -1,6 +1,6 @@
-export const EVENT_READINESS_PROGRESS_KEY = "rmit-finance-club:event-readiness-progress"
+export const EVENT_READINESS_PROGRESS_KEY = "rmit-finance-club:event-readiness-progress-v2"
 export const EVENT_READINESS_TOTAL_ITEMS = 8
-export const EVENT_READINESS_DEFAULT_COMPLETED_IDS = ["course-overview", "course-outcomes", "1.0-done-ready"]
+export const EVENT_READINESS_DEFAULT_COMPLETED_IDS: string[] = []
 
 export function getEventReadinessProgress(): number {
   const fallbackProgress = Math.round((EVENT_READINESS_DEFAULT_COMPLETED_IDS.length / EVENT_READINESS_TOTAL_ITEMS) * 100)

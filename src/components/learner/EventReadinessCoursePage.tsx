@@ -253,7 +253,7 @@ const OUTLINE_ITEMS = OUTLINE_SECTIONS.flatMap(section => section.items)
 
 function getSavedCourseState(): SavedCourseState {
   const fallback: SavedCourseState = {
-    activeLessonId: "1.0-done-ready",
+    activeLessonId: "course-overview",
     completedLessonIds: EVENT_READINESS_DEFAULT_COMPLETED_IDS,
     viewedLessonIds: [],
     assessmentAnswers: Array.from({ length: READINESS_ASSESSMENT.length }, () => ""),
