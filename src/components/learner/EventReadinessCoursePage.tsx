@@ -169,6 +169,7 @@ const READINESS_STATEMENTS: ReadinessStatement[] = [
   { id: "event-sequence-checked", text: "The final event sequence has been checked for delivery.", category: "READY" }
 ]
 const CONNECTION_PARTICIPANT_ORDER = ["Nguyễn Minh Anh", "Trần Gia Hân", "Lê Hoàng Nam"]
+const CONNECTION_DIAGRAM_NODES = ["source", "mc-script", "slides", "sync-check", "sequence", "live"]
 const INITIAL_CONNECTION_SLIDE_ORDER = ["Nguyễn Minh Anh", "Lê Hoàng Nam", "Trần Gia Hân"]
 
 const SIMULATION_SCENES = [
@@ -467,6 +468,9 @@ export function EventReadinessCoursePage({
     if (node === "sequence" && !connectionSyncCheckClicked) return
     if (node === "live" && !connectionSequenceClicked) return
     setConnectionDiagramNodes(previous => previous.includes(node) ? previous : [...previous, node])
+  }
+  const handleConnectionDiagramHover = () => {
+    setConnectionDiagramNodes(CONNECTION_DIAGRAM_NODES)
   }
   const handleConnectionSlideNameClick = (participant: string) => {
     const currentIndex = connectionSlideOrder.indexOf(participant)
@@ -1524,7 +1528,7 @@ export function EventReadinessCoursePage({
                   )}
                   {evidenceVerificationComplete && (
                     <>
-                      <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                      <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5" onMouseEnter={handleConnectionDiagramHover} onFocus={handleConnectionDiagramHover}>
                       <div className="flex items-center gap-2 font-bold text-[#8B5E00]">
                         <ShieldCheck weight="fill" className="h-5 w-5" />
                         C. CONNECTION
