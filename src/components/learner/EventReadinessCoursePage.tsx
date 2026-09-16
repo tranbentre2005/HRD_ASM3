@@ -1885,7 +1885,7 @@ export function EventReadinessCoursePage({
                         ) : openingDecision === "A" ? (
                           <img src="/final-rehearsal-signoff.webp?v=1" alt="The team has completed its individual tasks while questioning whether the participant-introduction sequence is ready to sign off" className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         ) : (
-                          <img src="/final-rehearsal-opening.webp?v=3" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="mx-auto block w-[85%] rounded-2xl object-cover" />
+                          <img src="/final-rehearsal-opening.webp?v=4" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         )}
                         {openingDecision === null ? (
                           <div key="opening-decision" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
