@@ -1873,7 +1873,7 @@ export function EventReadinessCoursePage({
                   {simulationStarted ? (
                     simulationScene === -1 ? (
                       <div key="simulation-opening" className="animate-scene-reveal space-y-5" aria-live="polite">
-                        <div className="flex justify-start">
+                        <div className="flex justify-start -my-1">
                           <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer px-0 text-xs text-[#2F668B] hover:bg-transparent hover:text-[#1D2A62]">
                             <ArrowLeft className="mr-1.5 h-4 w-4" />
                             Back to Simulation Overview
@@ -1887,11 +1887,11 @@ export function EventReadinessCoursePage({
                           <p className="mt-4 text-base font-semibold leading-relaxed text-[#1D2A62]">In the event final rehearsal, your team says the participant-introduction sequence is ready.</p>
                         </div>
                         {openingDecision === "A" && openingDecisionConfirmed ? (
-                          <img src="/final-rehearsal-not-quite.webp?v=1" alt="The sequence is not quite ready because individual task completion does not confirm correct, current, connected information" className="block w-full rounded-2xl object-cover" />
+                          <img src="/final-rehearsal-not-quite.webp?v=1" alt="The sequence is not quite ready because individual task completion does not confirm correct, current, connected information" className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         ) : openingDecision === "A" ? (
-                          <img src="/final-rehearsal-signoff.webp?v=1" alt="The team has completed its individual tasks while questioning whether the participant-introduction sequence is ready to sign off" className="block w-full rounded-2xl object-cover" />
+                          <img src="/final-rehearsal-signoff.webp?v=1" alt="The team has completed its individual tasks while questioning whether the participant-introduction sequence is ready to sign off" className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         ) : (
-                          <img src="/final-rehearsal-opening.webp?v=3" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="block w-full rounded-2xl object-cover" />
+                          <img src="/final-rehearsal-opening.webp?v=3" alt="Vy, An, and Mai preparing an event rehearsal in a preparation room" className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         )}
                         {openingDecision === null ? (
                           <div key="opening-decision" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
@@ -2445,7 +2445,7 @@ export function EventReadinessCoursePage({
 
               {activeLesson.id === "4.0-course-feedback" && (
                 feedbackSubmitted ? (
-                  <div id="feedback-results" className="scroll-mt-6 animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5" aria-live="polite">
+                  <div id="feedback-results" className="scroll-mt-6 animate-scene-reveal rounded-2xl border border-[#87AECE]/45 bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5" aria-live="polite">
                     <div className="flex items-start gap-4">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#437118] shadow-sm ring-1 ring-[#AFD06E]/50">
                         <CheckCircle weight="fill" className="h-7 w-7" />
