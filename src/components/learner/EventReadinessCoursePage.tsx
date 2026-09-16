@@ -2176,7 +2176,7 @@ export function EventReadinessCoursePage({
                       <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center">
                         {(assessmentScore >= 4) ? (
                           <Button type="button" onClick={() => navigateToLesson("3.0-event-check")} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                            Continue to the 3-Minute Readiness Check
+                            Continue to module 3.1
                             <ArrowRight className="ml-1.5 h-4 w-4" />
                           </Button>
                         ) : (
