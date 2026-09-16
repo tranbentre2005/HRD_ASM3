@@ -1988,8 +1988,8 @@ export function EventReadinessCoursePage({
                         <div>
                           <h3 className="bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-lg font-bold text-transparent">THE FINAL REHEARSAL</h3>
                           <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done.</p>
-                          <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But are they actually ready to work together?</p>
-                          <p className="mt-5 text-base leading-relaxed text-slate-600">Your mission is applying the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> to investigate the situation and make the final readiness decision.</p>
+                          <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But will everything work together when the event goes live?</p>
+                          <p className="mt-5 text-base leading-relaxed text-slate-600">Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> throughout the final rehearsal to investigate what is happening, respond to readiness issues, and decide whether the event is ready to proceed.</p>
                           <div className="mt-4 flex justify-end">
                             <Button type="button" onClick={() => { setSimulationScene(-1); setSimulationStarted(true) }} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                               Start Simulation
