@@ -1873,12 +1873,6 @@ export function EventReadinessCoursePage({
                   {simulationStarted ? (
                     simulationScene === -1 ? (
                       <div key="simulation-opening" className="animate-scene-reveal space-y-5" aria-live="polite">
-                        <div className="flex justify-start -my-1">
-                          <Button type="button" variant="ghost" onClick={handleSimulationBackToRehearsal} className="cursor-pointer px-0 text-xs text-[#2F668B] hover:bg-transparent hover:text-[#1D2A62]">
-                            <ArrowLeft className="mr-1.5 h-4 w-4" />
-                            Back to Simulation Overview
-                          </Button>
-                        </div>
                         <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                           <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                             <PlayCircle weight="fill" className="h-5 w-5" />
