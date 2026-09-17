@@ -1971,6 +1971,9 @@ export function EventReadinessCoursePage({
                         {simulationScene === 2 && (
                           <img src={sceneThreeAnswer === "A" ? "/scene%203%20-%20answer%20A.png" : sceneThreeAnswer === "B" ? "/scene%203%20-%20answer%20B.png" : "/scene%203.png"} alt={sceneThreeAnswer === "A" ? "Scene three answer A feedback illustration" : sceneThreeAnswer === "B" ? "Scene three answer B feedback illustration" : "The team tests the room setup and finds the problem during rehearsal"} className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         )}
+                        {simulationScene === 3 && (
+                          <img src="/scene%204.png" alt="The team re-runs the sequence with clear sound through the room speakers" className="mx-auto block w-[85%] rounded-2xl object-cover" />
+                        )}
                         {simulationScene === 0 ? (
                           <>
                             {sceneOneAnswer === null ? (
