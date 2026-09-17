@@ -1952,39 +1952,36 @@ export function EventReadinessCoursePage({
                           <img src={sceneOneAnswer === "A" ? "/scene%201%20-%20answer%20A.png" : sceneOneAnswer === "C" ? "/scene%201%20-%20answer%20C.png" : "/scene%201.png"} alt={sceneOneAnswer === "A" ? "Scene one answer A feedback illustration" : sceneOneAnswer === "C" ? "Scene one answer C feedback illustration" : "Finance Club recap video playing without sound during rehearsal"} className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         )}
                         {simulationScene === 0 ? (
-                          <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
-                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">The video appears on screen, but there is no sound. What should you do next?</p>
-                            <div className="mt-4 grid gap-3">
-                              {[
-                                ["A", "Continue the rehearsal and ask Mai to fix the sound later."],
-                                ["B", "Stop at this point and investigate what caused the sequence to fail."],
-                                ["C", "Skip the video because the rest of the event is working."]
-                              ].map(([id, text]) => (
-                                <Button key={id} type="button" variant="outline" onClick={() => setSceneOneAnswer(id as SceneOneAnswer)} className={`h-auto justify-start whitespace-normal p-4 text-left text-sm ${sceneOneAnswer === id ? "border-[#1D2A62] bg-[#F0F7FC] ring-1 ring-[#1D2A62]" : "border-[#87AECE]/60 bg-white text-[#1D2A62] hover:bg-[#F0F7FC]"}`}>
-                                  {id}. {text}
-                                </Button>
-                              ))}
-                            </div>
-                            {sceneOneAnswer === "B" ? (
-                              <div className="mt-5 rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                          <>
+                            {sceneOneAnswer === null ? (
+                              <div key="scene-one-question" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                                <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">The video appears on screen, but there is no sound. What should you do next?</p>
+                                <div className="mt-4 grid gap-3">
+                                  {[
+                                    ["A", "Continue the rehearsal and ask Mai to fix the sound later."],
+                                    ["B", "Stop at this point and investigate what caused the sequence to fail."],
+                                    ["C", "Skip the video because the rest of the event is working."]
+                                  ].map(([id, text]) => (
+                                    <Button key={id} type="button" variant="outline" onClick={() => setSceneOneAnswer(id as SceneOneAnswer)} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
+                                      {id}. {text}
+                                    </Button>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : sceneOneAnswer === "B" ? (
+                              <div key="scene-one-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
                                 <p className="text-lg font-bold text-[#437118]">Good call.</p>
                                 <p className="mt-3 text-base leading-relaxed text-slate-700">The recap video is part of the experience designed for new members, so a playback failure could directly affect how they experience and understand the club.</p>
                                 <p className="mt-3 text-base leading-relaxed text-slate-700">Because the issue has appeared in a participant-facing moment, it deserves attention before the rehearsal continues.</p>
                                 <p className="mt-4 text-xs font-extrabold tracking-[0.14em] text-[#437118]">IMPACT — What matters most if it fails?</p>
                               </div>
-                            ) : sceneOneAnswer === "A" ? (
-                              <div className="mt-5 rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
+                            ) : (
+                              <div key={`scene-one-${sceneOneAnswer}-feedback`} className="animate-scene-reveal rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
                                 <div className="flex justify-end">
                                   <Button type="button" variant="outline" onClick={() => setSceneOneAnswer(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">Take another look.</Button>
                                 </div>
                               </div>
-                            ) : sceneOneAnswer === "C" ? (
-                              <div className="mt-5 rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
-                                <div className="flex justify-end">
-                                  <Button type="button" variant="outline" onClick={() => setSceneOneAnswer(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">Take another look.</Button>
-                                </div>
-                              </div>
-                            ) : null}
+                            )}
                             <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                               <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
                                 <ArrowLeft className="mr-1.5 h-4 w-4" />
@@ -1999,7 +1996,7 @@ export function EventReadinessCoursePage({
                                 <span />
                               )}
                             </div>
-                          </div>
+                          </>
                         ) : (
                           <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
                             <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">{activeSimulationScene.prompt}</p>
