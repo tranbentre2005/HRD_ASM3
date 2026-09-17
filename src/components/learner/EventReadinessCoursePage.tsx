@@ -2112,13 +2112,20 @@ export function EventReadinessCoursePage({
                             </div>
                           </>
                         ) : (
-                          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                            <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
-                              <ArrowLeft className="mr-1.5 h-4 w-4" />
-                              Previous scene
-                            </Button>
-                            <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
-                          </div>
+                          <>
+                            <div className="rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                              <p className="text-base leading-relaxed text-slate-700">The recap-video sequence is now Ready, and you continue the rehearsal.</p>
+                              <p className="mt-3 text-base leading-relaxed text-slate-700">The remaining parts of the event run as planned.</p>
+                              <p className="mt-3 text-base leading-relaxed text-slate-700">You have now seen the event flow as participants are expected to experience it. That is the difference between Done and Ready.</p>
+                            </div>
+                            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                              <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
+                                <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                Previous scene
+                              </Button>
+                              <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
+                            </div>
+                          </>
                         )}
                       </div>
                     )
