@@ -1975,7 +1975,7 @@ export function EventReadinessCoursePage({
                               <div key="scene-one-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
                                 <p className="text-lg font-bold text-[#437118]">GOOD CALL.</p>
                                 <p className="mt-3 text-base leading-relaxed text-slate-700">The recap video is part of the experience designed for new members, so the playback failure deserves attention before the rehearsal continues.</p>
-                                <p className="mt-4 text-base leading-relaxed text-slate-700">IMPACT — What matters most if it fails?</p>
+                                <p className="mt-4 text-base italic leading-relaxed text-[#437118]">IMPACT — What matters most if it fails?</p>
                               </div>
                             ) : (
                               <div key={`scene-one-${sceneOneAnswer}-feedback`} className="animate-scene-reveal rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
