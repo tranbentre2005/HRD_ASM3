@@ -1992,7 +1992,7 @@ export function EventReadinessCoursePage({
                           <p className="mt-5 text-base leading-relaxed text-slate-600">Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> throughout the final rehearsal to investigate what is happening, respond to readiness issues, and decide whether the event is ready to proceed.</p>
                           <div className="mt-4 flex justify-end">
                             <Button type="button" onClick={() => { setSimulationScene(-1); setSimulationStarted(true) }} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                              Start Simulation
+                              Start Rehearsal
                               <ArrowRight className="ml-1.5 h-4 w-4" />
                             </Button>
                           </div>
