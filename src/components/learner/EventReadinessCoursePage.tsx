@@ -1952,7 +1952,7 @@ export function EventReadinessCoursePage({
                             <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-wide text-[#2F668B] ring-1 ring-[#87AECE]/40">{activeSimulationScene.label}</span>
                           </div>
                           {activeSimulationScene.title && <h3 className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">{activeSimulationScene.title}</h3>}
-                          {activeSimulationScene.description && <p className={`mt-3 ${simulationScene < 2 ? "text-base font-semibold leading-relaxed text-[#1D2A62]" : "text-base leading-relaxed text-slate-600"}`}>{activeSimulationScene.description}</p>}
+                          {activeSimulationScene.description && <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">{activeSimulationScene.description}</p>}
                         </div>
                         {simulationScene === 0 && (
                           <img src={sceneOneAnswer === "A" ? "/scene%201%20-%20answer%20A.png" : sceneOneAnswer === "C" ? "/scene%201%20-%20answer%20C.png" : "/scene%201.png"} alt={sceneOneAnswer === "A" ? "Scene one answer A feedback illustration" : sceneOneAnswer === "C" ? "Scene one answer C feedback illustration" : "Finance Club recap video playing without sound during rehearsal"} className="mx-auto block w-[85%] rounded-2xl object-cover" />
