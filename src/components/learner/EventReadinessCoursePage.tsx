@@ -358,6 +358,7 @@ export function EventReadinessCoursePage({
   const [checklistOpen, setChecklistOpen] = useState(false)
   const [assessmentSubmitted, setAssessmentSubmitted] = useState(initialState.assessmentSubmitted)
   const [assessmentReviewOpen, setAssessmentReviewOpen] = useState(false)
+  const [isSyllabusOpen, setIsSyllabusOpen] = useState(false)
 
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
@@ -424,6 +425,7 @@ export function EventReadinessCoursePage({
     const lessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === lessonId)
     if (lessonIndex === -1 || !isLessonUnlocked(lessonIndex)) return
     setActiveLessonId(lessonId)
+    setIsSyllabusOpen(false)
   }
   const handleSimulationBackToRehearsal = () => {
     setSimulationStarted(false)
@@ -726,7 +728,7 @@ export function EventReadinessCoursePage({
         </div>
         <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0 max-w-3xl flex-1 lg:max-w-4xl lg:pr-40">
-            <div className="flex items-end gap-[15.6px]">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-[15.6px]">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[#AFD06E]/40 bg-[#EEF7E8] p-1.5 text-[#437118] sm:h-20 sm:w-20 lg:h-24 lg:w-24">
                 <img
                   src="/core-pathway-clipboard.png"
@@ -735,7 +737,7 @@ export function EventReadinessCoursePage({
                 />
               </div>
               <div className="min-w-0">
-                <h1 className="inline-block text-2xl font-extrabold leading-tight tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent sm:text-3xl lg:whitespace-nowrap">
+                <h1 className="inline-block max-w-full break-words text-2xl font-extrabold leading-tight tracking-tight bg-gradient-to-r from-[#386b24] via-[#437118] to-[#1D2A62] bg-clip-text text-transparent sm:text-3xl">
                   <span>Event Readiness</span>{" | "}
                   <span>From “Done” to Participant-Ready</span>
                 </h1>
@@ -749,8 +751,7 @@ export function EventReadinessCoursePage({
               </div>
             </div>
           </div>
-
-          <div className="min-w-[220px] lg:text-right">
+          <div className="w-full min-w-0 lg:min-w-[220px] lg:w-auto lg:text-right">
             <div className="flex items-center justify-between gap-3 text-xs font-semibold text-[#1D2A62] lg:justify-end">
               <span>Overall progress</span>
               <span>{progress}%</span>
@@ -763,8 +764,21 @@ export function EventReadinessCoursePage({
         </div>
       </section>
 
+      <button
+        type="button"
+        aria-expanded={isSyllabusOpen}
+        aria-controls="event-readiness-syllabus"
+        onClick={() => setIsSyllabusOpen(previous => !previous)}
+        className="flex min-h-11 w-full items-center justify-between rounded-xl border border-[#87AECE]/35 bg-white px-4 text-sm font-bold text-[#1D2A62] shadow-2xs transition-colors hover:bg-slate-50 lg:hidden"
+      >
+        <span className="flex items-center gap-2">
+          <ListNumbers className="h-4 w-4 text-[#437118]" />
+          Course syllabus
+        </span>
+        <span className="text-xs font-medium text-slate-500">{isSyllabusOpen ? "Close" : "Open"}</span>
+      </button>
       <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <aside className="lg:sticky lg:top-20">
+        <aside id="event-readiness-syllabus" className={`${isSyllabusOpen ? "block" : "hidden"} lg:sticky lg:top-20 lg:block`}>
           <Card className="border-slate-200/90 p-4 shadow-sm sm:p-5">
             <div className="mb-4 flex items-center justify-between pb-3">
               <div className="flex items-center gap-2">
@@ -848,7 +862,7 @@ export function EventReadinessCoursePage({
                   <p className="text-[#1D2A62]">
                     <strong>Event Readiness</strong> is the final check before delivery. It shifts the focus from what the team has completed behind the scenes to what participants will actually experience. In this course, Project Leaders explore what being event ready really means and practise moving an event from done to <strong>participant-ready</strong> by:
                   </p>
-                  <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     {[
                       { title: "Prioritise", copy: "what matters most to the participant experience and event delivery", cardClass: "border-[#AFD06E]/35 bg-[#EEF7E8]", Icon: Lightbulb },
                       { title: "Verify", copy: "critical information with reliable, up-to-date evidence", cardClass: "border-[#87AECE]/35 bg-[#F0F7FC]", Icon: ShieldCheck },
@@ -896,7 +910,7 @@ export function EventReadinessCoursePage({
                     <p className="pt-1 font-semibold text-[#1D2A62]">Everything looks ready. But is it?</p>
                   </div>
 
-                  <div className="grid gap-3 md:grid-cols-3">
+                  <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     {[
                       { title: "MC Script", status: "Rehearsed yesterday", owner: "Program Team", Icon: Microphone },
                       { title: "Participant Slides", status: "Completed yesterday", owner: "Content Team", Icon: Presentation },
@@ -1673,7 +1687,7 @@ export function EventReadinessCoursePage({
                           <div className="mt-5">
                             <p className="text-center text-sm font-semibold tracking-wide text-[#437118]">From Separate Checks to Real Readiness</p>
                             <h3 className="mt-2 text-center text-xl font-bold text-[#437118]">COMPONENT CHECK VS. INTEGRATED READINESS TEST</h3>
-                            <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-center">
+                            <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] xl:items-center">
                               <div className="h-full rounded-2xl border border-slate-200 bg-white p-5">
                                 <div className="flex items-start gap-3">
                                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F0F7FC] text-[#6F7591]">
@@ -1741,7 +1755,7 @@ export function EventReadinessCoursePage({
                             Connection Challenge
                           </div>
                           <h3 className="mt-3 text-sm font-semibold text-[#1D2A62]">Every participant detail is correct. But is the sequence ready? Click where the connection breaks.</h3>
-                          <div className="mt-4 grid gap-3 md:grid-cols-3">
+                          <div className="mt-4 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                             <div className="rounded-xl border border-[#D8B457]/55 bg-[#FFFDF5] p-4 text-center">
                               <h3 className="text-sm font-bold text-[#1D2A62]">Latest confirmed participant list</h3>
                               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600">

@@ -29,6 +29,7 @@ import {
   Timer,
   ShieldStar,
   Compass,
+  List,
   X,
   Stack,
   User
@@ -133,6 +134,7 @@ export function CoursesView({
 
   const [selectedCategory, setSelectedCategory] = useState<FilterCategoryKey>(() => resolveCategoryKey(initialCategory))
   const [searchQuery, setSearchQuery] = useState("")
+  const [isCourseMenuOpen, setIsCourseMenuOpen] = useState(false)
 
   // Dynamic banner content derived from active category
   const currentBanner = BANNER_CONTENT[selectedCategory] || BANNER_CONTENT.all
@@ -442,11 +444,24 @@ export function CoursesView({
     <div className="pb-16 font-sans text-left">
       {/* TWO-COLUMN LAYOUT: Left Section level with Right Banner                   */}
       {/* ========================================================================= */}
+      <button
+        type="button"
+        aria-expanded={isCourseMenuOpen}
+        aria-controls="course-catalog-sidebar"
+        onClick={() => setIsCourseMenuOpen(previous => !previous)}
+        className="flex min-h-11 w-full items-center justify-between rounded-xl border border-[#87AECE]/35 bg-white px-4 text-sm font-bold text-[#1D2A62] shadow-2xs transition-colors hover:bg-slate-50 lg:hidden"
+      >
+        <span className="flex items-center gap-2">
+          <List className="h-4 w-4 text-[#437118]" />
+          Course menu
+        </span>
+        {isCourseMenuOpen ? <X className="h-4 w-4" /> : <span className="text-xs font-medium text-slate-500">Open</span>}
+      </button>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ======================================================================= */}
         {/* LEFT COLUMN: Sidebar Card (White Background, Frameless / No Border)       */}
         {/* ======================================================================= */}
-        <div className="lg:col-span-4 xl:col-span-3 rounded-2xl bg-white text-slate-800 p-4 sm:p-5 space-y-5 text-left">
+        <div id="course-catalog-sidebar" className={`${isCourseMenuOpen ? "block" : "hidden"} lg:block lg:col-span-4 xl:col-span-3 rounded-2xl bg-white text-slate-800 p-4 sm:p-5 space-y-5 text-left`}>
           <div className="relative z-10">
             <div className="space-y-1">
               {/* 1. All Courses (SquaresFour icon matching Image #1) */}
@@ -637,7 +652,7 @@ export function CoursesView({
         {/* ======================================================================= */}
         <div className="lg:col-span-8 xl:col-span-9 space-y-5">
           {/* Top Compact Hero Banner */}
-          <div className="relative mt-0 rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between lg:mt-5 sm:p-6 lg:py-5 lg:px-8">
+          <div className="relative mt-0 flex min-w-0 flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden lg:mt-5 sm:flex-nowrap sm:p-6 lg:py-5 lg:px-8">
             {/* Subtle Architectural Dot Matrix Grid */}
             <div 
               className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 

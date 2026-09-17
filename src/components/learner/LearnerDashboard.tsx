@@ -169,7 +169,7 @@ export function LearnerDashboard({
       </div>
 
       {/* 3 Executive Metric Cards: Scaled down 10%, Navy borders on white cards, aligned title row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {/* Card 1: PROGRESS SNAPSHOT */}
         <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-4 sm:p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />

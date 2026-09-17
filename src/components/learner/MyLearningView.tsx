@@ -89,7 +89,7 @@ export function MyLearningView({
       {/* ========================================================================= */}
       {/* 1. TOP BANNER: Matching Courses Banner & Image #1                         */}
       {/* ========================================================================= */}
-      <div className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-4 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
+      <div className="relative flex min-w-0 flex-wrap items-center justify-between gap-5 rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden sm:flex-nowrap sm:gap-6 sm:p-6 lg:py-4 lg:px-8">
         {/* Subtle Architectural Dot Matrix Grid */}
         <div 
           className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none -z-0" 
@@ -114,7 +114,7 @@ export function MyLearningView({
         </svg>
 
         {/* Left: Banner Content */}
-        <div className="space-y-1.5 z-10 relative text-left max-w-md lg:max-w-xl">
+        <div className="space-y-1.5 z-10 relative min-w-0 text-left max-w-md lg:max-w-xl">
           {/* Breadcrumb: Home / My Learning */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
             <button
@@ -150,7 +150,7 @@ export function MyLearningView({
       {/* ========================================================================= */}
       {/* 2. TOP METRIC CARDS ROW: 3 Equal Metric Cards                             */}
       {/* ========================================================================= */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {/* Card 1: Learning Progress (Deep Navy Gradient matching Home) */}
         <div className="rounded-2xl bg-gradient-to-br from-[#121B3F] via-[#1D2A62] to-[#253A78] border border-[#87AECE]/30 text-white p-5 shadow-xs flex flex-col justify-between text-left transition-all hover:shadow-md relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-radial from-white/10 via-transparent to-transparent pointer-events-none blur-xl" />

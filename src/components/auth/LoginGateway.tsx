@@ -51,7 +51,7 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
       {/* Main Container Card */}
       <div className="w-full max-w-5xl rounded-3xl bg-white shadow-xl overflow-hidden border border-[#87AECE]/25 transition-all">
         {/* Subtle Top Window Bar */}
-        <div className="bg-[#EDEDED]/50 border-b border-[#EDEDED] px-5 py-2.5 flex items-center justify-between text-xs select-none">
+        <div className="bg-[#EDEDED]/50 border-b border-[#EDEDED] px-3 sm:px-5 py-2.5 flex items-center justify-between gap-3 text-xs select-none">
           {/* Subtle Window Dots */}
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80 inline-block" />
@@ -59,16 +59,16 @@ export function LoginGateway({ onLoginAs }: LoginGatewayProps) {
             <span className="h-2.5 w-2.5 rounded-full bg-[#437118]/80 inline-block" />
           </div>
 
-          <span className="text-[11px] font-medium text-[#68707D]">
+          <span className="min-w-0 truncate text-center text-[11px] font-medium text-[#68707D] sm:max-w-none">
             Project Leader Capability Portal
           </span>
-          <span className="text-[11px] font-medium text-[#68707D]">
+          <span className="hidden shrink-0 text-[11px] font-medium text-[#68707D] sm:inline">
             Cohort · ASM3
           </span>
         </div>
 
         {/* Split Body Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-0 lg:min-h-[580px]">
           {/* Left Column: Role Selection & Identity (6 cols) */}
           <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-between space-y-6">
             <div className="space-y-6">

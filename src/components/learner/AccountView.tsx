@@ -107,7 +107,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
       <section className="relative rounded-2xl border border-[#87AECE]/35 bg-gradient-to-br from-white via-[#fcfdfe] to-[#f2f7fa] p-5 sm:p-6 lg:py-6 lg:px-8 shadow-[0_16px_50px_-20px_rgba(29,42,98,0.08)] overflow-hidden flex items-center justify-between">
         <div className="absolute inset-0 bg-[radial-gradient(#87AECE_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-0" />
 
-        <div className="relative z-10 flex w-full items-center justify-between gap-6">
+        <div className="relative z-10 flex min-w-0 w-full flex-wrap items-center justify-between gap-6">
           <div className="space-y-1.5 text-left">
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
               <button
@@ -159,7 +159,7 @@ export function AccountView({ onLogout, onBackToHome, onOpenSupport }: AccountVi
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-3 justify-items-center gap-3 border-t border-slate-100 pt-4 text-[10px]">
+          <div className="grid grid-cols-1 gap-3 border-t border-slate-100 pt-4 text-[10px] sm:grid-cols-3 sm:justify-items-center">
             <div className="flex items-center justify-start gap-2 justify-self-start">
               <CalendarCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#1D2A62]" />
               <div>

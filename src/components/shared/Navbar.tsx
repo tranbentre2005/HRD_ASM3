@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from "react"
 import { UserRole, Announcement } from "@/data/types"
-import { 
-  Bell, 
-  CheckCircle, 
-  RocketLaunch, 
-  CalendarCheck, 
-  Sparkle, 
+import {
+  Bell,
+  CheckCircle,
+  RocketLaunch,
+  CalendarCheck,
+  Sparkle,
   ArrowRight,
-  Megaphone
+  Megaphone,
+  List,
+  X
 } from "@phosphor-icons/react"
 
 interface NavbarProps {
@@ -37,6 +39,7 @@ export function Navbar({
 }: NavbarProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const popoverRef = useRef<HTMLDivElement>(null)
   const bellButtonRef = useRef<HTMLButtonElement>(null)
   const displayName = userName?.trim() || (currentRole === 'learner' ? 'Tran Le Bao Tran' : 'MSc. Hoang Le Tram')
@@ -136,14 +139,13 @@ export function Navbar({
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#AFD06E]/35 bg-gradient-to-r from-[#F4F9F1]/95 via-[#F8FCF6]/95 to-[#EDF6E8]/95 backdrop-blur-md font-sans transition-colors">
-      {/* Main Navbar: Unified across roles */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-15 flex items-center justify-between gap-2 sm:gap-4">
+      <header className="sticky top-0 z-40 w-full border-b border-[#AFD06E]/35 bg-gradient-to-r from-[#F4F9F1]/95 via-[#F8FCF6]/95 to-[#EDF6E8]/95 backdrop-blur-md font-sans transition-colors">
+        <div className="max-w-7xl mx-auto min-w-0 px-3 sm:px-6 h-14 sm:h-15 flex items-center justify-between gap-2 sm:gap-4">
         {/* 1. Logo -> Trang Home */}
         <button
           type="button"
           onClick={() => onNavigate('home')}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] rounded-lg p-1 -ml-1 transition-opacity hover:opacity-90"
+          className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3 cursor-pointer group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62] rounded-lg p-1 -ml-1 transition-opacity hover:opacity-90"
           title="Return to Home"
           aria-label="Return to Home"
         >
@@ -162,9 +164,8 @@ export function Navbar({
           </div>
         </button>
 
-        {/* Right: Navigation (Courses, My Learning, Support) placed on the right next to Bell and Account */}
         <div className="flex items-center gap-0.5 sm:gap-3">
-          <nav className="flex items-center gap-0 sm:gap-2">
+          <nav className="hidden md:flex items-center gap-0 sm:gap-2">
             <button
               type="button"
               onClick={() => onNavigate('courses')}
@@ -225,9 +226,7 @@ export function Navbar({
             {isPopoverOpen && (
               <div
                 ref={popoverRef}
-                role="dialog"
-                aria-label="Recent Announcements"
-                className="absolute right-0 top-full mt-2 w-80 sm:w-96 rounded-2xl bg-white border border-[#87AECE]/35 shadow-xl z-50 overflow-hidden text-left font-sans animate-fade-in"
+                className="absolute right-0 top-full mt-2 w-80 max-w-[calc(100vw-1.5rem)] sm:w-96 rounded-2xl bg-white border border-[#87AECE]/35 shadow-xl z-50 overflow-hidden text-left font-sans animate-fade-in"
               >
                 {/* Popover Header */}
                 <div className="p-3.5 px-4 bg-gradient-to-r from-[#F0F7FC] via-[#F8FCF6] to-[#EEF7E8] border-b border-slate-100 flex items-center justify-between">
@@ -360,7 +359,57 @@ export function Navbar({
             )}
           </div>
         </div>
+        <button
+          type="button"
+          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-navigation-menu"
+          onClick={() => setIsMobileMenuOpen(previous => !previous)}
+          className="md:hidden inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#87AECE]/40 bg-white/70 text-[#1D2A62] shadow-2xs transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A62]"
+        >
+          {isMobileMenuOpen ? <X className="h-5 w-5" /> : <List className="h-5 w-5" />}
+        </button>
       </div>
+      {isMobileMenuOpen && (
+        <div id="mobile-navigation-menu" className="border-t border-[#AFD06E]/25 bg-white/90 md:hidden">
+          <nav aria-label="Mobile navigation" className="mx-auto max-w-7xl space-y-1 px-3 py-2">
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false)
+                onNavigate('courses')
+              }}
+              className={`flex min-h-11 w-full items-center rounded-xl px-3 text-left text-sm font-semibold transition-colors ${
+                currentPage === 'courses' ? 'bg-[#1D2A62] text-white' : 'text-slate-700 hover:bg-slate-100'
+              }`}
+            >
+              Courses
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false)
+                onNavigate('my-learning')
+              }}
+              className={`flex min-h-11 w-full items-center rounded-xl px-3 text-left text-sm font-semibold transition-colors ${
+                currentPage === 'my-learning' ? 'bg-[#1D2A62] text-white' : 'text-slate-700 hover:bg-slate-100'
+              }`}
+            >
+              My Learning
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false)
+                onOpenSupport?.()
+              }}
+              className="flex min-h-11 w-full items-center rounded-xl px-3 text-left text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+            >
+              Support
+            </button>
+          </nav>
+        </div>
+      )}
     </header>
   )
 }

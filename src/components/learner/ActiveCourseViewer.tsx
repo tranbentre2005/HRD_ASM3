@@ -93,14 +93,14 @@ export function ActiveCourseViewer({
     <div className="min-h-[100dvh] bg-[var(--page-canvas,#FFFFFF)] py-6 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Top Navigation Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
-          <div className="flex items-center gap-3">
+        <div className="flex min-w-0 flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
+          <div className="flex min-w-0 flex-wrap items-center gap-3">
             <Button variant="outline" size="sm" onClick={onBack} className="cursor-pointer">
               <ArrowLeft className="h-4 w-4 mr-1.5" />
               Back to Dashboard
             </Button>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
                   {course.code}
                 </span>
@@ -158,7 +158,7 @@ export function ActiveCourseViewer({
                   <div className="space-y-6">
                     {/* Simulated High-End Video Player */}
                     <div className="relative aspect-video w-full rounded-xl bg-slate-950 overflow-hidden shadow-inner flex flex-col justify-between p-4 text-white">
-                      <div className="flex items-center justify-between text-xs text-slate-300 z-10">
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300 z-10">
                         <span className="bg-slate-800/80 px-2.5 py-1 rounded backdrop-blur-xs font-mono">
                           HD 1080p - TalentCore LMS Player
                         </span>
@@ -373,10 +373,10 @@ export function ActiveCourseViewer({
                       </div>
 
                       {/* File attachment simulator */}
-                      <div className="p-3 rounded-lg border border-dashed border-slate-300 bg-slate-50 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Paperclip className="h-4 w-4 text-slate-500" />
-                          <span className="text-xs text-slate-700">
+                      <div className="p-3 rounded-lg border border-dashed border-slate-300 bg-slate-50 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex min-w-0 items-center gap-2">
+                          <Paperclip className="h-4 w-4 shrink-0 text-slate-500" />
+                          <span className="min-w-0 text-xs text-slate-700 break-words">
                             {attachmentName || "Attach Word / PDF deliverable (optional)"}
                           </span>
                         </div>
@@ -385,7 +385,7 @@ export function ActiveCourseViewer({
                           variant="outline"
                           size="sm"
                           onClick={() => setAttachmentName("SBI_Feedback_Script_TuanNM.docx")}
-                          className="text-xs h-7"
+                          className="h-8 w-full shrink-0 text-xs sm:w-auto"
                           disabled={assignmentSubmitted}
                         >
                           <UploadSimple className="h-3.5 w-3.5 mr-1" />

@@ -64,7 +64,7 @@ export function CertificateModal({ certificate, open, onOpenChange }: Certificat
           ))}
         </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-4 border-t border-slate-200 pt-4 text-left text-xs">
+        <div className="mt-6 grid grid-cols-1 gap-4 border-t border-slate-200 pt-4 text-left text-xs sm:grid-cols-2">
           <div>
             <p className="text-[11px] text-slate-400">Hours & Assessment</p>
             <p className="font-medium text-slate-800">{certificate.hours} Development Hours</p>
