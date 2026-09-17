@@ -2597,7 +2597,7 @@ export function EventReadinessCoursePage({
               {!(activeLesson.id === "4.0-course-feedback" && feedbackSubmitted) && !(activeLesson.id === "2.0-quick-check" && assessmentSubmitted) && (
                 <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex w-full items-center justify-between gap-3">
-                    {activeLessonIndex > 0 ? (
+                    {activeLessonIndex > 0 && activeLesson.id !== "1.2-ready-simulation" ? (
                       <Button type="button" variant="outline" onClick={handlePrevious} className="flex-1 cursor-pointer sm:flex-none">
                         <ArrowLeft className="mr-1.5 h-4 w-4" />
                         Previous
