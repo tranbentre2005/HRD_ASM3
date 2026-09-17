@@ -1949,7 +1949,7 @@ export function EventReadinessCoursePage({
                           <p className="mt-3 text-base leading-relaxed text-slate-600">{activeSimulationScene.description}</p>
                         </div>
                         {simulationScene === 0 && (
-                          <img src="/scene%201.png" alt="Finance Club recap video playing without sound during rehearsal" className="mx-auto block w-[85%] rounded-2xl object-cover" />
+                          <img src={sceneOneAnswer === "A" ? "/scene%201%20-%20answer%20A.png" : sceneOneAnswer === "C" ? "/scene%201%20-%20answer%20C.png" : "/scene%201.png"} alt={sceneOneAnswer === "A" ? "Scene one answer A feedback illustration" : sceneOneAnswer === "C" ? "Scene one answer C feedback illustration" : "Finance Club recap video playing without sound during rehearsal"} className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         )}
                         {simulationScene === 0 ? (
                           <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
@@ -1974,17 +1974,15 @@ export function EventReadinessCoursePage({
                               </div>
                             ) : sceneOneAnswer === "A" ? (
                               <div className="mt-5 rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
-                                <p className="text-lg font-bold text-[#A66C00]">Not quite.</p>
-                                <p className="mt-3 text-base leading-relaxed text-slate-700">The problem has already appeared during a participant-facing sequence. Leaving it until later would allow a known readiness gap to remain unresolved.</p>
-                                <p className="mt-3 text-base leading-relaxed text-slate-700">The stronger decision is to investigate it now, while the team can still identify the cause and re-test the sequence.</p>
-                                <Button type="button" variant="outline" onClick={() => setSceneOneAnswer(null)} className="mt-4 cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">Take another look.</Button>
+                                <div className="flex justify-end">
+                                  <Button type="button" variant="outline" onClick={() => setSceneOneAnswer(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">Take another look.</Button>
+                                </div>
                               </div>
                             ) : sceneOneAnswer === "C" ? (
                               <div className="mt-5 rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
-                                <p className="text-lg font-bold text-[#A66C00]">Not the best response.</p>
-                                <p className="mt-3 text-base leading-relaxed text-slate-700">The video has a clear purpose in the event: helping new members understand the club and its recent activities.</p>
-                                <p className="mt-3 text-base leading-relaxed text-slate-700">A readiness issue does not automatically mean removing the element. First, investigate whether the problem can be resolved before changing the event plan.</p>
-                                <Button type="button" variant="outline" onClick={() => setSceneOneAnswer(null)} className="mt-4 cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">Take another look.</Button>
+                                <div className="flex justify-end">
+                                  <Button type="button" variant="outline" onClick={() => setSceneOneAnswer(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">Take another look.</Button>
+                                </div>
                               </div>
                             ) : null}
                             <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
