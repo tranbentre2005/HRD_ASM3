@@ -2021,7 +2021,7 @@ export function EventReadinessCoursePage({
                               </div>
                             ) : sceneTwoAnswer === "B" ? (
                               <div key="scene-two-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
-                                <p className="text-lg font-bold text-[#437118]">Good call.</p>
+                                <p className="text-lg font-bold text-[#437118]">GOOD CALL.</p>
                                 <p className="mt-3 text-base leading-relaxed text-slate-700">You already have evidence that the video file works. What is still unproven is whether it works under the actual delivery conditions.</p>
                                 <p className="mt-3 text-base leading-relaxed text-slate-700">Testing it through the room setup gives you the evidence you need to locate the readiness gap.</p>
                                 <p className="mt-4 text-base italic leading-relaxed text-[#437118]">EVIDENCE — What has actually been proven?</p>
