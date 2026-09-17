@@ -2230,7 +2230,7 @@ export function EventReadinessCoursePage({
                   <div className="space-y-6 rounded-2xl border border-[#87AECE]/40 bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5 sm:p-6">
                   <div className="space-y-3">
                     <h3 className="text-xl font-extrabold text-[#1D2A62]">What should you take away?</h3>
-                    <p className="font-extrabold text-[#8B5E00]">Event readiness is not about checking more things. It is about making better readiness decisions before the event goes live.</p>
+                    <p className="font-extrabold text-[#437118]">Event readiness is not about checking more things. It is about making better readiness decisions before the event goes live.</p>
                   </div>
                   <div className="space-y-4">
                     <h4 className="text-center text-lg font-extrabold uppercase text-[#1D2A62]">Three shifts to take into your next event</h4>
@@ -2253,7 +2253,7 @@ export function EventReadinessCoursePage({
                         <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/80 text-[#A66C00] ring-1 ring-black/5">
                           <ShieldCheck weight="fill" className="h-5 w-5" />
                         </div>
-                        <p className="text-base font-extrabold text-[#A66C00]">From finding problems → resolving them early</p>
+                        <p className="text-base font-extrabold text-[#A66C00]">From finding problems → resolving them before delivery</p>
                         <p className="mt-3">Use rehearsal to find, fix and re-test issues before they reach participants.</p>
                       </div>
                     </div>
