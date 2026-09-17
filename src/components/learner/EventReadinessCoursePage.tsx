@@ -63,7 +63,7 @@ type SavedCourseState = {
 type ReadinessCategory = "DONE" | "READY"
 
 type OpeningDecision = "A" | "B"
-type AssessmentConcept = "DONE vs READY" | "IMPACT" | "EVIDENCE" | "CONNECTION" | "READINESS JUDGEMENT"
+type AssessmentConcept = "DONE vs READY" | "IMPACT" | "EVIDENCE" | "CONNECTION" | "READINESS JUDGMENT"
 
 type AssessmentQuestion = {
   prompt: string
@@ -118,13 +118,13 @@ const READINESS_ASSESSMENT: AssessmentQuestion[] = [
     ]
   },
   {
-    prompt: "Critical information has been verified, and each individual component works correctly. What should the Project Leader do before sign off a participant-facing sequence as Ready?",
-    concept: "READINESS JUDGEMENT",
+    prompt: "During rehearsal, the main microphone cuts out twice. The team cannot confirm the cause, and AV support is available nearby. What should the Project Leader do before sign-off?",
+    concept: "READINESS JUDGMENT",
     correctOption: "C",
     options: [
       { id: "A", text: "Sign it off because every component is correct." },
       { id: "B", text: "Ask each owner whether their task is Done." },
-      { id: "C", text: "Test the critical components together in the way participants will experience them." },
+      { id: "C", text: "Escalate the issue to AV support and confirm a reliable solution or backup before sign-off." },
       { id: "D", text: "Wait until event day to confirm whether the sequence works." }
     ]
   }
@@ -147,9 +147,9 @@ const READINESS_CONCEPT_FEEDBACK: Record<AssessmentConcept, { prompt: string; ex
     prompt: "Does it work together in practice?",
     explanation: "Correct components still need to be tested together when the participant experience depends on their handoff."
   },
-  "READINESS JUDGEMENT": {
-    prompt: "What evidence is still missing before sign-off?",
-    explanation: "A sequence is not Ready simply because all its parts are correct individually. Where delivery depends on a handoff, the Project Leader needs evidence that those parts also work together under event conditions."
+  "READINESS JUDGMENT": {
+    prompt: "WHEN DOES AN UNRESOLVED ISSUE NEED TO BE ESCALATED BEFORE SIGN-OFF?",
+    explanation: "The microphone is participant-critical, the problem has occurred more than once, and the cause is still unresolved. Before sign-off, the Project Leader needs evidence that the risk has been resolved or controlled, rather than relying on the microphone simply working at that moment."
   }
 }
 
