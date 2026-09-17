@@ -178,7 +178,7 @@ const SIMULATION_SCENES = [
     id: "materials",
     label: "SCENE 1 OF 3",
     title: "",
-    description: "You ask the team to run the sequence exactly as it will happen tomorrow. The opening runs smoothly, and the main session transitions as planned. Then you reach the Club Recap Video, a short video showcasing Finance Club activities from the past 2–3 semesters to introduce new members to the club experience.",
+    description: "You run the sequence as it will happen tomorrow. Everything runs smoothly until the Club Recap Video, which introduces new members to highlights from the past few semesters.",
     prompt: "What should the Project Leader do next?",
     items: []
   },
