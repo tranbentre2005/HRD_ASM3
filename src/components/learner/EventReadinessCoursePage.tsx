@@ -199,8 +199,8 @@ const SIMULATION_SCENES = [
   {
     id: "decision",
     label: "SCENE 3 OF 3",
-    title: "The team tests the room setup and finds the problem:",
-    description: "The video is playing, but the laptop audio is not connected to the room speakers.",
+    title: "",
+    description: "The team tests the room setup and finds the problem: The video is playing, but the laptop audio is not connected to the room speakers.",
     prompt: "Done means the work exists. Ready means the connected experience has been verified and tested.",
     items: [
       ["Evidence", "Details are verified"],
