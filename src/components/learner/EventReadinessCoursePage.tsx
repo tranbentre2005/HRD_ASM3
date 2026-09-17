@@ -1948,7 +1948,7 @@ export function EventReadinessCoursePage({
                             </div>
                             <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-wide text-[#2F668B] ring-1 ring-[#87AECE]/40">{activeSimulationScene.label}</span>
                           </div>
-                          {activeSimulationScene.title && <h3 className={`mt-3 ${simulationScene < 2 ? "text-base font-semibold leading-relaxed text-[#1D2A62]" : "text-xl font-bold text-[#1D2A62]"}`}>{activeSimulationScene.title}</h3>}
+                          {activeSimulationScene.title && <h3 className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">{activeSimulationScene.title}</h3>}
                           {activeSimulationScene.description && <p className={`mt-3 ${simulationScene < 2 ? "text-base font-semibold leading-relaxed text-[#1D2A62]" : "text-base leading-relaxed text-slate-600"}`}>{activeSimulationScene.description}</p>}
                         </div>
                         {simulationScene === 0 && (
