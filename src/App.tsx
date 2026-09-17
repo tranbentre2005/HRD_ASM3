@@ -35,13 +35,21 @@ const getInitialCourses = () => {
   )
 }
 
+const getInitialAnnouncements = () => {
+  const eventProgress = getEventReadinessProgress()
+  return eventProgress === 100
+    ? INITIAL_ANNOUNCEMENTS
+    : INITIAL_ANNOUNCEMENTS.filter(announcement => announcement.id !== 'ann-course-completion')
+}
+
 export function App() {
   const [currentRole, setCurrentRole] = useState<UserRole>('login')
   const [customUserName, setCustomUserName] = useState<string>('')
   const [courses, setCourses] = useState<Course[]>(getInitialCourses)
   const [certificates] = useState<CertificateItem[]>(INITIAL_CERTIFICATES)
-  const [announcements, setAnnouncements] = useState<Announcement[]>(() => INITIAL_ANNOUNCEMENTS)
+  const [announcements, setAnnouncements] = useState<Announcement[]>(getInitialAnnouncements)
   const [selectedAnnouncementId, setSelectedAnnouncementId] = useState<string | null>(null)
+
 
   // Top-level Navigation Page State
   const [currentPage, setCurrentPage] = useState<'home' | 'courses' | 'my-learning' | 'announcements' | 'account'>('home')
@@ -206,6 +214,16 @@ export function App() {
           : course
       )
     )
+    if (progress === 100) {
+      const completionAnnouncement = INITIAL_ANNOUNCEMENTS.find(announcement => announcement.id === 'ann-course-completion')
+      if (completionAnnouncement) {
+        setAnnouncements(previousAnnouncements =>
+          previousAnnouncements.some(announcement => announcement.id === completionAnnouncement.id)
+            ? previousAnnouncements
+            : [completionAnnouncement, ...previousAnnouncements]
+        )
+      }
+    }
   }
 
 
