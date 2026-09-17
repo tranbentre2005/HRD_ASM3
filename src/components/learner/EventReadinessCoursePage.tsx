@@ -64,6 +64,7 @@ type ReadinessCategory = "DONE" | "READY"
 
 type OpeningDecision = "A" | "B"
 type SceneOneAnswer = "A" | "B" | "C"
+type SceneTwoAnswer = "A" | "B" | "C"
 type AssessmentConcept = "DONE vs READY" | "IMPACT" | "EVIDENCE" | "CONNECTION" | "READINESS JUDGMENT"
 
 type AssessmentQuestion = {
@@ -317,6 +318,7 @@ export function EventReadinessCoursePage({
   const [simulationStarted, setSimulationStarted] = useState(false)
   const [simulationScene, setSimulationScene] = useState(-1)
   const [sceneOneAnswer, setSceneOneAnswer] = useState<SceneOneAnswer | null>(null)
+  const [sceneTwoAnswer, setSceneTwoAnswer] = useState<SceneTwoAnswer | null>(null)
   const [openingDecision, setOpeningDecision] = useState<OpeningDecision | null>(null)
   const [openingDecisionConfirmed, setOpeningDecisionConfirmed] = useState(false)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
@@ -417,6 +419,7 @@ export function EventReadinessCoursePage({
     setSimulationStarted(false)
     setSimulationScene(-1)
     setSceneOneAnswer(null)
+    setSceneTwoAnswer(null)
     setOpeningDecisionConfirmed(false)
     setOpeningDecision(null)
   }
@@ -1990,6 +1993,52 @@ export function EventReadinessCoursePage({
                                 Previous scene
                               </Button>
                               {sceneOneAnswer === "B" ? (
+                                <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                                  Next scene
+                                  <ArrowRight className="ml-1.5 h-4 w-4" />
+                                </Button>
+                              ) : (
+                                <span />
+                              )}
+                            </div>
+                          </>
+                        ) : simulationScene === 1 ? (
+                          <>
+                            {sceneTwoAnswer === null ? (
+                              <div key="scene-two-question" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                                <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">As the Project Leader, what should you ask the team to do next?</p>
+                                <div className="mt-4 grid gap-3">
+                                  {[
+                                    ["A", "Replay the video on the laptop once more to confirm the file is working."],
+                                    ["B", "Test the video through the actual room setup to find out whether the sound reaches participants."],
+                                    ["C", "Let Mai troubleshoot the issue separately while the rest of the team continues the rehearsal."]
+                                  ].map(([id, text]) => (
+                                    <Button key={id} type="button" variant="outline" onClick={() => setSceneTwoAnswer(id as SceneTwoAnswer)} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
+                                      {id}. {text}
+                                    </Button>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : sceneTwoAnswer === "B" ? (
+                              <div key="scene-two-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                                <p className="text-lg font-bold text-[#437118]">Good call.</p>
+                                <p className="mt-3 text-base leading-relaxed text-slate-700">You already have evidence that the video file works. What is still unproven is whether it works under the actual delivery conditions.</p>
+                                <p className="mt-3 text-base leading-relaxed text-slate-700">Testing it through the room setup gives you the evidence you need to locate the readiness gap.</p>
+                                <p className="mt-4 text-base italic leading-relaxed text-[#437118]">EVIDENCE — What has actually been proven?</p>
+                              </div>
+                            ) : (
+                              <div key={`scene-two-${sceneTwoAnswer}-feedback`} className="animate-scene-reveal rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
+                                <div className="flex justify-end">
+                                  <Button type="button" variant="outline" onClick={() => setSceneTwoAnswer(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">Take another look.</Button>
+                                </div>
+                              </div>
+                            )}
+                            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                              <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
+                                <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                Previous scene
+                              </Button>
+                              {sceneTwoAnswer === "B" ? (
                                 <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                                   Next scene
                                   <ArrowRight className="ml-1.5 h-4 w-4" />
