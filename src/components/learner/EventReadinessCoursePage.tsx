@@ -2230,7 +2230,7 @@ export function EventReadinessCoursePage({
                   <div className="space-y-6 rounded-2xl border border-[#87AECE]/40 bg-gradient-to-br from-[#F0F7FC] via-white to-[#EEF7E8] p-5 sm:p-6">
                   <div className="space-y-3">
                     <h3 className="text-xl font-extrabold text-[#1D2A62]">What should you take away?</h3>
-                    <p className="font-extrabold text-[#437118]">Event readiness is not about checking more things. It is about making better readiness decisions before the event goes live.</p>
+                    <p className="text-[1.1em] font-normal text-[#437118]">Event readiness is not about checking more things. It is about making better readiness decisions before the event goes live.</p>
                   </div>
                   <div className="space-y-4">
                     <h4 className="text-center text-lg font-extrabold uppercase text-[#1D2A62]">Three shifts to take into your next event</h4>
