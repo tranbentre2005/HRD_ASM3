@@ -2123,7 +2123,7 @@ export function EventReadinessCoursePage({
                                 <ArrowLeft className="mr-1.5 h-4 w-4" />
                                 Previous scene
                               </Button>
-                              <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
+                              <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#437118]"><CheckCircle weight="fill" className="h-4 w-4" />SIMULATION COMPLETE</span>
                             </div>
                           </>
                         )}
