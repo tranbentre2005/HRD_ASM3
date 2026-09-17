@@ -1970,9 +1970,8 @@ export function EventReadinessCoursePage({
                               </div>
                             ) : sceneOneAnswer === "B" ? (
                               <div key="scene-one-b-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
-                                <p className="text-lg font-bold text-[#437118]">Good call.</p>
-                                <p className="mt-3 text-base leading-relaxed text-slate-700">The recap video is part of the experience designed for new members, so a playback failure could directly affect how they experience and understand the club.</p>
-                                <p className="mt-3 text-base leading-relaxed text-slate-700">Because the issue has appeared in a participant-facing moment, it deserves attention before the rehearsal continues.</p>
+                                <p className="text-lg font-bold text-[#437118]">GOOD CALL.</p>
+                                <p className="mt-3 text-base leading-relaxed text-slate-700">The recap video is part of the experience designed for new members, so the playback failure deserves attention before the rehearsal continues.</p>
                                 <p className="mt-4 text-xs font-extrabold tracking-[0.14em] text-[#437118]">IMPACT — What matters most if it fails?</p>
                               </div>
                             ) : (
