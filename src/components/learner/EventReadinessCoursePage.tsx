@@ -1948,8 +1948,11 @@ export function EventReadinessCoursePage({
                           {activeSimulationScene.title && <h3 className="mt-3 text-xl font-bold text-[#1D2A62]">{activeSimulationScene.title}</h3>}
                           <p className="mt-3 text-base leading-relaxed text-slate-600">{activeSimulationScene.description}</p>
                         </div>
+                        {simulationScene === 0 && (
+                          <img src="/scene%201.png" alt="Finance Club recap video playing without sound during rehearsal" className="mx-auto block w-[85%] rounded-2xl object-cover" />
+                        )}
                         {simulationScene === 0 ? (
-                          <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
+                          <div className="rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
                             <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">The video appears on screen, but there is no sound. What should you do next?</p>
                             <div className="mt-4 grid gap-3">
                               {[
