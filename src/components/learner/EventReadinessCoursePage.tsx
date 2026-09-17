@@ -185,8 +185,8 @@ const SIMULATION_SCENES = [
   {
     id: "handoffs",
     label: "SCENE 2 OF 3",
-    title: "Follow the team hand-offs",
-    description: "Trace what happens when the event moves from one owner to the next, including the moments participants cannot see.",
+    title: "You stop the rehearsal and investigate the issue.",
+    description: "",
     prompt: "A ready event depends on clear ownership, timing, and working hand-offs.",
     items: [
       ["Opening", "MC welcomes participants"],
@@ -1946,10 +1946,13 @@ export function EventReadinessCoursePage({
                             <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-wide text-[#2F668B] ring-1 ring-[#87AECE]/40">{activeSimulationScene.label}</span>
                           </div>
                           {activeSimulationScene.title && <h3 className="mt-3 text-xl font-bold text-[#1D2A62]">{activeSimulationScene.title}</h3>}
-                          <p className="mt-3 text-base leading-relaxed text-slate-600">{activeSimulationScene.description}</p>
+                          {activeSimulationScene.description && <p className="mt-3 text-base leading-relaxed text-slate-600">{activeSimulationScene.description}</p>}
                         </div>
                         {simulationScene === 0 && (
                           <img src={sceneOneAnswer === "A" ? "/scene%201%20-%20answer%20A.png" : sceneOneAnswer === "C" ? "/scene%201%20-%20answer%20C.png" : "/scene%201.png"} alt={sceneOneAnswer === "A" ? "Scene one answer A feedback illustration" : sceneOneAnswer === "C" ? "Scene one answer C feedback illustration" : "Finance Club recap video playing without sound during rehearsal"} className="mx-auto block w-[85%] rounded-2xl object-cover" />
+                        )}
+                        {simulationScene === 1 && (
+                          <img src="/scene%202.png" alt="The project leader investigates the muted recap video during rehearsal" className="mx-auto block w-[85%] rounded-2xl object-cover" />
                         )}
                         {simulationScene === 0 ? (
                           <>
