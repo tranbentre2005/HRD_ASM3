@@ -177,8 +177,8 @@ const SIMULATION_SCENES = [
   {
     id: "materials",
     label: "SCENE 1 OF 3",
-    title: "Run the sequence",
-    description: "You ask the team to run the sequence exactly as it will happen tomorrow.",
+    title: "",
+    description: "You ask the team to run the sequence exactly as it will happen tomorrow. The opening runs smoothly, and the main session transitions as planned. Then you reach the Club Recap Video, a short video showcasing Finance Club activities from the past 2–3 semesters to introduce new members to the club experience.",
     prompt: "What should the Project Leader do next?",
     items: []
   },
@@ -1941,17 +1941,16 @@ export function EventReadinessCoursePage({
                           <div className="flex flex-wrap items-center justify-between gap-3">
                             <div className="flex items-center gap-2 font-bold text-[#2F668B]">
                               <PlayCircle weight="fill" className="h-5 w-5" />
-                              SIMULATION IN PROGRESS
+                              RUN THE SEQUENCE
                             </div>
                             <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-wide text-[#2F668B] ring-1 ring-[#87AECE]/40">{activeSimulationScene.label}</span>
                           </div>
-                          <h3 className="mt-3 text-xl font-bold text-[#1D2A62]">{activeSimulationScene.title}</h3>
+                          {activeSimulationScene.title && <h3 className="mt-3 text-xl font-bold text-[#1D2A62]">{activeSimulationScene.title}</h3>}
                           <p className="mt-3 text-base leading-relaxed text-slate-600">{activeSimulationScene.description}</p>
                         </div>
                         {simulationScene === 0 ? (
                           <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                            <p className="text-base leading-relaxed text-slate-700">The opening runs smoothly, and the main session transitions as planned. Then you reach the Club Recap Video, a short video showcasing Finance Club activities from the past 2–3 semesters to introduce new members to the club experience.</p>
-                            <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">The video appears on screen, but there is no sound. What should you do next?</p>
+                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">The video appears on screen, but there is no sound. What should you do next?</p>
                             <div className="mt-4 grid gap-3">
                               {[
                                 ["A", "Continue the rehearsal and ask Mai to fix the sound later."],
