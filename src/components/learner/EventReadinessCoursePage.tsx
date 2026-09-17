@@ -178,7 +178,7 @@ const INITIAL_CONNECTION_SLIDE_ORDER = ["Nguyễn Minh Anh", "Lê Hoàng Nam", "
 const SIMULATION_SCENES = [
   {
     id: "materials",
-    label: "SCENE 1 OF 3",
+    label: "SCENE 1 OF 4",
     title: "",
     description: "You run the sequence as it will happen tomorrow. Everything runs smoothly until the Club Recap Video, which introduces new members to highlights from the past few semesters.",
     prompt: "What should the Project Leader do next?",
@@ -186,7 +186,7 @@ const SIMULATION_SCENES = [
   },
   {
     id: "handoffs",
-    label: "SCENE 2 OF 3",
+    label: "SCENE 2 OF 4",
     title: "You stop the rehearsal and investigate the issue.",
     description: "",
     prompt: "A ready event depends on clear ownership, timing, and working hand-offs.",
@@ -198,7 +198,7 @@ const SIMULATION_SCENES = [
   },
   {
     id: "decision",
-    label: "SCENE 3 OF 3",
+    label: "SCENE 3 OF 4",
     title: "",
     description: "The team tests the room setup and finds the problem: The video is playing, but the laptop audio is not connected to the room speakers.",
     prompt: "Done means the work exists. Ready means the connected experience has been verified and tested.",
@@ -207,7 +207,15 @@ const SIMULATION_SCENES = [
       ["Connection", "Assets work together"],
       ["Decision", "Ready for participants"]
     ]
-  }
+  },
+  {
+    id: "confirmation",
+    label: "SCENE 4 OF 4",
+    title: "",
+    description: "You re-run the sequence. An gives the cue and Mai starts the video. This time, the sound plays clearly through the room speakers.",
+    prompt: "",
+    items: []
+  },
 ] as const
 
 
@@ -354,7 +362,7 @@ export function EventReadinessCoursePage({
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
   const activeSimulationScene = SIMULATION_SCENES[Math.max(simulationScene, 0)]
-  const simulationComplete = simulationStarted && simulationScene === SIMULATION_SCENES.length - 1 && sceneThreeAnswer === "C"
+  const simulationComplete = simulationStarted && simulationScene === SIMULATION_SCENES.length - 1
   const completedCount = completedLessonIds.length
   const readinessAllPlaced = READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id])
   const readinessAllCorrect = readinessSubmitted && readinessAllPlaced && READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id] === statement.category)
@@ -2054,7 +2062,7 @@ export function EventReadinessCoursePage({
                               )}
                             </div>
                           </>
-                        ) : (
+                        ) : simulationScene === 2 ? (
                           <>
                             {sceneThreeAnswer === null ? (
                               <div key="scene-three-question" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
@@ -2091,12 +2099,23 @@ export function EventReadinessCoursePage({
                                 Previous scene
                               </Button>
                               {sceneThreeAnswer === "C" ? (
-                                <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
+                                <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                                  Next scene
+                                  <ArrowRight className="ml-1.5 h-4 w-4" />
+                                </Button>
                               ) : (
                                 <span />
                               )}
                             </div>
                           </>
+                        ) : (
+                          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                            <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
+                              <ArrowLeft className="mr-1.5 h-4 w-4" />
+                              Previous scene
+                            </Button>
+                            <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
+                          </div>
                         )}
                       </div>
                     )
