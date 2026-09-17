@@ -65,6 +65,7 @@ type ReadinessCategory = "DONE" | "READY"
 type OpeningDecision = "A" | "B"
 type SceneOneAnswer = "A" | "B" | "C"
 type SceneTwoAnswer = "A" | "B" | "C"
+type SceneThreeAnswer = "A" | "B" | "C"
 type AssessmentConcept = "DONE vs READY" | "IMPACT" | "EVIDENCE" | "CONNECTION" | "READINESS JUDGMENT"
 
 type AssessmentQuestion = {
@@ -319,6 +320,7 @@ export function EventReadinessCoursePage({
   const [simulationScene, setSimulationScene] = useState(-1)
   const [sceneOneAnswer, setSceneOneAnswer] = useState<SceneOneAnswer | null>(null)
   const [sceneTwoAnswer, setSceneTwoAnswer] = useState<SceneTwoAnswer | null>(null)
+  const [sceneThreeAnswer, setSceneThreeAnswer] = useState<SceneThreeAnswer | null>(null)
   const [openingDecision, setOpeningDecision] = useState<OpeningDecision | null>(null)
   const [openingDecisionConfirmed, setOpeningDecisionConfirmed] = useState(false)
   const [selectedAssetCard, setSelectedAssetCard] = useState<string | null>(null)
@@ -352,7 +354,7 @@ export function EventReadinessCoursePage({
   const activeLesson = OUTLINE_ITEMS.find(item => item.id === activeLessonId) || OUTLINE_ITEMS[0]
   const activeLessonIndex = OUTLINE_ITEMS.findIndex(item => item.id === activeLesson.id)
   const activeSimulationScene = SIMULATION_SCENES[Math.max(simulationScene, 0)]
-  const simulationComplete = simulationStarted && simulationScene === SIMULATION_SCENES.length - 1
+  const simulationComplete = simulationStarted && simulationScene === SIMULATION_SCENES.length - 1 && sceneThreeAnswer === "C"
   const completedCount = completedLessonIds.length
   const readinessAllPlaced = READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id])
   const readinessAllCorrect = readinessSubmitted && readinessAllPlaced && READINESS_STATEMENTS.every(statement => readinessPlacements[statement.id] === statement.category)
@@ -420,6 +422,7 @@ export function EventReadinessCoursePage({
     setSimulationScene(-1)
     setSceneOneAnswer(null)
     setSceneTwoAnswer(null)
+    setSceneThreeAnswer(null)
     setOpeningDecisionConfirmed(false)
     setOpeningDecision(null)
   }
@@ -2049,33 +2052,48 @@ export function EventReadinessCoursePage({
                             </div>
                           </>
                         ) : (
-                          <div className="rounded-2xl border border-[#87AECE]/35 bg-white p-5">
-                            <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">{activeSimulationScene.prompt}</p>
-                            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                              {activeSimulationScene.items.map(([title, detail]) => (
-                                <div key={title} className="rounded-xl border border-[#87AECE]/35 bg-[#F0F7FC] p-4">
-                                  <p className="font-bold text-[#1D2A62]">{title}</p>
-                                  <p className="mt-1 text-xs leading-relaxed text-slate-600">{detail}</p>
+                          <>
+                            {sceneThreeAnswer === null ? (
+                              <div key="scene-three-question" className="animate-scene-reveal rounded-2xl border border-[#87AECE]/35 bg-[#F0F7FC] p-5">
+                                <p className="text-base font-semibold leading-relaxed text-[#1D2A62]">As the Project Leader, what should you do before continuing the rehearsal?</p>
+                                <div className="mt-4 grid gap-3">
+                                  {[
+                                    ["A", "Continue the rehearsal. The problem has been fixed."],
+                                    ["B", "Play the video once more to confirm the sound is working."],
+                                    ["C", "Re-run the full sequence from An’s cue through the video playback and room audio."]
+                                  ].map(([id, text]) => (
+                                    <Button key={id} type="button" variant="outline" onClick={() => setSceneThreeAnswer(id as SceneThreeAnswer)} className="h-auto justify-start whitespace-normal border-[#87AECE]/60 bg-white p-4 text-left text-sm text-[#1D2A62] hover:bg-white">
+                                      {id}. {text}
+                                    </Button>
+                                  ))}
                                 </div>
-                              ))}
-                            </div>
-                            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
-                                  <ArrowLeft className="mr-1.5 h-4 w-4" />
-                                  Previous scene
-                                </Button>
                               </div>
-                              {simulationScene < SIMULATION_SCENES.length - 1 ? (
-                                <Button type="button" onClick={() => setSimulationScene(previous => previous + 1)} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
-                                  Next scene
-                                  <ArrowRight className="ml-1.5 h-4 w-4" />
-                                </Button>
-                              ) : (
+                            ) : sceneThreeAnswer === "C" ? (
+                              <div key="scene-three-c-feedback" className="animate-scene-reveal rounded-2xl border border-[#AFD06E]/50 bg-[#EEF7E8] p-5">
+                                <p className="text-lg font-bold text-[#437118]">Exactly.</p>
+                                <p className="mt-3 text-base leading-relaxed text-slate-700">Fixing one component does not prove that the whole sequence is Ready.</p>
+                                <p className="mt-3 text-base leading-relaxed text-slate-700">Re-run the moment as participants will experience it to confirm that the MC cue, transition, video and room audio now work together.</p>
+                                <p className="mt-4 text-base italic leading-relaxed text-[#437118]">CONNECTION — What needs to work together?</p>
+                              </div>
+                            ) : (
+                              <div key={`scene-three-${sceneThreeAnswer}-feedback`} className="animate-scene-reveal rounded-2xl border border-[#F3C979]/60 bg-[#FFF7E5] p-5">
+                                <div className="flex justify-end">
+                                  <Button type="button" variant="outline" onClick={() => setSceneThreeAnswer(null)} className="cursor-pointer border-[#D8B457]/70 text-[#8B5E00] hover:bg-white">Take another look.</Button>
+                                </div>
+                              </div>
+                            )}
+                            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                              <Button type="button" variant="outline" onClick={() => setSimulationScene(previous => previous - 1)} className="cursor-pointer border-[#87AECE]/60 text-[#2F668B] hover:bg-[#F0F7FC]">
+                                <ArrowLeft className="mr-1.5 h-4 w-4" />
+                                Previous scene
+                              </Button>
+                              {sceneThreeAnswer === "C" ? (
                                 <span className="text-xs font-semibold text-[#437118]">Simulation complete</span>
+                              ) : (
+                                <span />
                               )}
                             </div>
-                          </div>
+                          </>
                         )}
                       </div>
                     )
@@ -2088,7 +2106,7 @@ export function EventReadinessCoursePage({
                           <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But will everything work together when the event goes live?</p>
                           <p className="mt-5 text-base leading-relaxed text-slate-600">Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> throughout the final rehearsal to investigate what is happening, respond to readiness issues, and decide whether the event is ready to proceed.</p>
                           <div className="mt-4 flex justify-end">
-                            <Button type="button" onClick={() => { setSceneOneAnswer(null); setSimulationScene(-1); setSimulationStarted(true) }} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
+                            <Button type="button" onClick={() => { setSceneOneAnswer(null); setSceneTwoAnswer(null); setSceneThreeAnswer(null); setSimulationScene(-1); setSimulationStarted(true) }} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                               Start Rehearsal
                               <ArrowRight className="ml-1.5 h-4 w-4" />
                             </Button>
