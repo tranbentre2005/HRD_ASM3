@@ -2151,7 +2151,7 @@ export function EventReadinessCoursePage({
                           <p className="mt-3 text-base leading-relaxed text-slate-600">You are the Project Leader for tomorrow’s Finance Club General Meeting. Your team says everything is Done.</p>
                           <p className="mt-3 text-base font-semibold leading-relaxed text-[#1D2A62]">But will everything work together when the event goes live?</p>
                           <p className="mt-5 text-base leading-relaxed text-slate-600">Use the <span className="font-bold text-[#1D2A62]">Event Ready Framework</span> throughout the final rehearsal to investigate what is happening, respond to readiness issues, and decide whether the event is ready to proceed.</p>
-                          <div className="mt-4 flex justify-end">
+                          <div className="mt-4 flex justify-start">
                             <Button type="button" onClick={() => { setSceneOneAnswer(null); setSceneTwoAnswer(null); setSceneThreeAnswer(null); setSimulationScene(-1); setSimulationStarted(true) }} className="cursor-pointer bg-[#1D2A62] hover:bg-[#16204a]">
                               Start Rehearsal
                               <ArrowRight className="ml-1.5 h-4 w-4" />
